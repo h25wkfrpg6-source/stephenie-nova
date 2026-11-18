@@ -3,457 +3,482 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Stephenie Nova | Official Store</title>
-<meta name="description" content="Shop stylish handbags at Stephenie Nova. Nationwide delivery across Nigeria.">
+<meta name="description" content="Shop beautiful handbags at Stephenie Nova. Nationwide delivery across Nigeria.">
 
-/* STEPHENIE NOVA — PINK LEOPARD UPGRADE */
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Playfair+Display:wght@600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-.hero-art {
-  background-color: #f5c4da !important;
-  background-image:
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='130' viewBox='0 0 140 130'%3E%3Cg fill='none' stroke='%23bd477c' stroke-width='5'%3E%3Cpath d='M12 25 Q20 8 34 17 Q48 27 35 39 Q20 49 12 25Z'/%3E%3Cpath d='M80 12 Q96 0 105 15 Q114 30 97 36 Q78 32 80 12Z'/%3E%3Cpath d='M57 65 Q69 47 85 59 Q101 73 83 88 Q63 94 57 65Z'/%3E%3Cpath d='M5 104 Q18 87 32 101 Q43 116 25 127 Q8 123 5 104Z'/%3E%3Cpath d='M112 95 Q127 78 139 95 Q143 111 127 119 Q110 113 112 95Z'/%3E%3C/g%3E%3Cg fill='%23bd477c'%3E%3Cellipse cx='22' cy='27' rx='3' ry='5'/%3E%3Cellipse cx='94' cy='17' rx='3' ry='5'/%3E%3Cellipse cx='72' cy='71' rx='4' ry='6'/%3E%3Cellipse cx='18' cy='108' rx='3' ry='5'/%3E%3Cellipse cx='128' cy='101' rx='3' ry='5'/%3E%3C/g%3E%3C/svg%3E"),
-    linear-gradient(145deg,#f9dce9,#e991b8) !important;
-  background-size: 140px 130px, cover !important;
-}
-
-.section {
-  background-image:
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='130' viewBox='0 0 140 130'%3E%3Cg fill='none' stroke='%23e5a0bf' stroke-width='4'%3E%3Cpath d='M12 25 Q20 8 34 17 Q48 27 35 39 Q20 49 12 25Z'/%3E%3Cpath d='M80 12 Q96 0 105 15 Q114 30 97 36 Q78 32 80 12Z'/%3E%3Cpath d='M57 65 Q69 47 85 59 Q101 73 83 88 Q63 94 57 65Z'/%3E%3Cpath d='M5 104 Q18 87 32 101 Q43 116 25 127 Q8 123 5 104Z'/%3E%3C/g%3E%3C/svg%3E"),
-    #fff7fa !important;
-  background-size: 180px 165px, auto !important;
-}
-
-.hero-art div {
-  background: rgba(190, 67, 121, .78);
-  border: 1px solid white;
-}
-
-.section-heading h2::after {
-  content: "  ♡ ✿";
-  color: #d875a0;
-  font-size: 19px;
-}
-
-.about h2::after {
-  content: " ✿ ♡";
-  color: #d875a0;
-}
-
-.product-info h3 {
-  letter-spacing: .2px;
-}
-
-.primary-btn {
-  letter-spacing: .8px;
-}
-
-.logo::after {
-  content: " ♡";
-  color: #d875a0;
-}
 <style>
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap');
-
-:root {
-  --pink:#f7d9e7;
-  --light:#fff5f9;
-  --deep:#c94f83;
-  --dark:#57263d;
-  --text:#382630;
-  --white:#fff;
+:root{
+ --pink:#f7d9e7;
+ --light:#fff7fa;
+ --deep:#c94f83;
+ --dark:#71334f;
+ --text:#49333e;
 }
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'DM Sans',sans-serif;color:var(--text);background:#fff}
+html{scroll-behavior:smooth}
+body{font-family:Poppins,sans-serif;color:var(--text);background:white}
 button{font-family:inherit;cursor:pointer}
 a{text-decoration:none;color:inherit}
-.announcement{background:var(--dark);color:white;text-align:center;padding:10px;font-size:11px;letter-spacing:1.5px}
-header{background:white;padding:17px 5%;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:10;border-bottom:1px solid #f6e7ee}
-.logo{font-family:'Playfair Display',serif;font-size:25px;color:var(--dark);font-weight:bold}
+
+/* PINK LEOPARD PATTERN */
+.leopard{
+ background-color:#f8d4e4;
+ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='150' viewBox='0 0 180 150'%3E%3Cg fill='none' stroke='%23b83f76' stroke-width='5'%3E%3Cpath d='M13 25 Q20 7 36 15 Q53 26 39 42 Q19 51 13 25Z'/%3E%3Cpath d='M83 17 Q100 1 115 17 Q124 33 106 41 Q86 39 83 17Z'/%3E%3Cpath d='M143 30 Q158 13 173 29 Q180 46 160 53 Q143 49 143 30Z'/%3E%3Cpath d='M45 89 Q59 69 76 84 Q89 103 68 116 Q47 111 45 89Z'/%3E%3Cpath d='M119 100 Q134 80 151 95 Q165 114 144 129 Q122 123 119 100Z'/%3E%3C/g%3E%3Cg fill='%23b83f76'%3E%3Cellipse cx='25' cy='27' rx='3' ry='5'/%3E%3Cellipse cx='101' cy='20' rx='4' ry='5'/%3E%3Cellipse cx='160' cy='32' rx='3' ry='5'/%3E%3Cellipse cx='63' cy='91' rx='4' ry='5'/%3E%3Cellipse cx='137' cy='102' rx='4' ry='5'/%3E%3C/g%3E%3C/svg%3E");
+ background-size:180px 150px;
+}
+.announcement{
+ background:var(--dark);color:white;text-align:center;
+ padding:10px;font-size:10px;letter-spacing:1.5px
+}
+header{
+ background:white;padding:15px 5%;display:flex;
+ justify-content:space-between;align-items:center;
+ position:sticky;top:0;z-index:10;
+ border-bottom:1px solid #f2dce6
+}
+.logo{font-family:'Playfair Display',serif;font-size:24px;color:var(--dark)}
 .logo span{color:var(--deep)}
-nav{display:flex;gap:25px;font-size:13px;font-weight:600}
+nav{display:flex;gap:20px;font-size:11px;font-weight:600}
 nav a:hover{color:var(--deep)}
-.cart-button{background:var(--dark);color:white;border:0;padding:11px 16px;border-radius:30px;font-size:12px}
-.hero{background:linear-gradient(120deg,#fff1f7,#f7d9e7);padding:75px 7%;display:grid;grid-template-columns:1.1fr .9fr;align-items:center;gap:35px;min-height:430px}
-.hero-tag{color:var(--deep);font-size:11px;letter-spacing:3px;font-weight:bold;margin-bottom:17px}
-.hero h1{font-family:'Playfair Display',serif;font-size:clamp(38px,5vw,65px);line-height:1.1;color:var(--dark);margin-bottom:18px}
-.hero p{font-size:14px;line-height:1.8;max-width:440px;color:#735565}
-.primary-btn{display:inline-block;background:var(--dark);color:white;padding:15px 27px;border:0;border-radius:3px;margin-top:25px;font-weight:600;font-size:12px;letter-spacing:1px}
+.cart-button{
+ background:var(--dark);color:white;border:0;
+ padding:10px 15px;border-radius:25px;font-size:11px
+}
+.hero{
+ background:linear-gradient(120deg,#fff5f9,#f7d9e7);
+ padding:65px 7%;display:grid;
+ grid-template-columns:1.1fr .9fr;align-items:center;gap:30px
+}
+.hero-tag{font-size:10px;letter-spacing:2px;color:var(--deep);font-weight:700}
+.hero h1{
+ font-family:'Playfair Display',serif;
+ font-size:clamp(38px,5vw,62px);
+ line-height:1.12;color:var(--dark);margin:16px 0
+}
+.hero p{font-size:13px;line-height:1.9;color:#795b6b;max-width:440px}
+.primary-btn{
+ display:inline-block;background:var(--dark);color:white;
+ padding:13px 23px;border:0;border-radius:25px;
+ margin-top:22px;font-size:11px;font-weight:600
+}
 .primary-btn:hover{background:var(--deep)}
-.hero-art{min-height:270px;border-radius:48% 48% 8px 8px;background:linear-gradient(145deg,#f9c9df,#e88db5);display:flex;align-items:center;justify-content:center;text-align:center;padding:25px}
-.hero-art div{border:1px solid rgba(255,255,255,.7);padding:35px 25px;color:white;width:85%}
-.hero-art strong{font-family:'Playfair Display',serif;font-size:35px;display:block}
-.hero-art span{font-size:11px;letter-spacing:3px}
-.benefits{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;padding:25px 6%;background:#fff}
-.benefit{text-align:center;font-size:12px;color:#78576a}
-.benefit b{display:block;color:var(--dark);margin-bottom:5px;font-size:13px}
-.section{padding:65px 6%}
-.section-heading{text-align:center;margin-bottom:35px}
-.section-heading small{color:var(--deep);letter-spacing:3px;font-size:10px;font-weight:bold}
-.section-heading h2{font-family:'Playfair Display',serif;font-size:34px;color:var(--dark);margin-top:9px}
-.section-heading p{font-size:12px;color:#92798a;margin-top:8px}
-.products{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:22px}
-.product-card{min-width:0}
-.product-image{position:relative;background:#fff1f6;overflow:hidden;aspect-ratio: .82;border-radius:5px}
-.product-image img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s}
-.product-card:hover .product-image img{transform:scale(1.04)}
-.sale-label{position:absolute;top:12px;left:12px;background:var(--deep);color:white;font-size:10px;padding:7px 10px;letter-spacing:1px}
-.product-info{padding:14px 2px}
-.product-info h3{font-size:14px;margin-bottom:8px}
+.hero-art{
+ min-height:280px;border-radius:45% 45% 12px 12px;
+ display:flex;align-items:center;justify-content:center;
+ text-align:center;padding:20px;border:5px solid #f5b8d2
+}
+.hero-art div{
+ background:#b83f76dd;color:white;padding:30px 15px;
+ width:85%;border:1px solid white
+}
+.hero-art strong{font-family:'Playfair Display',serif;font-size:34px}
+.hero-art span{display:block;font-size:10px;letter-spacing:2px;margin-top:8px}
+.hero-art p{color:white;font-size:20px;margin-top:12px}
+.leopard-band{height:65px;border-top:4px solid white;border-bottom:4px solid white}
+.benefits{
+ display:grid;grid-template-columns:repeat(3,1fr);
+ gap:10px;padding:25px 5%;text-align:center
+}
+.benefit{font-size:10px;color:#795b6b}
+.benefit b{display:block;color:var(--dark);font-size:12px;margin-bottom:5px}
+.section{padding:55px 6%;background:#fff9fc}
+.section-heading{text-align:center;margin-bottom:30px}
+.section-heading small{font-size:10px;letter-spacing:2px;color:var(--deep);font-weight:700}
+.section-heading h2{
+ font-family:'Playfair Display',serif;font-size:34px;
+ color:var(--dark);margin-top:8px
+}
+.section-heading p{font-size:11px;color:#92798a;margin-top:7px}
+.products{
+ display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px
+}
+.product-card{
+ background:white;border:1px solid #f0dce5;
+ border-radius:9px;overflow:hidden
+}
+.product-image{position:relative;aspect-ratio:.82;background:#fff0f6}
+.product-image img{width:100%;height:100%;object-fit:cover;display:block}
+.sale-label{
+ position:absolute;top:10px;left:10px;
+ background:var(--deep);color:white;
+ padding:6px 9px;border-radius:20px;font-size:9px
+}
+.product-info{padding:12px}
+.product-info h3{
+ font-family:'Cormorant Garamond',serif;
+ font-size:21px;font-weight:700;color:var(--dark);margin-bottom:6px
+}
 .prices{display:flex;gap:9px;align-items:center;flex-wrap:wrap}
-.old-price{font-size:12px;color:#a48b98;text-decoration:line-through}
-.new-price{font-size:15px;color:var(--deep);font-weight:800}
-.product-actions{display:flex;gap:8px;margin-top:13px}
-.product-actions button{padding:11px 8px;font-size:10px;font-weight:bold;letter-spacing:.5px;flex:1;border:1px solid var(--dark)}
+.old-price{text-decoration:line-through;color:#a48b98;font-size:12px}
+.new-price{color:var(--deep);font-size:15px;font-weight:700}
+.product-actions{display:flex;gap:7px;margin-top:12px}
+.product-actions button{
+ flex:1;padding:10px 5px;border-radius:20px;
+ font-size:9px;font-weight:700;border:1px solid var(--dark)
+}
 .view-btn{background:white;color:var(--dark)}
 .add-btn{background:var(--dark);color:white}
-.view-btn:hover,.add-btn:hover{background:var(--deep);color:white;border-color:var(--deep)}
-.about{background:var(--light);text-align:center;padding:65px 10%}
-.about h2{font-family:'Playfair Display',serif;color:var(--dark);font-size:32px;margin-bottom:15px}
-.about p{font-size:13px;line-height:2;color:#795d6c;max-width:650px;margin:auto}
-.contact{background:white;text-align:center;padding:55px 7%}
-.contact h2{font-family:'Playfair Display',serif;font-size:30px;color:var(--dark);margin-bottom:12px}
-.contact p{font-size:13px;color:#806a77;line-height:1.8}
-footer{background:var(--dark);color:white;text-align:center;padding:30px 15px;font-size:11px;line-height:2}
-footer strong{font-family:'Playfair Display',serif;font-size:20px}
-.float-cart{position:fixed;bottom:20px;right:18px;background:var(--deep);color:white;border:0;border-radius:50px;padding:15px 20px;z-index:20;box-shadow:0 5px 20px #0002;font-weight:bold}
-.overlay{display:none;position:fixed;inset:0;background:#211019a8;z-index:30;align-items:center;justify-content:center;padding:15px}
+.product-actions button:hover{background:var(--deep);color:white;border-color:var(--deep)}
+.about{
+ background:#fff0f6;text-align:center;padding:55px 9%
+}
+.about h2,.contact h2{
+ font-family:'Playfair Display',serif;color:var(--dark);
+ font-size:30px;margin-bottom:13px
+}
+.about p,.contact p{font-size:12px;line-height:2;color:#795d6c}
+.contact{text-align:center;padding:50px 7%}
+footer{
+ background:var(--dark);color:white;text-align:center;
+ padding:27px 12px;font-size:11px;line-height:2
+}
+footer strong{font-family:'Playfair Display',serif;font-size:21px}
+.float-cart{
+ position:fixed;bottom:18px;right:15px;z-index:20;
+ background:var(--deep);color:white;border:0;
+ border-radius:30px;padding:14px 18px;font-weight:600;
+ box-shadow:0 4px 15px #0002
+}
+.overlay{
+ display:none;position:fixed;inset:0;background:#211019aa;
+ z-index:30;align-items:center;justify-content:center;padding:14px
+}
 .overlay.show{display:flex}
-.panel{background:white;border-radius:8px;width:100%;max-width:560px;max-height:90vh;overflow:auto;padding:24px;position:relative}
-.close{position:absolute;right:15px;top:12px;border:0;background:#f8e6ef;border-radius:50%;width:32px;height:32px;font-size:19px}
-.panel h2{font-family:'Playfair Display',serif;color:var(--dark);margin:4px 35px 18px 0}
-.detail-main{width:100%;height:300px;object-fit:contain;background:#fff1f6;border-radius:5px}
-.thumbnails{display:flex;gap:9px;margin:12px 0;overflow-x:auto}
-.thumbnails img{width:65px;height:70px;object-fit:cover;cursor:pointer;border:2px solid transparent;border-radius:3px}
+.panel{
+ background:white;border-radius:12px;width:100%;max-width:550px;
+ max-height:90vh;overflow:auto;padding:23px;position:relative
+}
+.close{
+ position:absolute;right:13px;top:12px;border:0;
+ background:#f8e6ef;border-radius:50%;width:32px;height:32px;font-size:20px
+}
+.panel h2{font-family:'Playfair Display',serif;color:var(--dark);margin:5px 35px 16px 0}
+.detail-main{
+ width:100%;height:290px;object-fit:contain;background:#fff1f6
+}
+.thumbnails{display:flex;gap:8px;margin:10px 0;overflow-x:auto}
+.thumbnails img{
+ width:65px;height:70px;object-fit:cover;
+ border:2px solid transparent;cursor:pointer
+}
 .thumbnails img.selected{border-color:var(--deep)}
 .detail-price{margin:12px 0}
-.detail-description{font-size:13px;color:#806a77;line-height:1.7}
-.cart-item{display:grid;grid-template-columns:65px 1fr auto;gap:12px;align-items:center;border-bottom:1px solid #f0e3e9;padding:13px 0}
-.cart-item img{width:65px;height:70px;object-fit:cover;background:#fff1f6}
-.cart-item h4{font-size:12px;margin-bottom:6px}
-.cart-item p{font-size:12px;color:var(--deep);font-weight:bold}
-.qty{display:flex;align-items:center;gap:10px;margin-top:7px}
-.qty button{width:24px;height:24px;border:1px solid #e8cbd9;background:white}
-.remove{border:0;background:none;color:#a05a7a;font-size:11px}
-.cart-total{display:flex;justify-content:space-between;padding:18px 0;font-weight:bold}
-.checkout{width:100%;background:#25864c;color:white;border:0;padding:15px;border-radius:4px;font-weight:bold}
-.empty{text-align:center;padding:30px 5px;color:#92798a;font-size:13px}
+.detail-description{font-size:12px;line-height:1.8;color:#806a77}
+.cart-item{
+ display:grid;grid-template-columns:60px 1fr auto;
+ gap:10px;align-items:center;border-bottom:1px solid #f0e3e9;padding:12px 0
+}
+.cart-item img{width:60px;height:65px;object-fit:cover;background:#fff1f6}
+.cart-item h4{font-size:11px;margin-bottom:5px}
+.cart-item p{font-size:12px;color:var(--deep);font-weight:700}
+.qty{display:flex;align-items:center;gap:9px;margin-top:6px}
+.qty button{width:24px;height:24px;background:white;border:1px solid #e8cbd9}
+.remove{border:0;background:none;color:#a05a7a;font-size:10px}
+.cart-total{display:flex;justify-content:space-between;padding:17px 0;font-weight:700}
+.checkout{
+ width:100%;padding:14px;border:0;border-radius:25px;
+ background:#25864c;color:white;font-weight:700
+}
+.empty{text-align:center;padding:28px 5px;color:#92798a;font-size:12px}
 @media(max-width:800px){
- .products{grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
- .hero{padding:55px 6%;grid-template-columns:1fr;min-height:auto}
- .hero-art{min-height:210px}
- nav{gap:12px;font-size:11px}
+ .products{grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}
+ .hero{grid-template-columns:1fr;padding:45px 6%}
+ .hero-art{min-height:220px}
+ nav{gap:10px;font-size:10px}
  .logo{font-size:21px}
 }
 @media(max-width:430px){
- header{padding:14px 4%}
- nav{gap:9px}
- nav a{font-size:10px}
- .cart-button{padding:9px 11px;font-size:10px}
- .section{padding:48px 4%}
- .product-info h3{font-size:12px}
- .product-actions button{font-size:9px}
- .benefits{padding:20px 3%;gap:5px}
- .benefit{font-size:10px}
+ header{padding:13px 3%}
+ nav{gap:8px}
+ nav a{font-size:9px}
+ .cart-button{padding:9px;font-size:9px}
+ .section{padding:45px 4%}
+ .product-info h3{font-size:19px}
+ .product-actions button{font-size:8px}
+ .benefit{font-size:9px}
 }
 </style>
 </head>
-<body>
 
-<div class="announcement">WELCOME TO STEPHENIE NOVA ✦ NATIONWIDE DELIVERY AVAILABLE</div>
+<body>
+<div class="announcement">WELCOME TO STEPHENIE NOVA ♡ NATIONWIDE DELIVERY</div>
 
 <header>
-  <a href="#" class="logo">Stephenie <span>Nova</span> ♛</a>
-  <nav>
-    <a href="#">Home</a>
-    <a href="#shop">Shop</a>
-    <a href="#about">About</a>
-    <a href="#contact">Contact</a>
-  </nav>
-  <button class="cart-button" onclick="openCart()">Bag (<span id="cartCount">0</span>)</button>
+ <a href="#" class="logo">Stephenie <span>Nova</span> ♛</a>
+ <nav>
+  <a href="#">Home</a>
+  <a href="#shop">Shop</a>
+  <a href="#about">About</a>
+  <a href="#contact">Contact</a>
+ </nav>
+ <button class="cart-button" onclick="openCart()">Bag (<span id="cartCount">0</span>)</button>
 </header>
 
 <section class="hero">
+ <div>
+  <div class="hero-tag">THE STEPHENIE NOVA COLLECTION ♡</div>
+  <h1>Your style.<br>Your statement.</h1>
+  <p>Discover stylish handbags made to complement your everyday looks and special moments. Your next favourite bag is waiting.</p>
+  <a href="#shop" class="primary-btn">SHOP THE COLLECTION →</a>
+ </div>
+ <div class="hero-art leopard">
   <div>
-    <div class="hero-tag">THE STEPHENIE NOVA COLLECTION</div>
-    <h1>Your style.<br>Your statement.</h1>
-    <p>Discover stylish handbags made to complement your everyday looks and special moments. Your next favourite bag is waiting.</p>
-    <a href="#shop" class="primary-btn">SHOP THE COLLECTION →</a>
+   <strong>Stephenie<br>Nova</strong>
+   <span>STYLE IS AN ATTITUDE</span>
+   <p>♡ ✿ 🎀 ✦</p>
   </div>
-  <div class="hero-art">
-    <div>
-      <strong>Stephenie<br>Nova</strong>
-      <span>STYLE IS AN ATTITUDE</span>
-      <p style="font-size:25px;margin-top:18px">♡ ✦ ♛</p>
-    </div>
-  </div>
+ </div>
 </section>
 
+<div class="leopard leopard-band"></div>
+
 <div class="benefits">
-  <div class="benefit"><b>♡ Carefully Selected</b>Stylish bag collections</div>
-  <div class="benefit"><b>✦ Easy Ordering</b>Order directly on WhatsApp</div>
-  <div class="benefit"><b>♧ Nationwide Delivery</b>Across Nigeria</div>
+ <div class="benefit"><b>♡ Carefully Selected</b>Stylish bag collections</div>
+ <div class="benefit"><b>✿ Easy Ordering</b>Order directly on WhatsApp</div>
+ <div class="benefit"><b>✦ Nationwide Delivery</b>Across Nigeria</div>
 </div>
 
 <section class="section" id="shop">
-  <div class="section-heading">
-    <small>SHOP YOUR FAVOURITES</small>
-    <h2>The Bag Collection</h2>
-    <p>Find the perfect bag for your personal style.</p>
-  </div>
-  <div class="products" id="productGrid"></div>
+ <div class="section-heading">
+  <small>SHOP YOUR FAVOURITES ♡</small>
+  <h2>The Bag Collection</h2>
+  <p>Find the perfect bag for your personal style ✿</p>
+ </div>
+ <div class="products" id="productGrid"></div>
 </section>
 
+<div class="leopard leopard-band"></div>
+
 <section class="about" id="about">
-  <h2>Welcome to Stephenie Nova</h2>
-  <p>Stephenie Nova is an online fashion accessories store specialising in stylish, affordable and trendy handbags. We offer carefully selected bag designs to complement different styles and occasions, with convenient online shopping and nationwide delivery across Nigeria.</p>
+ <h2>Welcome to Stephenie Nova ♡</h2>
+ <p>Stephenie Nova is an online fashion accessories store specialising in stylish, affordable and trendy handbags. We offer carefully selected bag designs to complement different styles and occasions, with convenient online shopping and nationwide delivery across Nigeria.</p>
 </section>
 
 <section class="contact" id="contact">
-  <h2>We're Here to Help ♡</h2>
-  <p>Have a question about a bag or your order?<br>Contact our customer service team on WhatsApp.</p>
-  <a class="primary-btn" href="https://wa.me/2349151863044" target="_blank">CONTACT US ON WHATSAPP</a>
+ <h2>We're Here to Help ♡</h2>
+ <p>Have a question about a bag or your order?<br>Contact our customer service team on WhatsApp.</p>
+ <a class="primary-btn" href="https://wa.me/2349151863044" target="_blank">CONTACT US ON WHATSAPP</a>
 </section>
 
 <footer>
-  <strong>Stephenie Nova ♛</strong>
-  <p>Style that speaks for you.</p>
-  <p>Nationwide delivery across Nigeria</p>
-  <p>© 2026 Stephenie Nova. All rights reserved.</p>
+ <strong>Stephenie Nova ♛</strong>
+ <p>Style that speaks for you ✿</p>
+ <p>Nationwide delivery across Nigeria</p>
+ <p>© 2026 Stephenie Nova. All rights reserved.</p>
 </footer>
 
 <button class="float-cart" onclick="openCart()">🛍 CART (<span id="floatCount">0</span>)</button>
 
-<!-- PRODUCT DETAILS -->
 <div class="overlay" id="detailOverlay" onclick="outsideClose(event,'detailOverlay')">
-  <div class="panel">
-    <button class="close" onclick="closeDetails()">×</button>
-    <h2 id="detailName">Product</h2>
-    <img class="detail-main" id="detailMain" src="" alt="Product photo">
-    <div class="thumbnails" id="detailThumbs"></div>
-    <div class="prices detail-price" id="detailPrices"></div>
-    <p class="detail-description">A stylish addition to your collection. Contact us on WhatsApp if you need more product information.</p>
-    <button class="primary-btn" style="width:100%" id="detailAdd">ADD TO CART</button>
-  </div>
+ <div class="panel">
+  <button class="close" onclick="closeDetails()">×</button>
+  <h2 id="detailName">Product</h2>
+  <img class="detail-main" id="detailMain" src="" alt="Product photo">
+  <div class="thumbnails" id="detailThumbs"></div>
+  <div class="prices detail-price" id="detailPrices"></div>
+  <p class="detail-description">A stylish addition to your collection. Contact us on WhatsApp if you need more product information.</p>
+  <button class="primary-btn" style="width:100%" id="detailAdd">ADD TO CART</button>
+ </div>
 </div>
 
-<!-- SHOPPING CART -->
 <div class="overlay" id="cartOverlay" onclick="outsideClose(event,'cartOverlay')">
-  <div class="panel">
-    <button class="close" onclick="closeCart()">×</button>
-    <h2>Your Shopping Bag ♡</h2>
-    <div id="cartItems"></div>
-    <div class="cart-total">
-      <span>Total</span>
-      <span id="cartTotal">₦0</span>
-    </div>
-    <button class="checkout" onclick="checkout()">ORDER VIA WHATSAPP</button>
-    <p style="font-size:10px;color:#987f8d;text-align:center;margin-top:12px">Your order will be sent to our WhatsApp for confirmation.</p>
-  </div>
+ <div class="panel">
+  <button class="close" onclick="closeCart()">×</button>
+  <h2>Your Shopping Bag ♡</h2>
+  <div id="cartItems"></div>
+  <div class="cart-total"><span>Total</span><span id="cartTotal">₦0</span></div>
+  <button class="checkout" onclick="checkout()">ORDER VIA WHATSAPP</button>
+  <p style="font-size:10px;color:#987f8d;text-align:center;margin-top:12px">Your order will be sent to WhatsApp for confirmation.</p>
+ </div>
 </div>
 
 <script>
-const WHATSAPP_NUMBER = "2349151863044";
+const WHATSAPP_NUMBER="2349151863044";
 
-const products = [
-  {
-    id:1,
-    name:"Coach Shoulder Bag",
-    oldPrice:13000,
-    price:10000,
-    images:[
-      "https://i.postimg.cc/bDBKCkkZ/IMG-5552.png",
-      "https://i.postimg.cc/R6FkLX3H/IMG-5553.png",
-      "https://i.postimg.cc/hz5HyTTv/IMG-5554.png"
-    ]
-  },
-  {
-    id:2,
-    name:"Shoulder Bag",
-    oldPrice:11500,
-    price:8500,
-    images:[
-      "https://i.postimg.cc/4xtMr9JF/IMG-5556.png"
-    ]
-  },
-  {
-    id:3,
-    name:"Luxury Coach Tote Bag",
-    oldPrice:16000,
-    price:13000,
-    images:[
-      "https://i.postimg.cc/dh0nMqpj/IMG-5526.jpg",
-      "https://i.postimg.cc/MnGtkWNb/IMG-5527.jpg"
-    ]
-  },
-  {
-    id:4,
-    name:"Fur Tote Bag",
-    oldPrice:10500,
-    price:7500,
-    images:[
-      "https://i.postimg.cc/h4kNMsnL/IMG-5555.png"
-    ]
-  }
+const products=[
+ {
+  id:1,
+  name:"Crossbody Chain Bag",
+  oldPrice:12500,
+  price:9500,
+  images:[
+   "https://i.postimg.cc/dh0nMqpj/IMG-5526.jpg",
+   "https://i.postimg.cc/MnGtkWNb/IMG-5527.jpg",
+   "https://i.postimg.cc/4Y3wCJqp/IMG-5528.jpg",
+   "https://i.postimg.cc/bsgLFGC9/IMG-5529.jpg"
+  ]
+ },
+ {
+  id:2,
+  name:"Shoulder Bag",
+  oldPrice:11500,
+  price:8500,
+  images:[
+   "https://i.postimg.cc/4xtMr9JF/IMG-5556.png"
+  ]
+ },
+ {
+  id:3,
+  name:"Luxury Coach Tote Bag",
+  oldPrice:16000,
+  price:13000,
+  images:[
+   "https://i.postimg.cc/grQ8HjwC/IMG-5550.jpg",
+   "https://i.postimg.cc/6TyCZnQm/IMG-5551.jpg"
+  ]
+ },
+ {
+  id:4,
+  name:"Fur Tote Bag",
+  oldPrice:10500,
+  price:7500,
+  images:[
+   "https://i.postimg.cc/h4kNMsnL/IMG-5555.png"
+  ]
+ }
 ];
 
-let cart = [];
-let currentProduct = null;
+let cart=[];
+let currentProduct=null;
 
 function money(amount){
-  return "₦" + amount.toLocaleString("en-NG");
+ return "₦"+amount.toLocaleString("en-NG");
 }
 
 function renderProducts(){
-  const grid = document.getElementById("productGrid");
-  grid.innerHTML = products.map(product => `
-    <article class="product-card">
-      <div class="product-image">
-        <span class="sale-label">SPECIAL PRICE</span>
-        <img src="${product.images[0]}" alt="${product.name}" loading="lazy">
-      </div>
-      <div class="product-info">
-        <h3>${product.name}</h3>
-        <div class="prices">
-          <span class="old-price">${money(product.oldPrice)}</span>
-          <span class="new-price">${money(product.price)}</span>
-        </div>
-        <div class="product-actions">
-          <button class="view-btn" onclick="openDetails(${product.id})">VIEW PRODUCT</button>
-          <button class="add-btn" onclick="addToCart(${product.id})">ADD +</button>
-        </div>
-      </div>
-    </article>
-  `).join("");
+ document.getElementById("productGrid").innerHTML=products.map(product=>`
+  <article class="product-card">
+   <div class="product-image">
+    <span class="sale-label">SPECIAL PRICE ♡</span>
+    <img src="${product.images[0]}" alt="${product.name}" loading="lazy">
+   </div>
+   <div class="product-info">
+    <h3>${product.name}</h3>
+    <div class="prices">
+     <span class="old-price">${money(product.oldPrice)}</span>
+     <span class="new-price">${money(product.price)}</span>
+    </div>
+    <div class="product-actions">
+     <button class="view-btn" onclick="openDetails(${product.id})">VIEW PRODUCT</button>
+     <button class="add-btn" onclick="addToCart(${product.id})">ADD +</button>
+    </div>
+   </div>
+  </article>
+ `).join("");
 }
 
 function openDetails(id){
-  currentProduct = products.find(p => p.id === id);
-  if(!currentProduct) return;
-
-  document.getElementById("detailName").textContent = currentProduct.name;
-  document.getElementById("detailMain").src = currentProduct.images[0];
-  document.getElementById("detailPrices").innerHTML =
-    `<span class="old-price">${money(currentProduct.oldPrice)}</span>
-     <span class="new-price">${money(currentProduct.price)}</span>`;
-
-  document.getElementById("detailThumbs").innerHTML =
-    currentProduct.images.map((img,index) => `
-      <img src="${img}" alt="Product photo ${index+1}"
-      class="${index===0?'selected':''}"
-      onclick="changePhoto(this,'${img}')">
-    `).join("");
-
-  document.getElementById("detailAdd").onclick = () => {
-    addToCart(currentProduct.id);
-    closeDetails();
-    openCart();
-  };
-
-  document.getElementById("detailOverlay").classList.add("show");
+ currentProduct=products.find(p=>p.id===id);
+ if(!currentProduct)return;
+ document.getElementById("detailName").textContent=currentProduct.name;
+ document.getElementById("detailMain").src=currentProduct.images[0];
+ document.getElementById("detailPrices").innerHTML=
+  `<span class="old-price">${money(currentProduct.oldPrice)}</span>
+   <span class="new-price">${money(currentProduct.price)}</span>`;
+ document.getElementById("detailThumbs").innerHTML=
+  currentProduct.images.map((img,index)=>`
+   <img src="${img}" alt="Product photo ${index+1}"
+    class="${index===0?'selected':''}"
+    onclick="changePhoto(this,'${img}')">
+  `).join("");
+ document.getElementById("detailAdd").onclick=()=>{
+  addToCart(currentProduct.id);
+  closeDetails();
+  openCart();
+ };
+ document.getElementById("detailOverlay").classList.add("show");
 }
 
 function changePhoto(element,src){
-  document.getElementById("detailMain").src = src;
-  document.querySelectorAll(".thumbnails img").forEach(img => img.classList.remove("selected"));
-  element.classList.add("selected");
+ document.getElementById("detailMain").src=src;
+ document.querySelectorAll(".thumbnails img").forEach(img=>img.classList.remove("selected"));
+ element.classList.add("selected");
 }
 
 function closeDetails(){
-  document.getElementById("detailOverlay").classList.remove("show");
+ document.getElementById("detailOverlay").classList.remove("show");
 }
 
 function addToCart(id){
-  const product = products.find(p => p.id === id);
-  const existing = cart.find(item => item.id === id);
-
-  if(existing){
-    existing.quantity++;
-  }else{
-    cart.push({...product,quantity:1});
-  }
-  updateCart();
+ const product=products.find(p=>p.id===id);
+ const existing=cart.find(item=>item.id===id);
+ if(existing)existing.quantity++;
+ else cart.push({...product,quantity:1});
+ updateCart();
 }
 
 function updateCart(){
-  const count = cart.reduce((sum,item) => sum + item.quantity,0);
-  document.getElementById("cartCount").textContent = count;
-  document.getElementById("floatCount").textContent = count;
+ const count=cart.reduce((sum,item)=>sum+item.quantity,0);
+ document.getElementById("cartCount").textContent=count;
+ document.getElementById("floatCount").textContent=count;
 
-  const items = document.getElementById("cartItems");
-
-  if(cart.length === 0){
-    items.innerHTML = '<div class="empty">Your shopping bag is empty.<br>Explore our collection and add your favourites ♡</div>';
-  }else{
-    items.innerHTML = cart.map(item => `
-      <div class="cart-item">
-        <img src="${item.images[0]}" alt="${item.name}">
-        <div>
-          <h4>${item.name}</h4>
-          <p>${money(item.price)}</p>
-          <div class="qty">
-            <button onclick="changeQuantity(${item.id},-1)">−</button>
-            <span>${item.quantity}</span>
-            <button onclick="changeQuantity(${item.id},1)">+</button>
-          </div>
-        </div>
-        <button class="remove" onclick="removeItem(${item.id})">Remove</button>
-      </div>
-    `).join("");
-  }
-
-  const total = cart.reduce((sum,item) => sum + item.price * item.quantity,0);
-  document.getElementById("cartTotal").textContent = money(total);
+ const items=document.getElementById("cartItems");
+ if(cart.length===0){
+  items.innerHTML='<div class="empty">Your shopping bag is empty.<br>Explore our collection and add your favourites ♡</div>';
+ }else{
+  items.innerHTML=cart.map(item=>`
+   <div class="cart-item">
+    <img src="${item.images[0]}" alt="${item.name}">
+    <div>
+     <h4>${item.name}</h4>
+     <p>${money(item.price)}</p>
+     <div class="qty">
+      <button onclick="changeQuantity(${item.id},-1)">−</button>
+      <span>${item.quantity}</span>
+      <button onclick="changeQuantity(${item.id},1)">+</button>
+     </div>
+    </div>
+    <button class="remove" onclick="removeItem(${item.id})">Remove</button>
+   </div>
+  `).join("");
+ }
+ const total=cart.reduce((sum,item)=>sum+item.price*item.quantity,0);
+ document.getElementById("cartTotal").textContent=money(total);
 }
 
 function changeQuantity(id,change){
-  const item = cart.find(p => p.id === id);
-  if(!item) return;
-  item.quantity += change;
-  if(item.quantity <= 0){
-    cart = cart.filter(p => p.id !== id);
-  }
-  updateCart();
+ const item=cart.find(p=>p.id===id);
+ if(!item)return;
+ item.quantity+=change;
+ if(item.quantity<=0)cart=cart.filter(p=>p.id!==id);
+ updateCart();
 }
 
 function removeItem(id){
-  cart = cart.filter(p => p.id !== id);
-  updateCart();
+ cart=cart.filter(p=>p.id!==id);
+ updateCart();
 }
 
 function openCart(){
-  updateCart();
-  document.getElementById("cartOverlay").classList.add("show");
+ updateCart();
+ document.getElementById("cartOverlay").classList.add("show");
 }
 
 function closeCart(){
-  document.getElementById("cartOverlay").classList.remove("show");
+ document.getElementById("cartOverlay").classList.remove("show");
 }
 
 function outsideClose(event,id){
-  if(event.target.id === id){
-    document.getElementById(id).classList.remove("show");
-  }
+ if(event.target.id===id)document.getElementById(id).classList.remove("show");
 }
 
 function checkout(){
-  if(cart.length === 0){
-    alert("Your shopping bag is empty. Add a product first.");
-    return;
-  }
-
-  let message = "Hello Stephenie Nova! I would like to place an order:\n\n";
-  cart.forEach(item => {
-    message += `${item.name} x ${item.quantity} - ${money(item.price * item.quantity)}\n`;
-  });
-
-  const total = cart.reduce((sum,item) => sum + item.price * item.quantity,0);
-  message += `\nTotal: ${money(total)}\n\nPlease guide me on the next steps for my order.`;
-
-  window.open(
-    "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(message),
-    "_blank"
-  );
+ if(cart.length===0){
+  alert("Your shopping bag is empty. Add a product first.");
+  return;
+ }
+ let message="Hello Stephenie Nova! I would like to place an order:\n\n";
+ cart.forEach(item=>{
+  message+=`${item.name} x ${item.quantity} - ${money(item.price*item.quantity)}\n`;
+ });
+ const total=cart.reduce((sum,item)=>sum+item.price*item.quantity,0);
+ message+=`\nTotal: ${money(total)}\n\nPlease guide me on the next steps for my order.`;
+ window.open("https://wa.me/"+WHATSAPP_NUMBER+"?text="+encodeURIComponent(message),"_blank");
 }
 
 renderProducts();
