@@ -11,6 +11,57 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
 
+
+/* STEPHENIE NOVA LEOPARD KISS DECORATIONS */
+header {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.kiss-decoration {
+  position: absolute;
+  z-index: -1;
+  width: 76px;
+  height: 76px;
+  opacity: .9;
+  pointer-events: none;
+  animation: kissFloat 4s ease-in-out infinite alternate;
+}
+
+.kiss-decoration svg {
+  width: 100%;
+  height: 100%;
+}
+
+.kiss-one { top: 12%; left: 7%; transform: rotate(-18deg); }
+.kiss-two { top: 18%; right: 8%; animation-delay: .8s; }
+.kiss-three { bottom: 13%; left: 13%; animation-delay: 1.3s; }
+.kiss-four { bottom: 12%; right: 12%; animation-delay: 1.8s; }
+
+.bow-decoration {
+  position: absolute;
+  z-index: -1;
+  font-size: 35px;
+  pointer-events: none;
+  animation: kissFloat 3.5s ease-in-out infinite alternate;
+}
+
+.bow-one { top: 10%; right: 28%; }
+.bow-two { bottom: 17%; left: 30%; animation-delay: 1s; }
+
+@keyframes kissFloat {
+  from { translate: 0 0; }
+  to { translate: 0 -14px; }
+}
+
+@media (max-width: 600px) {
+  .kiss-decoration {
+    width: 53px;
+    height: 53px;
+  }
+  .bow-decoration { font-size: 25px; }
+}
 <style>
 :root {
   --pink:#f5a9ca;
@@ -119,6 +170,41 @@ img {max-width:100%;display:block}
 /* HEADER */
 
 header {
+  
+<span class="kiss-decoration kiss-one">
+<svg viewBox="0 0 100 100">
+<defs>
+<pattern id="leopardA" width="35" height="35" patternUnits="userSpaceOnUse">
+<rect width="35" height="35" fill="#f8a2c8"/>
+<path d="M5 5 Q12 -2 17 7 Q20 15 10 17 Q1 16 5 5 M24 20 Q33 15 33 25 Q30 34 23 30 Q18 26 24 20" fill="#c92d79"/>
+<circle cx="27" cy="5" r="3" fill="#a91e60"/>
+</pattern>
+</defs>
+<path d="M50 34 C36 15 15 15 10 30 C4 47 29 62 50 82 C71 62 96 47 90 30 C85 15 64 15 50 34Z" fill="url(#leopardA)" stroke="#d94d91" stroke-width="2"/>
+</svg>
+</span>
+
+<span class="kiss-decoration kiss-two">
+<svg viewBox="0 0 100 100">
+<path d="M50 34 C36 15 15 15 10 30 C4 47 29 62 50 82 C71 62 96 47 90 30 C85 15 64 15 50 34Z" fill="url(#leopardA)" stroke="#d94d91" stroke-width="2"/>
+</svg>
+</span>
+
+<span class="kiss-decoration kiss-three">
+<svg viewBox="0 0 100 100">
+<path d="M50 34 C36 15 15 15 10 30 C4 47 29 62 50 82 C71 62 96 47 90 30 C85 15 64 15 50 34Z" fill="#e879ae" stroke="#d94d91" stroke-width="3"/>
+</svg>
+</span>
+
+<span class="kiss-decoration kiss-four">
+<svg viewBox="0 0 100 100">
+<path d="M50 34 C36 15 15 15 10 30 C4 47 29 62 50 82 C71 62 96 47 90 30 C85 15 64 15 50 34Z" fill="#f6a3ca" stroke="#d94d91" stroke-width="3"/>
+</svg>
+</span>
+
+<span class="bow-decoration bow-one">🎀</span>
+<span class="bow-decoration bow-two">🎀</span>
+
   background:#fffafd;
   padding:15px 5%;
   display:flex;
