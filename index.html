@@ -4,12 +4,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#f9c4dc">
+<meta name="theme-color" content="#ffb5d0">
 <title>Stephenie Nova | For the It Girls</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&family=Nunito:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<script src="https://js.paystack.co/v2/inline.js"></script>
 
 
 /* STEPHENIE NOVA LEOPARD KISS DECORATIONS */
@@ -64,666 +64,640 @@ header {
 }
 <style>
 :root {
-  --pink:#f5a9ca;
-  --light:#fff0f7;
-  --deep:#d94391;
-  --dark:#9e285f;
-  --text:#612344;
-  --white:#fffafd;
+  --pink: #f45b9b;
+  --hot: #e93683;
+  --light: #fff0f6;
+  --pale: #fff8fb;
+  --dark: #54243b;
+  --brown: #633b2c;
+  --white: #fff;
 }
 
-* {
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-}
+* { box-sizing: border-box; margin: 0; padding: 0; }
 
-html {scroll-behavior:smooth}
+html { scroll-behavior: smooth; }
 
 body {
-  background:var(--light);
-  color:var(--text);
-  font-family:'Nunito',sans-serif;
-  overflow-x:hidden;
+  font-family: 'Nunito', sans-serif;
+  background: var(--pale);
+  color: var(--dark);
+  overflow-x: hidden;
 }
 
-button,a {font:inherit}
-button {cursor:pointer}
-a {text-decoration:none;color:inherit}
-img {max-width:100%;display:block}
+button, input { font: inherit; }
 
-/* PINK LEOPARD PRINT */
+button { cursor: pointer; }
+
+a { color: inherit; text-decoration: none; }
 
 .leopard {
-  background-color:#f7b5d0;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='130' viewBox='0 0 150 130'%3E%3Cg fill='none' stroke='%23c92e7e' stroke-width='8' stroke-linecap='round'%3E%3Cpath d='M18 25 C23 9 44 7 53 19 C62 30 52 45 39 47 C29 49 21 42 23 34'/%3E%3Cpath d='M92 17 C105 4 125 13 126 28 C127 43 110 51 98 42 C91 37 91 28 98 23'/%3E%3Cpath d='M65 82 C70 65 91 61 102 73 C113 85 103 101 89 104 C77 106 67 98 70 89'/%3E%3Cpath d='M4 112 C13 99 30 100 37 112'/%3E%3Cpath d='M132 112 C139 100 148 102 154 111'/%3E%3C/g%3E%3C/svg%3E");
-  background-size:150px 130px;
+  background-color: #fff0f6;
+  background-image:
+    radial-gradient(ellipse at 20% 30%, #ed91b8 0 5%, transparent 6%),
+    radial-gradient(ellipse at 75% 25%, #c96d91 0 4%, transparent 5%),
+    radial-gradient(ellipse at 45% 75%, #e98aaf 0 6%, transparent 7%),
+    radial-gradient(ellipse at 90% 85%, #c96d91 0 4%, transparent 5%);
+  background-size: 75px 85px, 90px 100px, 110px 95px, 85px 90px;
 }
 
-/* OPENING ANIMATION */
-
-.intro-screen {
-  position:fixed;
-  inset:0;
-  z-index:999;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
-  background:#ffe2ef;
-  animation:introExit 1s ease 2.6s forwards;
+/* OPENING SCREEN */
+#intro {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: linear-gradient(145deg, #ffe5f0, #ffb5d0, #fff1f7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  overflow: hidden;
+  transition: opacity 1s ease, visibility 1s ease;
 }
 
-.intro-screen h1 {
-  font-family:'Fredoka',sans-serif;
-  font-size:clamp(38px,9vw,75px);
-  color:var(--deep);
-  animation:brandPop 1.4s ease both;
+#intro.hide {
+  opacity: 0;
+  visibility: hidden;
 }
 
-.intro-screen p {
-  font-family:'Baloo 2',sans-serif;
-  font-size:17px;
-  letter-spacing:4px;
-  color:var(--dark);
-  animation:fadeUp 1.5s ease .5s both;
+.intro-content {
+  position: relative;
+  z-index: 3;
+  padding: 25px;
+  animation: introAppear 1.4s ease both;
 }
 
-.intro-screen .intro-decor {
-  font-size:30px;
-  margin-top:20px;
-  animation:fadeUp 1.5s ease .8s both;
+.intro-logo {
+  font-family: 'Baloo 2', cursive;
+  font-size: clamp(2.7rem, 10vw, 6rem);
+  line-height: 1;
+  color: #d92d78;
+  text-shadow: 3px 4px 0 white, 0 8px 20px #e65a9b55;
+  font-weight: 800;
 }
 
-@keyframes brandPop {
-  from {opacity:0;transform:scale(.65) translateY(30px)}
-  to {opacity:1;transform:scale(1) translateY(0)}
+.intro-sub {
+  margin-top: 15px;
+  letter-spacing: 5px;
+  color: #74354f;
+  font-size: 12px;
+  font-weight: 900;
 }
 
-@keyframes fadeUp {
-  from {opacity:0;transform:translateY(20px)}
-  to {opacity:1;transform:translateY(0)}
+.intro-star {
+  color: #fff;
+  font-size: 25px;
+  margin-top: 22px;
+  animation: sparkle 1.5s infinite alternate;
 }
 
-@keyframes introExit {
-  to {opacity:0;visibility:hidden;pointer-events:none}
+.floating {
+  position: absolute;
+  pointer-events: none;
+  animation: float 4s ease-in-out infinite alternate;
+  user-select: none;
 }
+
+.kiss {
+  font-size: 44px;
+  filter: drop-shadow(0 3px 5px #b94e7b30);
+}
+
+.bow {
+  font-size: 36px;
+}
+
+.k1 { top: 12%; left: 9%; transform: rotate(-20deg); }
+.k2 { top: 17%; right: 10%; animation-delay: .7s; }
+.k3 { bottom: 14%; left: 14%; animation-delay: 1.1s; }
+.k4 { bottom: 13%; right: 12%; animation-delay: 1.5s; }
+.b1 { top: 30%; left: 25%; animation-delay: .5s; }
+.b2 { bottom: 29%; right: 24%; animation-delay: 1.2s; }
+.b3 { top: 8%; left: 48%; font-size: 25px; }
 
 @keyframes float {
-  0%,100% {transform:translateY(0)}
-  50% {transform:translateY(-9px)}
+  from { translate: 0 0; rotate: -8deg; }
+  to { translate: 0 -18px; rotate: 8deg; }
 }
 
-/* ANNOUNCEMENT */
+@keyframes introAppear {
+  from { opacity: 0; transform: translateY(30px) scale(.92); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
 
-.announcement {
-  background:var(--dark);
-  color:white;
-  text-align:center;
-  padding:10px;
-  font-size:12px;
-  font-weight:800;
-  letter-spacing:2px;
+@keyframes sparkle {
+  from { opacity: .5; transform: scale(.9); }
+  to { opacity: 1; transform: scale(1.2); }
 }
 
 /* HEADER */
-
 header {
-  
-<span class="kiss-decoration kiss-one">
-<svg viewBox="0 0 100 100">
-<defs>
-<pattern id="leopardA" width="35" height="35" patternUnits="userSpaceOnUse">
-<rect width="35" height="35" fill="#f8a2c8"/>
-<path d="M5 5 Q12 -2 17 7 Q20 15 10 17 Q1 16 5 5 M24 20 Q33 15 33 25 Q30 34 23 30 Q18 26 24 20" fill="#c92d79"/>
-<circle cx="27" cy="5" r="3" fill="#a91e60"/>
-</pattern>
-</defs>
-<path d="M50 34 C36 15 15 15 10 30 C4 47 29 62 50 82 C71 62 96 47 90 30 C85 15 64 15 50 34Z" fill="url(#leopardA)" stroke="#d94d91" stroke-width="2"/>
-</svg>
-</span>
-
-<span class="kiss-decoration kiss-two">
-<svg viewBox="0 0 100 100">
-<path d="M50 34 C36 15 15 15 10 30 C4 47 29 62 50 82 C71 62 96 47 90 30 C85 15 64 15 50 34Z" fill="url(#leopardA)" stroke="#d94d91" stroke-width="2"/>
-</svg>
-</span>
-
-<span class="kiss-decoration kiss-three">
-<svg viewBox="0 0 100 100">
-<path d="M50 34 C36 15 15 15 10 30 C4 47 29 62 50 82 C71 62 96 47 90 30 C85 15 64 15 50 34Z" fill="#e879ae" stroke="#d94d91" stroke-width="3"/>
-</svg>
-</span>
-
-<span class="kiss-decoration kiss-four">
-<svg viewBox="0 0 100 100">
-<path d="M50 34 C36 15 15 15 10 30 C4 47 29 62 50 82 C71 62 96 47 90 30 C85 15 64 15 50 34Z" fill="#f6a3ca" stroke="#d94d91" stroke-width="3"/>
-</svg>
-</span>
-
-<span class="bow-decoration bow-one">🎀</span>
-<span class="bow-decoration bow-two">🎀</span>
-
-  background:#fffafd;
-  padding:15px 5%;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:12px;
-  position:sticky;
-  top:0;
-  z-index:50;
-  border-bottom:2px solid #f8c9df;
+  background: #fff;
+  padding: 15px 6%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  border-bottom: 2px solid #ffe0ed;
+  position: sticky;
+  top: 0;
+  z-index: 50;
 }
 
-.logo {
-  font-family:'Fredoka',sans-serif;
-  font-size:clamp(19px,4vw,30px);
-  font-weight:700;
-  color:var(--dark);
-  white-space:nowrap;
+.brand {
+  font-family: 'Baloo 2', cursive;
+  font-size: 27px;
+  color: var(--hot);
+  font-weight: 800;
+  line-height: 1;
 }
 
-.logo span {color:var(--deep)}
+.brand small {
+  display: block;
+  font-family: 'Nunito', sans-serif;
+  font-size: 9px;
+  letter-spacing: 3px;
+  text-align: center;
+  color: var(--dark);
+  margin-top: 3px;
+}
 
 nav {
-  display:flex;
-  align-items:center;
-  gap:20px;
-  font-size:13px;
-  font-weight:800;
+  display: flex;
+  gap: 22px;
+  align-items: center;
+  font-size: 13px;
+  font-weight: 800;
 }
 
-nav a:hover {color:var(--deep)}
+nav a:hover { color: var(--hot); }
 
 .cart-button {
-  background:var(--deep);
-  color:white;
-  border:0;
-  border-radius:30px;
-  padding:11px 16px;
-  font-size:12px;
-  font-weight:800;
+  border: none;
+  background: var(--hot);
+  color: white;
+  border-radius: 30px;
+  padding: 10px 16px;
+  font-weight: 900;
+}
+
+#cart-count {
+  background: white;
+  color: var(--hot);
+  padding: 2px 7px;
+  border-radius: 50%;
+  margin-left: 4px;
 }
 
 /* HERO */
-
 .hero {
-  min-height:570px;
-  padding:55px 7%;
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  align-items:center;
-  gap:35px;
-  background:#ffe7f1;
+  min-height: 580px;
+  padding: 65px 7%;
+  display: grid;
+  grid-template-columns: 1.05fr .95fr;
+  align-items: center;
+  gap: 25px;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 80% 30%, #ffd4e5, transparent 35%),
+    linear-gradient(130deg, #fff4f8, #ffe2ee);
 }
 
-.hero-copy {animation:fadeUp 1s ease .2s both}
+.hero-copy { animation: introAppear 1s ease both; }
 
 .eyebrow {
-  color:var(--deep);
-  font-weight:900;
-  letter-spacing:3px;
-  font-size:12px;
+  color: var(--hot);
+  letter-spacing: 4px;
+  font-size: 11px;
+  font-weight: 900;
+  margin-bottom: 12px;
 }
 
 .hero h1 {
-  font-family:'Fredoka',sans-serif;
-  font-size:clamp(43px,7vw,83px);
-  line-height:1.05;
-  margin:20px 0;
-  color:#8d2455;
+  font-family: 'Baloo 2', cursive;
+  font-size: clamp(3rem, 7vw, 5.7rem);
+  color: #d92d78;
+  line-height: .95;
+  margin-bottom: 20px;
 }
 
-.hero h1 span {color:var(--deep)}
+.hero h1 span { color: #79344f; }
 
 .hero p {
-  font-size:15px;
-  line-height:1.9;
-  max-width:430px;
+  max-width: 450px;
+  line-height: 1.9;
+  font-size: 15px;
+  color: #70445a;
 }
 
-.primary-button {
-  display:inline-block;
-  margin-top:22px;
-  padding:14px 26px;
-  background:var(--deep);
-  color:white;
-  border:0;
-  border-radius:30px;
-  font-size:13px;
-  font-weight:900;
-  transition:.3s;
+.hero-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 28px;
 }
 
-.primary-button:hover {
-  background:var(--dark);
-  transform:translateY(-3px);
+.primary-btn, .secondary-btn {
+  padding: 13px 23px;
+  border-radius: 30px;
+  font-weight: 900;
+  border: 2px solid var(--hot);
+  display: inline-block;
 }
 
-.hero-art {
-  min-height:380px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:25px;
-  border:9px solid white;
-  outline:2px solid #e9a1c1;
-  animation:float 4s ease-in-out infinite;
+.primary-btn {
+  background: var(--hot);
+  color: white;
 }
 
-.hero-art-inner {
-  background:#fff5faed;
-  padding:40px 15px;
-  width:100%;
-  text-align:center;
+.secondary-btn {
+  background: transparent;
+  color: var(--hot);
 }
 
-.hero-art h2 {
-  font-family:'Fredoka',sans-serif;
-  font-size:clamp(30px,5vw,50px);
-  color:var(--dark);
-  margin:15px 0;
+.hero-image {
+  min-height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
 }
 
-.hero-art p {
-  font-size:12px;
-  font-weight:900;
-  letter-spacing:3px;
+.doll-placeholder {
+  width: min(100%, 390px);
+  min-height: 370px;
+  border: 2px dashed #e99ab9;
+  border-radius: 30px;
+  background: #fff9fc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 30px;
+  color: #a34b70;
+  line-height: 1.8;
 }
 
-/* DECORATIONS */
-
-.decor {
-  font-size:25px;
-  color:var(--deep);
-  text-align:center;
-  margin:12px 0;
+.doll-placeholder strong {
+  display: block;
+  font-size: 20px;
+  color: var(--hot);
 }
 
-.leopard-band {
-  height:45px;
-  border-top:5px solid white;
-  border-bottom:5px solid white;
+.doll-placeholder img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
-/* SECTIONS */
+.hero-sparkle {
+  position: absolute;
+  font-size: 32px;
+  animation: sparkle 2s infinite alternate;
+}
 
-.section {padding:70px 6%}
+.hs1 { top: 10%; right: 8%; }
+.hs2 { bottom: 12%; left: 5%; }
+
+/* GENERAL SECTIONS */
+section { padding: 75px 7%; }
 
 .section-heading {
-  text-align:center;
-  margin-bottom:35px;
+  text-align: center;
+  margin-bottom: 35px;
 }
 
+.section-heading .eyebrow { margin-bottom: 5px; }
+
 .section-heading h2 {
-  font-family:'Fredoka',sans-serif;
-  font-size:clamp(30px,5vw,48px);
-  color:var(--dark);
-  margin:12px 0;
+  font-family: 'Baloo 2', cursive;
+  font-size: clamp(2rem, 5vw, 3.3rem);
+  color: var(--hot);
 }
 
 .section-heading p {
-  font-size:14px;
+  color: #87556b;
+  margin-top: 5px;
 }
 
-/* PRODUCTS */
+/* COLLECTION */
+.shop-section {
+  background: white;
+}
 
 .products {
-  display:grid;
-  grid-template-columns:repeat(4,minmax(0,1fr));
-  gap:20px;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 20px;
 }
 
 .product-card {
-  background:white;
-  border:2px solid #f6c9dd;
-  border-radius:17px;
-  padding:10px;
-  overflow:hidden;
-  transition:.3s;
+  background: #fff8fb;
+  border: 1px solid #f8d6e5;
+  border-radius: 20px;
+  overflow: hidden;
+  transition: transform .25s, box-shadow .25s;
 }
 
 .product-card:hover {
-  transform:translateY(-6px);
-  box-shadow:0 12px 30px #d9439120;
+  transform: translateY(-6px);
+  box-shadow: 0 12px 30px #d94e8b1c;
 }
 
 .product-image {
-  width:100%;
-  aspect-ratio:4/5;
-  object-fit:cover;
-  background:#ffe5f0;
-  border-radius:12px;
-  cursor:pointer;
+  height: 230px;
+  background: #ffeaf2;
+  position: relative;
+  overflow: hidden;
 }
 
-.product-info {padding:14px 5px 7px}
+.product-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.product-info { padding: 17px; }
 
 .product-info h3 {
-  font-family:'Fredoka',sans-serif;
-  font-size:21px;
-  color:var(--dark);
-  margin-bottom:8px;
+  font-size: 16px;
+  margin-bottom: 8px;
 }
 
 .price {
-  color:var(--deep);
-  font-size:16px;
-  font-weight:900;
+  color: var(--hot);
+  font-weight: 900;
+  font-size: 19px;
 }
 
 .old-price {
-  color:#a98a9a;
-  text-decoration:line-through;
-  font-size:12px;
-  margin-right:6px;
+  text-decoration: line-through;
+  color: #a98a98;
+  font-size: 12px;
+  margin-left: 5px;
 }
 
-.product-actions {
-  display:flex;
-  gap:7px;
-  margin-top:14px;
+.add-btn {
+  width: 100%;
+  margin-top: 13px;
+  border: none;
+  background: var(--hot);
+  color: white;
+  border-radius: 25px;
+  padding: 11px;
+  font-weight: 900;
 }
 
-.product-actions button {
-  flex:1;
-  padding:11px 4px;
-  border:1px solid var(--deep);
-  border-radius:20px;
-  background:white;
-  color:var(--dark);
-  font-size:10px;
-  font-weight:900;
+.add-btn:hover, .primary-btn:hover, .cart-button:hover {
+  background: #c92169;
 }
-
-.product-actions button:last-child {
-  background:var(--deep);
-  color:white;
-}
-
-.product-actions button:active {transform:scale(.96)}
 
 /* ABOUT */
-
-.about {
-  background:#ffe7f1;
-  text-align:center;
+.about-section {
+  background: #fff0f6;
+  text-align: center;
 }
 
-.about-inner {
-  max-width:750px;
-  margin:auto;
+.about-content {
+  max-width: 720px;
+  margin: auto;
+  line-height: 2;
+  color: #71455a;
 }
-
-.about h2,.contact h2 {
-  font-family:'Fredoka',sans-serif;
-  color:var(--dark);
-  font-size:clamp(30px,5vw,45px);
-  margin:15px 0;
-}
-
-.about p {
-  font-size:15px;
-  line-height:2;
-}
-
-.benefits {
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:15px;
-  margin-top:35px;
-}
-
-.benefit {
-  background:white;
-  border:1px solid #f4c4d9;
-  border-radius:16px;
-  padding:23px 10px;
-}
-
-.benefit .icon {font-size:30px}
-
-.benefit h3 {
-  font-family:'Fredoka',sans-serif;
-  color:var(--deep);
-  margin:8px 0;
-}
-
-.benefit p {font-size:12px;line-height:1.6}
 
 /* CONTACT */
+.contact-section { background: white; text-align: center; }
 
-.contact {
-  text-align:center;
-  padding:65px 6%;
+.contact-box {
+  max-width: 600px;
+  margin: auto;
+  background: #fff1f7;
+  border-radius: 25px;
+  padding: 35px 20px;
 }
 
-.contact p {
-  font-size:14px;
-  line-height:2;
+.contact-box p { line-height: 1.9; margin-bottom: 20px; }
+
+/* CART DRAWER */
+.cart-overlay {
+  position: fixed;
+  inset: 0;
+  background: #28101c77;
+  z-index: 200;
+  opacity: 0;
+  visibility: hidden;
+  transition: .3s;
 }
 
-.whatsapp {
-  display:inline-block;
-  margin-top:20px;
-  background:#d94391;
-  color:white;
-  padding:15px 27px;
-  border-radius:30px;
-  font-weight:900;
-  font-size:13px;
+.cart-overlay.show { opacity: 1; visibility: visible; }
+
+.cart-drawer {
+  position: fixed;
+  z-index: 201;
+  right: -450px;
+  top: 0;
+  height: 100%;
+  width: min(420px, 100%);
+  background: white;
+  padding: 25px;
+  overflow-y: auto;
+  transition: right .35s ease;
 }
 
-/* FOOTER */
+.cart-drawer.show { right: 0; }
 
-footer {
-  background:var(--dark);
-  color:white;
-  text-align:center;
-  padding:35px 15px;
-  line-height:2;
+.cart-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
 }
 
-footer h2 {
-  font-family:'Fredoka',sans-serif;
-  font-size:30px;
+.close-cart {
+  border: none;
+  background: #ffe5ef;
+  color: var(--hot);
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  font-size: 20px;
 }
-
-/* MODALS */
-
-.modal {
-  display:none;
-  position:fixed;
-  inset:0;
-  background:#28101edb;
-  z-index:100;
-  align-items:center;
-  justify-content:center;
-  padding:15px;
-}
-
-.modal.open {display:flex}
-
-.modal-box {
-  background:#fffafd;
-  border:3px solid #f4bdd6;
-  border-radius:20px;
-  width:min(650px,100%);
-  max-height:90vh;
-  overflow:auto;
-  padding:22px;
-  position:relative;
-}
-
-.modal h2 {
-  font-family:'Fredoka',sans-serif;
-  color:var(--dark);
-  font-size:27px;
-  padding-right:30px;
-}
-
-.close {
-  position:absolute;
-  right:15px;
-  top:10px;
-  border:0;
-  background:none;
-  color:var(--dark);
-  font-size:30px;
-}
-
-.viewer-main {
-  width:100%;
-  max-height:48vh;
-  object-fit:contain;
-  margin:15px auto;
-  background:#ffe5f0;
-  border-radius:12px;
-}
-
-.thumbnails {
-  display:flex;
-  gap:10px;
-  overflow-x:auto;
-  margin:12px 0;
-}
-
-.thumbnails img {
-  width:65px;
-  height:70px;
-  object-fit:cover;
-  border:2px solid transparent;
-  border-radius:8px;
-  cursor:pointer;
-}
-
-.thumbnails img.active {border-color:var(--deep)}
-
-/* CART */
-
-.cart-list {margin-top:15px}
 
 .cart-item {
-  display:flex;
-  align-items:center;
-  gap:10px;
-  padding:13px 0;
-  border-bottom:1px solid #f1cede;
+  display: grid;
+  grid-template-columns: 65px 1fr;
+  gap: 12px;
+  padding: 13px 0;
+  border-bottom: 1px solid #f4dce7;
 }
 
 .cart-item img {
-  width:65px;
-  height:70px;
-  object-fit:cover;
-  border-radius:8px;
+  width: 65px;
+  height: 65px;
+  border-radius: 12px;
+  object-fit: cover;
 }
 
-.cart-item-info {flex:1;min-width:0}
-.cart-item-info strong {font-size:13px}
-.cart-item-info small {
-  display:block;
-  color:var(--dark);
-  margin-top:5px;
+.cart-item h4 { font-size: 13px; }
+
+.cart-item p { color: var(--hot); font-weight: 900; }
+
+.quantity {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 7px;
 }
 
-.cart-item button {
-  border:0;
-  background:#ffe2ef;
-  color:var(--dark);
-  padding:7px;
-  border-radius:7px;
-  font-weight:900;
+.quantity button {
+  border: none;
+  background: #ffe5ef;
+  color: var(--hot);
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+  font-weight: 900;
+}
+
+.remove-item {
+  border: none;
+  background: none;
+  color: #9a7586;
+  font-size: 12px;
+  margin-left: 8px;
 }
 
 .cart-total {
-  font-size:20px;
-  font-weight:900;
-  color:var(--dark);
-  text-align:right;
-  margin:20px 0;
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 0;
+  font-size: 19px;
+  font-weight: 900;
 }
 
-.empty {
-  text-align:center;
-  padding:35px 5px;
-  color:#a36b86;
+.checkout-btn {
+  width: 100%;
+  border: none;
+  padding: 14px;
+  border-radius: 30px;
+  background: var(--hot);
+  color: white;
+  font-weight: 900;
+  margin-top: 10px;
 }
 
-.toast {
-  position:fixed;
-  bottom:20px;
-  left:50%;
-  transform:translateX(-50%);
-  background:var(--dark);
-  color:white;
-  padding:13px 23px;
-  border-radius:30px;
-  z-index:200;
-  opacity:0;
-  pointer-events:none;
-  transition:.3s;
-  font-size:13px;
-  font-weight:800;
+.empty-cart {
+  text-align: center;
+  padding: 45px 10px;
+  color: #94677c;
 }
 
-.toast.show {opacity:1}
+/* CHECKOUT */
+.checkout-fields {
+  display: grid;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.checkout-fields input {
+  width: 100%;
+  padding: 13px;
+  border: 1px solid #edc6d8;
+  border-radius: 12px;
+  outline: none;
+  background: #fffafd;
+}
+
+.checkout-fields input:focus { border-color: var(--hot); }
+
+.checkout-note {
+  font-size: 11px;
+  color: #896578;
+  line-height: 1.6;
+  margin-top: 10px;
+}
+
+/* FOOTER */
+footer {
+  background: #57253e;
+  color: white;
+  text-align: center;
+  padding: 35px 15px;
+}
+
+footer strong {
+  font-family: 'Baloo 2', cursive;
+  color: #ffafd0;
+  font-size: 25px;
+}
+
+footer p { font-size: 12px; margin-top: 8px; }
 
 /* MOBILE */
-
-@media(max-width:850px) {
-  .products {grid-template-columns:repeat(2,minmax(0,1fr))}
-  .hero {grid-template-columns:1fr;padding:45px 6%}
-  .hero-art {min-height:280px}
-  nav {gap:10px}
+@media (max-width: 850px) {
+  .products { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .hero { grid-template-columns: 1fr 1fr; padding: 50px 5%; }
+  nav { gap: 12px; }
 }
 
-@media(max-width:480px) {
-  header {padding:12px 3%;gap:7px}
-  .logo {font-size:19px}
-  nav {gap:9px}
-  nav a {font-size:10px}
-  .cart-button {padding:9px 10px;font-size:10px}
-  .section {padding:50px 4%}
-  .product-info h3 {font-size:18px}
-  .product-actions button {font-size:9px;padding:10px 2px}
-  .benefits {gap:8px}
-  .benefit {padding:17px 6px}
-  .benefit h3 {font-size:15px}
-  .benefit p {font-size:10px}
-  .cart-item {gap:6px}
-  .cart-item img {width:52px;height:60px}
-}
-
-@media(prefers-reduced-motion:reduce) {
-  *,*::before,*::after {
-    animation-duration:.01ms!important;
-    transition-duration:.01ms!important;
-    scroll-behavior:auto!important;
+@media (max-width: 600px) {
+  header { padding: 13px 4%; flex-wrap: wrap; }
+  .brand { font-size: 23px; }
+  nav {
+    order: 3;
+    width: 100%;
+    justify-content: center;
+    gap: 17px;
+    font-size: 12px;
   }
+  .hero {
+    grid-template-columns: 1fr;
+    text-align: center;
+    padding: 55px 6% 35px;
+  }
+  .hero p { margin: auto; }
+  .hero-actions { justify-content: center; }
+  .hero-image { min-height: 300px; }
+  .doll-placeholder { min-height: 290px; }
+  section { padding: 55px 5%; }
+  .product-image { height: 190px; }
+  .kiss { font-size: 32px; }
+  .bow { font-size: 27px; }
+}
+
+@media (max-width: 360px) {
+  .products { gap: 10px; }
+  .product-info { padding: 12px; }
+  .product-image { height: 155px; }
 }
 </style>
 </head>
 
 <body>
 
-<!-- OPENING SCREEN -->
+<!-- ANIMATED INTRO -->
+<div id="intro">
+  <span class="floating kiss k1">💋</span>
+  <span class="floating kiss k2">💋</span>
+  <span class="floating kiss k3">💋</span>
+  <span class="floating kiss k4">💋</span>
+  <span class="floating bow b1">🎀</span>
+  <span class="floating bow b2">🎀</span>
+  <span class="floating bow b3">✿</span>
 
-<div class="intro-screen">
-  <h1>STEPHENIE NOVA</h1>
-  <p>FOR THE IT GIRLS</p>
-  <div class="intro-decor">🎀 ✿ ♡ ✨ 🐆</div>
-</div>
-
-<div class="announcement">
-  ✦ BEAUTIFUL BAGS FOR THE IT GIRLS ✦ NATIONWIDE DELIVERY ✦
+  <div class="intro-content">
+    <div class="intro-logo">STEPHENIE<br>NOVA</div>
+    <div class="intro-sub">FOR THE IT GIRLS</div>
+    <div class="intro-star">✧ ♡ ✧</div>
+  </div>
 </div>
 
 <!-- HEADER -->
-
 <header>
-  <a href="#home" class="logo">Stephenie <span>Nova</span> ♡</a>
+  <a href="#home" class="brand">
+    STEPHENIE NOVA
+    <small>FOR THE IT GIRLS</small>
+  </a>
 
   <nav>
     <a href="#home">Home</a>
@@ -733,555 +707,481 @@ footer h2 {
   </nav>
 
   <button class="cart-button" onclick="openCart()">
-    ♡ Cart (<span id="cart-count">0</span>)
+    Bag <span id="cart-count">0</span>
   </button>
 </header>
 
-<main>
-
 <!-- HERO -->
-
+<main>
 <section class="hero" id="home">
-
   <div class="hero-copy">
-    <div class="eyebrow">WELCOME TO STEPHENIE NOVA ✿</div>
-
-    <h1>
-      For the girls who love
-      <span>pretty things.</span>
-    </h1>
-
+    <div class="eyebrow">✦ THE NOVA GIRL ERA ✦</div>
+    <h1>STEPHENIE<br><span>NOVA</span></h1>
     <p>
-      Beautiful bags, feminine details and little touches of luxury.
-      Find your next favourite bag at Stephenie Nova.
+      A little touch of luxury, a little extra sparkle.
+      Discover beautiful bags made for the girls who love
+      standing out. Your next favourite bag is waiting.
     </p>
 
-    <a href="#shop" class="primary-button">
-      SHOP THE COLLECTION ♡
-    </a>
-
-    <div class="decor">🎀 ✨ 🌸 ♡</div>
-  </div>
-
-  <div class="hero-art leopard">
-    <div class="hero-art-inner">
-      <div style="font-size:60px">🌸</div>
-      <h2>Stephenie Nova</h2>
-      <p>BAGS • BEAUTY • CONFIDENCE</p>
-      <div style="font-size:35px;margin-top:20px">
-        ♡ ✿ 🎀 ✦ 🐆
-      </div>
+    <div class="hero-actions">
+      <a href="#shop" class="primary-btn">SHOP THE COLLECTION ♡</a>
+      <a href="#about" class="secondary-btn">OUR STORY</a>
     </div>
   </div>
 
-</section>
+  <div class="hero-image">
+    <span class="hero-sparkle hs1">✧</span>
+    <span class="hero-sparkle hs2">♡</span>
 
-<div class="leopard-band leopard"></div>
+    <!-- Replace the placeholder below with the updated doll image URL.
+         Example: paste your direct image URL inside the src attribute. -->
+    <div class="doll-placeholder" id="doll-placeholder">
+      <div>
+        <strong>🎀 STEPHENIE NOVA 🎀</strong>
+        Updated Bratz-style brand doll image goes here.
+        <br><br>
+        Four branded shopping bags · Pink leopard details
+      </div>
+    </div>
+  </div>
+</section>
 
 <!-- SHOP -->
-
-<section class="section" id="shop">
-
+<section class="shop-section leopard" id="shop">
   <div class="section-heading">
-    <div class="eyebrow">THE NOVA COLLECTION</div>
-    <h2>Shop Our Bags ♡</h2>
-    <p>A little something pretty for every outfit.</p>
-    <div class="decor">🌸 ✿ 🎀</div>
+    <div class="eyebrow">♡ PICK YOUR FAVOURITE ♡</div>
+    <h2>The Nova Collection</h2>
+    <p>Pretty bags for the girls who know their style.</p>
   </div>
 
-  <div class="products" id="products"></div>
+  <div class="products">
 
+    <article class="product-card">
+      <div class="product-image">
+        <img src="https://i.postimg.cc/dh0nMqpj/IMG-5526.jpg"
+             alt="Crossbody Chain Bag" loading="lazy">
+      </div>
+      <div class="product-info">
+        <h3>Crossbody Chain Bag</h3>
+        <span class="price">₦9,500</span>
+        <span class="old-price">₦12,500</span>
+        <button class="add-btn" onclick="addToCart(0)">ADD TO BAG ♡</button>
+      </div>
+    </article>
+
+    <article class="product-card">
+      <div class="product-image">
+        <img src="https://i.postimg.cc/4xtMr9JF/IMG-5556.png"
+             alt="Shoulder Bag" loading="lazy">
+      </div>
+      <div class="product-info">
+        <h3>Shoulder Bag</h3>
+        <span class="price">₦8,500</span>
+        <span class="old-price">₦11,500</span>
+        <button class="add-btn" onclick="addToCart(1)">ADD TO BAG ♡</button>
+      </div>
+    </article>
+
+    <article class="product-card">
+      <div class="product-image">
+        <img src="https://i.postimg.cc/grQ8HjwC/IMG-5550.jpg"
+             alt="Luxury Coach Tote Bag" loading="lazy">
+      </div>
+      <div class="product-info">
+        <h3>Luxury Coach Tote Bag</h3>
+        <span class="price">₦13,000</span>
+        <span class="old-price">₦16,000</span>
+        <button class="add-btn" onclick="addToCart(2)">ADD TO BAG ♡</button>
+      </div>
+    </article>
+
+    <article class="product-card">
+      <div class="product-image">
+        <img src="https://i.postimg.cc/h4kNMsnL/IMG-5555.png"
+             alt="Fur Tote Bag" loading="lazy">
+      </div>
+      <div class="product-info">
+        <h3>Fur Tote Bag</h3>
+        <span class="price">₦7,500</span>
+        <span class="old-price">₦10,500</span>
+        <button class="add-btn" onclick="addToCart(3)">ADD TO BAG ♡</button>
+      </div>
+    </article>
+
+  </div>
 </section>
-
-<div class="leopard-band leopard"></div>
 
 <!-- ABOUT -->
+<section class="about-section" id="about">
+  <div class="section-heading">
+    <div class="eyebrow">✧ A LITTLE ABOUT US ✧</div>
+    <h2>Welcome to Nova</h2>
+  </div>
 
-<section class="section about" id="about">
-
-  <div class="about-inner">
-
-    <div class="decor">🌸</div>
-
-    <div class="eyebrow">A LITTLE ABOUT US</div>
-
-    <h2>Welcome to our world ♡</h2>
-
+  <div class="about-content">
     <p>
-      Stephenie Nova is all about beautiful bags and the little details
-      that make an outfit feel special. We believe every girl deserves
-      to carry something she loves.
+      Stephenie Nova is for the girls who love pretty details,
+      beautiful accessories and a little luxury in their everyday
+      style. We believe the right bag can make an outfit feel
+      complete.
     </p>
-
-    <div class="benefits">
-
-      <div class="benefit">
-        <div class="icon">🎀</div>
-        <h3>Pretty Finds</h3>
-        <p>Lovely bags for your collection.</p>
-      </div>
-
-      <div class="benefit">
-        <div class="icon">💗</div>
-        <h3>Easy Orders</h3>
-        <p>Place your orders through WhatsApp.</p>
-      </div>
-
-      <div class="benefit">
-        <div class="icon">🌸</div>
-        <h3>Nationwide</h3>
-        <p>Delivery across Nigeria.</p>
-      </div>
-
-    </div>
+    <p>
+      Based in Anambra State, Nigeria, we deliver nationwide.
+      Thank you for shopping with Stephenie Nova.
+    </p>
   </div>
 </section>
-
-<div class="leopard-band leopard"></div>
 
 <!-- CONTACT -->
+<section class="contact-section" id="contact">
+  <div class="section-heading">
+    <div class="eyebrow">♡ WE WOULD LOVE TO HEAR FROM YOU ♡</div>
+    <h2>Let's Talk</h2>
+  </div>
 
-<section class="contact" id="contact">
-
-  <div class="decor">🌸 🎀 ✨</div>
-
-  <h2>Let's get you something pretty!</h2>
-
-  <p>
-    Have a question or ready to order?<br>
-    Send us a message on WhatsApp.
-  </p>
-
-  <a class="whatsapp"
-     href="https://wa.me/2349151863044"
-     target="_blank">
-     CHAT WITH US ON WHATSAPP ♡
-  </a>
-
+  <div class="contact-box">
+    <p>
+      Questions about a bag, delivery or an order?
+      Send us a WhatsApp message and we'll assist you.
+    </p>
+    <a class="primary-btn"
+       href="https://wa.me/2349151863044"
+       target="_blank" rel="noopener">
+       CHAT WITH US ON WHATSAPP
+    </a>
+    <p style="margin-top:20px;margin-bottom:0;">
+      Anambra State · Nationwide Delivery
+    </p>
+  </div>
 </section>
-
 </main>
 
+<!-- FOOTER -->
 <footer>
-  <h2>STEPHENIE NOVA ♡</h2>
-  <p>For the it girls ✿</p>
-  <p>Anambra State, Nigeria · Nationwide delivery</p>
-  <p>© 2026 Stephenie Nova. All rights reserved.</p>
+  <strong>STEPHENIE NOVA 🎀</strong>
+  <p>For the It Girls · Anambra State, Nigeria</p>
+  <p>© <span id="year"></span> Stephenie Nova. All rights reserved.</p>
 </footer>
 
-<!-- PRODUCT VIEWER -->
+<!-- CART DRAWER -->
+<div class="cart-overlay" id="cart-overlay" onclick="closeCart()"></div>
 
-<div class="modal" id="viewer">
-  <div class="modal-box">
-
-    <button class="close" onclick="closeViewer()">×</button>
-
-    <h2 id="viewer-title"></h2>
-
-    <img class="viewer-main" id="viewer-main" src="" alt="Product photo">
-
-    <div class="thumbnails" id="thumbnails"></div>
-
-    <p id="viewer-price" class="price"></p>
-
-    <button class="primary-button" id="viewer-add">
-      ADD TO CART ♡
-    </button>
-
+<aside class="cart-drawer" id="cart-drawer">
+  <div class="cart-top">
+    <h2>Your Shopping Bag ♡</h2>
+    <button class="close-cart" onclick="closeCart()">×</button>
   </div>
-</div>
 
-<!-- SHOPPING CART -->
+  <div id="cart-items"></div>
 
-<div class="modal" id="cart-modal">
-  <div class="modal-box">
-
-    <button class="close" onclick="closeCart()">×</button>
-
-    <h2>Your Shopping Cart ♡</h2>
-
-    <div class="cart-list" id="cart-list"></div>
-
-    <div class="cart-total" id="cart-total"></div>
-
-    <button class="primary-button"
-      style="width:100%"
-      onclick="checkout()">
-      CHECK OUT ON WHATSAPP
-    </button>
-
+  <div class="cart-total">
+    <span>Total</span>
+    <span id="cart-total">₦0</span>
   </div>
-</div>
 
-<div class="toast" id="toast">Added to cart ♡</div>
+  <div class="checkout-fields">
+    <input id="customer-name" type="text" placeholder="Your full name">
+    <input id="customer-phone" type="tel" placeholder="Phone number">
+    <input id="customer-email" type="email" placeholder="Email address (for Paystack)">
+    <input id="customer-address" type="text" placeholder="Delivery address">
+  </div>
+
+  <button class="checkout-btn" onclick="whatsappCheckout()">
+    ORDER THROUGH WHATSAPP
+  </button>
+
+  <button class="checkout-btn" onclick="payWithPaystack()"
+          style="background:#6e3151;">
+    PAY WITH PAYSTACK
+  </button>
+
+  <p class="checkout-note">
+    Please confirm delivery details with us. Paystack payments
+    must be verified before an order is fulfilled.
+  </p>
+</aside>
 
 <script>
+/* ==========================================
+   STEPHENIE NOVA WEBSITE SETTINGS
+   ========================================== */
 
-/* PRODUCT COLLECTION */
+// Your WhatsApp number, including country code.
+// Do not include the + sign.
+const WHATSAPP_NUMBER = "2349151863044";
 
+// Replace this with your Paystack PUBLIC key only.
+// Never paste your Paystack secret key here.
+const PAYSTACK_PUBLIC_KEY = "YOUR_PAYSTACK_PUBLIC_KEY";
+
+
+/* PRODUCT INFORMATION */
 const products = [
-
   {
-    id:1,
-    name:"Crossbody Chain Bag",
-    price:9500,
-    oldPrice:12500,
-    images:[
-      "https://i.postimg.cc/dh0nMqpj/IMG-5526.jpg",
-      "https://i.postimg.cc/MnGtkWNb/IMG-5527.jpg",
-      "https://i.postimg.cc/4Y3wCJqp/IMG-5528.jpg",
-      "https://i.postimg.cc/bsgLFGC9/IMG-5529.jpg"
-    ]
+    name: "Crossbody Chain Bag",
+    price: 9500,
+    image: "https://i.postimg.cc/dh0nMqpj/IMG-5526.jpg"
   },
-
   {
-    id:2,
-    name:"Shoulder Bag",
-    price:8500,
-    oldPrice:11500,
-    images:[
-      "https://i.postimg.cc/4xtMr9JF/IMG-5556.png"
-    ]
+    name: "Shoulder Bag",
+    price: 8500,
+    image: "https://i.postimg.cc/4xtMr9JF/IMG-5556.png"
   },
-
   {
-    id:3,
-    name:"Luxury Coach Tote Bag",
-    price:13000,
-    oldPrice:16000,
-    images:[
-      "https://i.postimg.cc/grQ8HjwC/IMG-5550.jpg",
-      "https://i.postimg.cc/6TyCZnQm/IMG-5551.jpg"
-    ]
+    name: "Luxury Coach Tote Bag",
+    price: 13000,
+    image: "https://i.postimg.cc/grQ8HjwC/IMG-5550.jpg"
   },
-
   {
-    id:4,
-    name:"Fur Tote Bag",
-    price:7500,
-    oldPrice:10500,
-    images:[
-      "https://i.postimg.cc/h4kNMsnL/IMG-5555.png"
-    ]
+    name: "Fur Tote Bag",
+    price: 7500,
+    image: "https://i.postimg.cc/h4kNMsnL/IMG-5555.png"
   }
-
 ];
 
-/* CART */
-
 let cart = [];
-let currentProduct = null;
 
-function money(amount) {
+
+/* INTRO ANIMATION */
+window.addEventListener("load", function() {
+  setTimeout(function() {
+    document.getElementById("intro").classList.add("hide");
+  }, 3200);
+});
+
+
+/* YEAR */
+document.getElementById("year").textContent =
+  new Date().getFullYear();
+
+
+/* FORMAT NAIRA */
+function naira(amount) {
   return "₦" + amount.toLocaleString("en-NG");
 }
 
-function showToast(message) {
-  const toast = document.getElementById("toast");
-  toast.textContent = message;
-  toast.classList.add("show");
-
-  setTimeout(() => {
-    toast.classList.remove("show");
-  },1800);
-}
-
-/* DISPLAY PRODUCTS */
-
-function renderProducts() {
-
-  const container = document.getElementById("products");
-
-  container.innerHTML = products.map(product => `
-
-    <article class="product-card">
-
-      <img
-        class="product-image"
-        src="${product.images[0]}"
-        alt="${product.name}"
-        onclick="openViewer(${product.id})"
-        onerror="this.alt='Image unavailable';"
-      >
-
-      <div class="product-info">
-
-        <h3>${product.name}</h3>
-
-        <div class="price">
-          <span class="old-price">
-            ${money(product.oldPrice)}
-          </span>
-          ${money(product.price)}
-        </div>
-
-        <div class="product-actions">
-
-          <button onclick="openViewer(${product.id})">
-            VIEW PRODUCT
-          </button>
-
-          <button onclick="addToCart(${product.id})">
-            ADD TO CART
-          </button>
-
-        </div>
-
-      </div>
-
-    </article>
-
-  `).join("");
-
-}
-
-/* VIEW PRODUCT */
-
-function openViewer(id) {
-
-  currentProduct = products.find(p => p.id === id);
-
-  document.getElementById("viewer-title").textContent =
-    currentProduct.name;
-
-  document.getElementById("viewer-price").textContent =
-    money(currentProduct.price);
-
-  document.getElementById("viewer-main").src =
-    currentProduct.images[0];
-
-  const thumbs = document.getElementById("thumbnails");
-
-  thumbs.innerHTML = currentProduct.images.map((src,index) => `
-
-    <img
-      src="${src}"
-      class="${index === 0 ? 'active' : ''}"
-      onclick="changeViewerImage('${src}',this)"
-      alt="Product view ${index+1}"
-    >
-
-  `).join("");
-
-  document.getElementById("viewer-add").onclick = () => {
-    addToCart(currentProduct.id);
-    closeViewer();
-  };
-
-  document.getElementById("viewer").classList.add("open");
-
-}
-
-function changeViewerImage(src,element) {
-
-  document.getElementById("viewer-main").src = src;
-
-  document.querySelectorAll(".thumbnails img").forEach(img => {
-    img.classList.remove("active");
-  });
-
-  element.classList.add("active");
-
-}
-
-function closeViewer() {
-  document.getElementById("viewer").classList.remove("open");
-}
 
 /* ADD TO CART */
-
-function addToCart(id) {
-
-  const existing = cart.find(item => item.id === id);
+function addToCart(index) {
+  const product = products[index];
+  const existing = cart.find(item => item.name === product.name);
 
   if (existing) {
     existing.quantity++;
   } else {
-    cart.push({id,quantity:1});
+    cart.push({...product, quantity: 1});
   }
 
   updateCart();
-  showToast("Added to your cart ♡");
-
+  openCart();
 }
 
+
 /* UPDATE CART */
-
 function updateCart() {
-
-  const count = cart.reduce(
-    (sum,item) => sum + item.quantity,0
+  const items = document.getElementById("cart-items");
+  const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+  const total = cart.reduce(
+    (sum, item) => sum + item.price * item.quantity, 0
   );
 
   document.getElementById("cart-count").textContent = count;
+  document.getElementById("cart-total").textContent = naira(total);
 
-  const list = document.getElementById("cart-list");
-
-  if (!cart.length) {
-
-    list.innerHTML = '<div class="empty">Your cart is empty ♡</div>';
-
-    document.getElementById("cart-total").textContent = "";
-
+  if (cart.length === 0) {
+    items.innerHTML =
+      '<div class="empty-cart">Your shopping bag is empty 🎀<br><br>Find something pretty in our collection.</div>';
     return;
-
   }
 
-  list.innerHTML = cart.map(item => {
-
-    const product = products.find(p => p.id === item.id);
-
-    return `
-
-      <div class="cart-item">
-
-        <img src="${product.images[0]}" alt="${product.name}">
-
-        <div class="cart-item-info">
-
-          <strong>${product.name}</strong>
-
-          <small>
-            ${money(product.price)} × ${item.quantity}
-          </small>
-
-          <small>
-            Subtotal: ${money(product.price * item.quantity)}
-          </small>
-
+  items.innerHTML = cart.map((item, index) => `
+    <div class="cart-item">
+      <img src="${item.image}" alt="">
+      <div>
+        <h4>${item.name}</h4>
+        <p>${naira(item.price)}</p>
+        <div class="quantity">
+          <button onclick="changeQuantity(${index}, -1)">−</button>
+          <span>${item.quantity}</span>
+          <button onclick="changeQuantity(${index}, 1)">+</button>
+          <button class="remove-item" onclick="removeItem(${index})">
+            Remove
+          </button>
         </div>
-
-        <button onclick="changeQuantity(${item.id},-1)">−</button>
-
-        <strong>${item.quantity}</strong>
-
-        <button onclick="changeQuantity(${item.id},1)">+</button>
-
-        <button onclick="removeItem(${item.id})">×</button>
-
       </div>
-
-    `;
-
-  }).join("");
-
-  const total = cart.reduce((sum,item) => {
-
-    const product = products.find(p => p.id === item.id);
-
-    return sum + product.price * item.quantity;
-
-  },0);
-
-  document.getElementById("cart-total").textContent =
-    "Total: " + money(total);
-
+    </div>
+  `).join("");
 }
+
 
 /* CHANGE QUANTITY */
+function changeQuantity(index, change) {
+  cart[index].quantity += change;
 
-function changeQuantity(id,change) {
-
-  const item = cart.find(item => item.id === id);
-
-  if (!item) return;
-
-  item.quantity += change;
-
-  if (item.quantity <= 0) {
-    cart = cart.filter(item => item.id !== id);
+  if (cart[index].quantity <= 0) {
+    cart.splice(index, 1);
   }
 
   updateCart();
-
 }
+
 
 /* REMOVE ITEM */
-
-function removeItem(id) {
-
-  cart = cart.filter(item => item.id !== id);
-
+function removeItem(index) {
+  cart.splice(index, 1);
   updateCart();
-
 }
 
+
 /* OPEN AND CLOSE CART */
-
 function openCart() {
-
-  updateCart();
-
-  document.getElementById("cart-modal").classList.add("open");
-
+  document.getElementById("cart-overlay").classList.add("show");
+  document.getElementById("cart-drawer").classList.add("show");
 }
 
 function closeCart() {
-
-  document.getElementById("cart-modal").classList.remove("open");
-
+  document.getElementById("cart-overlay").classList.remove("show");
+  document.getElementById("cart-drawer").classList.remove("show");
 }
+
+
+/* CUSTOMER DETAILS */
+function getCustomerDetails() {
+  return {
+    name: document.getElementById("customer-name").value.trim(),
+    phone: document.getElementById("customer-phone").value.trim(),
+    email: document.getElementById("customer-email").value.trim(),
+    address: document.getElementById("customer-address").value.trim()
+  };
+}
+
+
+/* ORDER SUMMARY */
+function orderSummary() {
+  return cart.map(item =>
+    `${item.name} x ${item.quantity} = ${naira(item.price * item.quantity)}`
+  ).join("\n");
+}
+
 
 /* WHATSAPP CHECKOUT */
-
-function checkout() {
-
-  if (!cart.length) {
-
-    alert("Your cart is empty. Add a bag first ♡");
-
+function whatsappCheckout() {
+  if (cart.length === 0) {
+    alert("Your shopping bag is empty.");
     return;
-
   }
 
-  let message =
-    "Hello Stephenie Nova! I would like to place an order:\n\n";
+  const customer = getCustomerDetails();
 
-  let total = 0;
+  if (!customer.name || !customer.phone || !customer.address) {
+    alert("Please enter your name, phone number and delivery address.");
+    return;
+  }
 
-  cart.forEach(item => {
+  const total = cart.reduce(
+    (sum, item) => sum + item.price * item.quantity, 0
+  );
 
-    const product = products.find(p => p.id === item.id);
+  const message =
+`Hello Stephenie Nova! 🎀
 
-    const subtotal = product.price * item.quantity;
+I would like to place an order.
 
-    total += subtotal;
+Name: ${customer.name}
+Phone: ${customer.phone}
+Delivery address: ${customer.address}
 
-    message +=
-      product.name + " × " + item.quantity +
-      " — " + money(subtotal) + "\n";
+ORDER:
+${orderSummary()}
 
-  });
+TOTAL: ${naira(total)}
 
-  message += "\nTotal: " + money(total);
+Please confirm my order and delivery details. Thank you!`;
 
-  const whatsappURL =
-    "https://wa.me/2349151863044?text=" +
-    encodeURIComponent(message);
+  const url =
+    "https://wa.me/" + WHATSAPP_NUMBER +
+    "?text=" + encodeURIComponent(message);
 
-  window.open(whatsappURL,"_blank");
-
+  window.open(url, "_blank");
 }
 
-/* CLOSE MODALS WHEN BACKGROUND IS TAPPED */
 
-document.querySelectorAll(".modal").forEach(modal => {
+/* PAYSTACK CHECKOUT */
+function payWithPaystack() {
+  if (cart.length === 0) {
+    alert("Your shopping bag is empty.");
+    return;
+  }
 
-  modal.addEventListener("click",event => {
+  const customer = getCustomerDetails();
 
-    if (event.target === modal) {
-      modal.classList.remove("open");
+  if (!customer.name || !customer.phone ||
+      !customer.email || !customer.address) {
+    alert("Please fill in all your details, including your email.");
+    return;
+  }
+
+  if (!PAYSTACK_PUBLIC_KEY ||
+      PAYSTACK_PUBLIC_KEY === "YOUR_PAYSTACK_PUBLIC_KEY") {
+    alert("Add your Paystack PUBLIC key in the website code first.");
+    return;
+  }
+
+  if (typeof PaystackPop === "undefined") {
+    alert("Payment service could not load. Please try again.");
+    return;
+  }
+
+  const total = cart.reduce(
+    (sum, item) => sum + item.price * item.quantity, 0
+  );
+
+  const popup = new PaystackPop();
+
+  popup.newTransaction({
+    key: PAYSTACK_PUBLIC_KEY,
+    email: customer.email,
+    amount: total * 100,
+    currency: "NGN",
+
+    onSuccess: function(transaction) {
+      const message =
+`Hello Stephenie Nova!
+
+I have made a payment through Paystack.
+
+Name: ${customer.name}
+Phone: ${customer.phone}
+Address: ${customer.address}
+Reference: ${transaction.reference}
+
+ORDER:
+${orderSummary()}
+
+TOTAL: ${naira(total)}
+
+Please verify my payment and confirm my order.`;
+
+      alert(
+        "Payment submitted. Please wait for the payment to be verified before your order is fulfilled."
+      );
+
+      window.open(
+        "https://wa.me/" + WHATSAPP_NUMBER +
+        "?text=" + encodeURIComponent(message),
+        "_blank"
+      );
+    },
+
+    onCancel: function() {
+      alert("Payment was cancelled. Your cart is still available.");
     }
-
   });
+}
 
-});
 
-/* START WEBSITE */
-
-renderProducts();
+/* INITIAL CART */
 updateCart();
-
 </script>
 
 </body>
