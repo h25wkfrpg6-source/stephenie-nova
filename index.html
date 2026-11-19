@@ -1,1231 +1,1149 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#ffb5d0">
-<title>Stephenie Nova | For the It Girls</title>
-<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&family=Nunito:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-<script src="https://js.paystack.co/v2/inline.js"></script>
+<title>Stephenie Nova | Luxury Bags</title>
 
 <style>
 :root {
- --pink:#f45b9b;
- --hot:#e93683;
- --light:#fff0f6;
- --pale:#fff8fb;
- --dark:#54243b;
+  --pink: #f7b6cb;
+  --deep-pink: #d94e83;
+  --soft-pink: #fff0f5;
+  --brown: #70472f;
+  --dark: #302027;
+  --white: #fff;
 }
 
-* {box-sizing:border-box;margin:0;padding:0}
-html {scroll-behavior:smooth}
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
 body {
- font-family:Nunito,sans-serif;
- background:var(--pale);
- color:var(--dark);
- overflow-x:hidden;
-}
-button {font:inherit;cursor:pointer}
-a {text-decoration:none;color:inherit}
-
-/* OPENING SCREEN */
-
-#intro {
- position:fixed;
- inset:0;
- z-index:1000;
- background:linear-gradient(145deg,#ffe5f0,#ffb5d0,#fff1f7);
- display:flex;
- align-items:center;
- justify-content:center;
- text-align:center;
- overflow:hidden;
- transition:opacity .9s,visibility .9s;
+  font-family: Arial, sans-serif;
+  color: var(--dark);
+  background: #fff9fb;
 }
 
-#intro.hide {
- opacity:0;
- visibility:hidden;
+button, input, select, textarea {
+  font: inherit;
 }
 
-.intro-content {
- position:relative;
- z-index:3;
- padding:25px;
- animation:introAppear 1.3s ease both;
+button {
+  cursor: pointer;
 }
-
-.intro-logo {
- font-family:"Baloo 2",cursive;
- font-size:clamp(2.8rem,10vw,6rem);
- line-height:.95;
- color:#d92d78;
- text-shadow:3px 4px 0 white;
- font-weight:800;
-}
-
-.intro-sub {
- margin-top:15px;
- letter-spacing:5px;
- color:#74354f;
- font-size:12px;
- font-weight:900;
-}
-
-.intro-kiss {
- position:absolute;
- width:clamp(75px,17vw,145px);
- height:auto;
- object-fit:contain;
- pointer-events:none;
- animation:kissFloat 4s ease-in-out infinite alternate;
-}
-
-.ik1 {top:9%;left:5%}
-.ik2 {top:13%;right:5%;animation-delay:.7s}
-.ik3 {bottom:8%;left:8%;animation-delay:1.2s}
-.ik4 {bottom:9%;right:7%;animation-delay:1.7s}
-
-.intro-bow {
- position:absolute;
- font-size:35px;
- animation:kissFloat 3.5s ease-in-out infinite alternate;
-}
-
-.ib1 {top:31%;left:25%}
-.ib2 {bottom:27%;right:25%}
-
-@keyframes kissFloat {
- from {translate:0 0}
- to {translate:0 -16px}
-}
-
-@keyframes introAppear {
- from {opacity:0;transform:translateY(28px) scale(.92)}
- to {opacity:1;transform:translateY(0) scale(1)}
-}
-
-/* HEADER */
 
 header {
- background:white;
- padding:15px 6%;
- display:flex;
- align-items:center;
- justify-content:space-between;
- gap:15px;
- border-bottom:2px solid #ffe0ed;
- position:sticky;
- top:0;
- z-index:50;
+  background: white;
+  padding: 17px 5%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  box-shadow: 0 2px 12px #0000000c;
 }
 
-.brand {
- font-family:"Baloo 2",cursive;
- font-size:27px;
- color:var(--hot);
- font-weight:800;
-}
-
-.brand small {
- display:block;
- font-family:Nunito,sans-serif;
- font-size:9px;
- letter-spacing:3px;
- text-align:center;
+.logo {
+  color: var(--deep-pink);
+  font-family: Georgia, serif;
+  font-size: 23px;
+  font-weight: bold;
+  letter-spacing: 1px;
 }
 
 nav {
- display:flex;
- gap:22px;
- align-items:center;
- font-size:13px;
- font-weight:800;
+  display: flex;
+  align-items: center;
+  gap: 18px;
 }
 
-nav a:hover {color:var(--hot)}
+nav a {
+  color: var(--dark);
+  text-decoration: none;
+  font-size: 13px;
+}
 
 .cart-button {
- border:0;
- background:var(--hot);
- color:white;
- border-radius:30px;
- padding:10px 16px;
- font-weight:900;
+  background: var(--deep-pink);
+  color: white;
+  border: none;
+  border-radius: 25px;
+  padding: 11px 16px;
+  font-weight: bold;
 }
-
-#cart-count {
- background:white;
- color:var(--hot);
- padding:2px 7px;
- border-radius:50%;
-}
-
-/* HOMEPAGE */
 
 .hero {
- min-height:580px;
- padding:55px 7%;
- display:grid;
- grid-template-columns:1.05fr .95fr;
- align-items:center;
- gap:25px;
- background:radial-gradient(circle at 80% 30%,#ffd4e5,transparent 35%),linear-gradient(130deg,#fff4f8,#ffe2ee);
+  min-height: 490px;
+  padding: 55px 7%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 25px;
+  background: linear-gradient(130deg, #fff0f5, #f9c9d9);
+  overflow: hidden;
+}
+
+.hero-copy {
+  max-width: 510px;
+  position: relative;
+  z-index: 2;
 }
 
 .eyebrow {
- color:var(--hot);
- letter-spacing:4px;
- font-size:11px;
- font-weight:900;
- margin-bottom:12px;
+  color: var(--deep-pink);
+  letter-spacing: 4px;
+  font-size: 11px;
+  font-weight: bold;
+  margin-bottom: 17px;
 }
 
 .hero h1 {
- font-family:"Baloo 2",cursive;
- font-size:clamp(3rem,7vw,5.7rem);
- color:#d92d78;
- line-height:.95;
- margin-bottom:20px;
+  font-family: Georgia, serif;
+  font-size: clamp(38px, 7vw, 65px);
+  line-height: 1.05;
+  color: #633b4c;
+  margin-bottom: 18px;
 }
-
-.hero h1 span {color:#79344f}
 
 .hero p {
- max-width:450px;
- line-height:1.9;
- font-size:15px;
+  line-height: 1.8;
+  color: #684d59;
+  margin-bottom: 25px;
 }
 
-.hero-actions {
- display:flex;
- gap:12px;
- flex-wrap:wrap;
- margin-top:28px;
+.shop-now {
+  display: inline-block;
+  background: var(--deep-pink);
+  color: white;
+  padding: 14px 25px;
+  border-radius: 30px;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: bold;
 }
 
-.primary-btn,.secondary-btn {
- padding:13px 23px;
- border-radius:30px;
- font-weight:900;
- border:2px solid var(--hot);
- display:inline-block;
+.doll {
+  width: min(43%, 390px);
+  max-height: 420px;
+  object-fit: contain;
+  animation: floatDoll 4s ease-in-out infinite;
 }
 
-.primary-btn {
- background:var(--hot);
- color:white;
+@keyframes floatDoll {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-13px); }
 }
 
-.secondary-btn {
- background:transparent;
- color:var(--hot);
+/* Opening screen */
+.intro {
+  min-height: 100vh;
+  background: linear-gradient(145deg, #fff0f5, #f7bfd2);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 30px 20px;
+  position: relative;
+  overflow: hidden;
 }
 
-/* BRATZ DOLL */
-
-.hero-image {
- min-height:440px;
- display:flex;
- align-items:center;
- justify-content:center;
- position:relative;
+.intro h1 {
+  color: #8a4561;
+  font-family: Georgia, serif;
+  font-size: clamp(37px, 8vw, 65px);
+  position: relative;
+  z-index: 2;
 }
 
-.nova-doll {
- display:block;
- width:min(100%,440px);
- max-height:540px;
- object-fit:contain;
- opacity:0;
- filter:drop-shadow(0 12px 18px #d9439140);
- animation:
- dollEntrance 1.5s ease-out .25s forwards,
- dollFloat 4s ease-in-out 1.8s infinite;
+.intro p {
+  color: #71495b;
+  margin: 15px 0 25px;
+  position: relative;
+  z-index: 2;
 }
 
-@keyframes dollEntrance {
- from {
-  opacity:0;
-  transform:translate(45px,35px) scale(.88);
- }
- to {
-  opacity:1;
-  transform:translate(0,0) scale(1);
- }
+.enter-button {
+  background: #d94e83;
+  color: white;
+  border: 0;
+  border-radius: 30px;
+  padding: 14px 30px;
+  position: relative;
+  z-index: 2;
 }
 
-@keyframes dollFloat {
- 0%,100% {transform:translateY(0)}
- 50% {transform:translateY(-11px)}
+.kiss-art {
+  position: absolute;
+  width: 175px;
+  height: auto;
+  left: 8%;
+  top: 15%;
+  opacity: .85;
+  mix-blend-mode: multiply;
+  animation: kissFloat 5s ease-in-out infinite;
 }
 
-.hero-sparkle {
- position:absolute;
- font-size:32px;
- color:var(--hot);
+@keyframes kissFloat {
+  0%, 100% { transform: translateY(0) rotate(-8deg); }
+  50% { transform: translateY(-18px) rotate(5deg); }
 }
 
-.hs1 {top:10%;right:8%}
-.hs2 {bottom:12%;left:5%}
-
-/* SECTIONS */
-
-section {padding:75px 7%}
+.intro.hidden {
+  display: none;
+}
 
 .section-heading {
- text-align:center;
- margin-bottom:35px;
+  text-align: center;
+  padding: 55px 15px 25px;
 }
 
 .section-heading h2 {
- font-family:"Baloo 2",cursive;
- font-size:clamp(2rem,5vw,3.3rem);
- color:var(--hot);
+  color: #713c53;
+  font-family: Georgia, serif;
+  font-size: 34px;
+  margin-bottom: 10px;
 }
 
-.shop-section {background:white}
+.section-heading p {
+  color: #876777;
+  font-size: 13px;
+}
+
+.shop-section {
+  padding: 0 5% 65px;
+  background-color: #fff9fb;
+  background-image:
+    radial-gradient(ellipse at 20% 20%, #b17b4a 0 2px, transparent 3px),
+    radial-gradient(ellipse at 80% 35%, #b17b4a 0 2px, transparent 3px),
+    radial-gradient(ellipse at 55% 75%, #b17b4a 0 2px, transparent 3px);
+  background-size: 75px 75px;
+  background-blend-mode: soft-light;
+}
 
 .products {
- display:grid;
- grid-template-columns:repeat(4,minmax(0,1fr));
- gap:20px;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 20px;
+  max-width: 1200px;
+  margin: auto;
 }
 
 .product-card {
- background:#fff8fb;
- border:1px solid #f8d6e5;
- border-radius:20px;
- overflow:hidden;
+  background: white;
+  border-radius: 13px;
+  overflow: hidden;
+  box-shadow: 0 4px 18px #6c3a4a12;
+  cursor: pointer;
+  transition: transform .2s;
 }
 
-.product-image {
- height:230px;
- background:#ffeaf2;
+.product-card:hover {
+  transform: translateY(-5px);
 }
 
-.product-image img {
- width:100%;
- height:100%;
- object-fit:cover;
+.product-card img {
+  width: 100%;
+  height: 230px;
+  object-fit: cover;
+  display: block;
+  background: #fff0f5;
 }
 
-.product-info {padding:17px}
+.product-info {
+  padding: 15px;
+}
 
 .product-info h3 {
- font-size:16px;
- margin-bottom:8px;
+  font-size: 14px;
+  margin-bottom: 10px;
 }
 
 .price {
- color:var(--hot);
- font-weight:900;
- font-size:19px;
+  color: var(--deep-pink);
+  font-weight: bold;
+  font-size: 16px;
 }
 
 .old-price {
- text-decoration:line-through;
- color:#a98a98;
- font-size:12px;
+  color: #999;
+  font-size: 12px;
+  margin-left: 7px;
 }
 
-.add-btn {
- width:100%;
- margin-top:13px;
- border:0;
- background:var(--hot);
- color:white;
- border-radius:25px;
- padding:11px;
- font-weight:900;
+.view-details {
+  margin-top: 13px;
+  width: 100%;
+  padding: 11px;
+  background: #fff0f5;
+  border: 1px solid #efb0c7;
+  border-radius: 25px;
+  color: #a33c66;
+  font-weight: bold;
+  font-size: 12px;
 }
 
-.about-section {
- background:#fff0f6;
- text-align:center;
+.about {
+  text-align: center;
+  padding: 55px 8%;
+  background: #fff0f5;
 }
 
-.about-content {
- max-width:720px;
- margin:auto;
- line-height:2;
+.about h2 {
+  font-family: Georgia, serif;
+  color: #8a4561;
+  font-size: 30px;
+  margin-bottom: 15px;
 }
 
-.contact-section {
- background:white;
- text-align:center;
+.about p {
+  max-width: 650px;
+  margin: auto;
+  line-height: 1.8;
+  color: #765666;
 }
 
-.contact-box {
- max-width:600px;
- margin:auto;
- background:#fff1f7;
- border-radius:25px;
- padding:35px 20px;
-}/* SHOPPING CART */
-
-.cart-overlay {
- position:fixed;
- inset:0;
- background:#28101c77;
- z-index:200;
- opacity:0;
- visibility:hidden;
- transition:.3s;
+footer {
+  padding: 30px 15px;
+  text-align: center;
+  background: #633b4c;
+  color: white;
+  font-size: 12px;
+  line-height: 2;
 }
 
-.cart-overlay.show {
- opacity:1;
- visibility:visible;
+/* Product details */
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  background: #0009;
+  overflow-y: auto;
+  padding: 20px;
 }
 
-.cart-drawer {
- position:fixed;
- z-index:201;
- right:-450px;
- top:0;
- height:100%;
- width:min(420px,100%);
- background:white;
- padding:25px;
- overflow-y:auto;
- transition:right .35s ease;
+.modal.show {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
 }
 
-.cart-drawer.show {right:0}
-
-.cart-top {
- display:flex;
- justify-content:space-between;
- align-items:center;
- margin-bottom:20px;
+.modal-content {
+  background: white;
+  width: 100%;
+  max-width: 850px;
+  border-radius: 16px;
+  margin: auto;
+  padding: 22px;
+  position: relative;
 }
 
-.close-cart {
- border:0;
- background:#ffe5ef;
- color:var(--hot);
- border-radius:50%;
- width:35px;
- height:35px;
- font-size:20px;
+.close {
+  position: absolute;
+  right: 15px;
+  top: 12px;
+  border: 0;
+  background: #fff0f5;
+  color: #833e5b;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  font-size: 22px;
+  z-index: 3;
+}
+
+.details-layout {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 25px;
+  padding-top: 25px;
+}
+
+.main-photo {
+  width: 100%;
+  height: 340px;
+  object-fit: contain;
+  background: #fff6f9;
+  border-radius: 12px;
+}
+
+.gallery {
+  display: flex;
+  gap: 9px;
+  overflow-x: auto;
+  padding: 10px 0;
+}
+
+.gallery img {
+  width: 75px;
+  height: 75px;
+  flex: 0 0 75px;
+  object-fit: cover;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.gallery img.active {
+  border-color: var(--deep-pink);
+}
+
+.details-info h2 {
+  font-family: Georgia, serif;
+  color: #713c53;
+  font-size: 27px;
+  margin: 10px 0;
+}
+
+.details-info p {
+  color: #765666;
+  line-height: 1.7;
+  font-size: 14px;
+  margin: 15px 0;
+}
+
+.details-price {
+  font-size: 21px;
+  color: var(--deep-pink);
+  font-weight: bold;
+}
+
+.field-label {
+  display: block;
+  font-weight: bold;
+  font-size: 13px;
+  margin: 18px 0 8px;
+}
+
+.details-info select,
+.checkout-form input,
+.checkout-form textarea {
+  width: 100%;
+  border: 1px solid #e8bdcc;
+  border-radius: 8px;
+  padding: 12px;
+  background: white;
+}
+
+.add-cart {
+  width: 100%;
+  margin-top: 20px;
+  border: 0;
+  border-radius: 25px;
+  padding: 14px;
+  background: var(--deep-pink);
+  color: white;
+  font-weight: bold;
+}
+
+/* Cart drawer */
+.drawer {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  background: #0008;
+}
+
+.drawer.show {
+  display: block;
+}
+
+.drawer-panel {
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 100%;
+  width: min(430px, 100%);
+  background: white;
+  padding: 22px;
+  overflow-y: auto;
+}
+
+.drawer-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.drawer-head h2 {
+  color: #713c53;
+  font-family: Georgia, serif;
 }
 
 .cart-item {
- display:grid;
- grid-template-columns:65px 1fr;
- gap:12px;
- padding:13px 0;
- border-bottom:1px solid #f4dce7;
+  display: grid;
+  grid-template-columns: 75px 1fr auto;
+  gap: 12px;
+  align-items: center;
+  border-bottom: 1px solid #f1dce4;
+  padding: 13px 0;
 }
 
 .cart-item img {
- width:65px;
- height:65px;
- border-radius:12px;
- object-fit:cover;
+  width: 75px;
+  height: 75px;
+  object-fit: cover;
+  border-radius: 8px;
 }
 
-.cart-item h4 {font-size:13px}
-.cart-item p {color:var(--hot);font-weight:900}
-
-.quantity {
- display:flex;
- align-items:center;
- gap:10px;
- margin-top:7px;
+.cart-item h4 {
+  font-size: 13px;
+  margin-bottom: 6px;
 }
 
-.quantity button {
- border:0;
- background:#ffe5ef;
- color:var(--hot);
- border-radius:50%;
- width:25px;
- height:25px;
- font-weight:900;
+.cart-item p {
+  font-size: 12px;
+  color: #a33c66;
+}
+
+.quantity-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 7px;
+}
+
+.quantity-controls button {
+  width: 25px;
+  height: 25px;
+  border: 0;
+  border-radius: 50%;
+  background: #fff0f5;
 }
 
 .remove-item {
- border:0;
- background:none;
- color:#9a7586;
- font-size:12px;
- margin-left:8px;
+  border: 0;
+  background: none;
+  color: #b33;
+  font-size: 12px;
 }
 
 .cart-total {
- display:flex;
- justify-content:space-between;
- padding:20px 0;
- font-size:19px;
- font-weight:900;
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+  padding: 20px 0;
+  font-size: 18px;
 }
 
-.checkout-btn {
- width:100%;
- border:0;
- padding:14px;
- border-radius:30px;
- background:var(--hot);
- color:white;
- font-weight:900;
- margin-top:10px;
+.checkout-button {
+  width: 100%;
+  border: 0;
+  background: var(--deep-pink);
+  color: white;
+  border-radius: 25px;
+  padding: 14px;
+  font-weight: bold;
 }
 
 .empty-cart {
- text-align:center;
- padding:45px 10px;
- color:#94677c;
+  text-align: center;
+  padding: 45px 10px;
+  color: #876777;
 }
 
-.checkout-fields {
- display:grid;
- gap:10px;
- margin-top:18px;
+/* Checkout */
+.checkout {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 70;
+  background: #0009;
+  overflow-y: auto;
+  padding: 18px;
 }
 
-.checkout-fields input {
- width:100%;
- padding:13px;
- border:1px solid #edc6d8;
- border-radius:12px;
- outline:none;
- background:#fffafd;
+.checkout.show {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.checkout-note {
- font-size:11px;
- color:#896578;
- line-height:1.6;
- margin-top:10px;
+.checkout-box {
+  background: white;
+  width: 100%;
+  max-width: 500px;
+  padding: 25px;
+  border-radius: 15px;
+  margin: auto;
 }
 
-/* FOOTER */
-
-footer {
- background:#57253e;
- color:white;
- text-align:center;
- padding:35px 15px;
+.checkout-box h2 {
+  font-family: Georgia, serif;
+  color: #713c53;
+  margin-bottom: 10px;
 }
 
-footer strong {
- font-family:"Baloo 2",cursive;
- color:#ffafd0;
- font-size:25px;
+.checkout-form label {
+  display: block;
+  font-size: 13px;
+  font-weight: bold;
+  margin: 13px 0 6px;
 }
 
-footer p {
- font-size:12px;
- margin-top:8px;
+.checkout-form textarea {
+  min-height: 85px;
+  resize: vertical;
 }
 
-/* MOBILE */
-
-@media(max-width:850px) {
- .products {grid-template-columns:repeat(2,minmax(0,1fr))}
- .hero {grid-template-columns:1fr 1fr;padding:50px 5%}
- nav {gap:12px}
+.checkout-form button {
+  width: 100%;
+  border: 0;
+  border-radius: 25px;
+  background: var(--deep-pink);
+  color: white;
+  padding: 14px;
+  font-weight: bold;
+  margin-top: 18px;
 }
 
-@media(max-width:600px) {
- header {padding:13px 4%;flex-wrap:wrap}
- .brand {font-size:23px}
-
- nav {
-  order:3;
-  width:100%;
-  justify-content:center;
-  gap:17px;
-  font-size:12px;
- }
-
- .hero {
-  grid-template-columns:1fr;
-  text-align:center;
-  padding:48px 6% 30px;
- }
-
- .hero p {margin:auto}
- .hero-actions {justify-content:center}
- .hero-image {min-height:350px}
-
- .nova-doll {
-  width:min(100%,360px);
-  max-height:430px;
- }
-
- section {padding:55px 5%}
- .product-image {height:190px}
- .intro-kiss {width:clamp(58px,18vw,100px)}
- .ib1 {left:18%}
- .ib2 {right:18%}
+.note {
+  font-size: 12px;
+  color: #876777;
+  line-height: 1.6;
+  margin-top: 12px;
 }
 
-@media(max-width:360px) {
- .products {gap:10px}
- .product-info {padding:12px}
- .product-image {height:155px}
+@media (max-width: 800px) {
+  .products {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 13px;
+  }
+
+  .product-card img {
+    height: 190px;
+  }
+
+  .hero {
+    min-height: 420px;
+    padding: 35px 5%;
+  }
+
+  .doll {
+    width: 40%;
+  }
 }
 
-@media(prefers-reduced-motion:reduce) {
- *,*::before,*::after {
-  animation-duration:.01ms!important;
-  animation-iteration-count:1!important;
-  scroll-behavior:auto!important;
- }
+@media (max-width: 520px) {
+  header {
+    padding: 14px 4%;
+  }
+
+  .logo {
+    font-size: 18px;
+  }
+
+  nav {
+    gap: 9px;
+  }
+
+  nav a {
+    font-size: 11px;
+  }
+
+  .cart-button {
+    padding: 9px 11px;
+    font-size: 11px;
+  }
+
+  .hero {
+    min-height: 390px;
+  }
+
+  .hero h1 {
+    font-size: 37px;
+  }
+
+  .hero p {
+    font-size: 12px;
+  }
+
+  .doll {
+    width: 43%;
+  }
+
+  .kiss-art {
+    width: 125px;
+    left: 2%;
+    top: 10%;
+  }
+
+  .details-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .main-photo {
+    height: 270px;
+  }
+
+  .modal-content {
+    padding: 15px;
+  }
 }
 </style>
 </head>
 
 <body>
 
-<!-- OPENING ANIMATION -->
-
-<div id="intro">
-
- <img class="intro-kiss ik1"
- src="https://i.postimg.cc/Yj321PTD/IMG-5563.png" alt="">
-
- <img class="intro-kiss ik2"
- src="https://i.postimg.cc/Yj321PTD/IMG-5563.png" alt="">
-
- <img class="intro-kiss ik3"
- src="https://i.postimg.cc/Yj321PTD/IMG-5563.png" alt="">
-
- <img class="intro-kiss ik4"
- src="https://i.postimg.cc/Yj321PTD/IMG-5563.png" alt="">
-
- <span class="intro-bow ib1">🎀</span>
- <span class="intro-bow ib2">🎀</span>
-
- <div class="intro-content">
-  <div class="intro-logo">STEPHENIE<br>NOVA</div>
-  <div class="intro-sub">FOR THE IT GIRLS</div>
-  <div class="intro-star">✧ ♡ ✧</div>
- </div>
-</div>
-
-<!-- HEADER -->
+<!-- OPENING SCREEN -->
+<section class="intro" id="intro">
+  <img
+    class="kiss-art"
+    src="https://i.postimg.cc/Yj321PTD/IMG-5563.png"
+    alt="Leopard print kisses with pink bows"
+  >
+  <p class="eyebrow">WELCOME TO</p>
+  <h1>Stephenie Nova</h1>
+  <p>A little luxury, a lot of style.</p>
+  <button class="enter-button" onclick="enterShop()">Enter Boutique</button>
+</section>
 
 <header>
-
- <a href="#home" class="brand">
-  STEPHENIE NOVA
-  <small>FOR THE IT GIRLS</small>
- </a>
-
- <nav>
-  <a href="#home">Home</a>
-  <a href="#shop">Shop</a>
-  <a href="#about">About</a>
-  <a href="#contact">Contact</a>
- </nav>
-
- <button class="cart-button" onclick="openCart()">
-  Bag <span id="cart-count">0</span>
- </button>
-
+  <div class="logo">STEPHENIE NOVA</div>
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#shop">Shop</a>
+    <button class="cart-button" onclick="openCart()">
+      Cart (<span id="cart-count">0</span>)
+    </button>
+  </nav>
 </header>
 
-<main>
-
-<!-- HOMEPAGE -->
-
+<!-- HOMEPAGE HERO -->
 <section class="hero" id="home">
-
- <div class="hero-copy">
-
-  <div class="eyebrow">✦ THE NOVA GIRL ERA ✦</div>
-
-  <h1>STEPHENIE<br><span>NOVA</span></h1>
-
-  <p>
-   A little touch of luxury, a little extra sparkle.
-   Discover beautiful bags made for the girls who love
-   standing out. Your next favourite bag is waiting.
-  </p>
-
-  <div class="hero-actions">
-   <a href="#shop" class="primary-btn">
-    SHOP THE COLLECTION ♡
-   </a>
-
-   <a href="#about" class="secondary-btn">
-    OUR STORY
-   </a>
+  <div class="hero-copy">
+    <div class="eyebrow">THE STEPHENIE NOVA COLLECTION</div>
+    <h1>Carry Your Style.</h1>
+    <p>
+      Discover beautiful bags made to complement your everyday style.
+      Find your next favourite piece at Stephenie Nova.
+    </p>
+    <a class="shop-now" href="#shop">SHOP THE COLLECTION</a>
   </div>
-
- </div>
-
- <div class="hero-image">
-
-  <span class="hero-sparkle hs1">✧</span>
-  <span class="hero-sparkle hs2">♡</span>
 
   <img
-   class="nova-doll"
-   src="https://i.postimg.cc/RqRCcY2f/IMG-5570.png"
-   alt="Stephenie Nova Bratz-style doll with shopping bags"
+    class="doll"
+    src="https://i.postimg.cc/RqRCcY2f/IMG-5570.png"
+    alt="Stephenie Nova fashion doll"
   >
-
- </div>
-
 </section>
 
-<!-- SHOP -->
-
-<section class="shop-section leopard" id="shop">
-
- <div class="section-heading">
-  <div class="eyebrow">♡ PICK YOUR FAVOURITE ♡</div>
-  <h2>The Nova Collection</h2>
-  <p>Pretty bags for the girls who know their style.</p>
- </div>
-
- <div class="products">
-
-  <article class="product-card">
-   <div class="product-image">
-    <img src="https://i.postimg.cc/dh0nMqpj/IMG-5526.jpg"
-     alt="Crossbody Chain Bag" loading="lazy">
-   </div>
-   <div class="product-info">
-    <h3>Crossbody Chain Bag</h3>
-    <span class="price">₦9,500</span>
-    <span class="old-price">₦12,500</span>
-    <button class="add-btn" onclick="addToCart(0)">
-     ADD TO BAG ♡
-    </button>
-   </div>
-  </article>
-
-  <article class="product-card">
-   <div class="product-image">
-    <img src="https://i.postimg.cc/4xtMr9JF/IMG-5556.png"
-     alt="Shoulder Bag" loading="lazy">
-   </div>
-   <div class="product-info">
-    <h3>Shoulder Bag</h3>
-    <span class="price">₦8,500</span>
-    <span class="old-price">₦11,500</span>
-    <button class="add-btn" onclick="addToCart(1)">
-     ADD TO BAG ♡
-    </button>
-   </div>
-  </article>
-
-  <article class="product-card">
-   <div class="product-image">
-    <img src="https://i.postimg.cc/grQ8HjwC/IMG-5550.jpg"
-     alt="Luxury Coach Tote Bag" loading="lazy">
-   </div>
-   <div class="product-info">
-    <h3>Luxury Coach Tote Bag</h3>
-    <span class="price">₦13,000</span>
-    <span class="old-price">₦16,000</span>
-    <button class="add-btn" onclick="addToCart(2)">
-     ADD TO BAG ♡
-    </button>
-   </div>
-  </article>
-
-  <article class="product-card">
-   <div class="product-image">
-    <img src="https://i.postimg.cc/h4kNMsnL/IMG-5555.png"
-     alt="Fur Tote Bag" loading="lazy">
-   </div>
-   <div class="product-info">
-    <h3>Fur Tote Bag</h3>
-    <span class="price">₦7,500</span>
-    <span class="old-price">₦10,500</span>
-    <button class="add-btn" onclick="addToCart(3)">
-     ADD TO BAG ♡
-    </button>
-   </div>
-  </article>
-
- </div>
-</section>
-
-<!-- ABOUT -->
-
-<section class="about-section" id="about">
-
- <div class="section-heading">
-  <div class="eyebrow">✧ A LITTLE ABOUT US ✧</div>
-  <h2>Welcome to Nova</h2>
- </div>
-
- <div class="about-content">
-  <p>
-   Stephenie Nova is for the girls who love pretty details,
-   beautiful accessories and a little luxury in their
-   everyday style. We believe the right bag can make an
-   outfit feel complete.
-  </p>
-
-  <p>
-   Based in Anambra State, Nigeria, we deliver nationwide.
-   Thank you for shopping with Stephenie Nova.
-  </p>
- </div>
-
-</section>
-
-<!-- CONTACT -->
-
-<section class="contact-section" id="contact">
-
- <div class="section-heading">
-  <div class="eyebrow">♡ WE WOULD LOVE TO HEAR FROM YOU ♡</div>
-  <h2>Let's Talk</h2>
- </div>
-
- <div class="contact-box">
-  <p>
-   Questions about a bag, delivery or an order?
-   Send us a WhatsApp message and we'll assist you.
-  </p>
-
-  <a class="primary-btn"
-   href="https://wa.me/2349151863044"
-   target="_blank" rel="noopener">
-   CHAT WITH US ON WHATSAPP
-  </a>
-
-  <p style="margin-top:20px">
-   Anambra State · Nationwide Delivery
-  </p>
- </div>
-
-</section>
-
-</main>
-
-<!-- FOOTER -->
-
-<footer>
- <strong>STEPHENIE NOVA 🎀</strong>
- <p>For the It Girls · Anambra State, Nigeria</p>
- <p>© <span id="year"></span> Stephenie Nova. All rights reserved.</p>
-</footer>
-
-<!-- CART DRAWER -->
-
-<div class="cart-overlay" id="cart-overlay"
- onclick="closeCart()"></div>
-
-<aside class="cart-drawer" id="cart-drawer">
-
- <div class="cart-top">
-  <h2>Your Shopping Bag ♡</h2>
-  <button class="close-cart" onclick="closeCart()">×</button>
- </div>
-
- <div id="cart-items"></div>
-
- <div class="cart-total">
-  <span>Total</span>
-  <span id="cart-total">₦0</span>
- </div>
-
- <div class="checkout-fields">
-  <input id="customer-name" type="text"
-   placeholder="Your full name">
-
-  <input id="customer-phone" type="tel"
-   placeholder="Phone number">
-
-  <input id="customer-email" type="email"
-   placeholder="Email address (for Paystack)">
-
-  <input id="customer-address" type="text"
-   placeholder="Delivery address">
- </div>
-
- <button class="checkout-btn" onclick="whatsappCheckout()">
-  ORDER THROUGH WHATSAPP
- </button>
-
- <button class="checkout-btn" onclick="payWithPaystack()"
- style="background:#6e3151">
-  PAY WITH PAYSTACK
- </button>
-
- <p class="checkout-note">
-  Confirm each payment in your Paystack dashboard
-  before fulfilling an order.
- </p>
-
-</aside>
-
-<script>/* STORE SETTINGS */
-
-const WHATSAPP_NUMBER = "2349151863044";
-
-/* Replace this with your Paystack PUBLIC key.
-   Never put your secret key here. */
-
-const PAYSTACK_PUBLIC_KEY = "YOUR_PAYSTACK_PUBLIC_KEY";
-
-
-/* PRODUCTS */
-
-const products = [
- {
-  name:"Crossbody Chain Bag",
-  price:9500,
-  image:"https://i.postimg.cc/dh0nMqpj/IMG-5526.jpg"
- },
- {
-  name:"Shoulder Bag",
-  price:8500,
-  image:"https://i.postimg.cc/4xtMr9JF/IMG-5556.png"
- },
- {
-  name:"Luxury Coach Tote Bag",
-  price:13000,
-  image:"https://i.postimg.cc/grQ8HjwC/IMG-5550.jpg"
- },
- {
-  name:"Fur Tote Bag",
-  price:7500,
-  image:"https://i.postimg.cc/h4kNMsnL/IMG-5555.png"
- }
-];
-
-let cart = [];
-
-
-/* PAGE SETUP */
-
-window.addEventListener("load",()=>{
- setTimeout(()=>{
-  document.getElementById("intro").classList.add("hide");
- },3200);
-});
-
-document.getElementById("year").textContent =
- new Date().getFullYear();
-
-
-/* PRICE FORMAT */
-
-function naira(amount) {
- return "₦" + amount.toLocaleString("en-NG");
-}
-
-
-/* ADD TO CART */
-
-function addToCart(index) {
-
- const product = products[index];
-
- const existing = cart.find(
-  item => item.name === product.name
- );
-
- if(existing) {
-  existing.quantity++;
- } else {
-  cart.push({...product,quantity:1});
- }
-
- updateCart();
- openCart();
-}
-
-
-/* UPDATE CART */
-
-function updateCart() {
-
- const items = document.getElementById("cart-items");
-
- const count = cart.reduce(
-  (sum,item)=>sum+item.quantity,0
- );
-
- const total = cart.reduce(
-  (sum,item)=>sum+item.price*item.quantity,0
- );
-
- document.getElementById("cart-count").textContent = count;
-
- document.getElementById("cart-total").textContent =
-  naira(total);
-
- if(!cart.length) {
-
-  items.innerHTML =
-   '<div class="empty-cart">Your shopping bag is empty 🎀<br><br>Find something pretty in our collection.</div>';
-
-  return;
- }
-
- items.innerHTML = cart.map((item,index)=>`
-
-  <div class="cart-item">
-
-   <img src="${item.image}" alt="">
-
-   <div>
-
-    <h4>${item.name}</h4>
-
-    <p>${naira(item.price)}</p>
-
-    <div class="quantity">
-
-     <button onclick="changeQuantity(${index},-1)">−</button>
-
-     <span>${item.quantity}</span>
-
-     <button onclick="changeQuantity(${index},1)">+</button>
-
-     <button class="remove-item"
-      onclick="removeItem(${index})">
-      Remove
-     </button>
-
-    </div>
-
-   </div>
-
+<!-- PRODUCT CATALOGUE -->
+<section id="shop">
+  <div class="section-heading">
+    <div class="eyebrow">SHOP THE COLLECTION</div>
+    <h2>Our Beautiful Bags</h2>
+    <p>Tap a product to view its photos and details.</p>
   </div>
 
- `).join("");
+  <div class="shop-section">
+    <div class="products" id="products"></div>
+  </div>
+</section>
 
+<section class="about">
+  <h2>Welcome to Stephenie Nova</h2>
+  <p>
+    Stephenie Nova is all about beautiful bags, feminine details
+    and everyday style. Find a piece you love and make it yours.
+  </p>
+</section>
+
+<footer>
+  <strong>STEPHENIE NOVA</strong><br>
+  Luxury bags. Beautiful details.<br>
+  © <span id="year"></span> Stephenie Nova. All rights reserved.
+</footer>
+
+<!-- PRODUCT DETAILS MODAL -->
+<div class="modal" id="product-modal" onclick="closeModalOutside(event)">
+  <div class="modal-content">
+    <button class="close" onclick="closeProduct()">×</button>
+
+    <div class="details-layout">
+      <div>
+        <img class="main-photo" id="main-photo" src="" alt="Product photo">
+        <div class="gallery" id="gallery"></div>
+      </div>
+
+      <div class="details-info">
+        <div class="eyebrow">STEPHENIE NOVA</div>
+        <h2 id="detail-name"></h2>
+        <div>
+          <span class="details-price" id="detail-price"></span>
+          <span class="old-price" id="detail-old-price"></span>
+        </div>
+
+        <p id="detail-description"></p>
+
+        <label class="field-label" for="colour-select">Choose colour</label>
+        <select id="colour-select">
+          <option value="">Confirm available colours with us</option>
+        </select>
+
+        <button class="add-cart" onclick="addToCart()">
+          Add to Cart
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CART DRAWER -->
+<div class="drawer" id="cart-drawer" onclick="closeCartOutside(event)">
+  <div class="drawer-panel">
+    <div class="drawer-head">
+      <h2>Your Cart</h2>
+      <button class="close" onclick="closeCart()">×</button>
+    </div>
+
+    <div id="cart-items"></div>
+
+    <div class="cart-total">
+      <span>Total</span>
+      <span id="cart-total">₦0</span>
+    </div>
+
+    <button class="checkout-button" onclick="startCheckout()">
+      Proceed to Checkout
+    </button>
+  </div>
+</div>
+
+<!-- CHECKOUT FORM -->
+<div class="checkout" id="checkout">
+  <div class="checkout-box">
+    <button class="close" onclick="closeCheckout()">×</button>
+    <h2>Delivery Details</h2>
+    <p class="note">Please enter the details for your order.</p>
+
+    <form class="checkout-form" onsubmit="submitOrder(event)">
+      <label for="customer-name">Full name</label>
+      <input id="customer-name" required placeholder="Your full name">
+
+      <label for="customer-phone">Phone number</label>
+      <input id="customer-phone" type="tel" required placeholder="Your phone number">
+
+      <label for="customer-email">Email address</label>
+      <input id="customer-email" type="email" required placeholder="Your email address">
+
+      <label for="customer-address">Delivery address</label>
+      <textarea id="customer-address" required placeholder="House number, street, area and state"></textarea>
+
+      <label for="customer-note">Additional delivery information (optional)</label>
+      <textarea id="customer-note" placeholder="Any extra information"></textarea>
+
+      <button type="submit">Continue with Order</button>
+    </form>
+
+    <p class="note">
+      This version sends the order details to WhatsApp for confirmation.
+      Online card payment has not been activated in this code.
+    </p>
+  </div>
+</div>
+
+<script>
+const products = [
+  {
+    id: 1,
+    name: "Crossbody Chain Bag",
+    price: 9500,
+    oldPrice: 12500,
+    description: "A stylish crossbody chain bag. Browse all four supplied product photos in the gallery.",
+    images: [
+      "https://i.postimg.cc/dh0nMqpj/IMG-5526.jpg",
+      "https://i.postimg.cc/MnGtkWNb/IMG-5527.jpg",
+      "https://i.postimg.cc/4Y3wCJqp/IMG-5528.jpg",
+      "https://i.postimg.cc/bsgLFGC9/IMG-5529.jpg"
+    ]
+  },
+  {
+    id: 2,
+    name: "Shoulder Bag",
+    price: 8500,
+    oldPrice: 11500,
+    description: "A beautiful shoulder bag for everyday styling.",
+    images: [
+      "https://i.postimg.cc/4xtMr9JF/IMG-5556.png"
+    ]
+  },
+  {
+    id: 3,
+    name: "Luxury Coach Tote Bag",
+    price: 13000,
+    oldPrice: 16000,
+    description: "A luxury tote bag with a classic everyday look.",
+    images: [
+      "https://i.postimg.cc/grQ8HjwC/IMG-5550.jpg"
+    ]
+  },
+  {
+    id: 4,
+    name: "Fur Tote Bag",
+    price: 7500,
+    oldPrice: 10500,
+    description: "A soft, stylish fur tote bag.",
+    images: [
+      "https://i.postimg.cc/h4kNMsnL/IMG-5555.png"
+    ]
+  }
+];
+
+let selectedProduct = null;
+let selectedImage = 0;
+let cart = [];
+
+const money = amount =>
+  "₦" + amount.toLocaleString("en-NG");
+
+function renderProducts() {
+  const container = document.getElementById("products");
+
+  container.innerHTML = products.map(product => `
+    <article class="product-card" onclick="openProduct(${product.id})">
+      <img
+        src="${product.images[0]}"
+        alt="${product.name}"
+        loading="lazy"
+      >
+      <div class="product-info">
+        <h3>${product.name}</h3>
+        <span class="price">${money(product.price)}</span>
+        <span class="old-price">${money(product.oldPrice)}</span>
+        <button class="view-details" type="button">
+          View Product Details
+        </button>
+      </div>
+    </article>
+  `).join("");
 }
 
-
-/* CHANGE QUANTITY */
-
-function changeQuantity(index,change) {
-
- cart[index].quantity += change;
-
- if(cart[index].quantity <= 0) {
-  cart.splice(index,1);
- }
-
- updateCart();
+function enterShop() {
+  document.getElementById("intro").classList.add("hidden");
+  window.scrollTo(0, 0);
 }
 
+function openProduct(id) {
+  selectedProduct = products.find(product => product.id === id);
+  selectedImage = 0;
 
-/* REMOVE ITEM */
+  document.getElementById("detail-name").textContent =
+    selectedProduct.name;
 
-function removeItem(index) {
+  document.getElementById("detail-price").textContent =
+    money(selectedProduct.price);
 
- cart.splice(index,1);
+  document.getElementById("detail-old-price").textContent =
+    money(selectedProduct.oldPrice);
 
- updateCart();
+  document.getElementById("detail-description").textContent =
+    selectedProduct.description;
+
+  document.getElementById("main-photo").src =
+    selectedProduct.images[0];
+
+  document.getElementById("main-photo").alt =
+    selectedProduct.name;
+
+  document.getElementById("gallery").innerHTML =
+    selectedProduct.images.map((image, index) => `
+      <img
+        src="${image}"
+        alt="${selectedProduct.name} photo ${index + 1}"
+        class="${index === 0 ? "active" : ""}"
+        onclick="changePhoto(${index})"
+      >
+    `).join("");
+
+  document.getElementById("colour-select").value = "";
+
+  document.getElementById("product-modal").classList.add("show");
+  document.body.style.overflow = "hidden";
 }
 
+function changePhoto(index) {
+  selectedImage = index;
+  document.getElementById("main-photo").src =
+    selectedProduct.images[index];
 
-/* OPEN AND CLOSE CART */
+  document.querySelectorAll("#gallery img").forEach((image, i) => {
+    image.classList.toggle("active", i === index);
+  });
+}
+
+function closeProduct() {
+  document.getElementById("product-modal").classList.remove("show");
+  document.body.style.overflow = "";
+}
+
+function closeModalOutside(event) {
+  if (event.target.id === "product-modal") {
+    closeProduct();
+  }
+}
+
+function addToCart() {
+  if (!selectedProduct) return;
+
+  const existing = cart.find(item => item.id === selectedProduct.id);
+
+  if (existing) {
+    existing.quantity += 1;
+  } else {
+    cart.push({
+      ...selectedProduct,
+      quantity: 1,
+      chosenImage: selectedProduct.images[0],
+      colour: "Colour to be confirmed"
+    });
+  }
+
+  updateCart();
+  closeProduct();
+  openCart();
+}
+
+function updateCart() {
+  const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+  const total = cart.reduce(
+    (sum, item) => sum + item.price * item.quantity, 0
+  );
+
+  document.getElementById("cart-count").textContent = count;
+  document.getElementById("cart-total").textContent = money(total);
+
+  const container = document.getElementById("cart-items");
+
+  if (cart.length === 0) {
+    container.innerHTML =
+      '<div class="empty-cart">Your cart is empty.</div>';
+    return;
+  }
+
+  container.innerHTML = cart.map(item => `
+    <div class="cart-item">
+      <img src="${item.chosenImage}" alt="${item.name}">
+      <div>
+        <h4>${item.name}</h4>
+        <p>${money(item.price)} each</p>
+        <div class="quantity-controls">
+          <button onclick="changeQuantity(${item.id}, -1)">−</button>
+          <span>${item.quantity}</span>
+          <button onclick="changeQuantity(${item.id}, 1)">+</button>
+        </div>
+      </div>
+      <button class="remove-item" onclick="removeItem(${item.id})">
+        Remove
+      </button>
+    </div>
+  `).join("");
+}
+
+function changeQuantity(id, change) {
+  const item = cart.find(product => product.id === id);
+  if (!item) return;
+
+  item.quantity += change;
+
+  if (item.quantity <= 0) {
+    cart = cart.filter(product => product.id !== id);
+  }
+
+  updateCart();
+}
+
+function removeItem(id) {
+  cart = cart.filter(product => product.id !== id);
+  updateCart();
+}
 
 function openCart() {
-
- document.getElementById("cart-overlay")
-  .classList.add("show");
-
- document.getElementById("cart-drawer")
-  .classList.add("show");
-
+  document.getElementById("cart-drawer").classList.add("show");
+  updateCart();
 }
 
 function closeCart() {
-
- document.getElementById("cart-overlay")
-  .classList.remove("show");
-
- document.getElementById("cart-drawer")
-  .classList.remove("show");
-
+  document.getElementById("cart-drawer").classList.remove("show");
 }
 
-
-/* CUSTOMER DETAILS */
-
-function getCustomerDetails() {
-
- return {
-
-  name:document.getElementById("customer-name").value.trim(),
-
-  phone:document.getElementById("customer-phone").value.trim(),
-
-  email:document.getElementById("customer-email").value.trim(),
-
-  address:document.getElementById("customer-address").value.trim()
-
- };
-
+function closeCartOutside(event) {
+  if (event.target.id === "cart-drawer") {
+    closeCart();
+  }
 }
 
-
-/* ORDER SUMMARY */
-
-function orderSummary() {
-
- return cart.map(item=>
-  `${item.name} x ${item.quantity} = ${naira(item.price*item.quantity)}`
- ).join("\n");
-
-}
-
-
-/* WHATSAPP CHECKOUT */
-
-function whatsappCheckout() {
-
- if(!cart.length) {
-  alert("Your shopping bag is empty.");
-  return;
- }
-
- const customer = getCustomerDetails();
-
- if(!customer.name || !customer.phone || !customer.address) {
-
-  alert("Please enter your name, phone number and delivery address.");
-
-  return;
- }
-
- const total = cart.reduce(
-  (sum,item)=>sum+item.price*item.quantity,0
- );
-
- const message = `Hello Stephenie Nova! 🎀
-
-I would like to place an order.
-
-Name: ${customer.name}
-Phone: ${customer.phone}
-Delivery address: ${customer.address}
-
-ORDER:
-${orderSummary()}
-
-TOTAL: ${naira(total)}
-
-Please confirm my order and delivery details. Thank you!`;
-
- window.open(
-  "https://wa.me/"+WHATSAPP_NUMBER+
-  "?text="+encodeURIComponent(message),
-  "_blank"
- );
-
-}
-
-
-/* PAYSTACK CHECKOUT */
-
-function payWithPaystack() {
-
- if(!cart.length) {
-  alert("Your shopping bag is empty.");
-  return;
- }
-
- const customer = getCustomerDetails();
-
- if(
-  !customer.name ||
-  !customer.phone ||
-  !customer.email ||
-  !customer.address
- ) {
-
-  alert("Please fill in all your details, including your email.");
-
-  return;
- }
-
- if(
-  PAYSTACK_PUBLIC_KEY === "YOUR_PAYSTACK_PUBLIC_KEY" ||
-  !PAYSTACK_PUBLIC_KEY
- ) {
-
-  alert("Add your Paystack PUBLIC key in the website code first.");
-
-  return;
- }
-
- if(typeof PaystackPop === "undefined") {
-
-  alert("Paystack could not load. Please try again.");
-
-  return;
- }
-
- const total = cart.reduce(
-  (sum,item)=>sum+item.price*item.quantity,0
- );
-
- const popup = new PaystackPop();
-
- popup.newTransaction({
-
-  key:PAYSTACK_PUBLIC_KEY,
-
-  email:customer.email,
-
-  amount:total*100,
-
-  currency:"NGN",
-
-  onSuccess:function(transaction) {
-
-   const message = `Hello Stephenie Nova!
-
-I have made a payment through Paystack.
-
-Name: ${customer.name}
-Phone: ${customer.phone}
-Address: ${customer.address}
-Reference: ${transaction.reference}
-
-ORDER:
-${orderSummary()}
-
-TOTAL: ${naira(total)}
-
-Please verify my payment and confirm my order.`;
-
-   alert(
-    "Payment submitted. Please verify the transaction in your Paystack dashboard before fulfilling the order."
-   );
-
-   window.open(
-    "https://wa.me/"+WHATSAPP_NUMBER+
-    "?text="+encodeURIComponent(message),
-    "_blank"
-   );
-
-  },
-
-  onCancel:function() {
-
-   alert("Payment was cancelled. Your cart is still available.");
-
+function startCheckout() {
+  if (cart.length === 0) {
+    alert("Your cart is empty. Please add a product first.");
+    return;
   }
 
- });
-
+  closeCart();
+  document.getElementById("checkout").classList.add("show");
 }
 
+function closeCheckout() {
+  document.getElementById("checkout").classList.remove("show");
+}
 
-/* INITIAL CART */
+function submitOrder(event) {
+  event.preventDefault();
 
+  const name = document.getElementById("customer-name").value.trim();
+  const phone = document.getElementById("customer-phone").value.trim();
+  const email = document.getElementById("customer-email").value.trim();
+  const address = document.getElementById("customer-address").value.trim();
+  const note = document.getElementById("customer-note").value.trim();
+
+  const total = cart.reduce(
+    (sum, item) => sum + item.price * item.quantity, 0
+  );
+
+  let message = "Hello Stephenie Nova! I would like to place an order.%0A%0A";
+  message += "CUSTOMER DETAILS%0A";
+  message += "Name: " + encodeURIComponent(name) + "%0A";
+  message += "Phone: " + encodeURIComponent(phone) + "%0A";
+  message += "Email: " + encodeURIComponent(email) + "%0A";
+  message += "Address: " + encodeURIComponent(address) + "%0A";
+  message += "Additional information: " + encodeURIComponent(note) + "%0A%0A";
+  message += "ORDER DETAILS%0A";
+
+  cart.forEach(item => {
+    message += encodeURIComponent(item.name) +
+      " x " + item.quantity +
+      " - " + encodeURIComponent(money(item.price * item.quantity)) +
+      "%0A";
+  });
+
+  message += "%0ATotal: " + encodeURIComponent(money(total));
+
+  /*
+    Replace this number with your confirmed WhatsApp business number.
+    Use country code and number only, without + or spaces.
+  */
+  const whatsappNumber = "2349151863044";
+
+  window.open(
+    "https://wa.me/" + whatsappNumber + "?text=" + message,
+    "_blank"
+  );
+}
+
+document.getElementById("year").textContent =
+  new Date().getFullYear();
+
+renderProducts();
 updateCart();
-
 </script>
+
 </body>
 </html>
