@@ -1,393 +1,151 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#f8c3dc">
 <title>Stephenie Nova Fashion Game</title>
-
 <style>
-*{box-sizing:border-box}
-body{margin:0;font-family:Georgia,serif;background:#ffe5f0;color:#54243d}
-button{font-family:inherit;cursor:pointer}
-#intro{
- min-height:100vh;display:flex;flex-direction:column;align-items:center;
- justify-content:center;text-align:center;padding:25px;
- background:radial-gradient(circle,#fff7fb,#f5a9ce,#d95b9b);
-}
-#intro h1{font-size:clamp(38px,9vw,76px);line-height:1.05;color:#fff;
- text-shadow:2px 4px 0 #bd4d83,0 0 22px #fff;margin:0 0 15px}
-#intro p{color:#fff;font-size:18px;letter-spacing:3px}
-.main-btn{border:0;border-radius:30px;background:#fff;color:#b63878;
- padding:15px 35px;font-size:18px;font-weight:bold;box-shadow:0 5px 0 #bd6590}
-.main-btn:active{transform:translateY(3px);box-shadow:0 2px 0 #bd6590}
-#game{display:none;min-height:100vh;padding:12px;
- background:linear-gradient(135deg,#ffe6f1,#f5bad6)}
-header{text-align:center;padding:8px}
-header h1{font-size:27px;margin:5px;color:#a52f6c}
-header p{margin:5px;font-size:13px;letter-spacing:2px}
-.game-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(125px, .75fr);
- gap:12px;max-width:1000px;margin:auto}
-.stage{
- position:relative;width:100%;aspect-ratio:3/4;overflow:hidden;
- border:5px solid white;border-radius:18px;
- background:#f7d5e5 url('https://i.postimg.cc/Z9yFFcCJ/IMG-5583.png') center/cover;
- box-shadow:0 5px 18px #9c527455;
-}
-#model{position:absolute;width:100%;height:100%;object-fit:contain;inset:0}
-.overlay{position:absolute;object-fit:contain;pointer-events:none}
-#runway{
- display:none;position:absolute;inset:0;z-index:10;
- background:linear-gradient(90deg,#3c1737,#9c3976,#3c1737);
- overflow:hidden;text-align:center;color:white;
-}
-#runway:before,#runway:after{
- content:"";position:absolute;top:0;width:23%;height:100%;
- background:repeating-linear-gradient(90deg,#8c174e,#d94d91 12px,#74103d 24px);
- box-shadow:0 0 25px #ffb5df;
-}
-#runway:before{left:0}#runway:after{right:0}
-#runway .runway-title{position:absolute;z-index:2;top:12%;left:5%;right:5%;
- font-size:clamp(25px,6vw,48px);text-shadow:0 0 15px white}
-#runway .runway-sub{position:absolute;z-index:2;bottom:14%;left:5%;right:5%;
- font-size:18px;letter-spacing:2px}
-#runway .sparkle{position:absolute;z-index:2;font-size:24px;animation:twinkle .8s infinite alternate}
-@keyframes twinkle{to{opacity:.2;transform:scale(1.5)}}
-.flash{position:absolute;inset:0;z-index:3;background:white;opacity:0;pointer-events:none}
-.flash.active{animation:flash .35s}
-@keyframes flash{0%{opacity:.9}100%{opacity:0}}
-.panel{background:#fff8fc;border:2px solid white;border-radius:16px;
- padding:10px;box-shadow:0 4px 12px #9c527422;min-width:0}
-.panel h2{font-size:18px;text-align:center;margin:5px 0 10px;color:#a52f6c}
-.tabs{display:grid;grid-template-columns:repeat(2,1fr);gap:6px}
-.tab{border:1px solid #e6a3c4;background:#fff;border-radius:20px;
- padding:9px 3px;color:#9b3268;font-size:13px}
-.tab.active{background:#b83d7b;color:white}
-.items{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
- gap:7px;margin-top:10px;max-height:48vh;overflow-y:auto}
-.item{background:#fff;border:1px solid #efbfd5;border-radius:10px;
- padding:5px;min-width:0}
-.item img{width:100%;height:83px;object-fit:contain}
-.item span{display:block;font-size:11px;text-align:center;margin-top:3px}
-.item.selected{border:2px solid #bc347a;background:#ffe4f1}
-.actions{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;
- max-width:1000px;margin:12px auto}
-.actions button{border:0;border-radius:22px;padding:11px 15px;
- background:#a93470;color:white;font-size:13px}
-.actions button.light{background:white;color:#a93470;border:1px solid #d98bb2}
-#challenge{max-width:1000px;margin:10px auto;text-align:center;
- background:#fff8fc;padding:10px;border-radius:12px}
-#challenge select{border:1px solid #d98bb2;border-radius:20px;padding:8px;color:#8d2b60}
-#result{display:none;max-width:600px;margin:15px auto;padding:18px;
- background:#fff8fc;border:3px solid white;border-radius:18px;text-align:center}
-#result h2{color:#ad3471;font-size:27px}
-#magazine{display:none;max-width:380px;margin:15px auto;
- padding:15px;background:#f6c2dc;border:6px solid white;text-align:center}
-#magazine h2{font-size:35px;margin:5px;color:#a12e67}
-#magazine p{letter-spacing:3px}
-@media(max-width:520px){
- .game-layout{grid-template-columns:minmax(0,1fr) minmax(116px,.78fr);gap:7px}
- .panel{padding:7px}
- .item img{height:68px}
- .tab{font-size:11px}
- header h1{font-size:22px}
-}
+*{box-sizing:border-box}body{margin:0;font-family:Georgia,serif;background:#ffe5f0;color:#54243d}button{font:inherit;cursor:pointer}
+#intro{min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:25px;background:radial-gradient(circle,#fff7fb,#f5a9ce,#d95b9b);overflow:hidden}
+#intro h1{font-size:clamp(40px,10vw,76px);line-height:1.02;color:#fff;text-shadow:3px 5px 0 #bd4d83,0 0 24px white;margin:0 0 18px;animation:pop 1.1s cubic-bezier(.2,1.5,.5,1) both}
+#intro p{color:white;font-size:13px;letter-spacing:3px}.main-btn{border:0;border-radius:30px;background:white;color:#b63878;padding:15px 35px;font-size:18px;font-weight:bold;box-shadow:0 5px 0 #bd6590}
+@keyframes pop{0%{opacity:0;transform:scale(.25) translateY(40px)}75%{transform:scale(1.08)}100%{opacity:1;transform:scale(1)}}
+#game{display:none;min-height:100svh;padding:10px;background:linear-gradient(135deg,#ffe6f1,#f5bad6)}header{text-align:center;padding:5px}header h1{font-size:24px;margin:5px;color:#a52f6c}header p{margin:5px;font-size:11px;letter-spacing:2px}
+#challenge{text-align:center;background:#fff8fc;padding:9px;border-radius:12px;margin:8px auto;max-width:1000px;font-size:13px}#challenge select{border:1px solid #d98bb2;border-radius:20px;padding:7px;color:#8d2b60}
+.layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(125px,.78fr);gap:8px;max-width:1000px;margin:auto}
+.stage{position:relative;width:100%;aspect-ratio:2/3;overflow:hidden;border:4px solid white;border-radius:16px;background:#f7d5e5 url('https://i.postimg.cc/Z9yFFcCJ/IMG-5583.png') center/cover;box-shadow:0 5px 18px #9c527455}
+#model{position:absolute;width:100%;height:100%;object-fit:contain;inset:0}.overlay{position:absolute;object-fit:contain;pointer-events:none}
+.panel{background:#fff8fc;border:2px solid white;border-radius:14px;padding:7px;min-width:0;box-shadow:0 4px 12px #9c527422}.panel h2{text-align:center;font-size:16px;margin:4px 0 8px;color:#a52f6c}
+.tabs{display:grid;grid-template-columns:repeat(2,1fr);gap:5px}.tab{border:1px solid #e6a3c4;background:white;border-radius:20px;padding:8px 2px;color:#9b3268;font-size:11px}.tab.active{background:#b83d7b;color:white}
+.items{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;margin-top:8px;max-height:52vh;overflow-y:auto}.item{background:white;border:1px solid #efbfd5;border-radius:9px;padding:4px;min-width:0}.item img{width:100%;height:70px;object-fit:contain}.item span{display:block;font-size:10px;text-align:center;margin-top:2px}.item.selected{border:2px solid #bc347a;background:#ffe4f1}
+.actions{display:flex;flex-wrap:wrap;justify-content:center;gap:7px;max-width:1000px;margin:10px auto}.actions button{border:0;border-radius:22px;padding:10px 13px;background:#a93470;color:white;font-size:12px}.actions button.light{background:white;color:#a93470;border:1px solid #d98bb2}
+#runway{display:none;position:absolute;inset:0;z-index:5;background:linear-gradient(90deg,#3c1737,#9c3976,#3c1737);overflow:hidden;text-align:center;color:white}
+#runway:before,#runway:after{content:"";position:absolute;top:0;width:23%;height:100%;background:repeating-linear-gradient(90deg,#8c174e,#d94d91 12px,#74103d 24px);box-shadow:0 0 25px #ffb5df;animation:curtain 1.5s forwards}
+#runway:before{left:0}#runway:after{right:0}@keyframes curtain{to{width:8%}}
+.runway-title{position:absolute;z-index:2;top:15%;left:5%;right:5%;font-size:clamp(25px,6vw,44px);text-shadow:0 0 15px white}.runway-sub{position:absolute;z-index:2;bottom:15%;left:5%;right:5%;font-size:15px;letter-spacing:2px}
+.sparkle{position:absolute;z-index:2;font-size:25px;animation:twinkle .8s infinite alternate}@keyframes twinkle{to{opacity:.2;transform:scale(1.5)}}
+#result,#magazine{display:none;max-width:600px;margin:12px auto;padding:16px;background:#fff8fc;border:3px solid white;border-radius:16px;text-align:center}#result h2{color:#ad3471;font-size:26px}
+#magazine{max-width:380px;background:#f6c2dc}#magazine h2{font-size:35px;margin:5px;color:#a12e67}#magazine p{letter-spacing:3px}
+@media(max-width:380px){.layout{grid-template-columns:minmax(0,1fr) minmax(112px,.8fr)}.tab{font-size:10px}.item img{height:60px}}
 </style>
 </head>
-
 <body>
-
 <section id="intro">
  <h1>STEPHENIE NOVA<br>FASHION GAME</h1>
  <p>YOUR STYLE. YOUR RUNWAY. YOUR MOMENT.</p>
  <button class="main-btn" onclick="startGame()">PLAY GAME ✨</button>
- <p style="font-size:12px;margin-top:25px">A NOVA FASHION EXPERIENCE</p>
+ <p style="margin-top:25px">A NOVA FASHION EXPERIENCE</p>
 </section>
-
 <main id="game">
- <header>
-  <h1>STEPHENIE NOVA ✨</h1>
-  <p>THE FASHION DRESS-UP STUDIO</p>
- </header>
-
- <div id="challenge">
-  <strong>YOUR FASHION CHALLENGE:</strong><br>
-  <select id="theme">
-   <option>Choose a challenge</option>
-   <option>Pink Princess</option>
-   <option>Airport Fashion</option>
-   <option>Birthday Girl</option>
-   <option>Brunch Date</option>
-   <option>Rich Auntie</option>
-   <option>Runway Ready</option>
-   <option>Girls' Night</option>
-  </select>
-  <button class="light" onclick="surpriseChallenge()">Surprise me 🎀</button>
+<header><h1>STEPHENIE NOVA ✨</h1><p>THE FASHION DRESS-UP STUDIO</p></header>
+<div id="challenge"><strong>YOUR FASHION CHALLENGE:</strong><br>
+<select id="theme"><option>Choose a challenge</option><option>Pink Princess</option><option>Airport Fashion</option><option>Birthday Girl</option><option>Brunch Date</option><option>Rich Auntie</option><option>Runway Ready</option><option>Girls' Night</option></select>
+<button class="light" onclick="surpriseChallenge()">Surprise me 🎀</button></div>
+<div class="layout">
+ <div class="stage" id="stage">
+  <img id="model" src="https://i.postimg.cc/d3hBcsHK/IMG-5657.png" alt="Stephenie Nova fashion model">
+  <div id="overlays"></div>
+  <div id="runway"><div class="runway-title">YOU ATE THAT LOOK! ✨</div><div class="runway-sub">WELCOME TO THE NOVA FASHION HALL OF FAME</div><div class="sparkle" style="top:25%;left:30%">✦</div><div class="sparkle" style="top:45%;right:28%">✧</div><div class="sparkle" style="top:65%;left:45%">✧</div></div>
  </div>
-
- <div class="game-layout">
-  <div class="stage" id="stage">
-   <img id="model" src="https://i.postimg.cc/FHv1XNhv/IMG-5621.png" alt="Fashion model">
-   <div id="overlays"></div>
-   <div id="runway">
-    <div class="runway-title">YOU ATE THAT LOOK! ✨</div>
-    <div class="runway-sub">WELCOME TO THE NOVA FASHION HALL OF FAME</div>
-    <div class="sparkle" style="top:25%;left:30%">✦</div>
-    <div class="sparkle" style="top:45%;right:28%">✧</div>
-    <div class="sparkle" style="top:65%;left:35%">✨</div>
-    <div class="flash" id="flash"></div>
-   </div>
-  </div>
-
-  <section class="panel">
-   <h2>STYLE HER 🎀</h2>
-   <div class="tabs">
-    <button class="tab active" onclick="showCategory('clothes',this)">Clothes</button>
-    <button class="tab" onclick="showCategory('shoes',this)">Shoes</button>
-    <button class="tab" onclick="showCategory('hair',this)">Hair</button>
-    <button class="tab" onclick="showCategory('bags',this)">Bags</button>
-   </div>
-   <div class="items" id="items"></div>
-  </section>
- </div>
-
- <div class="actions">
-  <button onclick="showRunway()">DONE — HIT THE RUNWAY ✨</button>
-  <button class="light" onclick="resetLook()">Reset Look</button>
-  <button class="light" onclick="toggleMusic()" id="musicBtn">Music: OFF ♪</button>
-  <button class="light" onclick="showMagazine()">NOVA MAGAZINE</button>
-  <button class="light" onclick="shareLook()">Share Look</button>
- </div>
-
- <section id="result">
-  <h2>🏆 NOVA FASHION AWARDS 🏆</h2>
-  <p id="award"></p>
-  <p id="score"></p>
-  <button class="main-btn" onclick="closeRunway()">BACK TO STYLING</button>
- </section>
-
- <section id="magazine">
-  <p>STEPHENIE NOVA EXCLUSIVE</p>
-  <h2>NOVA STYLE</h2>
-  <p>LOOK OF THE DAY ✨</p>
-  <div id="magazineLook"></div>
-  <p>THE NEXT GENERATION OF STYLE</p>
-  <button class="light" onclick="document.getElementById('magazine').style.display='none'">Close</button>
- </section>
+ <section class="panel"><h2>STYLE YOUR LOOK</h2><div class="tabs">
+ <button class="tab active" onclick="showCategory('clothes',this)">Clothes</button>
+ <button class="tab" onclick="showCategory('shoes',this)">Shoes</button>
+ <button class="tab" onclick="showCategory('hair',this)">Hair</button>
+ <button class="tab" onclick="showCategory('bags',this)">Bags</button>
+ <button class="tab" onclick="showCategory('necklaces',this)">Necklaces</button>
+ </div><div class="items" id="items"></div></section>
+</div>
+<div class="actions">
+<button onclick="resetLook()">Reset look ↺</button><button onclick="showRunway()">Reveal my look ✨</button>
+<button class="light" onclick="showMagazine()">Magazine cover</button><button class="light" onclick="toggleMusic()" id="musicBtn">Music: OFF ♪</button>
+<button class="light" onclick="shareLook()">Share look</button>
+</div>
+<div id="result"><h2>YOU ATE THAT LOOK! 👑</h2><p id="award"></p><button class="main-btn" onclick="closeRunway()">Back to styling</button></div>
+<div id="magazine"><p>STEPHENIE NOVA PRESENTS</p><h2>NOVA STYLE</h2><p>LOOK OF THE DAY ✨</p><img id="magModel" src="https://i.postimg.cc/d3hBcsHK/IMG-5657.png" style="width:100%;max-height:440px;object-fit:contain"><p>STEPHENIE NOVA EXCLUSIVE</p><button class="main-btn" onclick="document.getElementById('magazine').style.display='none'">Close</button></div>
 </main>
-
 <script>
-const assets = {
- clothes:[
-  {name:"IMG-5590",url:"https://i.postimg.cc/3dnBKNP6/IMG-5590.png",left:34,top:31,width:32},
-  {name:"IMG-5605",url:"https://i.postimg.cc/XpVLSdDc/IMG-5605.png",left:20,top:21,width:60},
-  {name:"IMG-5606",url:"https://i.postimg.cc/7b19WmX7/IMG-5606.png",left:32,top:39,width:36},
-  {name:"IMG-5608",url:"https://i.postimg.cc/XXKLzQxB/IMG-5608.png",left:25,top:18,width:50},
-  {name:"IMG-5609",url:"https://i.postimg.cc/4nvPSBwh/IMG-5609.png",left:29,top:20,width:42},
-  {name:"IMG-5610",url:"https://i.postimg.cc/Jt3x2PKy/IMG-5610.png",left:31,top:26,width:38}
- ],
- shoes:[
-  {name:"IMG-5617",url:"https://i.postimg.cc/QVgmy0SD/IMG-5617.png",left:29,top:68,width:52},
-  {name:"IMG-5591",url:"https://i.postimg.cc/2V2wzysj/IMG-5591.png",left:32,top:74,width:46}
- ],
- hair:[
-  {name:"IMG-5594",url:"https://i.postimg.cc/VdDRYv3K/IMG-5594.png",left:23,top:0,width:52},
-  {name:"IMG-5595",url:"https://i.postimg.cc/gnNDYjfB/IMG-5595.png",left:33,top:3,width:32},
-  {name:"IMG-5604",url:"https://i.postimg.cc/0b8nRDHX/IMG-5604.png",left:27,top:1,width:42},
-  {name:"IMG-5607",url:"https://i.postimg.cc/yWhjbvnc/IMG-5607.png",left:30,top:3,width:44},
-  {name:"IMG-5612",url:"https://i.postimg.cc/grysTN4c/IMG-5612.png",left:28,top:6,width:44},
-  {name:"IMG-5613",url:"https://i.postimg.cc/PNbyR2Kx/IMG-5613.png",left:30,top:-5,width:38},
-  {name:"IMG-5614",url:"https://i.postimg.cc/LhkDbNv8/IMG-5614.png",left:34,top:8,width:32}
- ],
- bags:[
-  {name:"IMG-5615",url:"https://i.postimg.cc/xqG54tgq/IMG-5615.png",left:54,top:47,width:22},
-  {name:"IMG-5611",url:"https://i.postimg.cc/QHXmG1nT/IMG-5611.png",left:48,top:48,width:30},
-  {name:"IMG-5603",url:"https://i.postimg.cc/7b19WmXS/IMG-5603.png",left:54,top:52,width:22},
-  {name:"IMG-5602",url:"https://i.postimg.cc/dLq6PrST/IMG-5602.png",left:55,top:41,width:22},
-  {name:"IMG-5597",url:"https://i.postimg.cc/bs3Tzr7X/IMG-5597.png",left:53,top:48,width:24},
-  {name:"IMG-5598",url:"https://i.postimg.cc/6y9cJn1m/IMG-5598.png",left:55,top:50,width:20},
-  {name:"IMG-5596",url:"https://i.postimg.cc/ykvPVxwv/IMG-5596.png",left:55,top:40,width:20},
-  {name:"IMG-5592",url:"https://i.postimg.cc/kBfcnG07/IMG-5592.png",left:49,top:47,width:30}
- ]
-};
-
-let selected={clothes:null,shoes:null,hair:null,bags:null};
-let currentCategory="clothes";
-let audioContext=null, musicTimer=null, musicOn=false;
-
-function startGame(){
- document.getElementById("intro").style.display="none";
- document.getElementById("game").style.display="block";
- showCategory("clothes",document.querySelector(".tab"));
-}
-
-function showCategory(category,button){
- currentCategory=category;
- document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));
- if(button)button.classList.add("active");
- const container=document.getElementById("items");
- container.innerHTML="";
- assets[category].forEach((item,index)=>{
-  const card=document.createElement("button");
-  card.className="item"+(selected[category]===index?" selected":"");
-  card.innerHTML=`<img src="${item.url}" alt="${item.name}"><span>${item.name}</span>`;
-  card.onclick=()=>selectItem(category,index);
-  container.appendChild(card);
- });
-}
-
-function selectItem(category,index){
- selected[category]=index;
- renderLook();
- showCategory(category,document.querySelector(".tab.active"));
-}
-
-function renderLook(){
- const layer=document.getElementById("overlays");
- layer.innerHTML="";
- ["clothes","shoes","bags","hair"].forEach(category=>{
-  const index=selected[category];
-  if(index===null)return;
-  const item=assets[category][index];
-  const img=document.createElement("img");
-  img.className="overlay";
-  img.src=item.url;
-  img.alt=category;
-  img.style.left=item.left+"%";
-  img.style.top=item.top+"%";
-  img.style.width=item.width+"%";
-  img.style.height="auto";
-  layer.appendChild(img);
- });
-}
-
-function resetLook(){
- selected={clothes:null,shoes:null,hair:null,bags:null};
- renderLook();
- showCategory(currentCategory,document.querySelector(".tab.active"));
- document.getElementById("runway").style.display="none";
- document.getElementById("result").style.display="none";
- document.getElementById("magazine").style.display="none";
-}
-
-function showRunway(){
- const runway=document.getElementById("runway");
- runway.style.display="block";
- document.getElementById("flash").classList.remove("active");
- void document.getElementById("flash").offsetWidth;
- document.getElementById("flash").classList.add("active");
- const count=Object.values(selected).filter(v=>v!==null).length;
- const awards=[
-  "BEST DRESSED 👑","STYLE ICON ✨","RUNWAY STAR 🌟","BAG OBSESSED 👜"
- ];
- document.getElementById("award").textContent=count===0?
-  "THE NOVA RUNWAY IS WAITING FOR YOUR FIRST LOOK!":
-  awards[Math.min(count-1,awards.length-1)];
- document.getElementById("score").textContent=
-  "You styled "+count+" of 4 fashion categories. Every look deserves its moment!";
- document.getElementById("result").style.display="block";
- runway.scrollIntoView({behavior:"smooth",block:"center"});
- playFlashSounds();
-}
-
-function closeRunway(){
- document.getElementById("runway").style.display="none";
- document.getElementById("result").style.display="none";
-}
-
-function surpriseChallenge(){
- const options=["Pink Princess","Airport Fashion","Birthday Girl","Brunch Date",
- "Rich Auntie","Runway Ready","Girls' Night"];
- document.getElementById("theme").value=options[Math.floor(Math.random()*options.length)];
-}
-
-function showMagazine(){
- const magazine=document.getElementById("magazine");
- const look=document.getElementById("magazineLook");
- look.innerHTML="";
- const preview=document.createElement("div");
- preview.style.position="relative";
- preview.style.width="100%";
- preview.style.aspectRatio="3/4";
- preview.style.background="#f8d9e8";
- preview.style.overflow="hidden";
- const model=document.createElement("img");
- model.src="https://i.postimg.cc/FHv1XNhv/IMG-5621.png";
- model.style.cssText="position:absolute;width:100%;height:100%;object-fit:contain;inset:0";
- preview.appendChild(model);
- ["clothes","shoes","bags","hair"].forEach(category=>{
-  const index=selected[category];
-  if(index===null)return;
-  const item=assets[category][index];
-  const img=document.createElement("img");
-  img.src=item.url;
-  img.style.cssText=`position:absolute;left:${item.left}%;top:${item.top}%;width:${item.width}%;height:auto`;
-  preview.appendChild(img);
- });
- look.appendChild(preview);
- magazine.style.display="block";
- magazine.scrollIntoView({behavior:"smooth"});
-}
-
-function shareLook(){
- const theme=document.getElementById("theme").value;
- const chosen=Object.entries(selected)
-  .filter(([category,index])=>index!==null)
-  .map(([category,index])=>category+": "+assets[category][index].name);
- const message="My Stephenie Nova fashion game look! 🎀\nChallenge: "+theme+
-  "\n"+(chosen.join("\n")||"I'm still styling my look!")+
-  "\nPlay here: "+location.href;
- if(navigator.share){
-  navigator.share({title:"My Nova Look",text:message}).catch(()=>{});
- }else if(navigator.clipboard){
-  navigator.clipboard.writeText(message).then(()=>alert("Your look details have been copied!"));
- }else{
-  prompt("Copy your look details:",message);
- }
-}
-
-function toggleMusic(){
- if(musicOn){
-  clearInterval(musicTimer);
-  musicOn=false;
-  document.getElementById("musicBtn").textContent="Music: OFF ♪";
-  return;
- }
- try{
-  audioContext=audioContext||new (window.AudioContext||window.webkitAudioContext)();
-  audioContext.resume();
-  const notes=[523.25,659.25,783.99,659.25,587.33,698.46,880,698.46];
-  let i=0;
-  musicTimer=setInterval(()=>{
-   const oscillator=audioContext.createOscillator();
-   const gain=audioContext.createGain();
-   oscillator.type="sine";
-   oscillator.frequency.value=notes[i++%notes.length];
-   gain.gain.setValueAtTime(.0001,audioContext.currentTime);
-   gain.gain.exponentialRampToValueAtTime(.06,audioContext.currentTime+.03);
-   gain.gain.exponentialRampToValueAtTime(.0001,audioContext.currentTime+.35);
-   oscillator.connect(gain);gain.connect(audioContext.destination);
-   oscillator.start();oscillator.stop(audioContext.currentTime+.36);
-  },380);
-  musicOn=true;
-  document.getElementById("musicBtn").textContent="Music: ON ♪";
- }catch(e){alert("Sound is not available in this browser.");}
-}
-
-function playFlashSounds(){
- if(!musicOn||!audioContext)return;
- [0,.25,.5].forEach(delay=>{
-  setTimeout(()=>{
-   const osc=audioContext.createOscillator();
-   const gain=audioContext.createGain();
-   osc.type="triangle";osc.frequency.value=880;
-   gain.gain.setValueAtTime(.04,audioContext.currentTime);
-   gain.gain.exponentialRampToValueAtTime(.001,audioContext.currentTime+.12);
-   osc.connect(gain);gain.connect(audioContext.destination);
-   osc.start();osc.stop(audioContext.currentTime+.13);
-  },delay*1000);
- });
-}
+const assets={
+clothes:[
+{name:"IMG-5590",url:"https://i.postimg.cc/3dnBKNP6/IMG-5590.png",left:34,top:31,width:32},
+{name:"IMG-5605",url:"https://i.postimg.cc/XpVLSdDc/IMG-5605.png",left:20,top:21,width:60},
+{name:"IMG-5606",url:"https://i.postimg.cc/7b19WmX7/IMG-5606.png",left:32,top:39,width:36},
+{name:"IMG-5608",url:"https://i.postimg.cc/XXKLzQxB/IMG-5608.png",left:25,top:18,width:50},
+{name:"IMG-5609",url:"https://i.postimg.cc/4nvPSBwh/IMG-5609.png",left:29,top:20,width:42},
+{name:"IMG-5610",url:"https://i.postimg.cc/Jt3x2PKy/IMG-5610.png",left:31,top:26,width:38},
+{name:"IMG-5633",url:"https://i.postimg.cc/bd223d6j/IMG-5633.png",left:20,top:20,width:60},
+{name:"IMG-5634",url:"https://i.postimg.cc/xNHJCFk5/IMG-5634.png",left:20,top:20,width:60},
+{name:"IMG-5635",url:"https://i.postimg.cc/w3ss03wn/IMG-5635.png",left:20,top:20,width:60},
+{name:"IMG-5636",url:"https://i.postimg.cc/H85cxPJb/IMG-5636.png",left:20,top:20,width:60},
+{name:"IMG-5638",url:"https://i.postimg.cc/CnDB16Zs/IMG-5638.png",left:20,top:20,width:60},
+{name:"IMG-5639",url:"https://i.postimg.cc/RJf6Fb3c/IMG-5639.png",left:20,top:20,width:60},
+{name:"IMG-5640",url:"https://i.postimg.cc/64R2317n/IMG-5640.png",left:20,top:20,width:60},
+{name:"IMG-5641",url:"https://i.postimg.cc/dZdk1S7R/IMG-5641.png",left:20,top:20,width:60},
+{name:"IMG-5642",url:"https://i.postimg.cc/30p4Rbyd/IMG-5642.png",left:20,top:20,width:60},
+{name:"IMG-5643",url:"https://i.postimg.cc/D4sJZYW7/IMG-5643.png",left:20,top:20,width:60},
+{name:"IMG-5644",url:"https://i.postimg.cc/XBFGJDZX/IMG-5644.png",left:20,top:20,width:60},
+{name:"IMG-5645",url:"https://i.postimg.cc/WqrF3fDD/IMG-5645.png",left:20,top:20,width:60},
+{name:"IMG-5646",url:"https://i.postimg.cc/fSXtLg3z/IMG-5646.png",left:20,top:20,width:60},
+{name:"IMG-5647",url:"https://i.postimg.cc/bSbDJFGP/IMG-5647.png",left:20,top:20,width:60},
+{name:"IMG-5648",url:"https://i.postimg.cc/sQbG3R22/IMG-5648.png",left:20,top:20,width:60},
+{name:"IMG-5649",url:"https://i.postimg.cc/34z03HwR/IMG-5649.png",left:20,top:20,width:60},
+{name:"IMG-5650",url:"https://i.postimg.cc/vgCxGdmH/IMG-5650.png",left:20,top:20,width:60},
+{name:"IMG-5651",url:"https://i.postimg.cc/Pp0vdkqk/IMG-5651.png",left:20,top:20,width:60},
+{name:"IMG-5652",url:"https://i.postimg.cc/G86Tb1mV/IMG-5652.png",left:20,top:20,width:60}
+],
+shoes:[
+{name:"IMG-5617",url:"https://i.postimg.cc/QVgmy0SD/IMG-5617.png",left:29,top:68,width:52},
+{name:"IMG-5591",url:"https://i.postimg.cc/2V2wzysj/IMG-5591.png",left:32,top:74,width:46},
+{name:"IMG-5653",url:"https://i.postimg.cc/1gJphT63/IMG-5653.png",left:25,top:84,width:50},
+{name:"IMG-5654",url:"https://i.postimg.cc/hJp9Wwxc/IMG-5654.png",left:25,top:84,width:50},
+{name:"IMG-5655",url:"https://i.postimg.cc/Mcdy24Rz/IMG-5655.png",left:25,top:84,width:50},
+{name:"IMG-5656",url:"https://i.postimg.cc/gwNvF5Rp/IMG-5656.png",left:25,top:84,width:50}
+],
+hair:[
+{name:"IMG-5594",url:"https://i.postimg.cc/VdDRYv3K/IMG-5594.png",left:23,top:0,width:52},
+{name:"IMG-5595",url:"https://i.postimg.cc/gnNDYjfB/IMG-5595.png",left:33,top:3,width:32},
+{name:"IMG-5604",url:"https://i.postimg.cc/0b8nRDHX/IMG-5604.png",left:27,top:1,width:42},
+{name:"IMG-5607",url:"https://i.postimg.cc/yWhjbvnc/IMG-5607.png",left:30,top:3,width:44},
+{name:"IMG-5612",url:"https://i.postimg.cc/grysTN4c/IMG-5612.png",left:28,top:6,width:44},
+{name:"IMG-5613",url:"https://i.postimg.cc/PNbyR2Kx/IMG-5613.png",left:30,top:-5,width:38},
+{name:"IMG-5614",url:"https://i.postimg.cc/LhkDbNv8/IMG-5614.png",left:34,top:8,width:32},
+{name:"IMG-5623",url:"https://i.postimg.cc/Q9gVZKv5/IMG-5623.png",left:24,top:0,width:52},
+{name:"IMG-5624",url:"https://i.postimg.cc/qhcgH6W8/IMG-5624.png",left:24,top:0,width:52},
+{name:"IMG-5625",url:"https://i.postimg.cc/JD3tCHSh/IMG-5625.png",left:24,top:0,width:52},
+{name:"IMG-5626",url:"https://i.postimg.cc/ZBP0zvXW/IMG-5626.png",left:24,top:0,width:52},
+{name:"IMG-5627",url:"https://i.postimg.cc/hzRhY1Zf/IMG-5627.png",left:24,top:0,width:52}
+],
+bags:[
+{name:"IMG-5615",url:"https://i.postimg.cc/xqG54tgq/IMG-5615.png",left:54,top:47,width:22},
+{name:"IMG-5611",url:"https://i.postimg.cc/QHXmG1nT/IMG-5611.png",left:48,top:48,width:30},
+{name:"IMG-5603",url:"https://i.postimg.cc/7b19WmXS/IMG-5603.png",left:54,top:52,width:22},
+{name:"IMG-5602",url:"https://i.postimg.cc/dLq6PrST/IMG-5602.png",left:55,top:41,width:22},
+{name:"IMG-5597",url:"https://i.postimg.cc/bs3Tzr7X/IMG-5597.png",left:53,top:48,width:24},
+{name:"IMG-5598",url:"https://i.postimg.cc/6y9cJn1m/IMG-5598.png",left:55,top:50,width:20},
+{name:"IMG-5596",url:"https://i.postimg.cc/ykvPVxwv/IMG-5596.png",left:55,top:40,width:20},
+{name:"IMG-5592",url:"https://i.postimg.cc/kBfcnG07/IMG-5592.png",left:49,top:47,width:30},
+{name:"IMG-5630",url:"https://i.postimg.cc/1nKRjhNM/IMG-5630.png",left:52,top:48,width:25},
+{name:"IMG-5631",url:"https://i.postimg.cc/0MC5BRJC/IMG-5631.png",left:52,top:48,width:25},
+{name:"IMG-5632",url:"https://i.postimg.cc/dk9QxPT4/IMG-5632.png",left:52,top:48,width:25}
+],
+necklaces:[
+{name:"IMG-5628",url:"https://i.postimg.cc/Hc8jZP9w/IMG-5628.png",left:35,top:24,width:30},
+{name:"IMG-5629",url:"https://i.postimg.cc/qh6gbZxy/IMG-5629.png",left:35,top:24,width:30}
+]};
+let selected={clothes:null,shoes:null,hair:null,bags:null,necklaces:null},currentCategory="clothes",audioContext=null,musicTimer=null,musicOn=false;
+function playEntranceSound(){try{audioContext=audioContext||new(window.AudioContext||window.webkitAudioContext)();audioContext.resume();[523.25,659.25,783.99,1046.5,1318.5].forEach((f,i)=>{let o=audioContext.createOscillator(),g=audioContext.createGain(),t=audioContext.currentTime+i*.13;o.type="triangle";o.frequency.setValueAtTime(f,t);g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(.12,t+.035);g.gain.exponentialRampToValueAtTime(.0001,t+.38);o.connect(g);g.connect(audioContext.destination);o.start(t);o.stop(t+.4)})}catch(e){}}
+function startGame(){playEntranceSound();document.getElementById("intro").style.display="none";document.getElementById("game").style.display="block";showCategory("clothes",document.querySelector(".tab"))}
+function showCategory(cat,button){currentCategory=cat;document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));if(button)button.classList.add("active");let box=document.getElementById("items");box.innerHTML="";assets[cat].forEach((item,i)=>{let b=document.createElement("button");b.className="item"+(selected[cat]===i?" selected":"");b.innerHTML=`<img src="${item.url}" alt="${item.name}"><span>${item.name}</span>`;b.onclick=()=>selectItem(cat,i);box.appendChild(b)})}
+function selectItem(cat,i){selected[cat]=i;renderLook();showCategory(cat,document.querySelector(".tab.active"))}
+function renderLook(){let layer=document.getElementById("overlays");layer.innerHTML="";["clothes","shoes","bags","hair","necklaces"].forEach(cat=>{let i=selected[cat];if(i===null)return;let item=assets[cat][i],img=document.createElement("img");img.className="overlay";img.src=item.url;img.alt=cat;img.style.left=item.left+"%";img.style.top=item.top+"%";img.style.width=item.width+"%";img.style.height="auto";layer.appendChild(img)})}
+function resetLook(){selected={clothes:null,shoes:null,hair:null,bags:null,necklaces:null};renderLook();showCategory(currentCategory,document.querySelector(".tab.active"))}
+function surpriseChallenge(){let options=["Pink Princess","Airport Fashion","Birthday Girl","Brunch Date","Rich Auntie","Runway Ready","Girls' Night"];document.getElementById("theme").value=options[Math.floor(Math.random()*options.length)]}
+function showRunway(){let count=Object.values(selected).filter(v=>v!==null).length,theme=document.getElementById("theme").value;document.getElementById("runway").style.display="block";document.getElementById("result").style.display="block";document.getElementById("award").textContent=(theme==="Choose a challenge"?"Your personal runway moment":theme)+" • "+count+" styling categories selected • NOVA STYLE ICON 👑";playFlashSounds()}
+function closeRunway(){document.getElementById("runway").style.display="none";document.getElementById("result").style.display="none"}
+function showMagazine(){document.getElementById("magazine").style.display="block"}
+function shareLook(){let chosen=Object.entries(selected).filter(([c,i])=>i!==null).map(([c,i])=>c+": "+assets[c][i].name);let msg="My Stephenie Nova fashion game look! 🎀\n"+chosen.join("\n")+"\n"+location.href;if(navigator.share)navigator.share({title:"My Nova Look",text:msg}).catch(()=>{});else if(navigator.clipboard)navigator.clipboard.writeText(msg).then(()=>alert("Look details copied!"));else prompt("Copy your look:",msg)}
+function toggleMusic(){if(musicOn){clearInterval(musicTimer);musicOn=false;document.getElementById("musicBtn").textContent="Music: OFF ♪";return}try{audioContext=audioContext||new(window.AudioContext||window.webkitAudioContext)();audioContext.resume();let notes=[523.25,659.25,783.99,659.25,587.33,698.46,880,698.46],i=0;musicTimer=setInterval(()=>{let o=audioContext.createOscillator(),g=audioContext.createGain();o.type="sine";o.frequency.value=notes[i++%notes.length];g.gain.setValueAtTime(.0001,audioContext.currentTime);g.gain.exponentialRampToValueAtTime(.05,audioContext.currentTime+.03);g.gain.exponentialRampToValueAtTime(.0001,audioContext.currentTime+.32);o.connect(g);g.connect(audioContext.destination);o.start();o.stop(audioContext.currentTime+.33)},380);musicOn=true;document.getElementById("musicBtn").textContent="Music: ON ♪"}catch(e){}}
+function playFlashSounds(){if(!musicOn||!audioContext)return;[0,.25,.5].forEach(d=>setTimeout(()=>{let o=audioContext.createOscillator(),g=audioContext.createGain();o.type="triangle";o.frequency.value=880;g.gain.setValueAtTime(.03,audioContext.currentTime);g.gain.exponentialRampToValueAtTime(.001,audioContext.currentTime+.12);o.connect(g);g.connect(audioContext.destination);o.start();o.stop(audioContext.currentTime+.13)},d*1000))}
 </script>
-</body>
-</html>
+</body></html>
