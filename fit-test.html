@@ -1,0 +1,256 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Stephenie Nova - Clothing Fit Test</title>
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  padding: 16px;
+  background: #fff0f6;
+  color: #542d42;
+  font-family: Arial, sans-serif;
+}
+
+header {
+  text-align: center;
+  padding: 12px;
+}
+
+h1 {
+  font-size: 21px;
+  letter-spacing: 1px;
+}
+
+p { font-size: 13px; }
+
+.stage {
+  width: 100%;
+  max-width: 430px;
+  aspect-ratio: 3 / 4;
+  margin: 15px auto;
+  position: relative;
+  overflow: hidden;
+  background: #f7dce9;
+  border: 2px solid #e9a9c6;
+  border-radius: 15px;
+}
+
+.background {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.model, .clothing {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  inset: 0;
+}
+
+.clothing {
+  width: 60%;
+  height: auto;
+  left: 20%;
+  top: 15%;
+  object-fit: contain;
+  transform-origin: top left;
+}
+
+.panel {
+  max-width: 430px;
+  margin: auto;
+  padding: 15px;
+  background: white;
+  border-radius: 15px;
+  text-align: center;
+}
+
+button {
+  border: 0;
+  border-radius: 9px;
+  padding: 12px 14px;
+  margin: 4px;
+  background: #e99abd;
+  color: #542d42;
+  font-weight: bold;
+  font-size: 13px;
+}
+
+button:active { background: #d875a2; }
+
+.secondary { background: #f8e0eb; }
+
+.controls {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 5px;
+  margin-top: 12px;
+}
+
+.controls button {
+  margin: 0;
+}
+
+#itemName {
+  font-weight: bold;
+  margin: 10px;
+}
+
+.small {
+  color: #987087;
+  font-size: 12px;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>STEPHENIE NOVA</h1>
+  <p>FASHION GAME — CLOTHING FIT TEST</p>
+</header>
+
+<div class="stage" id="stage">
+  <img class="background"
+       src="https://i.postimg.cc/Z9yFFcCJ/IMG-5583.png"
+       alt="Bedroom background">
+
+  <img class="model"
+       src="https://i.postimg.cc/HkR0tGTJ/IMG-5618.png"
+       alt="Main sweatshirt model">
+
+  <img class="clothing" id="clothing" alt="Selected outfit">
+</div>
+
+<div class="panel">
+  <div id="itemName">Clothing 1 of 6</div>
+  <p class="small">Choose an outfit and adjust its position and size.</p>
+
+  <div>
+    <button class="secondary" onclick="previousItem()">Previous</button>
+    <button onclick="nextItem()">Next outfit</button>
+  </div>
+
+  <div class="controls">
+    <button onclick="move(0,-1)">↑ Up</button>
+    <button onclick="resize(1)">＋ Bigger</button>
+    <button onclick="move(0,1)">↓ Down</button>
+
+    <button onclick="move(-1,0)">← Left</button>
+    <button onclick="resetItem()">Reset</button>
+    <button onclick="move(1,0)">Right →</button>
+
+    <button onclick="resize(-1)">－ Smaller</button>
+  </div>
+
+  <p class="small">
+    Adjust each outfit until it lines up with the model.
+    Your adjustments are kept while you test the six outfits.
+  </p>
+
+  <button onclick="copySettings()">Copy fitting settings</button>
+  <button class="secondary" onclick="resetAll()">Reset all</button>
+
+  <p class="small" id="status"></p>
+</div>
+
+<script>
+const outfits = [
+  { name: "Clothing 1 — IMG-5590", url: "https://i.postimg.cc/3dnBKNP6/IMG-5590.png" },
+  { name: "Clothing 2 — IMG-5605", url: "https://i.postimg.cc/XpVLSdDc/IMG-5605.png" },
+  { name: "Clothing 3 — IMG-5606", url: "https://i.postimg.cc/7b19WmX7/IMG-5606.png" },
+  { name: "Clothing 4 — IMG-5608", url: "https://i.postimg.cc/XXKLzQxB/IMG-5608.png" },
+  { name: "Clothing 5 — IMG-5609", url: "https://i.postimg.cc/4nvPSBwh/IMG-5609.png" },
+  { name: "Clothing 6 — IMG-5610", url: "https://i.postimg.cc/Jt3x2PKy/IMG-5610.png" }
+];
+
+const defaults = { left: 20, top: 15, width: 60 };
+
+let settings = outfits.map(() => ({...defaults}));
+let current = 0;
+
+const clothing = document.getElementById("clothing");
+const itemName = document.getElementById("itemName");
+const status = document.getElementById("status");
+
+function showItem() {
+  const item = outfits[current];
+  const s = settings[current];
+
+  clothing.src = item.url;
+  clothing.style.left = s.left + "%";
+  clothing.style.top = s.top + "%";
+  clothing.style.width = s.width + "%";
+
+  itemName.textContent = item.name;
+  status.textContent = "Position: " + Math.round(s.left) +
+    "% left, " + Math.round(s.top) + "% top | Width: " +
+    Math.round(s.width) + "%";
+}
+
+function move(x, y) {
+  const s = settings[current];
+  s.left += x;
+  s.top += y;
+  showItem();
+}
+
+function resize(amount) {
+  settings[current].width += amount * 2;
+  showItem();
+}
+
+function resetItem() {
+  settings[current] = {...defaults};
+  showItem();
+}
+
+function nextItem() {
+  current = (current + 1) % outfits.length;
+  showItem();
+}
+
+function previousItem() {
+  current = (current - 1 + outfits.length) % outfits.length;
+  showItem();
+}
+
+function resetAll() {
+  settings = outfits.map(() => ({...defaults}));
+  current = 0;
+  showItem();
+}
+
+function copySettings() {
+  const result = outfits.map((item, index) => ({
+    image: item.name,
+    ...settings[index]
+  }));
+
+  const output = JSON.stringify(result, null, 2);
+
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(output)
+      .then(() => status.textContent = "Settings copied! Send them to ChatGPT.")
+      .catch(() => status.textContent = output);
+  } else {
+    status.textContent = output;
+  }
+}
+
+showItem();
+</script>
+
+</body>
+</html>
