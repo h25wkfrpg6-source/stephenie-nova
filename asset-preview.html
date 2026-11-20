@@ -1,0 +1,184 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stephenie Nova - Asset Preview</title>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: #fff5fa;
+  color: #422538;
+  font-family: Arial, sans-serif;
+}
+
+header {
+  background: linear-gradient(135deg, #f6b9d3, #fce0ed);
+  text-align: center;
+  padding: 25px 12px;
+}
+
+header h1 {
+  font-size: 21px;
+  margin: 0 0 8px;
+  letter-spacing: 1px;
+}
+
+header p {
+  font-size: 13px;
+  margin: 0;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  padding: 12px;
+}
+
+.card {
+  background: white;
+  border: 1px solid #f0cddd;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 3px 10px #00000008;
+}
+
+.preview {
+  height: 210px;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f7edf2;
+  background-image:
+    linear-gradient(45deg, #fff 25%, transparent 25%),
+    linear-gradient(-45deg, #fff 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, #fff 75%),
+    linear-gradient(-45deg, transparent 75%, #fff 75%);
+  background-size: 16px 16px;
+  background-position: 0 0, 0 8px, 8px -8px, -8px 0;
+}
+
+.preview img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.number {
+  padding: 10px;
+  text-align: center;
+  font-size: 13px;
+  font-weight: bold;
+  background: white;
+}
+
+.failed {
+  font-size: 12px;
+  color: #a04470;
+  text-align: center;
+}
+
+@media (min-width: 700px) {
+  .grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .preview {
+    height: 260px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>STEPHENIE NOVA</h1>
+  <p>FASHION GAME — IMAGE ASSET PREVIEW</p>
+  <p>38 images for the fashion game</p>
+</header>
+
+<div class="grid" id="gallery"></div>
+
+<script>
+const images = [
+["IMG-5575","jw068777"],
+["IMG-5576","Xrrw48Kw"],
+["IMG-5577","qgGcLgM2"],
+["IMG-5579","WFGGx1G6"],
+["IMG-5580","phbQ0FFj"],
+["IMG-5581","hXY1dw48"],
+["IMG-5582","PC7Qwcf0"],
+["IMG-5583","Z9yFFcCJ"],
+["IMG-5584","87cbsDGv"],
+["IMG-5585","MnLmQ4Zy"],
+["IMG-5586","v4TvDMyD"],
+["IMG-5587","Wdz7tjVV"],
+["IMG-5588","tsJz7ybY"],
+["IMG-5589","9D0BzV24"],
+["IMG-5590","3dnBKNP6"],
+["IMG-5591","2V2wzysj"],
+["IMG-5592","kBfcnG07"],
+["IMG-5594","VdDRYv3K"],
+["IMG-5595","gnNDYjfB"],
+["IMG-5596","ykvPVxwv"],
+["IMG-5597","bs3Tzr7X"],
+["IMG-5598","6y9cJn1m"],
+["IMG-5602","dLq6PrST"],
+["IMG-5603","7b19WmXS"],
+["IMG-5604","0b8nRDHX"],
+["IMG-5605","XpVLSdDc"],
+["IMG-5606","7b19WmX7"],
+["IMG-5607","yWhjbvnc"],
+["IMG-5608","XXKLzQxB"],
+["IMG-5609","4nvPSBwh"],
+["IMG-5610","Jt3x2PKy"],
+["IMG-5611","QHXmG1nT"],
+["IMG-5612","grysTN4c"],
+["IMG-5613","PNbyR2Kx"],
+["IMG-5614","LhkDbNv8"],
+["IMG-5615","xqG54tgq"],
+["IMG-5616","Hj0zhB3p"],
+["IMG-5617","QVgmy0SD"]
+];
+
+const gallery = document.getElementById("gallery");
+
+images.forEach(([name, code], index) => {
+  const card = document.createElement("div");
+  card.className = "card";
+
+  const preview = document.createElement("div");
+  preview.className = "preview";
+
+  const img = document.createElement("img");
+  img.src = `https://i.postimg.cc/${code}/${name}.png`;
+  img.alt = name;
+  img.loading = "lazy";
+
+  img.onerror = () => {
+    preview.innerHTML = '<span class="failed">Image unavailable</span>';
+  };
+
+  preview.appendChild(img);
+
+  const label = document.createElement("div");
+  label.className = "number";
+  label.textContent = `${index + 1}. ${name}`;
+
+  card.appendChild(preview);
+  card.appendChild(label);
+  gallery.appendChild(card);
+});
+</script>
+
+</body>
+</html>
