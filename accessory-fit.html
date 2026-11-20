@@ -1,0 +1,452 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Stephenie Nova - Accessory Fitting</title>
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  padding: 12px;
+  background: #fff0f6;
+  color: #542d42;
+  font-family: Arial, sans-serif;
+}
+
+header {
+  text-align: center;
+  padding: 12px;
+}
+
+h1 {
+  font-size: 21px;
+  letter-spacing: 1px;
+}
+
+p { font-size: 13px; }
+
+.stage {
+  width: 100%;
+  max-width: 430px;
+  aspect-ratio: 3 / 4;
+  margin: 15px auto;
+  position: relative;
+  overflow: hidden;
+  background: #f7dce9;
+  border: 2px solid #e9a9c6;
+  border-radius: 15px;
+}
+
+.background, .model {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.background { object-fit: cover; }
+
+.model { z-index: 2; }
+
+#item {
+  position: absolute;
+  z-index: 3;
+  width: 40%;
+  height: auto;
+  left: 30%;
+  top: 30%;
+  object-fit: contain;
+  touch-action: none;
+}
+
+.panel {
+  max-width: 430px;
+  margin: auto;
+  padding: 15px;
+  background: white;
+  border-radius: 15px;
+  text-align: center;
+}
+
+button {
+  border: 0;
+  border-radius: 9px;
+  padding: 12px;
+  margin: 4px;
+  background: #e99abd;
+  color: #542d42;
+  font-weight: bold;
+  font-size: 13px;
+}
+
+.secondary { background: #f8e0eb; }
+
+.category {
+  display: flex;
+  gap: 5px;
+}
+
+.category button {
+  flex: 1;
+}
+
+.category button.active {
+  background: #b94f80;
+  color: white;
+}
+
+select {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border: 1px solid #e9a9c6;
+  border-radius: 9px;
+  background: white;
+  color: #542d42;
+}
+
+.controls {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 5px;
+  margin-top: 12px;
+}
+
+.controls button { margin: 0; }
+
+.small {
+  color: #987087;
+  font-size: 12px;
+}
+
+#settingsOutput {
+  width: 100%;
+  min-height: 130px;
+  margin-top: 10px;
+  padding: 10px;
+  border: 1px solid #e9a9c6;
+  border-radius: 8px;
+  font-size: 11px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>STEPHENIE NOVA</h1>
+  <p>SHOES • HAIRSTYLES • BAGS</p>
+  <p>Accessory fitting studio</p>
+</header>
+
+<div class="stage">
+  <img class="background"
+    src="https://i.postimg.cc/Z9yFFcCJ/IMG-5583.png"
+    alt="Bedroom background">
+
+  <img class="model"
+    src="https://i.postimg.cc/HkR0tGTJ/IMG-5618.png"
+    alt="Main model">
+
+  <img id="item" alt="Selected accessory">
+</div>
+
+<div class="panel">
+
+  <p><b>Choose a category</b></p>
+
+  <div class="category">
+    <button id="shoesBtn" onclick="changeCategory('Shoes')">Shoes</button>
+    <button id="hairBtn" onclick="changeCategory('Hair')">Hair</button>
+    <button id="bagsBtn" onclick="changeCategory('Bags')">Bags</button>
+  </div>
+
+  <p><b>Select an item</b></p>
+  <select id="itemSelect" onchange="selectItem(this.value)"></select>
+
+  <div id="itemName">Select an item</div>
+
+  <p class="small">
+    Move and resize each item until it fits the model.
+  </p>
+
+  <div class="controls">
+    <button onclick="move(0,-1)">↑ Up</button>
+    <button onclick="resize(1)">＋ Bigger</button>
+    <button onclick="move(0,1)">↓ Down</button>
+    <button onclick="move(-1,0)">← Left</button>
+    <button onclick="resetItem()">Reset item</button>
+    <button onclick="move(1,0)">Right →</button>
+    <button onclick="resize(-1)">－ Smaller</button>
+  </div>
+
+  <p class="small" id="position"></p>
+
+  <button onclick="previousItem()" class="secondary">Previous item</button>
+  <button onclick="nextItem()">Next item</button>
+
+  <hr style="border:0;border-top:1px solid #f0d5e2;margin:18px 0">
+
+  <p><b>When all 18 items are fitted</b></p>
+  <button onclick="copyAll()">COPY ALL FITTING SETTINGS</button>
+  <button class="secondary" onclick="resetAll()">Reset everything</button>
+
+  <textarea id="settingsOutput"
+    placeholder="Your fitting settings will appear here..."
+    readonly></textarea>
+
+  <p class="small" id="status">
+    Fit every item, then copy all settings.
+  </p>
+
+</div>
+
+<script>
+const assets = [
+  {
+    category: "Shoes",
+    name: "IMG-5617",
+    url: "https://i.postimg.cc/QVgmy0SD/IMG-5617.png"
+  },
+  {
+    category: "Shoes",
+    name: "IMG-5616",
+    url: "https://i.postimg.cc/Hj0zhB3p/IMG-5616.png"
+  },
+  {
+    category: "Shoes",
+    name: "IMG-5591",
+    url: "https://i.postimg.cc/2V2wzysj/IMG-5591.png"
+  },
+
+  {
+    category: "Hair",
+    name: "IMG-5594",
+    url: "https://i.postimg.cc/VdDRYv3K/IMG-5594.png"
+  },
+  {
+    category: "Hair",
+    name: "IMG-5595",
+    url: "https://i.postimg.cc/gnNDYjfB/IMG-5595.png"
+  },
+  {
+    category: "Hair",
+    name: "IMG-5604",
+    url: "https://i.postimg.cc/0b8nRDHX/IMG-5604.png"
+  },
+  {
+    category: "Hair",
+    name: "IMG-5607",
+    url: "https://i.postimg.cc/yWhjbvnc/IMG-5607.png"
+  },
+  {
+    category: "Hair",
+    name: "IMG-5612",
+    url: "https://i.postimg.cc/grysTN4c/IMG-5612.png"
+  },
+  {
+    category: "Hair",
+    name: "IMG-5613",
+    url: "https://i.postimg.cc/PNbyR2Kx/IMG-5613.png"
+  },
+  {
+    category: "Hair",
+    name: "IMG-5614",
+    url: "https://i.postimg.cc/LhkDbNv8/IMG-5614.png"
+  },
+
+  {
+    category: "Bags",
+    name: "IMG-5615",
+    url: "https://i.postimg.cc/xqG54tgq/IMG-5615.png"
+  },
+  {
+    category: "Bags",
+    name: "IMG-5611",
+    url: "https://i.postimg.cc/QHXmG1nT/IMG-5611.png"
+  },
+  {
+    category: "Bags",
+    name: "IMG-5603",
+    url: "https://i.postimg.cc/7b19WmXS/IMG-5603.png"
+  },
+  {
+    category: "Bags",
+    name: "IMG-5602",
+    url: "https://i.postimg.cc/dLq6PrST/IMG-5602.png"
+  },
+  {
+    category: "Bags",
+    name: "IMG-5597",
+    url: "https://i.postimg.cc/bs3Tzr7X/IMG-5597.png"
+  },
+  {
+    category: "Bags",
+    name: "IMG-5598",
+    url: "https://i.postimg.cc/6y9cJn1m/IMG-5598.png"
+  },
+  {
+    category: "Bags",
+    name: "IMG-5596",
+    url: "https://i.postimg.cc/ykvPVxwv/IMG-5596.png"
+  },
+  {
+    category: "Bags",
+    name: "IMG-5592",
+    url: "https://i.postimg.cc/kBfcnG07/IMG-5592.png"
+  }
+];
+
+const defaults = {
+  Shoes: {left: 30, top: 72, width: 40},
+  Hair: {left: 25, top: 8, width: 50},
+  Bags: {left: 55, top: 40, width: 30}
+};
+
+let settings = assets.map(a => ({
+  ...defaults[a.category]
+}));
+
+let currentCategory = "Shoes";
+let currentIndex = 0;
+
+const item = document.getElementById("item");
+const itemSelect = document.getElementById("itemSelect");
+
+function categoryItems() {
+  return assets
+    .map((asset, index) => ({...asset, index}))
+    .filter(asset => asset.category === currentCategory);
+}
+
+function changeCategory(category) {
+  currentCategory = category;
+
+  document.querySelectorAll(".category button")
+    .forEach(button => button.classList.remove("active"));
+
+  document.getElementById(
+    category.toLowerCase() + "Btn"
+  ).classList.add("active");
+
+  currentIndex = categoryItems()[0].index;
+  populate();
+  showItem();
+}
+
+function populate() {
+  itemSelect.innerHTML = "";
+
+  categoryItems().forEach(asset => {
+    const option = document.createElement("option");
+    option.value = asset.index;
+    option.textContent = asset.name;
+    itemSelect.appendChild(option);
+  });
+
+  itemSelect.value = currentIndex;
+}
+
+function selectItem(index) {
+  currentIndex = Number(index);
+  showItem();
+}
+
+function showItem() {
+  const asset = assets[currentIndex];
+  const s = settings[currentIndex];
+
+  item.src = asset.url;
+  item.style.left = s.left + "%";
+  item.style.top = s.top + "%";
+  item.style.width = s.width + "%";
+
+  itemName.textContent =
+    asset.category + " — " + asset.name;
+
+  position.textContent =
+    "Left: " + s.left + "% | Top: " + s.top +
+    "% | Width: " + s.width + "%";
+
+  itemSelect.value = currentIndex;
+}
+
+function move(x, y) {
+  settings[currentIndex].left += x;
+  settings[currentIndex].top += y;
+  showItem();
+}
+
+function resize(amount) {
+  settings[currentIndex].width = Math.max(
+    5,
+    settings[currentIndex].width + amount * 2
+  );
+  showItem();
+}
+
+function resetItem() {
+  settings[currentIndex] = {
+    ...defaults[assets[currentIndex].category]
+  };
+  showItem();
+}
+
+function nextItem() {
+  const list = categoryItems();
+  const position = list.findIndex(a => a.index === currentIndex);
+  currentIndex = list[(position + 1) % list.length].index;
+  showItem();
+}
+
+function previousItem() {
+  const list = categoryItems();
+  const position = list.findIndex(a => a.index === currentIndex);
+  currentIndex = list[(position - 1 + list.length) % list.length].index;
+  showItem();
+}
+
+function resetAll() {
+  settings = assets.map(a => ({...defaults[a.category]}));
+  showItem();
+  document.getElementById("settingsOutput").value = "";
+  document.getElementById("status").textContent =
+    "All fitting settings have been reset.";
+}
+
+function copyAll() {
+  const result = assets.map((asset, index) => ({
+    category: asset.category,
+    image: asset.name,
+    left: settings[index].left,
+    top: settings[index].top,
+    width: settings[index].width
+  }));
+
+  const output = JSON.stringify(result, null, 2);
+  const box = document.getElementById("settingsOutput");
+
+  box.value = output;
+  box.select();
+
+  try {
+    const copied = document.execCommand("copy");
+    document.getElementById("status").textContent = copied
+      ? "All 18 settings copied! Paste them into ChatGPT."
+      : "Settings displayed below. Select and copy them.";
+  } catch (error) {
+    document.getElementById("status").textContent =
+      "Settings displayed below. Select and copy them.";
+  }
+}
+
+changeCategory("Shoes");
+</script>
+
+</body>
+</html>
