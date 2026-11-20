@@ -1,0 +1,303 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#f6d8e5">
+<title>Stephenie Nova Dress Up Game</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;color:#603d50;background:#f8e5ed}
+button{font:inherit;cursor:pointer}
+#intro{position:fixed;inset:0;z-index:20;background:linear-gradient(145deg,#f9d6e5,#fff3f7);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+#intro h1{font-family:Georgia,serif;font-size:clamp(30px,9vw,55px);color:#a64e79;animation:appear 1.5s both}
+#intro p{letter-spacing:5px;font-size:11px}
+#intro button{border:0;border-radius:30px;padding:15px 45px;background:#b96890;color:white;margin-top:30px}
+@keyframes appear{from{opacity:0;transform:translateY(25px)}to{opacity:1;transform:translateY(0)}}
+#game{height:100dvh;min-height:550px;display:none;flex-direction:column;overflow:hidden}
+header{height:57px;flex-shrink:0;background:#fff8fb;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 12px #75425b20;z-index:5}
+header strong{font-family:Georgia,serif;letter-spacing:2px;color:#a64e79}
+.scene{flex:1;min-height:0;position:relative;overflow:hidden;background:linear-gradient(#f9e9f0 0%,#f4dbe6 73%,#d1a1b6 73%)}
+.wallpaper{position:absolute;inset:0 0 27%;background:repeating-linear-gradient(90deg,transparent 0 95px,#ffffff18 96px 98px),linear-gradient(100deg,#f5dce7,#fff0f5,#efd0df)}
+.wardrobe{position:absolute;left:2%;top:8%;width:38%;height:65%;display:flex;background:#d4a3b8;border:5px solid #c18ca5;box-shadow:0 5px 18px #70465c30}
+.wardrobe>div{flex:1;margin:5px;background:linear-gradient(90deg,#f6e1ea,#e7c1d2);border:1px solid #d2a3b7;position:relative}
+.rail{position:absolute;top:22%;left:10%;width:80%;height:3px;background:#a77b90}
+.hanging{position:absolute;top:24%;left:17%;display:flex;gap:4px}
+.hanging i{width:19px;height:85px;background:#b76e91;clip-path:polygon(30% 0,70% 0,100% 22%,80% 100%,20% 100%,0 22%)}
+.hanging i:nth-child(2){background:#e5a5c0}
+.hanging i:nth-child(3){background:#a68aab}
+.handle{position:absolute;right:7px;top:50%;width:5px;height:5px;border-radius:50%;background:#a7758e}
+.vanity{position:absolute;right:3%;top:28%;width:24%;text-align:center}
+.mirror{height:125px;width:75%;margin:auto;border:7px solid #c58ca7;border-radius:50% 50% 10px 10px;background:linear-gradient(140deg,#fff,#f2dce7);box-shadow:0 0 18px #fff}
+.desk{height:13px;background:#c18ba4;border-radius:5px}
+.stool{height:30px;width:45%;margin:auto;background:#e8bfd0;border-radius:10px}
+.floor{position:absolute;bottom:0;height:27%;width:100%;background:linear-gradient(#d2a4b8,#bd8ca4)}
+.rug{position:absolute;bottom:1%;left:13%;width:74%;height:22%;border-radius:50%;background:#f9edf2;border:8px solid #e8cada}
+.character{position:absolute;z-index:2;left:50%;bottom:5%;transform:translateX(-50%);height:88%;width:min(53%,270px);display:flex;align-items:end;justify-content:center;transition:transform .4s}
+.character.zoom{transform:translateX(-50%) scale(1.9) translateY(12%);transform-origin:50% 22%}
+.character svg{width:100%;height:100%;overflow:visible}
+.skin{fill:var(--skin,#956047)}
+.hair{fill:#17121b}
+.outfit{fill:var(--outfit,#e9a9c3)}
+.shorts{fill:var(--shorts,#d98eaf)}
+#face{transition:fill .2s}
+.menu{position:absolute;right:7px;top:10%;z-index:5;display:flex;flex-direction:column;gap:8px}
+.menu button{width:48px;height:48px;border:1px solid #e7c2d3;border-radius:14px;background:#fff8fb;color:#985577;font-size:21px;box-shadow:0 3px 9px #70465c20}
+.menu button.active{background:#bd7195;color:white}
+.panel{position:absolute;right:63px;top:10%;bottom:10%;width:min(190px,48%);z-index:6;background:#fff9fc;border:1px solid #e9cbd9;border-radius:17px;padding:12px;overflow:auto;display:none;box-shadow:0 5px 25px #603d5030}
+.panel.show{display:block}
+.panel h3{font-family:Georgia,serif;color:#a64e79;font-size:16px;margin:3px 0 12px}
+.panel button{display:block;width:100%;border:0;background:#f8e5ed;color:#70445a;border-radius:10px;padding:11px 7px;margin:6px 0;text-align:left;font-size:12px}
+.panel button:active{background:#e9bfd2}
+.panel .swatch{display:inline-block;width:17px;height:17px;border-radius:50%;vertical-align:middle;margin-right:8px;border:1px solid #ddd}
+footer{height:55px;flex-shrink:0;background:#fff8fb;display:flex;align-items:center;justify-content:space-around}
+footer button{border:0;border-radius:20px;padding:10px 17px;background:#b96890;color:white;font-size:11px}
+footer span{font-size:10px;letter-spacing:1px}
+#makeupView{position:absolute;inset:0;z-index:8;background:#f8e4ed;display:none;align-items:center;justify-content:center;flex-direction:column}
+#makeupView.show{display:flex}
+#makeupView h2{font-family:Georgia,serif;color:#a64e79}
+.makeupFace{width:185px;height:230px;border-radius:48% 48% 45% 45%;background:var(--skin,#956047);position:relative;box-shadow:inset 0 0 20px #0002}
+.eye{position:absolute;top:95px;width:13px;height:7px;border-radius:50%;background:#33202a}
+.eye.one{left:42px}.eye.two{right:42px}
+.lips{position:absolute;top:151px;left:50%;transform:translateX(-50%);width:36px;height:13px;border-radius:50%;background:var(--lip,#a84c68)}
+.makeupOptions{width:85%;display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:15px}
+.makeupOptions button{border:0;border-radius:12px;padding:11px;background:#fff8fb;color:#75455e}
+#makeupView .back{margin-top:15px;border:0;border-radius:20px;padding:11px 25px;background:#b96890;color:white}
+@media(max-width:390px){.character{width:55%;height:83%}.menu button{width:43px;height:43px}.panel{width:175px}.vanity{top:34%}}
+</style>
+</head>
+<body>
+
+<div id="intro">
+<h1>STEPHENIE NOVA</h1>
+<p>DRESS UP GAME</p>
+<button onclick="startGame()">PLAY GAME ♡</button>
+</div>
+
+<div id="game">
+<header><strong>STEPHENIE NOVA ✧</strong></header>
+
+<main class="scene">
+<div class="wallpaper"></div>
+
+<div class="wardrobe">
+<div>
+<div class="rail"></div>
+<div class="hanging"><i></i><i></i><i></i></div>
+<div class="handle"></div>
+</div>
+<div><div class="handle"></div></div>
+</div>
+
+<div class="vanity">
+<div class="mirror"></div>
+<div class="desk"></div>
+<div class="stool"></div>
+</div>
+
+<div class="floor"></div>
+<div class="rug"></div>
+
+<div class="character" id="character">
+<svg viewBox="0 0 220 440" aria-label="Fashion model">
+<!-- Hair behind body -->
+<path class="hair" d="M63 65 Q45 5 110 8 Q175 5 157 90 L166 220 L145 230 L145 90 L75 90 L75 230 L54 220Z"/>
+
+<!-- Legs -->
+<g class="skin" id="legs">
+<path d="M77 280 L108 280 L104 389 L83 389Z"/>
+<path d="M113 280 L144 280 L140 389 L119 389Z"/>
+</g>
+
+<!-- Slippers -->
+<path d="M76 383 Q90 373 107 388 L110 402 L73 402Z" fill="#eeb4cb"/>
+<path d="M115 388 Q132 374 146 388 L150 402 L114 402Z" fill="#eeb4cb"/>
+
+<!-- Body / sweatshirt -->
+<path class="outfit" id="top" d="M78 110 Q55 112 40 145 L50 240 L65 285 L155 285 L170 240 L180 145 Q165 112 142 110 L130 100 L90 100Z"/>
+<path d="M89 104 Q110 126 131 104" fill="none" stroke="#c37e9e" stroke-width="3"/>
+
+<!-- Arms -->
+<g class="skin" id="arms">
+<path d="M43 145 Q27 190 43 249 L58 251 Q68 203 58 151Z"/>
+<path d="M177 145 Q193 190 177 249 L162 251 Q152 203 162 151Z"/>
+</g>
+
+<!-- Shorts -->
+<path class="shorts" id="bottom" d="M66 272 L154 272 L149 331 L116 331 L110 303 L104 331 L71 331Z"/>
+
+<!-- Neck -->
+<rect class="skin" x="94" y="83" width="32" height="34"/>
+
+<!-- Face -->
+<ellipse class="skin" id="face" cx="110" cy="65" rx="39" ry="49"/>
+
+<!-- Hair front -->
+<path class="hair" id="frontHair" d="M71 70 Q62 4 110 12 Q158 4 149 70 Q135 36 110 38 Q85 36 71 70Z"/>
+<path class="hair" d="M72 57 Q60 90 68 155 L82 160 L83 72Z"/>
+<path class="hair" d="M148 57 Q160 90 152 155 L138 160 L137 72Z"/>
+
+<!-- Eyes -->
+<g fill="#32202a">
+<ellipse cx="95" cy="70" rx="3" ry="2"/>
+<ellipse cx="125" cy="70" rx="3" ry="2"/>
+</g>
+<path d="M100 91 Q110 97 120 91" stroke="#79434a" stroke-width="2" fill="none" stroke-linecap="round"/>
+
+<!-- Bag layer -->
+<g id="bag" style="display:none">
+<path d="M146 205 L188 205 L192 250 L142 250Z" fill="#ad6688"/>
+<path d="M152 205 Q151 177 168 177 Q185 177 184 205" fill="none" stroke="#ad6688" stroke-width="5"/>
+</g>
+</svg>
+</div>
+
+<nav class="menu">
+<button onclick="openCategory('Skin',this)">🎨</button>
+<button onclick="openCategory('Hair',this)">💇🏽‍♀️</button>
+<button onclick="openCategory('Clothes',this)">👗</button>
+<button onclick="openCategory('Shoes',this)">👠</button>
+<button onclick="openCategory('Bags',this)">👜</button>
+<button onclick="openCategory('Makeup',this)">💄</button>
+<button onclick="openCategory('Accessories',this)">💎</button>
+</nav>
+
+<div class="panel" id="panel">
+<h3 id="panelTitle">Choose your style</h3>
+<div id="options"></div>
+</div>
+
+<div id="makeupView">
+<h2>MAKEUP STUDIO</h2>
+<div class="makeupFace" id="makeupFace">
+<div class="eye one"></div>
+<div class="eye two"></div>
+<div class="lips" id="lips"></div>
+</div>
+<div class="makeupOptions">
+<button onclick="changeLip('#a84c68')">Rose lipstick</button>
+<button onclick="changeLip('#a83252')">Berry lipstick</button>
+<button onclick="changeLip('#d77d91')">Pink lipstick</button>
+<button onclick="changeLip('#a85c42')">Nude lipstick</button>
+</div>
+<button class="back" onclick="closeMakeup()">BACK TO MODEL</button>
+</div>
+
+</main>
+
+<footer>
+<span>✧ YOUR FASHION WORLD ✧</span>
+<button onclick="resetLook()">RESET LOOK</button>
+</footer>
+</div>
+
+<script>
+const panel=document.getElementById("panel");
+const options=document.getElementById("options");
+const title=document.getElementById("panelTitle");
+const character=document.getElementById("character");
+const makeupView=document.getElementById("makeupView");
+
+function startGame(){
+document.getElementById("intro").style.display="none";
+document.getElementById("game").style.display="flex";
+}
+
+const skins=["#663b30","#82503c","#9b6048","#c58b6b"];
+const tops=["#e9a9c3","#f3d5e2","#b88ba8","#29232c","#ffffff","#ad7191"];
+const bottoms=["#d98eaf","#29232c","#e6c5d4","#ffffff","#a67a94"];
+const hairColors=["#17121b","#38231d","#70442f","#c18b55"];
+
+function addOption(label,action){
+const button=document.createElement("button");
+button.textContent=label;
+button.onclick=action;
+options.appendChild(button);
+}
+
+function openCategory(category,button){
+document.querySelectorAll(".menu button").forEach(b=>b.classList.remove("active"));
+button.classList.add("active");
+panel.classList.add("show");
+title.textContent=category;
+options.innerHTML="";
+
+if(category==="Skin"){
+skins.forEach((c,i)=>addOption("● Skin tone "+(i+1),()=>{
+document.querySelectorAll(".skin").forEach(el=>el.style.fill=c);
+document.getElementById("face").style.fill=c;
+document.getElementById("makeupFace").style.background=c;
+}));
+}
+
+if(category==="Clothes"){
+tops.forEach((c,i)=>addOption("Top style "+(i+1),()=>{
+document.getElementById("top").style.fill=c;
+}));
+bottoms.forEach((c,i)=>addOption("Bottom style "+(i+1),()=>{
+document.getElementById("bottom").style.fill=c;
+}));
+}
+
+if(category==="Hair"){
+hairColors.forEach((c,i)=>addOption("Hair colour "+(i+1),()=>{
+document.querySelectorAll(".hair").forEach(el=>el.style.fill=c);
+}));
+addOption("Long straight middle part",()=>{
+document.getElementById("frontHair").setAttribute("d","M71 70 Q62 4 110 12 Q158 4 149 70 Q135 36 110 38 Q85 36 71 70Z");
+});
+}
+
+if(category==="Bags"){
+addOption("Carry handbag 👜",()=>document.getElementById("bag").style.display="block");
+addOption("Remove handbag",()=>document.getElementById("bag").style.display="none");
+}
+
+if(category==="Shoes"){
+["Pink slippers","White slippers","Black slippers"].forEach((name,i)=>{
+addOption(name,()=>{
+document.querySelectorAll(".character svg > path").forEach(el=>{
+if(el.getAttribute("d")?.includes("M76 383"))el.setAttribute("fill",["#eeb4cb","#fff","#29232c"][i]);
+});
+});
+});
+}
+
+if(category==="Makeup"){
+panel.classList.remove("show");
+makeupView.classList.add("show");
+character.classList.add("zoom");
+}
+
+if(category==="Accessories"){
+addOption("Remove jewellery",()=>{});
+addOption("Pink fashion look",()=>document.getElementById("top").style.fill="#f2b4d0");
+}
+}
+
+function changeLip(color){
+document.getElementById("lips").style.background=color;
+}
+
+function closeMakeup(){
+makeupView.classList.remove("show");
+character.classList.remove("zoom");
+}
+
+function resetLook(){
+document.getElementById("face").style.fill="#9b6048";
+document.getElementById("makeupFace").style.background="#9b6048";
+document.querySelectorAll(".skin").forEach(el=>el.style.fill="#9b6048");
+document.getElementById("top").style.fill="#e9a9c3";
+document.getElementById("bottom").style.fill="#d98eaf";
+document.querySelectorAll(".hair").forEach(el=>el.style.fill="#17121b");
+document.getElementById("bag").style.display="none";
+document.getElementById("lips").style.background="#a84c68";
+closeMakeup();
+panel.classList.remove("show");
+document.querySelectorAll(".menu button").forEach(b=>b.classList.remove("active"));
+}
+</script>
+</body>
+</html>
