@@ -1,0 +1,171 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Stephenie Nova Fashion Studio</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#fff3f8;color:#672d49;font-family:'DM Sans',sans-serif}
+header{padding:18px;background:white;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #f3c6da}
+.logo{font-family:'Playfair Display';font-size:23px;color:#a52d69;font-weight:bold}
+a{color:#a52d69;text-decoration:none;font-size:12px;font-weight:bold}
+.hero{text-align:center;padding:28px 12px}
+.hero h1{font-family:'Playfair Display';font-size:35px;margin:8px;color:#a52d69}
+.hero p{font-size:12px;color:#9c6b81}
+.game{max-width:1100px;margin:auto;padding:12px;display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.preview,.wardrobe{background:white;border:1px solid #f1c9da;border-radius:20px;padding:15px}
+.preview{position:sticky;top:10px;height:max-content;text-align:center}
+.preview h2,.wardrobe h2{font-family:'Playfair Display';color:#a52d69}
+.main-image{width:100%;height:490px;object-fit:contain;border-radius:14px;background:#fff0f6}
+.current{font-size:12px;margin:12px}
+.tabs{display:flex;gap:7px;flex-wrap:wrap;margin:15px 0}
+.tab{border:1px solid #edbfd3;background:#fff4f8;color:#8c4162;padding:9px 12px;border-radius:20px;font-weight:bold;font-size:11px}
+.tab.active{background:#a52d69;color:white}
+.gallery{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}
+.item{border:2px solid #f3d5e2;background:#fff8fb;border-radius:12px;padding:5px;cursor:pointer;text-align:center;color:#713650;font-size:10px;font-weight:bold}
+.item.selected{border-color:#a52d69;background:#ffe4ef}
+.item img{width:100%;height:105px;object-fit:cover;border-radius:8px}
+.item span{display:block;padding:6px 2px}
+.actions{display:flex;gap:8px;margin-top:15px}
+.action{flex:1;padding:13px;border:0;border-radius:25px;background:#a52d69;color:white;font-weight:bold}
+.reset{background:#f7dce8;color:#853653}
+footer{text-align:center;padding:25px;background:#8d2859;color:white;margin-top:30px}
+@media(max-width:700px){
+.game{grid-template-columns:1fr}
+.preview{position:relative;top:0}
+.main-image{height:420px}
+}
+</style>
+</head>
+
+<body>
+<header>
+<div class="logo">Stephenie Nova ♡</div>
+<a href="../index.html">← BACK TO SHOP</a>
+</header>
+
+<section class="hero">
+<p>✦ THE NOVA EXPERIENCE ✦</p>
+<h1>Fashion Studio</h1>
+<p>Style your world. Create your look. Be the it girl.</p>
+</section>
+
+<main class="game">
+<section class="preview">
+<h2>Your Style Preview 🎀</h2>
+<img id="mainImage" class="main-image"
+src="https://i.postimg.cc/BjTQ3CGb/ai.jpg"
+alt="Fashion model preview">
+<div class="current" id="current">Your selected inspiration</div>
+<div class="actions">
+<button class="action" onclick="saveLook()">♡ SAVE LOOK</button>
+<button class="action reset" onclick="resetLook()">RESET ↻</button>
+</div>
+<p id="message" style="font-size:11px"></p>
+</section>
+
+<section class="wardrobe">
+<h2>Choose Your Inspiration ♡</h2>
+<p style="font-size:12px;color:#987386">Tap any picture to preview it in your studio.</p>
+
+<div class="tabs" id="tabs"></div>
+<div class="gallery" id="gallery"></div>
+</section>
+</main>
+
+<footer>
+<h2 style="font-family:'Playfair Display'">STEPHENIE NOVA ♡</h2>
+<p>For the it girls ✿</p>
+<p>Fashion is a feeling. Make it yours.</p>
+</footer>
+
+<script>
+const images = [
+{n:"Pink Bedroom",c:"Room",u:"https://i.postimg.cc/f3MWR0wv/Aesthetic-Pink-Bedroom-Makeover-Ideas-for-Your-Daily-Escape.jpg"},
+{n:"Fashion Model",c:"Model",u:"https://i.postimg.cc/BjTQ3CGb/ai.jpg"},
+{n:"Bag Inspiration",c:"Bags",u:"https://i.postimg.cc/KKmc8gZ3/bag.jpg"},
+{n:"Hair Inspiration",c:"Hair",u:"https://i.postimg.cc/HJ3Ycsxv/Hair-PNGs-(Cabelo-Cabello-PNGs).jpg"},
+{n:"Style Picture 1",c:"Inspiration",u:"https://i.postimg.cc/FYysvxQd/image.jpg"},
+{n:"Style Picture 2",c:"Inspiration",u:"https://i.postimg.cc/WdGbV7Pg/image.jpg"},
+{n:"IMVU Wig",c:"Hair",u:"https://i.postimg.cc/bGqYw2zF/IMVU-Wig.jpg"},
+{n:"IMVU Wig 2",c:"Hair",u:"https://i.postimg.cc/1gMmn5tY/IMVU-wig-2.jpg"},
+{n:"LV Inspiration",c:"Bags",u:"https://i.postimg.cc/WDsp1J2x/Lv130.jpg"},
+{n:"Makeup Studio",c:"Makeup",u:"https://i.postimg.cc/JsN48QWz/Makeup-games.jpg"},
+{n:"Outfit Inspiration",c:"Outfits",u:"https://i.postimg.cc/Xrf7Wg09/OUTFIT-INSPO.jpg"},
+{n:"Style Picture 3",c:"Inspiration",u:"https://i.postimg.cc/0zY2vCqJ/Picsart-24-11-17-21-30-48-125-hosted-at-Img-BB.jpg"},
+{n:"Pink YSL Bag",c:"Bags",u:"https://i.postimg.cc/f3MWR0w0/pink-ysl-bag.jpg"},
+{n:"Braided Hairstyles",c:"Hair",u:"https://i.postimg.cc/Lqm48ZH3/This-Swedish-Woman-Creates-Stunning-Braided-Hairstyles-And-Teaches-You-How-To-Do-It-Yourself.jpg"},
+{n:"Style Picture 4",c:"Inspiration",u:"https://i.postimg.cc/v1XYgHBq/Unknown-10.jpg"},
+{n:"Style Picture 5",c:"Inspiration",u:"https://i.postimg.cc/Z9jbBKRV/Unknown-11.jpg"},
+{n:"Style Picture 6",c:"Inspiration",u:"https://i.postimg.cc/qtpBvCk2/Unknown-12.jpg"},
+{n:"Style Picture 7",c:"Inspiration",u:"https://i.postimg.cc/Sn6N4Gps/Unknown-13.jpg"},
+{n:"Style Picture 8",c:"Inspiration",u:"https://i.postimg.cc/PLdf58tS/Unknown-14.jpg"},
+{n:"Style Picture 9",c:"Inspiration",u:"https://i.postimg.cc/7CqPZTxb/Unknown-15.jpg"},
+{n:"Style Picture 10",c:"Inspiration",u:"https://i.postimg.cc/sMYDzJR2/Unknown-16.jpg"},
+{n:"Style Picture 11",c:"Inspiration",u:"https://i.postimg.cc/sB3fgZVM/Unknown-17.jpg"},
+{n:"Style Picture 12",c:"Inspiration",u:"https://i.postimg.cc/VJqLwFcz/Unknown-18.jpg"},
+{n:"Style Picture 13",c:"Inspiration",u:"https://i.postimg.cc/0695yJ86/Unknown-19.jpg"},
+{n:"Style Picture 14",c:"Inspiration",u:"https://i.postimg.cc/sB3fgZVY/Unknown-20.jpg"},
+{n:"Style Picture 15",c:"Inspiration",u:"https://i.postimg.cc/R3vCZnMK/Unknown-21.jpg"},
+{n:"Style Picture 16",c:"Inspiration",u:"https://i.postimg.cc/9DdF2Bj9/Unknown-22.jpg"},
+{n:"Style Picture 17",c:"Inspiration",u:"https://i.postimg.cc/JyKrD4nK/Unknown-23.jpg"},
+{n:"Style Picture 18",c:"Inspiration",u:"https://i.postimg.cc/JsN48QWt/Unknown-24.jpg"},
+{n:"Style Picture 19",c:"Inspiration",u:"https://i.postimg.cc/VJqLwFc0/Unknown-25.jpg"},
+{n:"Style Picture 20",c:"Inspiration",u:"https://i.postimg.cc/wt9xjs6G/Unknown-26.jpg"},
+{n:"Style Picture 21",c:"Inspiration",u:"https://i.postimg.cc/MczZpjW5/Unknown-27.jpg"},
+{n:"Style Picture 22",c:"Inspiration",u:"https://i.postimg.cc/GBzL8h2M/Unknown-7.jpg"},
+{n:"Style Picture 23",c:"Inspiration",u:"https://i.postimg.cc/NyQGjrg4/Unknown-8.jpg"},
+{n:"Style Picture 24",c:"Inspiration",u:"https://i.postimg.cc/mPY24SGY/Unknown-9.jpg"}
+];
+
+let selected = images[1];
+let activeCategory = "All";
+
+function renderTabs(){
+const cats=["All","Model","Room","Outfits","Hair","Bags","Makeup","Inspiration"];
+document.getElementById("tabs").innerHTML=cats.map(c=>
+`<button class="tab ${activeCategory===c?'active':''}" onclick="showCategory('${c}')">${c}</button>`
+).join("");
+}
+
+function showCategory(category){
+activeCategory=category;
+renderTabs();
+const list=category==="All"?images:images.filter(x=>x.c===category);
+document.getElementById("gallery").innerHTML=list.map(item=>
+`<button class="item ${selected.u===item.u?'selected':''}" onclick="chooseImage('${item.u}','${item.n.replace(/'/g,"")}')">
+<img src="${item.u}" loading="lazy" alt="${item.n}">
+<span>${item.n}</span>
+</button>`
+).join("");
+}
+
+function chooseImage(url,name){
+selected=images.find(x=>x.u===url);
+document.getElementById("mainImage").src=url;
+document.getElementById("current").textContent="Now previewing: "+name;
+document.getElementById("message").textContent="";
+showCategory(activeCategory);
+}
+
+function saveLook(){
+document.getElementById("message").textContent="♡ Your selection is ready! Take a screenshot to keep your look.";
+}
+
+function resetLook(){
+selected=images[1];
+document.getElementById("mainImage").src=selected.u;
+document.getElementById("current").textContent="Your selected inspiration";
+document.getElementById("message").textContent="Your studio is reset ♡";
+showCategory(activeCategory);
+}
+
+renderTabs();
+showCategory("All");
+</script>
+</body>
+</html>
