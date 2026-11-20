@@ -1,0 +1,266 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Stephenie Nova Fashion Game</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#fce0ed;color:#873653}
+button{font:inherit;cursor:pointer}
+#intro{position:fixed;inset:0;background:linear-gradient(145deg,#f8b5d2,#fff0f6);z-index:10;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+#intro h1{font-family:Georgia,serif;font-size:clamp(30px,8vw,55px);animation:pop 1.2s infinite alternate}
+#intro p{letter-spacing:4px}
+@keyframes pop{to{transform:scale(1.07)}}
+#intro button,.pinkbtn{border:0;border-radius:30px;background:#d94c88;color:white;padding:14px 28px;font-weight:bold;box-shadow:0 5px 15px #bd6b91}
+header{text-align:center;padding:12px;background:#fff0f6}
+header h2{margin:3px;font-family:Georgia,serif;letter-spacing:2px}
+header small{letter-spacing:3px}
+#game{display:none;max-width:1100px;margin:auto;padding:10px}
+.topbar{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:10px}
+.topbar button{border:0;border-radius:20px;padding:10px 13px;background:#fff;color:#a53c6b}
+.stage{position:relative;height:min(70vh,680px);min-height:450px;border:5px solid white;border-radius:20px;overflow:hidden;background:#f8d6e5}
+#room{position:absolute;width:100%;height:100%;object-fit:cover}
+#model{position:absolute;height:94%;width:75%;object-fit:contain;bottom:0;left:50%;transform:translateX(-50%);z-index:2}
+.wear{position:absolute;object-fit:contain;z-index:3;pointer-events:none;display:none}
+.wear.top{width:58%;height:42%;left:21%;top:27%}
+.wear.dress{width:65%;height:65%;left:17%;top:22%}
+.wear.bag{width:28%;height:28%;left:57%;top:39%}
+.wear.hair{width:68%;height:35%;left:16%;top:0}
+.wear.shoes{width:55%;height:23%;left:22%;bottom:0}
+.wear.accessory{width:28%;height:25%;left:37%;top:30%}
+#faceZoom{position:absolute;inset:0;background:#fce0ed;z-index:5;display:none;align-items:center;justify-content:center}
+#faceZoom img{height:90%;max-width:90%;object-fit:contain}
+#faceZoom button{position:absolute;top:12px;right:12px}
+.categories{display:flex;gap:7px;overflow-x:auto;padding:12px 2px}
+.categories button{white-space:nowrap;border:1px solid #e8a4c1;border-radius:22px;background:white;color:#a13e69;padding:10px 15px}
+.categories button.active{background:#d94c88;color:white}
+#items{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;padding-bottom:20px}
+.item{background:white;border:2px solid white;border-radius:12px;padding:5px;min-height:105px}
+.item img{width:100%;height:95px;object-fit:contain}
+.item.selected{border-color:#d94c88}
+.actions{display:flex;gap:10px;justify-content:center;padding:10px}
+@media(min-width:700px){.layout{display:grid;grid-template-columns:1.3fr 1fr;gap:15px}.stage{height:650px}#items{grid-template-columns:repeat(3,1fr)}}
+</style>
+</head>
+<body>
+
+<div id="intro">
+<h1>STEPHENIE NOVA</h1>
+<p>FASHION GAME</p>
+<div>🎀 👜 ✨</div>
+<br>
+<button class="pinkbtn" onclick="startGame()">PLAY GAME</button>
+</div>
+
+<header>
+<h2>STEPHENIE NOVA</h2>
+<small>YOUR STYLE. YOUR RULES.</small>
+</header>
+
+<div id="game">
+<div class="topbar">
+<strong>🎀 Dress up your model</strong>
+<button onclick="toggleMusic()" id="musicBtn">♫ MUSIC ON</button>
+</div>
+
+<div class="layout">
+<div>
+<div class="stage">
+<img id="room" src="https://i.postimg.cc/Z9yFFcCJ/IMG-5583.png">
+<img id="model" src="https://i.postimg.cc/HkR0tGTJ/IMG-5618.png">
+<img class="wear top" id="wearTop">
+<img class="wear dress" id="wearDress">
+<img class="wear bag" id="wearBag">
+<img class="wear hair" id="wearHair">
+<img class="wear shoes" id="wearShoes">
+<img class="wear accessory" id="wearAccessory">
+<div id="faceZoom">
+<img src="https://i.postimg.cc/HkR0tGTJ/IMG-5618.png">
+<button class="pinkbtn" onclick="closeFace()">CLOSE ✕</button>
+</div>
+</div>
+<div class="actions">
+<button class="pinkbtn" onclick="resetLook()">RESET LOOK</button>
+<button class="pinkbtn" onclick="saveLook()">SAVE LOOK</button>
+</div>
+</div>
+
+<div>
+<div class="categories" id="categories"></div>
+<div id="items"></div>
+</div>
+</div>
+</div>
+
+<script>
+const assets={
+  "Bags":[
+  "IMG-5592.png","IMG-5596.png","IMG-5597.png","IMG-5598.png",
+  "IMG-5602.png","IMG-5603.png","IMG-5611.png","IMG-5615.png"
+  ],
+  "Tops":[
+  "IMG-5584.png","IMG-5585.png","IMG-5586.png","IMG-5587.png",
+  "IMG-5588.png","IMG-5589.png","IMG-5590.png"
+  ],
+  "Dresses":[
+  "IMG-5605.png","IMG-5606.png","IMG-5608.png","IMG-5609.png",
+  "IMG-5610.png"
+  ],
+  "Hair":[
+  "IMG-5594.png","IMG-5595.png","IMG-5604.png","IMG-5607.png",
+  "IMG-5612.png","IMG-5613.png","IMG-5614.png"
+  ],
+  "Shoes":[
+  "IMG-5591.png","IMG-5616.png","IMG-5617.png"
+  ],
+  "Accessories":[
+  "IMG-5576.png","IMG-5577.png"
+  ]
+};
+
+const base="https://i.postimg.cc/";
+const urls={
+"IMG-5576.png":"https://i.postimg.cc/Xrrw48Kw/IMG-5576.png",
+"IMG-5577.png":"https://i.postimg.cc/qgGcLgM2/IMG-5577.png",
+"IMG-5584.png":"https://i.postimg.cc/87cbsDGv/IMG-5584.png",
+"IMG-5585.png":"https://i.postimg.cc/MnLmQ4Zy/IMG-5585.png",
+"IMG-5586.png":"https://i.postimg.cc/v4TvDMyD/IMG-5586.png",
+"IMG-5587.png":"https://i.postimg.cc/Wdz7tjVV/IMG-5587.png",
+"IMG-5588.png":"https://i.postimg.cc/tsJz7ybY/IMG-5588.png",
+"IMG-5589.png":"https://i.postimg.cc/9D0BzV24/IMG-5589.png",
+"IMG-5590.png":"https://i.postimg.cc/3dnBKNP6/IMG-5590.png",
+"IMG-5591.png":"https://i.postimg.cc/2V2wzysj/IMG-5591.png",
+"IMG-5592.png":"https://i.postimg.cc/kBfcnG07/IMG-5592.png",
+"IMG-5594.png":"https://i.postimg.cc/VdDRYv3K/IMG-5594.png",
+"IMG-5595.png":"https://i.postimg.cc/gnNDYjfB/IMG-5595.png",
+"IMG-5596.png":"https://i.postimg.cc/ykvPVxwv/IMG-5596.png",
+"IMG-5597.png":"https://i.postimg.cc/bs3Tzr7X/IMG-5597.png",
+"IMG-5598.png":"https://i.postimg.cc/6y9cJn1m/IMG-5598.png",
+"IMG-5602.png":"https://i.postimg.cc/dLq6PrST/IMG-5602.png",
+"IMG-5603.png":"https://i.postimg.cc/7b19WmXS/IMG-5603.png",
+"IMG-5604.png":"https://i.postimg.cc/0b8nRDHX/IMG-5604.png",
+"IMG-5605.png":"https://i.postimg.cc/XpVLSdDc/IMG-5605.png",
+"IMG-5606.png":"https://i.postimg.cc/7b19WmX7/IMG-5606.png",
+"IMG-5607.png":"https://i.postimg.cc/yWhjbvnc/IMG-5607.png",
+"IMG-5608.png":"https://i.postimg.cc/XXKLzQxB/IMG-5608.png",
+"IMG-5609.png":"https://i.postimg.cc/4nvPSBwh/IMG-5609.png",
+"IMG-5610.png":"https://i.postimg.cc/Jt3x2PKy/IMG-5610.png",
+"IMG-5611.png":"https://i.postimg.cc/QHXmG1nT/IMG-5611.png",
+"IMG-5612.png":"https://i.postimg.cc/grysTN4c/IMG-5612.png",
+"IMG-5613.png":"https://i.postimg.cc/PNbyR2Kx/IMG-5613.png",
+"IMG-5614.png":"https://i.postimg.cc/LhkDbNv8/IMG-5614.png",
+"IMG-5615.png":"https://i.postimg.cc/xqG54tgq/IMG-5615.png",
+"IMG-5616.png":"https://i.postimg.cc/Hj0zhB3p/IMG-5616.png",
+"IMG-5617.png":"https://i.postimg.cc/QVgmy0SD/IMG-5617.png"
+};
+
+const categories=Object.keys(assets);
+const slots={Bags:"wearBag",Tops:"wearTop",Dresses:"wearDress",Hair:"wearHair",Shoes:"wearShoes",Accessories:"wearAccessory"};
+let current="Bags";
+let audioCtx=null,musicTimer=null,musicPlaying=false,step=0;
+
+function startGame(){
+ document.getElementById("intro").style.display="none";
+ document.getElementById("game").style.display="block";
+ showCategory("Bags");
+ startMusic();
+}
+function showCategory(category){
+ current=category;
+ document.querySelectorAll(".categories button").forEach(b=>b.classList.toggle("active",b.textContent===category));
+ const items=document.getElementById("items");
+ items.innerHTML="";
+ assets[category].forEach((name,i)=>{
+  const url=urls[name];
+  if(!url)return;
+  const btn=document.createElement("button");
+  btn.className="item";
+  btn.innerHTML=`<img src="${url}" alt="${category} item ${i+1}">`;
+  btn.onclick=()=>chooseItem(name,btn);
+  items.appendChild(btn);
+ });
+}
+function chooseItem(name,btn){
+ const slot=document.getElementById(slots[current]);
+ slot.src=urls[name];
+ slot.style.display="block";
+ document.querySelectorAll(".item").forEach(x=>x.classList.remove("selected"));
+ btn.classList.add("selected");
+}
+categories.forEach(category=>{
+ const b=document.createElement("button");
+ b.textContent=category;
+ b.onclick=()=>showCategory(category);
+ document.getElementById("categories").appendChild(b);
+});
+function resetLook(){
+ document.querySelectorAll(".wear").forEach(x=>{x.style.display="none";x.src=""});
+ document.querySelectorAll(".item").forEach(x=>x.classList.remove("selected"));
+}
+function saveLook(){
+ const stage=document.querySelector(".stage");
+ const win=window.open("","_blank");
+ if(!win){alert("Allow pop-ups to save your look.");return;}
+ win.document.write("<title>My Stephenie Nova Look</title><h2>My Stephenie Nova Fashion Look 🎀</h2>");
+ win.document.write(stage.outerHTML);
+}
+function closeFace(){document.getElementById("faceZoom").style.display="none";}
+
+function startMusic(){
+ if(musicPlaying)return;
+ const AudioContext=window.AudioContext||window.webkitAudioContext;
+ if(!AudioContext)return;
+ audioCtx=new AudioContext();
+ audioCtx.resume();
+ musicPlaying=true;
+ document.getElementById("musicBtn").textContent="♫ MUSIC OFF";
+ const notes=[523,659,784,659,587,698,880,698,523,659,784,988,880,784,659,587];
+ const play=()=>{
+  if(!musicPlaying)return;
+  const now=audioCtx.currentTime;
+  const freq=notes[step%notes.length];
+  const osc=audioCtx.createOscillator();
+  const gain=audioCtx.createGain();
+  osc.type="sine";
+  osc.frequency.value=freq;
+  gain.gain.setValueAtTime(0.0001,now);
+  gain.gain.exponentialRampToValueAtTime(0.055,now+0.04);
+  gain.gain.exponentialRampToValueAtTime(0.0001,now+0.27);
+  osc.connect(gain);gain.connect(audioCtx.destination);
+  osc.start(now);osc.stop(now+0.3);
+  step++;
+ };
+ play();
+ musicTimer=setInterval(play,300);
+}
+function toggleMusic(){
+ if(musicPlaying){
+  musicPlaying=false;
+  clearInterval(musicTimer);
+  if(audioCtx)audioCtx.suspend();
+  document.getElementById("musicBtn").textContent="♫ MUSIC OFF";
+ }else{
+  if(audioCtx)audioCtx.resume();
+  if(!audioCtx)startMusic();
+  else{
+   musicPlaying=true;
+   document.getElementById("musicBtn").textContent="♫ MUSIC ON";
+   musicTimer=setInterval(()=>{
+    const notes=[523,659,784,659,587,698,880,698,523,659,784,988,880,784,659,587];
+    const now=audioCtx.currentTime;
+    const osc=audioCtx.createOscillator(),gain=audioCtx.createGain();
+    osc.frequency.value=notes[step++%notes.length];
+    gain.gain.setValueAtTime(.0001,now);
+    gain.gain.exponentialRampToValueAtTime(.05,now+.04);
+    gain.gain.exponentialRampToValueAtTime(.0001,now+.27);
+    osc.connect(gain);gain.connect(audioCtx.destination);
+    osc.start();osc.stop(now+.3);
+   },300);
+  }
+ }
+}
+</script>
+</body>
+</html>
