@@ -1,0 +1,504 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stephenie Nova | Dress-Up Studio</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Baloo+2:wght@600;700;800&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --pink:#e93683;
+  --light:#fff0f6;
+  --dark:#63344c;
+  --white:#fff;
+}
+* {box-sizing:border-box}
+body {
+  margin:0;
+  font-family:Nunito,sans-serif;
+  color:var(--dark);
+  background:#fff7fb;
+}
+header {
+  text-align:center;
+  padding:22px 12px;
+  background:white;
+  border-bottom:2px solid #ffd5e7;
+}
+header h1 {
+  font-family:"Baloo 2",cursive;
+  font-size:clamp(27px,7vw,43px);
+  line-height:1;
+  color:var(--pink);
+  margin:0;
+}
+header p {
+  font-size:11px;
+  letter-spacing:4px;
+  font-weight:900;
+  margin:8px 0 0;
+}
+.back {
+  display:inline-block;
+  margin-top:13px;
+  color:var(--pink);
+  font-size:13px;
+  font-weight:900;
+  text-decoration:none;
+}
+.intro {
+  text-align:center;
+  padding:25px 15px 10px;
+}
+.intro h2 {
+  color:var(--pink);
+  font-family:"Baloo 2",cursive;
+  font-size:29px;
+  margin:0;
+}
+.intro p {font-size:13px;margin:5px}
+.leopard {
+  background-color:#fff0f6;
+  background-image:
+    radial-gradient(ellipse at 20% 30%,#ed91b8 0 5%,transparent 6%),
+    radial-gradient(ellipse at 75% 25%,#c96d91 0 4%,transparent 5%),
+    radial-gradient(ellipse at 45% 75%,#e98aaf 0 6%,transparent 7%),
+    radial-gradient(ellipse at 90% 85%,#c96d91 0 4%,transparent 5%);
+  background-size:75px 85px,90px 100px,110px 95px,85px 90px;
+}
+.game {
+  max-width:950px;
+  margin:20px auto 45px;
+  padding:15px;
+  display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+  gap:18px;
+}
+.stage {
+  border:3px solid white;
+  border-radius:25px;
+  background:linear-gradient(145deg,#ffe4ef,#fff8fb);
+  box-shadow:0 8px 25px #d85b8c20;
+  min-height:480px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  position:relative;
+  overflow:hidden;
+}
+.stage:before {
+  content:"✧  ♡  ✧";
+  position:absolute;
+  top:20px;
+  color:#e93683;
+  font-size:25px;
+  letter-spacing:18px;
+}
+.stage:after {
+  content:"STEPHENIE NOVA";
+  position:absolute;
+  bottom:18px;
+  color:#d94391;
+  font-family:"Baloo 2",cursive;
+  font-size:20px;
+  font-weight:800;
+  letter-spacing:2px;
+}
+.doll {
+  width:min(100%,340px);
+  height:410px;
+  position:relative;
+  margin-top:15px;
+  animation:float 3s ease-in-out infinite alternate;
+}
+@keyframes float {
+  to {transform:translateY(-7px)}
+}
+.doll svg {width:100%;height:100%;overflow:visible}
+.skin {fill:#dca17d}
+.skin-dark {fill:#bd795f}
+.hair {fill:#e8b64c}
+.hair-light {fill:#f6d47c}
+.eye {fill:#392333}
+.lip {fill:#b94d68}
+.leg {fill:#dca17d}
+.top {fill:#e93683}
+.skirt {fill:#75452f}
+.boot {fill:#d8b28e}
+.outfit-leopard {fill:#bd6689}
+.accessory {fill:#e93683}
+#top-pattern {opacity:.7}
+#topPattern {opacity:.7}
+#bag-shape {fill:#fff}
+#bag-handle {stroke:#e93683}
+#bow {fill:#e93683}
+.controls {
+  background:white;
+  border:2px solid #f8d5e5;
+  border-radius:25px;
+  padding:20px;
+  box-shadow:0 8px 25px #d85b8c12;
+}
+.controls h3 {
+  font-family:"Baloo 2",cursive;
+  font-size:22px;
+  color:var(--pink);
+  margin:0 0 12px;
+}
+.group {margin-bottom:20px}
+.group-title {
+  font-size:12px;
+  font-weight:900;
+  margin-bottom:9px;
+  letter-spacing:1px;
+}
+.options {
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+}
+.option {
+  border:1.5px solid #f2c6d9;
+  background:#fff8fb;
+  color:#75445a;
+  border-radius:13px;
+  padding:10px 12px;
+  font-family:inherit;
+  font-size:12px;
+  font-weight:800;
+  cursor:pointer;
+}
+.option:active,.option.selected {
+  background:#ffe0ed;
+  border-color:var(--pink);
+  color:#c5266b;
+}
+.actions {
+  display:flex;
+  gap:10px;
+  margin-top:20px;
+}
+.action {
+  flex:1;
+  border:0;
+  padding:13px 8px;
+  border-radius:25px;
+  background:var(--pink);
+  color:white;
+  font-family:inherit;
+  font-weight:900;
+  cursor:pointer;
+}
+.action.secondary {
+  background:#ffe4ef;
+  color:#bd3474;
+}
+footer {
+  background:#63344c;
+  color:white;
+  text-align:center;
+  padding:25px;
+  font-size:12px;
+}
+@media(max-width:650px) {
+  .game {grid-template-columns:1fr;max-width:430px}
+  .stage {min-height:440px}
+  .doll {height:380px}
+  .controls {padding:17px}
+}
+</style>
+</head>
+
+<body>
+<header>
+  <h1>STEPHENIE NOVA</h1>
+  <p>FOR THE IT GIRLS</p>
+  <a class="back" href="index.html">← BACK TO THE STORE</a>
+</header>
+
+<div class="intro">
+  <h2>Dress-Up Studio 🎀</h2>
+  <p>Style your doll. Create your Nova look. ♡</p>
+</div>
+
+<main class="game">
+  <div class="stage leopard">
+    <div class="doll">
+      <svg viewBox="0 0 300 440" role="img" aria-label="Fashion dress-up doll">
+        <!-- Hair behind body -->
+        <path id="backHair" class="hair"
+          d="M85 85 Q55 35 115 25 Q190 5 215 75
+          L225 245 Q205 285 195 205 L100 215
+          Q95 280 75 250Z"/>
+        <path class="hair-light"
+          d="M90 65 Q95 25 145 28 Q185 28 205 65
+          Q170 42 145 53 Q112 45 90 65Z"/>
+
+        <!-- Legs -->
+        <path class="leg" d="M113 270 L145 270 L137 365 L119 365Z"/>
+        <path class="leg" d="M155 270 L184 270 L179 365 L158 365Z"/>
+
+        <!-- Boots -->
+        <g id="shoes">
+          <path class="boot" d="M117 350 L139 350 L142 397
+          Q143 410 126 412 L96 412 Q91 406 103 397Z"/>
+          <path class="boot" d="M158 350 L181 350 L190 397
+          Q194 410 177 412 L149 412 Q145 405 155 397Z"/>
+          <path fill="#b28b6d" d="M99 407 L141 407 L141 415 L96 415Z"/>
+          <path fill="#b28b6d" d="M150 407 L191 407 L193 415 L148 415Z"/>
+        </g>
+
+        <!-- Arms -->
+        <path class="skin" d="M111 145 Q90 150 82 190
+          L64 255 Q60 268 72 270 Q82 270 88 253
+          L119 190Z"/>
+        <path class="skin" d="M183 145 Q204 150 212 190
+          L230 255 Q234 268 222 270 Q212 270 206 253
+          L175 190Z"/>
+
+        <!-- Neck -->
+        <path class="skin" d="M132 111 L132 145 L168 145 L168 111Z"/>
+
+        <!-- Body and top -->
+        <path class="skin" d="M112 137 Q150 120 188 137
+          L195 236 L105 236Z"/>
+        <path id="topShape" class="top"
+          d="M111 143 Q130 128 150 140 Q170 128 189 143
+          L183 220 L117 220Z"/>
+        <path id="topDetail" fill="none" stroke="#fff"
+          stroke-width="3" d="M119 154 Q150 166 181 154"/>
+
+        <!-- Skirt -->
+        <path id="skirtShape" class="skirt"
+          d="M113 215 L187 215 L202 285 L98 285Z"/>
+        <path id="skirtDetail" fill="none" stroke="#f3c7dc"
+          stroke-width="3" d="M105 230 L195 230"/>
+
+        <!-- Face -->
+        <ellipse class="skin" cx="150" cy="91" rx="48" ry="57"/>
+        <ellipse fill="#fff" cx="132" cy="91" rx="10" ry="13"/>
+        <ellipse fill="#fff" cx="169" cy="91" rx="10" ry="13"/>
+        <ellipse class="eye" cx="134" cy="94" rx="5" ry="8"/>
+        <ellipse class="eye" cx="167" cy="94" rx="5" ry="8"/>
+        <circle fill="white" cx="136" cy="90" r="2.5"/>
+        <circle fill="white" cx="169" cy="90" r="2.5"/>
+        <path fill="none" stroke="#784b45" stroke-width="3"
+          stroke-linecap="round" d="M121 75 Q132 69 143 75 M158 75 Q170 69 180 75"/>
+        <path fill="none" stroke="#b97864" stroke-width="2"
+          d="M150 95 L146 108 L152 110"/>
+        <path class="lip" d="M137 119 Q150 110 163 119
+          Q151 133 137 119Z"/>
+
+        <!-- Long blonde hair -->
+        <path id="frontHair" class="hair"
+          d="M104 91 Q86 20 145 22 Q220 14 199 98
+          Q193 61 179 55 Q157 75 117 57
+          Q114 77 104 91Z"/>
+        <path class="hair-light" fill="none" stroke-width="7"
+          stroke-linecap="round"
+          d="M111 61 Q118 31 151 31 Q178 29 191 55"/>
+
+        <!-- Baby hairs -->
+        <path fill="none" stroke="#d29b3e" stroke-width="3"
+          stroke-linecap="round"
+          d="M105 82 Q114 70 120 83 Q125 88 129 78
+          M174 78 Q181 69 187 83"/>
+
+        <!-- Bow -->
+        <g id="bow">
+          <path d="M185 35 Q205 13 210 38 L198 49Z"/>
+          <path d="M190 42 Q211 40 207 61 L191 52Z"/>
+          <circle cx="195" cy="46" r="5"/>
+        </g>
+
+        <!-- Necklace -->
+        <path id="necklace" fill="none" stroke="#e6bd70"
+          stroke-width="3" d="M130 140 Q150 165 170 140"/>
+        <path fill="#e93683" d="M146 155 L150 162 L154 155 L150 151Z"/>
+
+        <!-- Handbag -->
+        <g id="handbag" transform="translate(207 248)">
+          <path id="bag-handle" d="M4 10 Q5 -18 30 -18 Q55 -18 55 10"
+            fill="none" stroke-width="5"/>
+          <rect id="bag-shape" x="0" y="5" width="60" height="55"
+            rx="9" stroke="#e93683" stroke-width="2"/>
+          <path d="M8 20 L52 20" stroke="#e93683" stroke-width="2"/>
+          <text x="30" y="43" text-anchor="middle"
+            font-size="9" fill="#e93683" font-weight="bold">SN</text>
+        </g>
+      </svg>
+    </div>
+  </div>
+
+  <div class="controls">
+    <h3>Style your doll ♡</h3>
+
+    <div class="group">
+      <div class="group-title">TOPS 🎀</div>
+      <div class="options">
+        <button class="option selected" onclick="topStyle('leopard',this)">Leopard</button>
+        <button class="option" onclick="topStyle('pink',this)">Pink Crop</button>
+        <button class="option" onclick="topStyle('white',this)">White</button>
+        <button class="option" onclick="topStyle('black',this)">Black</button>
+      </div>
+    </div>
+
+    <div class="group">
+      <div class="group-title">SKIRTS & BOTTOMS 👗</div>
+      <div class="options">
+        <button class="option selected" onclick="bottomStyle('brown',this)">Brown Mini</button>
+        <button class="option" onclick="bottomStyle('pink',this)">Pink Mini</button>
+        <button class="option" onclick="bottomStyle('denim',this)">Denim</button>
+        <button class="option" onclick="bottomStyle('black',this)">Black</button>
+      </div>
+    </div>
+
+    <div class="group">
+      <div class="group-title">SHOES 👠</div>
+      <div class="options">
+        <button class="option selected" onclick="shoeStyle('beige',this)">Beige Boots</button>
+        <button class="option" onclick="shoeStyle('pink',this)">Pink Boots</button>
+        <button class="option" onclick="shoeStyle('black',this)">Black Boots</button>
+        <button class="option" onclick="shoeStyle('white',this)">White Boots</button>
+      </div>
+    </div>
+
+    <div class="group">
+      <div class="group-title">HAIR 🎀</div>
+      <div class="options">
+        <button class="option selected" onclick="hairStyle('blonde',this)">Blonde</button>
+        <button class="option" onclick="hairStyle('brown',this)">Brunette</button>
+        <button class="option" onclick="hairStyle('pink',this)">Pink</button>
+      </div>
+    </div>
+
+    <div class="group">
+      <div class="group-title">ACCESSORIES ✨</div>
+      <div class="options">
+        <button class="option selected" onclick="accessory('bow',this)">Bow</button>
+        <button class="option" onclick="accessory('bag',this)">Handbag</button>
+        <button class="option" onclick="accessory('necklace',this)">Necklace</button>
+        <button class="option" onclick="accessory('none',this)">None</button>
+      </div>
+    </div>
+
+    <div class="actions">
+      <button class="action" onclick="randomLook()">SURPRISE ME ✨</button>
+      <button class="action secondary" onclick="resetLook()">RESET ♡</button>
+    </div>
+    <p style="font-size:11px;text-align:center;margin-top:17px">
+      Made with love for the Nova girls 🐆💗
+    </p>
+  </div>
+</main>
+
+<footer>
+  <strong>STEPHENIE NOVA ♡</strong><br>
+  For the it girls ✿
+</footer>
+
+<script>
+const $ = id => document.getElementById(id);
+
+function selectButton(button) {
+  button.parentElement.querySelectorAll(".option")
+    .forEach(item => item.classList.remove("selected"));
+  button.classList.add("selected");
+}
+
+function topStyle(style,button) {
+  const colors = {
+    leopard:"#bd6689",
+    pink:"#f45b9b",
+    white:"#fff",
+    black:"#30202b"
+  };
+  $("topShape").style.fill = colors[style];
+  $("topDetail").style.stroke = style === "white" ? "#e93683" : "#fff";
+  if(button) selectButton(button);
+}
+
+function bottomStyle(style,button) {
+  const colors = {
+    brown:"#75452f",
+    pink:"#ed8bb5",
+    denim:"#6689b5",
+    black:"#30202b"
+  };
+  $("skirtShape").style.fill = colors[style];
+  $("skirtDetail").style.stroke = "#f3c7dc";
+  if(button) selectButton(button);
+}
+
+function shoeStyle(style,button) {
+  const colors = {
+    beige:"#d8b28e",
+    pink:"#ed8bb5",
+    black:"#30202b",
+    white:"#fff"
+  };
+  document.querySelectorAll(".boot").forEach(item => {
+    item.style.fill = colors[style];
+  });
+  if(button) selectButton(button);
+}
+
+function hairStyle(style,button) {
+  const colors = {
+    blonde:"#e8b64c",
+    brown:"#59372e",
+    pink:"#ec92b8"
+  };
+  const highlights = {
+    blonde:"#f6d47c",
+    brown:"#98664c",
+    pink:"#ffc4df"
+  };
+  document.querySelectorAll(".hair").forEach(item => {
+    item.style.fill = colors[style];
+  });
+  document.querySelectorAll(".hair-light").forEach(item => {
+    item.style.fill = highlights[style];
+    item.style.stroke = highlights[style];
+  });
+  if(button) selectButton(button);
+}
+
+function accessory(style,button) {
+  $("bow").style.display = style === "bow" ? "block" : "none";
+  $("handbag").style.display = style === "bag" ? "block" : "none";
+  $("necklace").style.display = style === "necklace" ? "block" : "none";
+  if(button) selectButton(button);
+}
+
+function resetLook() {
+  topStyle("leopard");
+  bottomStyle("brown");
+  shoeStyle("beige");
+  hairStyle("blonde");
+  accessory("bow");
+
+  document.querySelectorAll(".options").forEach(group => {
+    group.querySelectorAll(".option").forEach((button,index) => {
+      button.classList.toggle("selected",index === 0);
+    });
+  });
+}
+
+function randomLook() {
+  const choose = selector => {
+    const buttons = [...document.querySelectorAll(selector)];
+    const button = buttons[Math.floor(Math.random()*buttons.length)];
+    button.click();
+  };
+  choose(".group:nth-of-type(1) .option");
+  choose(".group:nth-of-type(2) .option");
+  choose(".group:nth-of-type(3) .option");
+  choose(".group:nth-of-type(4) .option");
+  choose(".group:nth-of-type(5) .option");
+}
+</script>
+</body>
+</html>
