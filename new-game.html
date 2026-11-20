@@ -1,0 +1,286 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stephenie Nova Fashion Studio</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#fce5ef;color:#63364c}
+button{font-family:inherit;cursor:pointer}
+#intro{position:fixed;inset:0;z-index:10;background:linear-gradient(145deg,#f8b9d3,#fff0f6);display:flex;align-items:center;justify-content:center;text-align:center;padding:25px}
+.intro-card{background:#fff8fb;border:2px solid white;border-radius:28px;padding:35px 22px;width:100%;max-width:390px;box-shadow:0 15px 50px #b65d8640}
+.intro-card h1{font-family:Georgia,serif;font-size:34px;letter-spacing:2px;color:#a83e70;margin:10px 0}
+.intro-card p{color:#9b6680}
+.play{background:#b74779;color:white;border:0;border-radius:30px;padding:15px 48px;font-size:17px;font-weight:bold;margin-top:15px}
+header{text-align:center;padding:14px 8px;background:#fff8fb;border-bottom:1px solid #f2c8da}
+header h2{font-family:Georgia,serif;letter-spacing:2px;font-size:21px;margin:0;color:#a83e70}
+header small{letter-spacing:3px;color:#b87997;font-size:9px}
+.game{max-width:850px;margin:auto;padding:10px}
+.room{height:440px;position:relative;overflow:hidden;border-radius:22px;background:linear-gradient(#f9d9e8 0 68%,#e8b5ca 68%);border:5px solid #fff;box-shadow:0 5px 20px #9d527322}
+.wallpaper{position:absolute;inset:0;background-image:radial-gradient(#fff8 1px,transparent 1px);background-size:24px 24px;opacity:.6}
+.window{position:absolute;left:5%;top:8%;width:24%;height:39%;border:7px solid #fff9;background:linear-gradient(120deg,#fff9,#f3b9d5);border-radius:80px 80px 5px 5px;box-shadow:inset 0 0 0 3px #d98eaf}
+.window:before{content:"";position:absolute;left:48%;height:100%;width:4px;background:#fff}
+.window:after{content:"";position:absolute;top:48%;height:4px;width:100%;background:#fff}
+.wardrobe{position:absolute;right:4%;top:5%;width:28%;height:57%;background:linear-gradient(90deg,#d99ab8,#f7d5e4,#d99ab8);border:5px solid #fff5;border-radius:8px;box-shadow:0 5px 12px #87465c33}
+.wardrobe:before{content:"";position:absolute;left:50%;height:100%;border-left:3px solid #fff8}
+.wardrobe:after{content:"";position:absolute;left:46%;top:48%;width:6px;height:6px;background:#a85b7e;border-radius:50%;box-shadow:16px 0 #a85b7e}
+.vanity{position:absolute;left:3%;bottom:4%;width:30%;height:17%;background:#fff0f6;border:4px solid #e5a9c3;border-radius:8px}
+.vanity:before{content:"";position:absolute;left:10%;right:10%;top:-38%;height:38%;background:#fff8fc;border:4px solid #e5a9c3;border-radius:50% 50% 5px 5px}
+.vanity:after{content:"✿  ♡  ✧";position:absolute;top:-30%;left:20%;font-size:13px;color:#c66d94}
+.rug{position:absolute;bottom:-23px;left:26%;width:50%;height:70px;background:#f8e6ef;border-radius:50%}
+.room-label{position:absolute;top:8px;left:50%;transform:translateX(-50%);font-family:Georgia,serif;font-style:italic;color:#a85b7e;font-size:13px;white-space:nowrap}
+#stage{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;transition:transform .3s}
+#stage.zoom{transform:scale(1.8) translateY(70px)}
+#avatar{height:98%;width:auto;max-width:85%;filter:drop-shadow(0 5px 4px #85415b25)}
+.controls{background:#fff9fc;margin-top:10px;border-radius:18px;padding:12px;box-shadow:0 4px 15px #a34d7020}
+.categories{display:flex;gap:7px;overflow-x:auto;padding:2px 0 10px;scrollbar-width:none}
+.categories button{flex:0 0 auto;border:1px solid #e9b5cc;background:#fff0f6;color:#96506f;padding:10px 13px;border-radius:20px;font-size:12px}
+.categories button.active{background:#ae4778;color:white}
+#panel{display:flex;gap:9px;overflow-x:auto;min-height:75px;padding:5px 0}
+.option{min-width:65px;background:#fff;border:1px solid #efd0de;border-radius:13px;padding:8px 6px;text-align:center;color:#78465d;font-size:11px}
+.option .emoji{display:block;font-size:24px;margin-bottom:5px}
+.actions{display:flex;gap:8px;margin-top:10px}
+.actions button{flex:1;border:0;border-radius:20px;padding:12px 5px;background:#f3d1e0;color:#80435f;font-weight:bold;font-size:12px}
+.actions button.primary{background:#ad4777;color:white}
+.note{text-align:center;font-size:10px;color:#a8758d;margin:9px 0 2px}
+@media(max-width:420px){.room{height:420px}.game{padding:7px}.wardrobe{width:27%}header h2{font-size:18px}}
+</style>
+</head>
+<body>
+
+<div id="intro">
+ <div class="intro-card">
+  <div style="font-size:43px">🎀</div>
+  <h1>STEPHENIE NOVA</h1>
+  <p>FASHION STUDIO</p>
+  <p>Create your dream look. Style your avatar. Own the runway.</p>
+  <button class="play" onclick="startGame()">PLAY NOW ✨</button>
+ </div>
+</div>
+
+<header>
+ <h2>STEPHENIE NOVA</h2>
+ <small>FASHION STUDIO ✦ DRESS UP GAME</small>
+</header>
+
+<main class="game">
+ <div class="room">
+  <div class="wallpaper"></div>
+  <div class="window"></div>
+  <div class="wardrobe"></div>
+  <div class="vanity"></div>
+  <div class="rug"></div>
+  <div class="room-label">The Dressing Room ♡</div>
+  <div id="stage">
+   <svg id="avatar" viewBox="0 0 400 700" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+     <linearGradient id="hairshine" x2="1" y2="1">
+      <stop stop-color="#49302b"/>
+      <stop offset=".5" stop-color="#171116"/>
+      <stop offset="1" stop-color="#4b3035"/>
+     </linearGradient>
+    </defs>
+    <!-- Hair behind -->
+    <g id="hairBack" fill="url(#hairshine)">
+     <path d="M133 105 Q120 35 200 38 Q280 35 267 110 L285 365 Q255 390 248 310 L150 310 Q145 390 115 365Z"/>
+    </g>
+    <!-- Legs -->
+    <path id="leg1" d="M165 440 Q160 520 158 615 L190 615 Q194 520 200 440Z" fill="#d69b79"/>
+    <path id="leg2" d="M205 440 Q210 520 215 615 L245 615 Q240 520 235 440Z" fill="#d69b79"/>
+    <!-- Base body -->
+    <path d="M165 185 Q145 190 140 220 L125 360 Q145 385 165 370 L175 260 L225 260 L235 370 Q255 385 275 360 L260 220 Q255 190 235 185Z" fill="#d69b79"/>
+    <!-- Neck -->
+    <path d="M181 155 L181 202 Q200 222 219 202 L219 155Z" fill="#d69b79"/>
+    <!-- Face -->
+    <ellipse id="face" cx="200" cy="120" rx="49" ry="66" fill="#d69b79"/>
+    <!-- Ears -->
+    <ellipse cx="151" cy="130" rx="9" ry="15" fill="#d69b79"/>
+    <ellipse cx="249" cy="130" rx="9" ry="15" fill="#d69b79"/>
+    <!-- Face details -->
+    <path d="M172 112 Q183 104 191 112 M209 112 Q220 104 229 112" stroke="#35232b" stroke-width="4" fill="none" stroke-linecap="round"/>
+    <ellipse cx="182" cy="125" rx="4" ry="6" fill="#35232b"/>
+    <ellipse cx="218" cy="125" rx="4" ry="6" fill="#35232b"/>
+    <path d="M198 127 L194 143 L202 144" stroke="#a66c5d" stroke-width="2" fill="none"/>
+    <path id="lips" d="M188 153 Q200 146 212 153 Q200 166 188 153" fill="#a94d65"/>
+    <ellipse id="blush1" cx="171" cy="145" rx="12" ry="6" fill="#e98b9b" opacity=".3"/>
+    <ellipse id="blush2" cx="229" cy="145" rx="12" ry="6" fill="#e98b9b" opacity=".3"/>
+    <!-- Hair front -->
+    <g id="hairFront" fill="url(#hairshine)">
+     <path d="M151 117 Q139 48 200 47 Q261 48 249 117 Q230 88 216 75 Q199 94 177 77 Q165 100 151 117Z"/>
+     <path d="M151 110 Q137 180 150 290 Q128 260 135 150Z"/>
+     <path d="M249 110 Q263 180 250 290 Q272 260 265 150Z"/>
+    </g>
+    <!-- Clothing -->
+    <g id="outfitTop">
+     <path d="M165 190 Q180 175 200 180 Q220 175 235 190 L260 225 L241 252 L230 240 L235 380 L165 380 L170 240 L159 252 L140 225Z" fill="#f1c4d8" stroke="#c77e9f" stroke-width="3"/>
+     <path d="M180 183 Q200 205 220 183" fill="none" stroke="#fff" stroke-width="5"/>
+    </g>
+    <g id="outfitDress" style="display:none">
+     <path d="M165 190 Q180 175 200 180 Q220 175 235 190 L260 225 L240 250 L230 235 L280 465 Q200 490 120 465 L170 235 L160 250 L140 225Z" fill="#ed9fbe" stroke="#bd638b" stroke-width="3"/>
+     <path d="M180 183 Q200 205 220 183" fill="none" stroke="#fff" stroke-width="5"/>
+    </g>
+    <g id="outfitSkirt" style="display:none">
+     <path d="M165 190 Q180 175 200 180 Q220 175 235 190 L260 225 L241 252 L230 240 L235 340 L165 340 L170 240 L159 252 L140 225Z" fill="#f1c4d8" stroke="#c77e9f" stroke-width="3"/>
+     <path d="M165 335 L235 335 L265 465 L135 465Z" fill="#bd6f99" stroke="#995071" stroke-width="3"/>
+    </g>
+    <g id="outfitPants" style="display:none">
+     <path d="M165 335 L235 335 L245 615 L205 615 L200 405 L190 615 L150 615Z" fill="#7894b7" stroke="#526b8b" stroke-width="3"/>
+    </g>
+    <g id="outfitShorts" style="display:none">
+     <path d="M165 335 L235 335 L245 435 L205 435 L200 400 L190 435 L150 435Z" fill="#e6a2bd" stroke="#bd638b" stroke-width="3"/>
+    </g>
+    <g id="outfitSet" style="display:none">
+     <path d="M165 190 Q180 175 200 180 Q220 175 235 190 L260 225 L241 252 L230 240 L235 340 L165 340 L170 240 L159 252 L140 225Z" fill="#b78dc4" stroke="#91699e" stroke-width="3"/>
+     <path d="M165 335 L235 335 L245 455 L205 455 L200 405 L190 455 L150 455Z" fill="#b78dc4" stroke="#91699e" stroke-width="3"/>
+    </g>
+    <!-- Arms -->
+    <path d="M145 220 Q125 255 120 330 Q115 365 137 365 Q150 355 151 325 L169 250Z" fill="#d69b79"/>
+    <path d="M255 220 Q275 255 280 330 Q285 365 263 365 Q250 355 249 325 L231 250Z" fill="#d69b79"/>
+    <!-- Shoes -->
+    <g id="shoes">
+     <path d="M150 610 Q175 600 190 615 L190 640 L145 640 Q135 630 150 610Z" fill="#e8b1cb"/>
+     <path d="M210 615 Q230 600 250 610 Q265 630 255 640 L210 640Z" fill="#e8b1cb"/>
+    </g>
+    <!-- Bag -->
+    <g id="bag" style="display:none">
+     <path d="M265 330 Q290 320 305 340 L310 390 L265 390Z" fill="#bd6d91" stroke="#8b4568" stroke-width="4"/>
+     <path d="M273 340 Q270 305 290 305 Q310 305 305 340" fill="none" stroke="#8b4568" stroke-width="5"/>
+    </g>
+    <!-- Jewellery -->
+    <g id="jewellery" style="display:none" fill="none" stroke="#e6b94e" stroke-width="4">
+     <path d="M175 195 Q200 230 225 195"/>
+     <circle cx="200" cy="224" r="6" fill="#e6b94e"/>
+     <circle cx="150" cy="145" r="5"/>
+     <circle cx="250" cy="145" r="5"/>
+    </g>
+   </svg>
+  </div>
+ </div>
+
+ <section class="controls">
+  <div class="categories" id="categories"></div>
+  <div id="panel"></div>
+  <div class="actions">
+   <button onclick="resetLook()">↺ RESET</button>
+   <button onclick="toggleMakeup()" class="primary">♡ MAKEUP</button>
+   <button onclick="saveLook()">↓ SAVE LOOK</button>
+  </div>
+  <div class="actions">
+   <button onclick="toggleMakeup()">BACK TO MODEL / FACE</button>
+  </div>
+  <p class="note">STEPHENIE NOVA ✦ YOUR STYLE, YOUR RULES</p>
+ </section>
+</main>
+
+<script>
+const $=id=>document.getElementById(id);
+let category="Skin";
+let makeup=false;
+
+const categories={
+ Skin:[["🤎","Warm brown","#a96749"],["🍯","Honey","#d69b79"],["🌸","Caramel","#bd805f"],["🤍","Light","#f0c6a5"]],
+ Hair:[["🖤","Black","#171116"],["🤎","Brown","#57342c"],["🍫","Chocolate","#79432f"],["🍒","Burgundy","#63283e"],["✨","Blonde","#c69b51"]],
+ Hairstyle:[["💇🏻‍♀️","Long straight","long"],["👩🏻","Wavy","wavy"],["🎀","High ponytail","pony"],["💁🏻‍♀️","Bob","bob"]],
+ Clothes:[["👚","Pink top","top"],["👗","Pink dress","dress"],["🩷","Skirt set","skirt"],["👖","Jeans","pants"],["🩳","Shorts","shorts"],["💜","Two-piece","set"]],
+ Shoes:[["👡","Heels","#d89ab8"],["👟","Sneakers","#fff"],["👢","Boots","#9b6680"],["🥿","Flats","#b87997"]],
+ Bags:[["👜","Pink bag","pink"],["👛","Mini bag","mini"],["💼","Luxury bag","luxury"],["🛍️","Shopping bag","shop"]],
+ Makeup:[["💄","Rose lips","#b74779"],["💋","Red lips","#a52d42"],["🌷","Pink lips","#e77e9d"],["✨","Soft blush","blush"],["👁️","Eye makeup","eyes"]],
+ Accessories:[["💎","Jewellery","jewellery"],["🎀","Hair bow","bow"],["🕶️","Sunglasses","glasses"]]
+};
+
+function startGame(){
+ $("intro").style.display="none";
+ showCategory("Skin");
+}
+function showCategory(name){
+ category=name;
+ document.querySelectorAll(".categories button").forEach(b=>b.classList.toggle("active",b.textContent===name));
+ const panel=$("panel");
+ panel.innerHTML="";
+ categories[name].forEach(item=>{
+  const b=document.createElement("button");
+  b.className="option";
+  b.innerHTML='<span class="emoji">'+item[0]+'</span>'+item[1];
+  b.onclick=()=>apply(name,item[2]);
+  panel.appendChild(b);
+ });
+}
+const catbox=$("categories");
+Object.keys(categories).forEach(name=>{
+ const b=document.createElement("button");
+ b.textContent=name;
+ b.onclick=()=>showCategory(name);
+ catbox.appendChild(b);
+});
+
+function apply(cat,value){
+ if(cat==="Skin"){
+  ["face","leg1","leg2"].forEach(id=>$(id).setAttribute("fill",value));
+  $("avatar").querySelectorAll("path[fill='#d69b79'],ellipse[fill='#d69b79']").forEach(el=>el.setAttribute("fill",value));
+ }
+ if(cat==="Hair"){
+  $("hairBack").style.fill=value;
+  $("hairFront").style.fill=value;
+ }
+ if(cat==="Hairstyle"){
+  const back=$("hairBack"),front=$("hairFront");
+  if(value==="long"){
+   back.innerHTML='<path d="M133 105 Q120 35 200 38 Q280 35 267 110 L285 365 Q255 390 248 310 L150 310 Q145 390 115 365Z"/>';
+   front.innerHTML='<path d="M151 117 Q139 48 200 47 Q261 48 249 117 Q230 88 216 75 Q199 94 177 77 Q165 100 151 117Z"/><path d="M151 110 Q137 180 150 290 Q128 260 135 150Z"/><path d="M249 110 Q263 180 250 290 Q272 260 265 150Z"/>';
+  }else if(value==="wavy"){
+   back.innerHTML='<path d="M130 110 Q110 35 200 38 Q290 35 270 110 Q300 180 270 240 Q300 310 260 370 L240 330 Q265 260 240 220 Q260 160 230 110 Q190 150 160 110 Q140 180 160 240 Q130 300 150 370 L115 350 Q100 260 130 200Z"/>';
+   front.innerHTML='<path d="M151 115 Q140 40 200 47 Q260 40 249 115 Q220 80 200 90 Q175 80 151 115Z"/>';
+  }else if(value==="pony"){
+   back.innerHTML='<path d="M140 100 Q120 35 200 38 Q280 35 260 100 Q300 90 280 210 Q265 260 245 280 L250 100Z"/>';
+   front.innerHTML='<path d="M151 117 Q139 48 200 47 Q261 48 249 117 Q230 88 216 75 Q199 94 177 77 Q165 100 151 117Z"/>';
+  }else{
+   back.innerHTML='<path d="M133 105 Q120 35 200 38 Q280 35 267 110 L265 245 Q200 275 135 245Z"/>';
+   front.innerHTML='<path d="M151 117 Q139 48 200 47 Q261 48 249 117 Q230 88 216 75 Q199 94 177 77 Q165 100 151 117Z"/>';
+  }
+ }
+ if(cat==="Clothes"){
+  ["outfitTop","outfitDress","outfitSkirt","outfitPants","outfitShorts","outfitSet"].forEach(id=>$(id).style.display="none");
+  const ids={top:"outfitTop",dress:"outfitDress",skirt:"outfitSkirt",pants:"outfitPants",shorts:"outfitShorts",set:"outfitSet"};
+  $(ids[value]).style.display="block";
+ }
+ if(cat==="Shoes"){
+  $("shoes").querySelectorAll("path").forEach(p=>p.setAttribute("fill",value));
+ }
+ if(cat==="Bags"){
+  $("bag").style.display="block";
+  $("bag").querySelector("path").setAttribute("fill",value==="pink"?"#bd6d91":value==="mini"?"#e6b5c8":value==="luxury"?"#9e7950":"#d8a3bc");
+ }
+ if(cat==="Makeup"){
+  if(value==="blush"){$("blush1").setAttribute("opacity",".8");$("blush2").setAttribute("opacity",".8");}
+  else if(value==="eyes"){
+   document.querySelectorAll("#avatar ellipse").forEach(e=>{if(e.getAttribute("cy")==="125")e.setAttribute("fill","#8d526b")});
+  }else{$("lips").setAttribute("fill",value);}
+ }
+ if(cat==="Accessories"){
+  if(value==="jewellery")$("jewellery").style.display="block";
+  if(value==="bow")$("hairFront").innerHTML+='<path d="M180 65 Q155 30 150 60 Q155 85 180 70 Q205 85 215 60 Q205 30 180 65Z" fill="#e78eb5" stroke="#fff" stroke-width="3"/>';
+  if(value==="glasses")$("hairFront").innerHTML+='<path d="M160 118 Q180 105 195 120 L190 135 Q175 145 162 132Z M205 120 Q220 105 240 118 L238 132 Q220 145 210 135Z" fill="#382b36" stroke="#fff" stroke-width="3"/><path d="M195 122 L205 122" stroke="#382b36" stroke-width="4"/>';
+ }
+}
+function toggleMakeup(){
+ makeup=!makeup;
+ $("stage").classList.toggle("zoom",makeup);
+ showCategory(makeup?"Makeup":"Skin");
+}
+function resetLook(){
+ location.reload();
+}
+function saveLook(){
+ const svg=$("avatar").cloneNode(true);
+ svg.setAttribute("xmlns","http://www.w3.org/2000/svg");
+ const data=new Blob([new XMLSerializer().serializeToString(svg)],{type:"image/svg+xml"});
+ const url=URL.createObjectURL(data);
+ const a=document.createElement("a");
+ a.href=url;a.download="Stephenie-Nova-Look.svg";a.click();
+ URL.revokeObjectURL(url);
+}
+</script>
+</body>
+</html>
