@@ -1,0 +1,153 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Stephenie Nova Admin</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+body{font-family:Arial;background:#fff0f6;color:#452536;padding:20px}
+main{max-width:550px;margin:auto}
+h1{text-align:center;color:#d63384}
+.card{background:white;padding:18px;border-radius:15px;margin:15px 0}
+input,button{box-sizing:border-box;width:100%;padding:13px;margin:7px 0;border:1px solid #e5b8cc;border-radius:9px;font-size:16px}
+button{background:#d63384;color:white;border:0;font-weight:bold}
+.hidden{display:none}
+.product{padding:12px 0;border-top:1px solid #f2d6e2}
+.product img{width:75px;height:75px;object-fit:cover}
+</style>
+</head>
+<body>
+<main>
+<h1>STEPHENIE NOVA</h1>
+<p style="text-align:center">ADMIN DASHBOARD</p>
+
+<div class="card" id="loginBox">
+<h3>Email login</h3>
+<input id="email" type="email" placeholder="Your registered email">
+<button onclick="sendCode()">SEND LOGIN CODE</button>
+<input id="otp" inputmode="numeric" maxlength="6" placeholder="Enter 6-digit email code">
+<button onclick="verifyCode()">VERIFY CODE</button>
+<p id="message"></p>
+</div>
+
+<div id="dashboard" class="hidden">
+<div class="card">
+<h3>Add Product</h3>
+<input id="name" placeholder="Product name">
+<input id="price" type="number" placeholder="Selling price">
+<input id="oldPrice" type="number" placeholder="Old price (optional)">
+<input id="photo" type="file" accept="image/*">
+<button onclick="addProduct()">ADD PRODUCT</button>
+<p id="status"></p>
+</div>
+<div class="card">
+<h3>Your Products</h3>
+<div id="products">Loading...</div>
+</div>
+<button onclick="logout()">LOG OUT</button>
+</div>
+</main>
+
+<script>
+const SUPABASE_URL="https://cnkggilywausfgoacgva.supabase.co";
+const SUPABASE_KEY="sb_publishable_znAq3vcHAmCeFh7JIujzvQ_YJjMByRU";
+const ADMIN_UID="9737ea64-5492-4b47-ac12-1013120263fb";
+const db=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+
+async function sendCode(){
+ const email=document.getElementById("email").value.trim();
+ const msg=document.getElementById("message");
+ if(!email){msg.textContent="Enter your email first.";return;}
+ msg.textContent="Sending code...";
+ const {error}=await db.auth.signInWithOtp({
+  email,
+  options:{shouldCreateUser:false}
+ });
+ msg.textContent=error?error.message:"Check your email for your login code.";
+}
+
+async function verifyCode(){
+ const email=document.getElementById("email").value.trim();
+ const token=document.getElementById("otp").value.trim();
+ const msg=document.getElementById("message");
+ msg.textContent="Checking code...";
+ const {data,error}=await db.auth.verifyOtp({
+  email,token,type:"email"
+ });
+ if(error){msg.textContent=error.message;return;}
+ if(data.user.id!==ADMIN_UID){
+  await db.auth.signOut();
+  msg.textContent="This account is not authorised.";
+  return;
+ }
+ showDashboard();
+}
+
+async function showDashboard(){
+ document.getElementById("loginBox").classList.add("hidden");
+ document.getElementById("dashboard").classList.remove("hidden");
+ await loadProducts();
+}
+
+async function logout(){
+ await db.auth.signOut();
+ location.reload();
+}
+
+async function loadProducts(){
+ const area=document.getElementById("products");
+ const {data,error}=await db.from("products").select("*").order("created_at",{ascending:false});
+ if(error){area.textContent=error.message;return;}
+ if(!data.length){area.textContent="No products yet.";return;}
+ area.innerHTML="";
+ data.forEach(p=>{
+  const item=document.createElement("div");
+  item.className="product";
+  const img=document.createElement("img");
+  img.src=p.image_url||"";
+  const title=document.createElement("p");
+  title.textContent=p.name+" — ₦"+p.price;
+  const del=document.createElement("button");
+  del.textContent="DELETE";
+  del.onclick=()=>deleteProduct(p.id);
+  item.append(img,title,del);
+  area.append(item);
+ });
+}
+
+async function addProduct(){
+ const status=document.getElementById("status");
+ const name=document.getElementById("name").value.trim();
+ const price=Number(document.getElementById("price").value);
+ const oldPrice=document.getElementById("oldPrice").value;
+ const file=document.getElementById("photo").files[0];
+ if(!name||!price||!file){status.textContent="Enter product name, price and photo.";return;}
+ status.textContent="Uploading...";
+ const path=ADMIN_UID+"/"+Date.now()+"."+file.name.split(".").pop();
+ const {error:uploadError}=await db.storage.from("product-images").upload(path,file);
+ if(uploadError){status.textContent=uploadError.message;return;}
+ const {data:urlData}=db.storage.from("product-images").getPublicUrl(path);
+ const {error}=await db.from("products").insert({
+  name,price,old_price:oldPrice?Number(oldPrice):null,
+  image_url:urlData.publicUrl,images:[urlData.publicUrl],available:true
+ });
+ if(error){status.textContent=error.message;return;}
+ status.textContent="Product added!";
+ await loadProducts();
+}
+
+async function deleteProduct(id){
+ if(!confirm("Delete this product?"))return;
+ const {error}=await db.from("products").delete().eq("id",id);
+ if(error){alert(error.message);return;}
+ await loadProducts();
+}
+
+db.auth.getSession().then(({data})=>{
+ if(data.session&&data.session.user.id===ADMIN_UID)showDashboard();
+});
+</script>
+</body>
+</html>
