@@ -5,7 +5,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Stephenie Nova Admin</title>
-<script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
 <style>
 *{box-sizing:border-box}
 body{margin:0;padding:20px;background:#fff0f6;color:#54243b;font-family:Arial,sans-serif}
@@ -14,12 +14,12 @@ h1{color:#d63384}
 .card{background:white;padding:17px;border-radius:15px;margin:15px 0;box-shadow:0 2px 12px #e8b8ce}
 input,button{width:100%;padding:13px;margin:7px 0;border:1px solid #e8b8ce;border-radius:9px;font-size:16px}
 button{background:#d63384;color:white;border:0;font-weight:bold}
-button.secondary{background:#f7d5e5;color:#54243b}
-button.delete{background:#9e244e}
+button:disabled{opacity:.5}
+.secondary{background:#f7d5e5;color:#54243b}
+.delete{background:#9e244e}
 .product{display:flex;gap:12px;align-items:center;border-bottom:1px solid #f1dce6;padding:12px 0}
 .product img{width:75px;height:75px;object-fit:cover;border-radius:9px}
 .product-info{flex:1;min-width:0}
-.product-info p{margin:5px 0;overflow-wrap:anywhere}
 .small{font-size:13px;color:#81546b}
 #message{white-space:pre-wrap;font-size:14px}
 .preview{display:flex;gap:8px;flex-wrap:wrap}
@@ -44,13 +44,11 @@ button.delete{background:#9e244e}
 <input id="name" placeholder="Product name">
 <input id="price" type="number" placeholder="Selling price (₦)">
 <input id="oldPrice" type="number" placeholder="Old price (₦)">
-
 <p><b>Product photos</b></p>
-<p class="small">Choose one photo at a time. You can choose another after each photo.</p>
+<p class="small">Choose photos one at a time.</p>
 <input id="photos" type="file" accept="image/*">
 <div id="photoStatus" class="small">No new photos selected.</div>
 <div id="preview" class="preview"></div>
-
 <button id="saveBtn">Save product</button>
 <button class="secondary" id="cancelBtn">Cancel / Clear form</button>
 </section>
@@ -59,7 +57,6 @@ button.delete{background:#9e244e}
 <h2>Your products</h2>
 <div id="products">Loading products...</div>
 </section>
-
 <button class="secondary" id="logoutBtn">Log out</button>
 </div>
 
@@ -67,51 +64,68 @@ button.delete{background:#9e244e}
 </main>
 
 <script>
-const SUPABASE_URL = "https://cnkggilywausfgoacgva.supabase.co";
-const SUPABASE_KEY = "sb_publishable_znAq3vcHAmCeFh7JIujzvQ_YJjMByRU";
-const ADMIN_UID = "9737ea64-5492-4b47-ac12-1013120263fb";
+const SUPABASE_URL="https://cnkggilywausfgoacgva.supabase.co";
+const SUPABASE_KEY="sb_publishable_znAq3vcHAmCeFh7JIujzvQ_YJjMByRU";
+const ADMIN_UID="9737ea64-5492-4b47-ac12-1013120263fb";
 
-const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+const $=id=>document.getElementById(id);
+const message=t=>$("message").textContent=t;
 
-const starterProducts = [
- {name:"Crossbody Chain Bag",price:9500,old_price:12500,images:[
- "https://i.postimg.cc/dh0nMqpj/IMG-5526.jpg",
- "https://i.postimg.cc/MnGtkWNb/IMG-5527.jpg",
- "https://i.postimg.cc/4Y3wCJqp/IMG-5528.jpg",
- "https://i.postimg.cc/bsgLFGC9/IMG-5529.jpg"]},
- {name:"Shoulder Bag",price:8500,old_price:11500,images:[
- "https://i.postimg.cc/4xtMr9JF/IMG-5556.png"]},
- {name:"Luxury Coach Tote Bag",price:13000,old_price:16000,images:[
- "https://i.postimg.cc/grQ8HjwC/IMG-5550.jpg",
- "https://i.postimg.cc/6TyCZnQm/IMG-5551.jpg"]},
- {name:"Fur Tote Bag",price:7500,old_price:10500,images:[
- "https://i.postimg.cc/h4kNMsnL/IMG-5555.png"]}
+if(!window.supabase){
+ message("Dashboard could not load. Please refresh and try again.");
+ throw new Error("Supabase library did not load");
+}
+
+const db=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+let selectedFiles=[];
+let editingId=null;
+let currentProducts=[];
+
+const starterProducts=[
+{name:"Crossbody Chain Bag",price:9500,old_price:12500,images:[
+"https://i.postimg.cc/dh0nMqpj/IMG-5526.jpg",
+"https://i.postimg.cc/MnGtkWNb/IMG-5527.jpg",
+"https://i.postimg.cc/4Y3wCJqp/IMG-5528.jpg",
+"https://i.postimg.cc/bsgLFGC9/IMG-5529.jpg"]},
+{name:"Shoulder Bag",price:8500,old_price:11500,images:[
+"https://i.postimg.cc/4xtMr9JF/IMG-5556.png"]},
+{name:"Luxury Coach Tote Bag",price:13000,old_price:16000,images:[
+"https://i.postimg.cc/grQ8HjwC/IMG-5550.jpg",
+"https://i.postimg.cc/6TyCZnQm/IMG-5551.jpg"]},
+{name:"Fur Tote Bag",price:7500,old_price:10500,images:[
+"https://i.postimg.cc/h4kNMsnL/IMG-5555.png"]}
 ];
 
-let selectedFiles = [];
-let editingId = null;
-let currentProducts = [];
-
-const $ = id => document.getElementById(id);
-function message(text){$("message").textContent=text;}
 function getImages(p){
- if(Array.isArray(p.images)) return p.images;
+ if(Array.isArray(p.images))return p.images;
  if(typeof p.images==="string"){
   try{return JSON.parse(p.images)}catch(e){}
  }
  return p.image_url?[p.image_url]:[];
 }
-function escapeHTML(s){
+
+function esc(s){
  return String(s??"").replace(/[&<>"']/g,c=>({
  "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
  }[c]));
 }
 
+async function timed(promise){
+ return Promise.race([
+  promise,
+  new Promise((_,reject)=>setTimeout(
+   ()=>reject(new Error("Request timed out. Check your internet and try again.")),20000
+  ))
+ ]);
+}
+
 async function showDashboard(){
- const {data:{user}}=await db.auth.getUser();
- if(!user || user.id!==ADMIN_UID){
+ const result=await timed(db.auth.getUser());
+ const user=result.data.user;
+ if(!user||user.id!==ADMIN_UID){
   $("loginCard").hidden=false;
   $("dashboard").hidden=true;
+  message("This account is not authorised for the admin dashboard.");
   return;
  }
  $("loginCard").hidden=true;
@@ -120,14 +134,23 @@ async function showDashboard(){
 }
 
 $("loginBtn").onclick=async()=>{
+ const btn=$("loginBtn");
+ btn.disabled=true;
  message("Logging in...");
- const {error}=await db.auth.signInWithPassword({
-  email:$("email").value.trim(),
-  password:$("password").value
- });
- if(error){message("Login error: "+error.message);return;}
- message("");
- await showDashboard();
+ try{
+  if(!navigator.onLine)throw new Error("Your internet connection is offline.");
+  const result=await timed(db.auth.signInWithPassword({
+   email:$("email").value.trim(),
+   password:$("password").value
+  }));
+  if(result.error)throw result.error;
+  message("");
+  await showDashboard();
+ }catch(e){
+  message("Login error: "+(e.message||"Please try again."));
+ }finally{
+  btn.disabled=false;
+ }
 };
 
 $("logoutBtn").onclick=async()=>{
@@ -136,28 +159,22 @@ $("logoutBtn").onclick=async()=>{
 };
 
 async function loadProducts(){
- $("products").textContent="Loading...";
- const {data,error}=await db.from("products").select("*");
- if(error){
-  $("products").textContent="Could not load products: "+error.message;
-  return;
- }
+ $("products").textContent="Loading products...";
+ try{
+  const {data,error}=await timed(db.from("products").select("*"));
+  if(error)throw error;
 
- if(!data || data.length===0){
-  const seed=starterProducts.map(p=>({
-   ...p,image_url:p.images[0],available:true
-  }));
-  const {error:seedError}=await db.from("products").insert(seed);
-  if(seedError){
-   $("products").textContent="Your product list is empty. Database message: "+seedError.message;
-   return;
+  if(!data||data.length===0){
+   const seed=starterProducts.map(p=>({...p,image_url:p.images[0],available:true}));
+   const {error:seedError}=await timed(db.from("products").insert(seed));
+   if(seedError)throw seedError;
+   return loadProducts();
   }
-  return loadProducts();
+  currentProducts=data;
+  renderProducts();
+ }catch(e){
+  $("products").textContent="Could not load products: "+e.message;
  }
-
- currentProducts=data;
- currentProducts.sort((a,b)=>String(b.created_at||"").localeCompare(String(a.created_at||"")));
- renderProducts();
 }
 
 function renderProducts(){
@@ -168,14 +185,14 @@ function renderProducts(){
   const item=document.createElement("div");
   item.className="product";
   item.innerHTML=`
-   <img src="${escapeHTML(images[0]||p.image_url||"")}" alt="">
-   <div class="product-info">
-    <b>${escapeHTML(p.name)}</b>
-    <p>₦${Number(p.price||0).toLocaleString()}</p>
-    <p class="small">${images.length} photo(s)</p>
-    <button data-edit="${escapeHTML(p.id)}">Edit</button>
-    <button class="delete" data-delete="${escapeHTML(p.id)}">Delete</button>
-   </div>`;
+  <img src="${esc(images[0]||p.image_url||"")}" alt="">
+  <div class="product-info">
+  <b>${esc(p.name)}</b>
+  <p>₦${Number(p.price||0).toLocaleString()}</p>
+  <p class="small">${images.length} photo(s)</p>
+  <button data-edit="${esc(p.id)}">Edit</button>
+  <button class="delete" data-delete="${esc(p.id)}">Delete</button>
+  </div>`;
   area.appendChild(item);
  });
 }
@@ -209,7 +226,7 @@ $("products").addEventListener("click",async e=>{
 });
 
 $("photos").addEventListener("change",()=>{
- const file=$("photos").files && $("photos").files[0];
+ const file=$("photos").files?.[0];
  if(!file)return;
  selectedFiles.push(file);
  $("photoStatus").textContent=selectedFiles.length+" new photo(s) selected.";
@@ -236,14 +253,14 @@ $("saveBtn").onclick=async()=>{
  const name=$("name").value.trim();
  const price=Number($("price").value);
  const oldPrice=Number($("oldPrice").value)||0;
-
- if(!name || !price){
+ if(!name||!price){
   message("Enter the product name and selling price.");
   return;
  }
 
+ const btn=$("saveBtn");
+ btn.disabled=true;
  message("Saving product...");
- $("saveBtn").disabled=true;
 
  try{
   let images=[];
@@ -256,12 +273,9 @@ $("saveBtn").onclick=async()=>{
    images=[];
    for(let i=0;i<selectedFiles.length;i++){
     const file=selectedFiles[i];
-    const safeName=file.name.replace(/[^a-zA-Z0-9._-]/g,"_");
-    const path=Date.now()+"_"+i+"_"+safeName;
-    const {error:uploadError}=await db.storage
-      .from("product-images").upload(path,file,{upsert:true});
-    if(uploadError)throw new Error("Photo upload failed: "+uploadError.message);
-
+    const path=Date.now()+"_"+i+"_"+file.name.replace(/[^a-zA-Z0-9._-]/g,"_");
+    const {error}=await timed(db.storage.from("product-images").upload(path,file,{upsert:true}));
+    if(error)throw new Error("Photo upload failed: "+error.message);
     const {data}=db.storage.from("product-images").getPublicUrl(path);
     images.push(data.publicUrl);
    }
@@ -269,34 +283,33 @@ $("saveBtn").onclick=async()=>{
 
   if(!images.length)throw new Error("This product needs at least one photo.");
 
-  const record={
-   name,price,old_price:oldPrice,
-   images,image_url:images[0],available:true
-  };
-
+  const record={name,price,old_price:oldPrice,images,image_url:images[0],available:true};
   let result;
   if(editingId){
-   result=await db.from("products").update(record).eq("id",editingId);
+   result=await timed(db.from("products").update(record).eq("id",editingId));
   }else{
-   result=await db.from("products").insert(record);
+   result=await timed(db.from("products").insert(record));
   }
-
   if(result.error)throw result.error;
 
   message("Product saved.");
   $("cancelBtn").click();
   await loadProducts();
-
- }catch(err){
-  message("Could not save: "+err.message);
+ }catch(e){
+  message("Could not save: "+e.message);
  }finally{
-  $("saveBtn").disabled=false;
+  btn.disabled=false;
  }
 };
 
 (async()=>{
- const {data:{session}}=await db.auth.getSession();
- if(session)await showDashboard();
+ try{
+  const {data,error}=await timed(db.auth.getSession());
+  if(error)throw error;
+  if(data.session)await showDashboard();
+ }catch(e){
+  message("Dashboard error: "+e.message);
+ }
 })();
 </script>
 </body>
