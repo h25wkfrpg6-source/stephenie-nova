@@ -8,299 +8,296 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
 *{box-sizing:border-box}
-body{margin:0;padding:16px;background:#fff2f7;color:#54263b;font-family:Arial,sans-serif}
-header{background:#f4b9d2;padding:22px;border-radius:18px;text-align:center}
-.panel{background:white;padding:17px;border-radius:15px;margin:15px 0;box-shadow:0 3px 12px #e8c4d3}
-input,button{width:100%;padding:13px;margin:7px 0;border:1px solid #e5b8cb;border-radius:10px;font-size:15px}
-input[type=checkbox]{width:auto}
-button{background:#d94d8b;color:white;border:0;font-weight:bold}
-.secondary{background:#80506a}
-.delete{background:#b52d52}
-small{color:#87566d}
-#dashboard{display:none}
-.product{display:flex;gap:12px;padding:12px 0;border-top:1px solid #f0d7e2}
+body{margin:0;padding:20px;background:#fff0f6;color:#54243b;font-family:Arial,sans-serif}
+main{max-width:700px;margin:auto}
+h1{color:#d63384}
+.card{background:white;padding:17px;border-radius:15px;margin:15px 0;box-shadow:0 2px 12px #e8b8ce}
+input,button{width:100%;padding:13px;margin:7px 0;border:1px solid #e8b8ce;border-radius:9px;font-size:16px}
+button{background:#d63384;color:white;border:0;font-weight:bold}
+button.secondary{background:#f7d5e5;color:#54243b}
+button.delete{background:#9e244e}
+.product{display:flex;gap:12px;align-items:center;border-bottom:1px solid #f1dce6;padding:12px 0}
 .product img{width:75px;height:75px;object-fit:cover;border-radius:9px}
 .product-info{flex:1;min-width:0}
-#status,#loginStatus{white-space:pre-wrap;font-size:14px;margin-top:10px}
+.product-info p{margin:5px 0;overflow-wrap:anywhere}
+.small{font-size:13px;color:#81546b}
+#message{white-space:pre-wrap;font-size:14px}
+.preview{display:flex;gap:8px;flex-wrap:wrap}
+.preview img{width:75px;height:75px;object-fit:cover;border-radius:8px}
 </style>
 </head>
 <body>
+<main>
+<h1>Stephenie Nova 👑</h1>
+<p>Product dashboard</p>
 
-<header>
-<h1>STEPHENIE NOVA</h1>
-<p>Admin Dashboard ✨</p>
-</header>
-
-<section class="panel" id="setup">
-<h3>Connect your shop</h3>
-<p>Paste your Supabase Publishable key below.</p>
-<input id="apiKey" placeholder="sb_publishable_..." autocomplete="off">
-<button onclick="connectShop()">Connect</button>
-<div id="setupStatus"></div>
-</section>
-
-<section class="panel" id="login" style="display:none">
-<h3>Admin Login</h3>
+<section class="card" id="loginCard">
+<h2>Admin login</h2>
 <input id="email" type="email" placeholder="Admin email">
 <input id="password" type="password" placeholder="Password">
-<button onclick="loginAdmin()">Log In</button>
-<div id="loginStatus"></div>
+<button id="loginBtn">Log in</button>
 </section>
 
-<main id="dashboard">
-<section class="panel">
-<h2>Products</h2>
-<button onclick="loadProducts()">Refresh products</button>
-<button class="secondary" onclick="logout()">Log out</button>
-<div id="products">Log in to see products.</div>
-</section>
-
-<section class="panel">
-<h2 id="formTitle">Add New Product</h2>
+<div id="dashboard" hidden>
+<section class="card">
+<h2 id="formTitle">Add a product</h2>
 <input id="name" placeholder="Product name">
 <input id="price" type="number" placeholder="Selling price (₦)">
-<input id="oldPrice" type="number" placeholder="Old price (optional)">
-<label><input id="available" type="checkbox" checked> Product available</label>
+<input id="oldPrice" type="number" placeholder="Old price (₦)">
+
 <p><b>Product photos</b></p>
-<input id="photos" type="file" accept="image/*" multiple>
-<small>You can select more than one photo.</small>
-<div id="photoPreview"></div>
-<button onclick="saveProduct()">Save Product</button>
-<button class="secondary" onclick="resetForm()">Clear form</button>
-<div id="status"></div>
+<p class="small">Choose one photo at a time. You can choose another after each photo.</p>
+<input id="photos" type="file" accept="image/*">
+<div id="photoStatus" class="small">No new photos selected.</div>
+<div id="preview" class="preview"></div>
+
+<button id="saveBtn">Save product</button>
+<button class="secondary" id="cancelBtn">Cancel / Clear form</button>
 </section>
+
+<section class="card">
+<h2>Your products</h2>
+<div id="products">Loading products...</div>
+</section>
+
+<button class="secondary" id="logoutBtn">Log out</button>
+</div>
+
+<p id="message"></p>
 </main>
 
 <script>
 const SUPABASE_URL = "https://cnkggilywausfgoacgva.supabase.co";
-let db = null;
+const SUPABASE_KEY = "sb_publishable_znAq3vcHAmCeFh7JlujzvQ_YJjMByRU";
+const ADMIN_UID = "9737ea64-5492-4b47-ac12-1013120263fb";
+
+const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+const starterProducts = [
+ {name:"Crossbody Chain Bag",price:9500,old_price:12500,images:[
+ "https://i.postimg.cc/dh0nMqpj/IMG-5526.jpg",
+ "https://i.postimg.cc/MnGtkWNb/IMG-5527.jpg",
+ "https://i.postimg.cc/4Y3wCJqp/IMG-5528.jpg",
+ "https://i.postimg.cc/bsgLFGC9/IMG-5529.jpg"]},
+ {name:"Shoulder Bag",price:8500,old_price:11500,images:[
+ "https://i.postimg.cc/4xtMr9JF/IMG-5556.png"]},
+ {name:"Luxury Coach Tote Bag",price:13000,old_price:16000,images:[
+ "https://i.postimg.cc/grQ8HjwC/IMG-5550.jpg",
+ "https://i.postimg.cc/6TyCZnQm/IMG-5551.jpg"]},
+ {name:"Fur Tote Bag",price:7500,old_price:10500,images:[
+ "https://i.postimg.cc/h4kNMsnL/IMG-5555.png"]}
+];
+
+let selectedFiles = [];
 let editingId = null;
-let existingImages = [];
+let currentProducts = [];
 
-function connectShop(){
-  const key = document.getElementById("apiKey").value.trim();
-  if(!key.startsWith("sb_publishable_") && !key.startsWith("eyJ")){
-    document.getElementById("setupStatus").textContent =
-      "Please enter your Supabase Publishable key.";
-    return;
-  }
-
-  try{
-    db = window.supabase.createClient(SUPABASE_URL,key);
-    sessionStorage.setItem("sn_publishable_key",key);
-    document.getElementById("setup").style.display = "none";
-    document.getElementById("login").style.display = "block";
-    document.getElementById("loginStatus").textContent = "Shop connected. Please log in.";
-  }catch(error){
-    document.getElementById("setupStatus").textContent = error.message;
-  }
+const $ = id => document.getElementById(id);
+function message(text){$("message").textContent=text;}
+function getImages(p){
+ if(Array.isArray(p.images)) return p.images;
+ if(typeof p.images==="string"){
+  try{return JSON.parse(p.images)}catch(e){}
+ }
+ return p.image_url?[p.image_url]:[];
+}
+function escapeHTML(s){
+ return String(s??"").replace(/[&<>"']/g,c=>({
+ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+ }[c]));
 }
 
-async function loginAdmin(){
-  const email = document.getElementById("email").value.trim();
-  const password = document.getElementById("password").value;
-  const output = document.getElementById("loginStatus");
-  if(!email || !password){
-    output.textContent = "Enter your email and password.";
-    return;
-  }
-
-  output.textContent = "Logging in...";
-  const {data,error} = await db.auth.signInWithPassword({email,password});
-
-  if(error){
-    output.textContent = error.message;
-    return;
-  }
-
-  document.getElementById("login").style.display = "none";
-  document.getElementById("dashboard").style.display = "block";
-  await loadProducts();
+async function showDashboard(){
+ const {data:{user}}=await db.auth.getUser();
+ if(!user || user.id!==ADMIN_UID){
+  $("loginCard").hidden=false;
+  $("dashboard").hidden=true;
+  return;
+ }
+ $("loginCard").hidden=true;
+ $("dashboard").hidden=false;
+ await loadProducts();
 }
+
+$("loginBtn").onclick=async()=>{
+ message("Logging in...");
+ const {error}=await db.auth.signInWithPassword({
+  email:$("email").value.trim(),
+  password:$("password").value
+ });
+ if(error){message("Login error: "+error.message);return;}
+ message("");
+ await showDashboard();
+};
+
+$("logoutBtn").onclick=async()=>{
+ await db.auth.signOut();
+ location.reload();
+};
 
 async function loadProducts(){
-  const area = document.getElementById("products");
-  area.textContent = "Loading products...";
+ $("products").textContent="Loading...";
+ const {data,error}=await db.from("products").select("*");
+ if(error){
+  $("products").textContent="Could not load products: "+error.message;
+  return;
+ }
 
-  const {data,error} = await db.from("products")
-    .select("*").order("created_at",{ascending:false});
-
-  if(error){
-    area.textContent = "Could not load products: " + error.message;
-    return;
+ if(!data || data.length===0){
+  const seed=starterProducts.map(p=>({
+   ...p,image_url:p.images[0],available:true
+  }));
+  const {error:seedError}=await db.from("products").insert(seed);
+  if(seedError){
+   $("products").textContent="Your product list is empty. Database message: "+seedError.message;
+   return;
   }
+  return loadProducts();
+ }
 
-  if(!data || !data.length){
-    area.textContent = "No products yet. Add your first product below.";
-    return;
-  }
-
-  area.innerHTML = "";
-  data.forEach(product=>{
-    const item = document.createElement("div");
-    item.className = "product";
-
-    const img = document.createElement("img");
-    img.src = product.image_url || "";
-    img.alt = product.name || "Product";
-
-    const details = document.createElement("div");
-    details.className = "product-info";
-
-    const title = document.createElement("b");
-    title.textContent = product.name;
-
-    const price = document.createElement("p");
-    price.textContent = "₦" + Number(product.price).toLocaleString();
-
-    const state = document.createElement("small");
-    state.textContent = product.available ? "Available" : "Unavailable";
-
-    const edit = document.createElement("button");
-    edit.textContent = "Edit";
-    edit.onclick = ()=>editProduct(product);
-
-    const remove = document.createElement("button");
-    remove.textContent = "Delete";
-    remove.className = "delete";
-    remove.onclick = ()=>deleteProduct(product.id);
-
-    details.append(title,price,state,edit,remove);
-    item.append(img,details);
-    area.append(item);
-  });
+ currentProducts=data;
+ currentProducts.sort((a,b)=>String(b.created_at||"").localeCompare(String(a.created_at||"")));
+ renderProducts();
 }
 
-function editProduct(product){
-  editingId = product.id;
-  existingImages = Array.isArray(product.images) ? product.images : [];
-  document.getElementById("formTitle").textContent = "Edit Product";
-  document.getElementById("name").value = product.name || "";
-  document.getElementById("price").value = product.price || "";
-  document.getElementById("oldPrice").value = product.old_price || "";
-  document.getElementById("available").checked = !!product.available;
-  document.getElementById("photos").value = "";
-  document.getElementById("photoPreview").textContent =
-    existingImages.length + " existing photo(s) will be kept.";
-  document.getElementById("status").textContent = "Editing " + product.name;
-  window.scrollTo({top:document.body.scrollHeight,behavior:"smooth"});
+function renderProducts(){
+ const area=$("products");
+ area.innerHTML="";
+ currentProducts.forEach(p=>{
+  const images=getImages(p);
+  const item=document.createElement("div");
+  item.className="product";
+  item.innerHTML=`
+   <img src="${escapeHTML(images[0]||p.image_url||"")}" alt="">
+   <div class="product-info">
+    <b>${escapeHTML(p.name)}</b>
+    <p>₦${Number(p.price||0).toLocaleString()}</p>
+    <p class="small">${images.length} photo(s)</p>
+    <button data-edit="${escapeHTML(p.id)}">Edit</button>
+    <button class="delete" data-delete="${escapeHTML(p.id)}">Delete</button>
+   </div>`;
+  area.appendChild(item);
+ });
 }
 
-function resetForm(){
-  editingId = null;
-  existingImages = [];
-  document.getElementById("formTitle").textContent = "Add New Product";
-  document.getElementById("name").value = "";
-  document.getElementById("price").value = "";
-  document.getElementById("oldPrice").value = "";
-  document.getElementById("available").checked = true;
-  document.getElementById("photos").value = "";
-  document.getElementById("photoPreview").textContent = "";
-  document.getElementById("status").textContent = "";
-}
+$("products").addEventListener("click",async e=>{
+ const edit=e.target.dataset.edit;
+ const del=e.target.dataset.delete;
 
-async function saveProduct(){
-  const name = document.getElementById("name").value.trim();
-  const price = Number(document.getElementById("price").value);
-  const oldValue = document.getElementById("oldPrice").value;
-  const old_price = oldValue ? Number(oldValue) : null;
-  const available = document.getElementById("available").checked;
-  const files = [...document.getElementById("photos").files];
+ if(edit){
+  const p=currentProducts.find(x=>String(x.id)===String(edit));
+  if(!p)return;
+  editingId=p.id;
+  $("formTitle").textContent="Edit product";
+  $("name").value=p.name||"";
+  $("price").value=p.price||"";
+  $("oldPrice").value=p.old_price||"";
+  selectedFiles=[];
+  $("preview").innerHTML="";
+  $("photoStatus").textContent="Existing photos will stay unless you select new ones.";
+  window.scrollTo({top:0,behavior:"smooth"});
+ }
 
-  if(!name || !price || price <= 0){
-    document.getElementById("status").textContent =
-      "Enter a product name and a valid price.";
-    return;
+ if(del){
+  if(!confirm("Delete this product?"))return;
+  message("Deleting...");
+  const {error}=await db.from("products").delete().eq("id",del);
+  if(error){message("Delete error: "+error.message);return;}
+  message("Product deleted.");
+  await loadProducts();
+ }
+});
+
+$("photos").addEventListener("change",()=>{
+ const file=$("photos").files && $("photos").files[0];
+ if(!file)return;
+ selectedFiles.push(file);
+ $("photoStatus").textContent=selectedFiles.length+" new photo(s) selected.";
+ const img=document.createElement("img");
+ img.src=URL.createObjectURL(file);
+ $("preview").appendChild(img);
+ $("photos").value="";
+});
+
+$("cancelBtn").onclick=()=>{
+ editingId=null;
+ selectedFiles=[];
+ $("name").value="";
+ $("price").value="";
+ $("oldPrice").value="";
+ $("photos").value="";
+ $("preview").innerHTML="";
+ $("photoStatus").textContent="No new photos selected.";
+ $("formTitle").textContent="Add a product";
+ message("");
+};
+
+$("saveBtn").onclick=async()=>{
+ const name=$("name").value.trim();
+ const price=Number($("price").value);
+ const oldPrice=Number($("oldPrice").value)||0;
+
+ if(!name || !price){
+  message("Enter the product name and selling price.");
+  return;
+ }
+
+ message("Saving product...");
+ $("saveBtn").disabled=true;
+
+ try{
+  let images=[];
+  if(editingId){
+   const old=currentProducts.find(p=>String(p.id)===String(editingId));
+   images=getImages(old||{});
   }
 
-  document.getElementById("status").textContent = "Saving product...";
+  if(selectedFiles.length){
+   images=[];
+   for(let i=0;i<selectedFiles.length;i++){
+    const file=selectedFiles[i];
+    const safeName=file.name.replace(/[^a-zA-Z0-9._-]/g,"_");
+    const path=Date.now()+"_"+i+"_"+safeName;
+    const {error:uploadError}=await db.storage
+      .from("product-images").upload(path,file,{upsert:true});
+    if(uploadError)throw new Error("Photo upload failed: "+uploadError.message);
 
-  let imageUrls = [...existingImages];
-  const {data:userData,error:userError} = await db.auth.getUser();
-
-  if(userError || !userData.user){
-    document.getElementById("status").textContent = "Please log in again.";
-    return;
+    const {data}=db.storage.from("product-images").getPublicUrl(path);
+    images.push(data.publicUrl);
+   }
   }
 
-  for(const file of files){
-    const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g,"_");
-    const path = userData.user.id + "/" + Date.now() + "_" + safeName;
+  if(!images.length)throw new Error("This product needs at least one photo.");
 
-    const {error:uploadError} = await db.storage
-      .from("product-images")
-      .upload(path,file,{upsert:false});
-
-    if(uploadError){
-      document.getElementById("status").textContent =
-        "Photo upload failed: " + uploadError.message;
-      return;
-    }
-
-    const {data:urlData} = db.storage
-      .from("product-images").getPublicUrl(path);
-
-    imageUrls.push(urlData.publicUrl);
-  }
-
-  const product = {
-    name,
-    price,
-    old_price,
-    image_url: imageUrls[0] || null,
-    images: imageUrls,
-    available
+  const record={
+   name,price,old_price:oldPrice,
+   images,image_url:images[0],available:true
   };
 
   let result;
   if(editingId){
-    result = await db.from("products").update(product).eq("id",editingId);
+   result=await db.from("products").update(record).eq("id",editingId);
   }else{
-    result = await db.from("products").insert(product);
+   result=await db.from("products").insert(record);
   }
 
-  if(result.error){
-    document.getElementById("status").textContent =
-      "Could not save: " + result.error.message;
-    return;
-  }
+  if(result.error)throw result.error;
 
-  document.getElementById("status").textContent = "Product saved!";
-  resetForm();
+  message("Product saved.");
+  $("cancelBtn").click();
   await loadProducts();
-}
 
-async function deleteProduct(id){
-  if(!confirm("Delete this product?")) return;
-  const {error} = await db.from("products").delete().eq("id",id);
+ }catch(err){
+  message("Could not save: "+err.message);
+ }finally{
+  $("saveBtn").disabled=false;
+ }
+};
 
-  if(error){
-    document.getElementById("status").textContent =
-      "Delete failed: " + error.message;
-    return;
-  }
-
-  document.getElementById("status").textContent = "Product deleted.";
-  await loadProducts();
-}
-
-async function logout(){
-  await db.auth.signOut();
-  document.getElementById("dashboard").style.display = "none";
-  document.getElementById("login").style.display = "block";
-  document.getElementById("loginStatus").textContent = "You have logged out.";
-}
-
-document.getElementById("photos").addEventListener("change",event=>{
-  document.getElementById("photoPreview").textContent =
-    event.target.files.length + " new photo(s) selected.";
-});
-
-const savedKey = sessionStorage.getItem("sn_publishable_key");
-if(savedKey){
-  document.getElementById("apiKey").value = savedKey;
-  connectShop();
-}
+(async()=>{
+ const {data:{session}}=await db.auth.getSession();
+ if(session)await showDashboard();
+})();
 </script>
 </body>
 </html>
