@@ -1,0 +1,358 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stephenie Nova | Admin</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#fff5fa;color:#352331;font-family:Arial,sans-serif}
+header{background:#f7c3dc;padding:22px 18px;text-align:center}
+header h1{margin:0;color:#8d315f;font-size:25px}
+header p{margin:7px 0 0;font-size:12px;letter-spacing:2px}
+main{max-width:850px;margin:25px auto;padding:15px}
+.card{background:white;border:1px solid #f0d4e2;border-radius:16px;padding:20px;margin-bottom:18px}
+h2{font-size:19px;color:#a13c70;margin-top:0}
+input,textarea,select{width:100%;padding:13px;margin:7px 0 13px;border:1px solid #e8c6d7;border-radius:9px;font-size:15px;background:white}
+textarea{min-height:75px}
+label{font-size:13px;font-weight:bold}
+button{border:0;border-radius:9px;padding:12px 17px;background:#bd5489;color:white;font-weight:bold;cursor:pointer}
+button:disabled{opacity:.5}
+.secondary{background:#f3e1eb;color:#783b5a}
+.danger{background:#a93855}
+.hidden{display:none}
+.product{display:flex;gap:13px;align-items:center;border-bottom:1px solid #f1e2e9;padding:13px 0}
+.product img{width:75px;height:75px;object-fit:cover;border-radius:10px;background:#fceaf2}
+.product-info{flex:1;min-width:0}
+.product-info strong{display:block;margin-bottom:5px}
+.product-info small{color:#806879}
+.actions{display:flex;gap:6px;flex-wrap:wrap}
+.actions button{padding:9px 11px;font-size:12px}
+#message{font-size:13px;margin:12px 0;color:#963d6c;white-space:pre-wrap}
+.topbar{display:flex;justify-content:space-between;align-items:center;gap:10px}
+#count{font-size:13px;color:#87516c}
+@media(max-width:480px){.product{align-items:flex-start}.product img{width:62px;height:62px}.actions button{padding:8px}}
+</style>
+</head>
+<body>
+
+<header>
+<h1>STEPHENIE NOVA</h1>
+<p>ADMIN DASHBOARD ✨</p>
+</header>
+
+<main>
+
+<section class="card" id="login">
+<h2>Admin Login</h2>
+<label>Email</label>
+<input id="email" type="email" placeholder="Admin email">
+<label>Password</label>
+<input id="password" type="password" placeholder="Admin password">
+<button id="loginBtn" onclick="login()">Log In</button>
+<div id="loginMessage"></div>
+</section>
+
+<div id="dashboard" class="hidden">
+
+<div class="topbar card">
+<div>
+<strong>Welcome to your dashboard ♡</strong>
+<div id="count">Loading products...</div>
+</div>
+<button class="secondary" onclick="logout()">Log out</button>
+</div>
+
+<section class="card">
+<h2 id="formTitle">Add New Product</h2>
+
+<form id="productForm">
+<input type="hidden" id="productId">
+
+<label>Product name</label>
+<input id="name" required placeholder="e.g. Luxury Tote Bag">
+
+<label>Description</label>
+<textarea id="description" placeholder="Describe your product"></textarea>
+
+<label>Price (₦)</label>
+<input id="price" type="number" min="0" required placeholder="9500">
+
+<label>Old price (₦) — optional</label>
+<input id="oldPrice" type="number" min="0" placeholder="12500">
+
+<label>Category</label>
+<select id="category" required>
+<option value="">Choose category</option>
+<option value="Bags">Bags</option>
+<option value="Beauty">Beauty</option>
+<option value="Clothes">Clothes</option>
+<option value="Shoes">Shoes</option>
+<option value="Accessories">Accessories</option>
+</select>
+
+<label>Product picture</label>
+<input id="image" type="file" accept="image/*">
+<small id="imageNote">Choose a product picture from your phone.</small>
+
+<label>
+<input id="available" type="checkbox" checked style="width:auto;margin:12px 5px 12px 0">
+Product available
+</label>
+
+<button id="saveBtn" type="submit">Save Product</button>
+<button type="button" class="secondary" onclick="resetForm()">Clear</button>
+</form>
+<div id="message"></div>
+</section>
+
+<section class="card">
+<div class="topbar">
+<h2>My Products</h2>
+<button class="secondary" onclick="loadProducts()">Refresh</button>
+</div>
+<div id="products">Loading...</div>
+</section>
+
+</div>
+</main>
+
+<script>
+const SUPABASE_URL = "https://cnkggilywausfgoacgva.supabase.co";
+const SUPABASE_KEY = "sb_publishable_znAq3vcHAmCeFh7JlujzvQ_YJjMByRU";
+
+const db = window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_KEY
+);
+
+let currentProducts = [];
+
+function say(message){
+  document.getElementById("message").textContent = message;
+}
+
+async function checkSession(){
+  const {data:{session}} = await db.auth.getSession();
+  if(session){
+    showDashboard();
+  }
+}
+
+async function login(){
+  const email = document.getElementById("email").value.trim();
+  const password = document.getElementById("password").value;
+  const btn = document.getElementById("loginBtn");
+
+  if(!email || !password){
+    document.getElementById("loginMessage").textContent =
+      "Enter your email and password.";
+    return;
+  }
+
+  btn.disabled = true;
+  document.getElementById("loginMessage").textContent = "Logging in...";
+
+  const {error} = await db.auth.signInWithPassword({
+    email,password
+  });
+
+  btn.disabled = false;
+
+  if(error){
+    document.getElementById("loginMessage").textContent =
+      error.message;
+    return;
+  }
+
+  showDashboard();
+}
+
+async function logout(){
+  await db.auth.signOut();
+  location.reload();
+}
+
+function showDashboard(){
+  document.getElementById("login").classList.add("hidden");
+  document.getElementById("dashboard").classList.remove("hidden");
+  loadProducts();
+}
+
+function escapeHTML(value){
+  return String(value ?? "").replace(/[&<>"']/g, c => ({
+    "&":"&amp;","<":"&lt;",">":"&gt;",
+    '"':"&quot;","'":"&#39;"
+  })[c]);
+}
+
+async function loadProducts(){
+  const area = document.getElementById("products");
+  area.textContent = "Loading products...";
+
+  const {data,error} = await db
+    .from("products")
+    .select("*")
+    .order("created_at",{ascending:false});
+
+  if(error){
+    area.textContent = "Could not load products: " + error.message;
+    return;
+  }
+
+  currentProducts = data || [];
+  document.getElementById("count").textContent =
+    currentProducts.length + " products in your store";
+
+  if(!currentProducts.length){
+    area.textContent = "No products yet. Add your first product above.";
+    return;
+  }
+
+  area.innerHTML = currentProducts.map(p => `
+    <div class="product">
+      <img src="${escapeHTML(p.image_url || "")}" alt="">
+      <div class="product-info">
+        <strong>${escapeHTML(p.name)}</strong>
+        <small>₦${Number(p.price).toLocaleString("en-NG")} ·
+        ${escapeHTML(p.category || "")}</small><br>
+        <small>${p.available ? "Available" : "Unavailable"}</small>
+      </div>
+      <div class="actions">
+        <button class="secondary" onclick="editProduct('${p.id}')">Edit</button>
+        <button class="danger" onclick="deleteProduct('${p.id}')">Delete</button>
+      </div>
+    </div>
+  `).join("");
+}
+
+document.getElementById("productForm").addEventListener("submit",
+async function(e){
+  e.preventDefault();
+
+  const btn = document.getElementById("saveBtn");
+  btn.disabled = true;
+  say("Saving product...");
+
+  try{
+    const id = document.getElementById("productId").value;
+    const oldProduct = currentProducts.find(p => p.id === id);
+
+    let imageUrl = oldProduct?.image_url || null;
+    const file = document.getElementById("image").files[0];
+
+    if(file){
+      if(!file.type.startsWith("image/")){
+        throw new Error("Please select an image.");
+      }
+
+      if(file.size > 5 * 1024 * 1024){
+        throw new Error("Image must be smaller than 5MB.");
+      }
+
+      const extension = file.name.split(".").pop().toLowerCase();
+      const filePath = Date.now() + "-" +
+        Math.random().toString(36).slice(2) + "." + extension;
+
+      const {error:uploadError} = await db.storage
+        .from("product-images")
+        .upload(filePath,file,{upsert:false});
+
+      if(uploadError) throw uploadError;
+
+      const {data:urlData} = db.storage
+        .from("product-images")
+        .getPublicUrl(filePath);
+
+      imageUrl = urlData.publicUrl;
+    }
+
+    const product = {
+      name:document.getElementById("name").value.trim(),
+      description:document.getElementById("description").value.trim(),
+      price:Number(document.getElementById("price").value),
+      old_price:document.getElementById("oldPrice").value
+        ? Number(document.getElementById("oldPrice").value) : null,
+      category:document.getElementById("category").value,
+      available:document.getElementById("available").checked,
+      image_url:imageUrl
+    };
+
+    if(!product.name || !product.category ||
+       !Number.isFinite(product.price) || product.price < 0){
+      throw new Error("Check the product details.");
+    }
+
+    if(id){
+      const {error} = await db.from("products")
+        .update(product).eq("id",id);
+      if(error) throw error;
+      say("Product updated successfully!");
+    }else{
+      const {error} = await db.from("products").insert(product);
+      if(error) throw error;
+      say("Product added successfully!");
+    }
+
+    resetForm();
+    await loadProducts();
+
+  }catch(error){
+    say("Error: " + error.message);
+  }finally{
+    btn.disabled = false;
+  }
+});
+
+function editProduct(id){
+  const p = currentProducts.find(item => item.id === id);
+  if(!p) return;
+
+  document.getElementById("productId").value = p.id;
+  document.getElementById("name").value = p.name || "";
+  document.getElementById("description").value = p.description || "";
+  document.getElementById("price").value = p.price;
+  document.getElementById("oldPrice").value = p.old_price ?? "";
+  document.getElementById("category").value = p.category || "";
+  document.getElementById("available").checked = p.available;
+  document.getElementById("formTitle").textContent = "Edit Product";
+  document.getElementById("saveBtn").textContent = "Update Product";
+  document.getElementById("imageNote").textContent =
+    "Leave empty to keep the current picture.";
+
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+async function deleteProduct(id){
+  const p = currentProducts.find(item => item.id === id);
+  if(!p) return;
+
+  if(!confirm("Delete " + p.name + "? This cannot be undone.")) return;
+
+  const {error} = await db.from("products").delete().eq("id",id);
+
+  if(error){
+    say("Delete failed: " + error.message);
+    return;
+  }
+
+  say("Product deleted.");
+  await loadProducts();
+}
+
+function resetForm(){
+  document.getElementById("productForm").reset();
+  document.getElementById("productId").value = "";
+  document.getElementById("available").checked = true;
+  document.getElementById("formTitle").textContent = "Add New Product";
+  document.getElementById("saveBtn").textContent = "Save Product";
+  document.getElementById("imageNote").textContent =
+    "Choose a product picture from your phone.";
+}
+
+checkSession();
+</script>
+</body>
+</html>
