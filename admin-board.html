@@ -1,0 +1,306 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Stephenie Nova Admin</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+*{box-sizing:border-box}
+body{margin:0;padding:16px;background:#fff2f7;color:#54263b;font-family:Arial,sans-serif}
+header{background:#f4b9d2;padding:22px;border-radius:18px;text-align:center}
+.panel{background:white;padding:17px;border-radius:15px;margin:15px 0;box-shadow:0 3px 12px #e8c4d3}
+input,button{width:100%;padding:13px;margin:7px 0;border:1px solid #e5b8cb;border-radius:10px;font-size:15px}
+input[type=checkbox]{width:auto}
+button{background:#d94d8b;color:white;border:0;font-weight:bold}
+.secondary{background:#80506a}
+.delete{background:#b52d52}
+small{color:#87566d}
+#dashboard{display:none}
+.product{display:flex;gap:12px;padding:12px 0;border-top:1px solid #f0d7e2}
+.product img{width:75px;height:75px;object-fit:cover;border-radius:9px}
+.product-info{flex:1;min-width:0}
+#status,#loginStatus{white-space:pre-wrap;font-size:14px;margin-top:10px}
+</style>
+</head>
+<body>
+
+<header>
+<h1>STEPHENIE NOVA</h1>
+<p>Admin Dashboard ✨</p>
+</header>
+
+<section class="panel" id="setup">
+<h3>Connect your shop</h3>
+<p>Paste your Supabase Publishable key below.</p>
+<input id="apiKey" placeholder="sb_publishable_..." autocomplete="off">
+<button onclick="connectShop()">Connect</button>
+<div id="setupStatus"></div>
+</section>
+
+<section class="panel" id="login" style="display:none">
+<h3>Admin Login</h3>
+<input id="email" type="email" placeholder="Admin email">
+<input id="password" type="password" placeholder="Password">
+<button onclick="loginAdmin()">Log In</button>
+<div id="loginStatus"></div>
+</section>
+
+<main id="dashboard">
+<section class="panel">
+<h2>Products</h2>
+<button onclick="loadProducts()">Refresh products</button>
+<button class="secondary" onclick="logout()">Log out</button>
+<div id="products">Log in to see products.</div>
+</section>
+
+<section class="panel">
+<h2 id="formTitle">Add New Product</h2>
+<input id="name" placeholder="Product name">
+<input id="price" type="number" placeholder="Selling price (₦)">
+<input id="oldPrice" type="number" placeholder="Old price (optional)">
+<label><input id="available" type="checkbox" checked> Product available</label>
+<p><b>Product photos</b></p>
+<input id="photos" type="file" accept="image/*" multiple>
+<small>You can select more than one photo.</small>
+<div id="photoPreview"></div>
+<button onclick="saveProduct()">Save Product</button>
+<button class="secondary" onclick="resetForm()">Clear form</button>
+<div id="status"></div>
+</section>
+</main>
+
+<script>
+const SUPABASE_URL = "https://cnkggilywausfgoacgva.supabase.co";
+let db = null;
+let editingId = null;
+let existingImages = [];
+
+function connectShop(){
+  const key = document.getElementById("apiKey").value.trim();
+  if(!key.startsWith("sb_publishable_") && !key.startsWith("eyJ")){
+    document.getElementById("setupStatus").textContent =
+      "Please enter your Supabase Publishable key.";
+    return;
+  }
+
+  try{
+    db = window.supabase.createClient(SUPABASE_URL,key);
+    sessionStorage.setItem("sn_publishable_key",key);
+    document.getElementById("setup").style.display = "none";
+    document.getElementById("login").style.display = "block";
+    document.getElementById("loginStatus").textContent = "Shop connected. Please log in.";
+  }catch(error){
+    document.getElementById("setupStatus").textContent = error.message;
+  }
+}
+
+async function loginAdmin(){
+  const email = document.getElementById("email").value.trim();
+  const password = document.getElementById("password").value;
+  const output = document.getElementById("loginStatus");
+  if(!email || !password){
+    output.textContent = "Enter your email and password.";
+    return;
+  }
+
+  output.textContent = "Logging in...";
+  const {data,error} = await db.auth.signInWithPassword({email,password});
+
+  if(error){
+    output.textContent = error.message;
+    return;
+  }
+
+  document.getElementById("login").style.display = "none";
+  document.getElementById("dashboard").style.display = "block";
+  await loadProducts();
+}
+
+async function loadProducts(){
+  const area = document.getElementById("products");
+  area.textContent = "Loading products...";
+
+  const {data,error} = await db.from("products")
+    .select("*").order("created_at",{ascending:false});
+
+  if(error){
+    area.textContent = "Could not load products: " + error.message;
+    return;
+  }
+
+  if(!data || !data.length){
+    area.textContent = "No products yet. Add your first product below.";
+    return;
+  }
+
+  area.innerHTML = "";
+  data.forEach(product=>{
+    const item = document.createElement("div");
+    item.className = "product";
+
+    const img = document.createElement("img");
+    img.src = product.image_url || "";
+    img.alt = product.name || "Product";
+
+    const details = document.createElement("div");
+    details.className = "product-info";
+
+    const title = document.createElement("b");
+    title.textContent = product.name;
+
+    const price = document.createElement("p");
+    price.textContent = "₦" + Number(product.price).toLocaleString();
+
+    const state = document.createElement("small");
+    state.textContent = product.available ? "Available" : "Unavailable";
+
+    const edit = document.createElement("button");
+    edit.textContent = "Edit";
+    edit.onclick = ()=>editProduct(product);
+
+    const remove = document.createElement("button");
+    remove.textContent = "Delete";
+    remove.className = "delete";
+    remove.onclick = ()=>deleteProduct(product.id);
+
+    details.append(title,price,state,edit,remove);
+    item.append(img,details);
+    area.append(item);
+  });
+}
+
+function editProduct(product){
+  editingId = product.id;
+  existingImages = Array.isArray(product.images) ? product.images : [];
+  document.getElementById("formTitle").textContent = "Edit Product";
+  document.getElementById("name").value = product.name || "";
+  document.getElementById("price").value = product.price || "";
+  document.getElementById("oldPrice").value = product.old_price || "";
+  document.getElementById("available").checked = !!product.available;
+  document.getElementById("photos").value = "";
+  document.getElementById("photoPreview").textContent =
+    existingImages.length + " existing photo(s) will be kept.";
+  document.getElementById("status").textContent = "Editing " + product.name;
+  window.scrollTo({top:document.body.scrollHeight,behavior:"smooth"});
+}
+
+function resetForm(){
+  editingId = null;
+  existingImages = [];
+  document.getElementById("formTitle").textContent = "Add New Product";
+  document.getElementById("name").value = "";
+  document.getElementById("price").value = "";
+  document.getElementById("oldPrice").value = "";
+  document.getElementById("available").checked = true;
+  document.getElementById("photos").value = "";
+  document.getElementById("photoPreview").textContent = "";
+  document.getElementById("status").textContent = "";
+}
+
+async function saveProduct(){
+  const name = document.getElementById("name").value.trim();
+  const price = Number(document.getElementById("price").value);
+  const oldValue = document.getElementById("oldPrice").value;
+  const old_price = oldValue ? Number(oldValue) : null;
+  const available = document.getElementById("available").checked;
+  const files = [...document.getElementById("photos").files];
+
+  if(!name || !price || price <= 0){
+    document.getElementById("status").textContent =
+      "Enter a product name and a valid price.";
+    return;
+  }
+
+  document.getElementById("status").textContent = "Saving product...";
+
+  let imageUrls = [...existingImages];
+  const {data:userData,error:userError} = await db.auth.getUser();
+
+  if(userError || !userData.user){
+    document.getElementById("status").textContent = "Please log in again.";
+    return;
+  }
+
+  for(const file of files){
+    const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g,"_");
+    const path = userData.user.id + "/" + Date.now() + "_" + safeName;
+
+    const {error:uploadError} = await db.storage
+      .from("product-images")
+      .upload(path,file,{upsert:false});
+
+    if(uploadError){
+      document.getElementById("status").textContent =
+        "Photo upload failed: " + uploadError.message;
+      return;
+    }
+
+    const {data:urlData} = db.storage
+      .from("product-images").getPublicUrl(path);
+
+    imageUrls.push(urlData.publicUrl);
+  }
+
+  const product = {
+    name,
+    price,
+    old_price,
+    image_url: imageUrls[0] || null,
+    images: imageUrls,
+    available
+  };
+
+  let result;
+  if(editingId){
+    result = await db.from("products").update(product).eq("id",editingId);
+  }else{
+    result = await db.from("products").insert(product);
+  }
+
+  if(result.error){
+    document.getElementById("status").textContent =
+      "Could not save: " + result.error.message;
+    return;
+  }
+
+  document.getElementById("status").textContent = "Product saved!";
+  resetForm();
+  await loadProducts();
+}
+
+async function deleteProduct(id){
+  if(!confirm("Delete this product?")) return;
+  const {error} = await db.from("products").delete().eq("id",id);
+
+  if(error){
+    document.getElementById("status").textContent =
+      "Delete failed: " + error.message;
+    return;
+  }
+
+  document.getElementById("status").textContent = "Product deleted.";
+  await loadProducts();
+}
+
+async function logout(){
+  await db.auth.signOut();
+  document.getElementById("dashboard").style.display = "none";
+  document.getElementById("login").style.display = "block";
+  document.getElementById("loginStatus").textContent = "You have logged out.";
+}
+
+document.getElementById("photos").addEventListener("change",event=>{
+  document.getElementById("photoPreview").textContent =
+    event.target.files.length + " new photo(s) selected.";
+});
+
+const savedKey = sessionStorage.getItem("sn_publishable_key");
+if(savedKey){
+  document.getElementById("apiKey").value = savedKey;
+  connectShop();
+}
+</script>
+</body>
+</html>
