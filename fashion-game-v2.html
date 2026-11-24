@@ -1,4 +1,4 @@
-```html
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,16 +22,18 @@ header p{margin:4px;font-size:10px;letter-spacing:2px}
 #challenge{text-align:center;background:#fff8fc;padding:8px;border-radius:12px;margin:7px auto;max-width:1000px;font-size:12px}
 #challenge select{border:1px solid #d98bb2;border-radius:20px;padding:7px;color:#8d2b60}
 #challenge button{border:1px solid #d98bb2;border-radius:20px;padding:7px;background:white;color:#a93470;font-size:11px}
-.layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(125px,.78fr);gap:7px;max-width:1000px;margin:auto;align-items:start}
-.stage{position:relative;width:100%;aspect-ratio:2/3;overflow:hidden;border:3px solid white;border-radius:14px;background:#f7d5e5 url('https://i.postimg.cc/Z9yFFcCJ/IMG-5583.png') center/cover;box-shadow:0 5px 18px #9c527455}
+
+/* SAME TALL FRAME AS THE FITTING STUDIO */
+.layout{display:grid;grid-template-columns:42% 58%;gap:7px;height:calc(100dvh - 57px);min-height:540px;max-width:1000px;margin:auto;align-items:stretch}
+.stage{position:relative;width:100%;height:100%;min-height:0;aspect-ratio:auto;overflow:hidden;border:3px solid white;border-radius:14px;background:#f7d5e5 url('https://i.postimg.cc/Z9yFFcCJ/IMG-5583.png') center/cover;box-shadow:0 5px 18px #9c527455}
 #model{position:absolute;width:100%;height:100%;object-fit:contain;inset:0}
 .overlay{position:absolute;object-fit:contain;pointer-events:none}
-.panel{background:#fff8fc;border:2px solid white;border-radius:14px;padding:6px;min-width:0;box-shadow:0 4px 12px #9c527422}
+.panel{background:#fff8fc;border:2px solid white;border-radius:14px;padding:6px;min-width:0;height:100%;min-height:0;overflow-y:auto;box-shadow:0 4px 12px #9c527422}
 .panel h2{text-align:center;font-size:15px;margin:4px 0 7px;color:#a52f6c}
 .tabs{display:grid;grid-template-columns:repeat(2,1fr);gap:4px}
 .tab{border:1px solid #e6a3c4;background:white;border-radius:20px;padding:8px 2px;color:#9b3268;font-size:10px}
 .tab.active{background:#b83d7b;color:white}
-.items{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:5px;margin-top:7px;max-height:52vh;overflow-y:auto}
+.items{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:5px;margin-top:7px;max-height:none;overflow:visible}
 .item{background:white;border:1px solid #efbfd5;border-radius:9px;padding:3px;min-width:0;color:#54243d}
 .item img{width:100%;height:66px;object-fit:contain}
 .item span{display:block;font-size:9px;text-align:center;margin-top:2px}
@@ -41,7 +43,8 @@ header p{margin:4px;font-size:10px;letter-spacing:2px}
 .actions button.light{background:white;color:#a93470;border:1px solid #d98bb2}
 #runway{display:none;position:absolute;inset:0;z-index:5;background:linear-gradient(90deg,#3c1737,#9c3976,#3c1737);overflow:hidden;text-align:center;color:white}
 #runway:before,#runway:after{content:"";position:absolute;top:0;width:23%;height:100%;background:repeating-linear-gradient(90deg,#8c174e,#d94d91 12px,#74103d 24px);box-shadow:0 0 25px #ffb5df;animation:curtain 1.5s forwards}
-#runway:before{left:0}#runway:after{right:0}
+#runway:before{left:0}
+#runway:after{right:0}
 @keyframes curtain{to{width:8%}}
 .runway-title{position:absolute;z-index:2;top:15%;left:5%;right:5%;font-size:clamp(25px,6vw,44px);text-shadow:0 0 15px white}
 .runway-sub{position:absolute;z-index:2;bottom:15%;left:5%;right:5%;font-size:13px;letter-spacing:2px}
@@ -53,14 +56,14 @@ header p{margin:4px;font-size:10px;letter-spacing:2px}
 #magazine h2{font-size:35px;margin:5px;color:#a12e67}
 #magazine p{letter-spacing:3px}
 @media(max-width:380px){
-.layout{grid-template-columns:minmax(0,1fr) minmax(112px,.8fr)}
+.layout{grid-template-columns:42% 58%}
 .tab{font-size:9px;padding:7px 1px}
 .item img{height:58px}
 .panel{padding:5px}
 }
 @media(min-width:700px){
-.layout{grid-template-columns:minmax(0,1fr) minmax(250px,.65fr)}
-.stage{max-height:720px}
+.layout{grid-template-columns:48% 52%;height:calc(100dvh - 57px)}
+.stage{max-height:none}
 .items{grid-template-columns:repeat(3,minmax(0,1fr))}
 .item img{height:90px}
 }
@@ -362,4 +365,3 @@ o.start();o.stop(audioContext.currentTime+.13);
 </script>
 </body>
 </html>
-```
