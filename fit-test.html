@@ -1,256 +1,231 @@
-
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Stephenie Nova - Clothing Fit Test</title>
-
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Stephenie Nova Fitting Studio</title>
 <style>
-* { box-sizing: border-box; }
-
-body {
-  margin: 0;
-  padding: 16px;
-  background: #fff0f6;
-  color: #542d42;
-  font-family: Arial, sans-serif;
-}
-
-header {
-  text-align: center;
-  padding: 12px;
-}
-
-h1 {
-  font-size: 21px;
-  letter-spacing: 1px;
-}
-
-p { font-size: 13px; }
-
-.stage {
-  width: 100%;
-  max-width: 430px;
-  aspect-ratio: 3 / 4;
-  margin: 15px auto;
-  position: relative;
-  overflow: hidden;
-  background: #f7dce9;
-  border: 2px solid #e9a9c6;
-  border-radius: 15px;
-}
-
-.background {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.model, .clothing {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  inset: 0;
-}
-
-.clothing {
-  width: 60%;
-  height: auto;
-  left: 20%;
-  top: 15%;
-  object-fit: contain;
-  transform-origin: top left;
-}
-
-.panel {
-  max-width: 430px;
-  margin: auto;
-  padding: 15px;
-  background: white;
-  border-radius: 15px;
-  text-align: center;
-}
-
-button {
-  border: 0;
-  border-radius: 9px;
-  padding: 12px 14px;
-  margin: 4px;
-  background: #e99abd;
-  color: #542d42;
-  font-weight: bold;
-  font-size: 13px;
-}
-
-button:active { background: #d875a2; }
-
-.secondary { background: #f8e0eb; }
-
-.controls {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 5px;
-  margin-top: 12px;
-}
-
-.controls button {
-  margin: 0;
-}
-
-#itemName {
-  font-weight: bold;
-  margin: 10px;
-}
-
-.small {
-  color: #987087;
-  font-size: 12px;
-}
-
+*{box-sizing:border-box}
+body{margin:0;padding:12px;background:#ffe8f2;color:#642c49;font-family:Arial,sans-serif}
+header{text-align:center}
+h1{color:#b63878;font-size:23px}
+.stage{width:100%;max-width:430px;aspect-ratio:2/3;margin:15px auto;position:relative;overflow:hidden;border:3px solid white;border-radius:15px;background:#f5c9dc}
+#model{position:absolute;width:100%;height:100%;inset:0;object-fit:contain;pointer-events:none}
+#item{position:absolute;width:40%;left:30%;top:30%;height:auto;touch-action:none;cursor:move;user-select:none}
+.panel{max-width:500px;margin:auto;background:white;padding:14px;border-radius:15px;text-align:center}
+button,select{border:0;border-radius:9px;padding:11px;margin:4px;background:#e99abd;color:#542d42;font-weight:bold}
+select{width:100%;background:#fff0f6;border:1px solid #e9a9c6}
+.tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:4px}
+.tabs button{font-size:12px}
+.tabs button.active{background:#a92e6d;color:white}
+.controls{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;margin:12px 0}
+.controls button{margin:0}
+.small{font-size:12px;color:#987087}
+textarea{width:100%;height:180px;margin-top:10px;padding:10px;border:1px solid #e9a9c6;border-radius:9px;font-size:11px}
 </style>
 </head>
-
 <body>
-
 <header>
-  <h1>STEPHENIE NOVA</h1>
-  <p>FASHION GAME — CLOTHING FIT TEST</p>
+<h1>STEPHENIE NOVA 🎀</h1>
+<p>COMPLETE FASHION FITTING STUDIO</p>
+<p class="small">Fit every item to the model before adding it to the game.</p>
 </header>
 
 <div class="stage" id="stage">
-  <img class="background"
-       src="https://i.postimg.cc/Z9yFFcCJ/IMG-5583.png"
-       alt="Bedroom background">
-
-  <img class="model"
-       src="https://i.postimg.cc/HkR0tGTJ/IMG-5618.png"
-       alt="Main sweatshirt model">
-
-  <img class="clothing" id="clothing" alt="Selected outfit">
+<img id="model" src="https://i.postimg.cc/d3hBcsHK/IMG-5657.png">
+<img id="item" draggable="false">
 </div>
 
 <div class="panel">
-  <div id="itemName">Clothing 1 of 6</div>
-  <p class="small">Choose an outfit and adjust its position and size.</p>
-
-  <div>
-    <button class="secondary" onclick="previousItem()">Previous</button>
-    <button onclick="nextItem()">Next outfit</button>
-  </div>
-
-  <div class="controls">
-    <button onclick="move(0,-1)">↑ Up</button>
-    <button onclick="resize(1)">＋ Bigger</button>
-    <button onclick="move(0,1)">↓ Down</button>
-
-    <button onclick="move(-1,0)">← Left</button>
-    <button onclick="resetItem()">Reset</button>
-    <button onclick="move(1,0)">Right →</button>
-
-    <button onclick="resize(-1)">－ Smaller</button>
-  </div>
-
-  <p class="small">
-    Adjust each outfit until it lines up with the model.
-    Your adjustments are kept while you test the six outfits.
-  </p>
-
-  <button onclick="copySettings()">Copy fitting settings</button>
-  <button class="secondary" onclick="resetAll()">Reset all</button>
-
-  <p class="small" id="status"></p>
+<b>CHOOSE CATEGORY</b>
+<div class="tabs" id="tabs"></div>
+<p><b>CHOOSE ITEM</b></p>
+<select id="picker"></select>
+<p id="name">Select an item</p>
+<p class="small">You can drag the item directly on the model or use the controls.</p>
+<div class="controls">
+<button onclick="move(0,-1)">↑ Up</button>
+<button onclick="resize(2)">＋ Bigger</button>
+<button onclick="move(0,1)">↓ Down</button>
+<button onclick="move(-1,0)">← Left</button>
+<button onclick="resetItem()">Reset item</button>
+<button onclick="move(1,0)">Right →</button>
+<button onclick="resize(-2)">－ Smaller</button>
+</div>
+<p id="position" class="small"></p>
+<button onclick="previous()">Previous item</button>
+<button onclick="next()">Next item</button>
+<hr>
+<button onclick="copyAll()">COPY ALL FITTING SETTINGS</button>
+<button onclick="resetAll()">Reset everything</button>
+<textarea id="output" placeholder="Your fitting measurements will appear here..."></textarea>
+<p id="status" class="small">Fit each item and copy your settings when finished.</p>
 </div>
 
 <script>
-const outfits = [
-  { name: "Clothing 1 — IMG-5590", url: "https://i.postimg.cc/3dnBKNP6/IMG-5590.png" },
-  { name: "Clothing 2 — IMG-5605", url: "https://i.postimg.cc/XpVLSdDc/IMG-5605.png" },
-  { name: "Clothing 3 — IMG-5606", url: "https://i.postimg.cc/7b19WmX7/IMG-5606.png" },
-  { name: "Clothing 4 — IMG-5608", url: "https://i.postimg.cc/XXKLzQxB/IMG-5608.png" },
-  { name: "Clothing 5 — IMG-5609", url: "https://i.postimg.cc/4nvPSBwh/IMG-5609.png" },
-  { name: "Clothing 6 — IMG-5610", url: "https://i.postimg.cc/Jt3x2PKy/IMG-5610.png" }
-];
+const A={
+"Tops":[
+["IMG-5652","https://i.postimg.cc/G86Tb1mV/IMG-5652.png"],
+["IMG-5651","https://i.postimg.cc/Pp0vdkqk/IMG-5651.png"],
+["IMG-5650","https://i.postimg.cc/vgCxGdmH/IMG-5650.png"],
+["IMG-5644","https://i.postimg.cc/XBFGJDZX/IMG-5644.png"],
+["IMG-5643","https://i.postimg.cc/D4sJZYW7/IMG-5643.png"],
+["IMG-5635","https://i.postimg.cc/w3ss03wn/IMG-5635.png"],
+["IMG-5633","https://i.postimg.cc/bd223d6j/IMG-5633.png"],
+["IMG-5608","https://i.postimg.cc/XXKLzQxB/IMG-5608.png"]
+],
+"Bottoms":[
+["IMG-5590","https://i.postimg.cc/3dnBKNP6/IMG-5590.png"],
+["IMG-5606","https://i.postimg.cc/7b19WmX7/IMG-5606.png"],
+["IMG-5636","https://i.postimg.cc/H85cxPJb/IMG-5636.png"],
+["IMG-5638","https://i.postimg.cc/CnDB16Zs/IMG-5638.png"],
+["IMG-5639","https://i.postimg.cc/RJf6Fb3c/IMG-5639.png"],
+["IMG-5640","https://i.postimg.cc/64R2317n/IMG-5640.png"],
+["IMG-5641","https://i.postimg.cc/dZdk1S7R/IMG-5641.png"],
+["IMG-5642","https://i.postimg.cc/30p4Rbyd/IMG-5642.png"],
+["IMG-5647","https://i.postimg.cc/bSbDJFGP/IMG-5647.png"],
+["IMG-5648","https://i.postimg.cc/sQbG3R22/IMG-5648.png"],
+["IMG-5649","https://i.postimg.cc/34z03HwR/IMG-5649.png"]
+],
+"Gowns":[
+["IMG-5605","https://i.postimg.cc/XpVLSdDc/IMG-5605.png"],
+["IMG-5609","https://i.postimg.cc/4nvPSBwh/IMG-5609.png"],
+["IMG-5610","https://i.postimg.cc/Jt3x2PKy/IMG-5610.png"],
+["IMG-5634","https://i.postimg.cc/xNHJCFk5/IMG-5634.png"],
+["IMG-5645","https://i.postimg.cc/WqrF3fDD/IMG-5645.png"],
+["IMG-5646","https://i.postimg.cc/fSXtLg3z/IMG-5646.png"]
+],
+"Shoes":[
+["IMG-5591","https://i.postimg.cc/2V2wzysj/IMG-5591.png"],
+["IMG-5617","https://i.postimg.cc/QVgmy0SD/IMG-5617.png"],
+["IMG-5653","https://i.postimg.cc/1gJphT63/IMG-5653.png"],
+["IMG-5654","https://i.postimg.cc/hJp9Wwxc/IMG-5654.png"],
+["IMG-5655","https://i.postimg.cc/Mcdy24Rz/IMG-5655.png"],
+["IMG-5656","https://i.postimg.cc/gwNvF5Rp/IMG-5656.png"]
+],
+"Hair":[
+["IMG-5594","https://i.postimg.cc/VdDRYv3K/IMG-5594.png"],
+["IMG-5595","https://i.postimg.cc/gnNDYjfB/IMG-5595.png"],
+["IMG-5604","https://i.postimg.cc/0b8nRDHX/IMG-5604.png"],
+["IMG-5607","https://i.postimg.cc/yWhjbvnc/IMG-5607.png"],
+["IMG-5612","https://i.postimg.cc/grysTN4c/IMG-5612.png"],
+["IMG-5613","https://i.postimg.cc/PNbyR2Kx/IMG-5613.png"],
+["IMG-5614","https://i.postimg.cc/LhkDbNv8/IMG-5614.png"],
+["IMG-5623","https://i.postimg.cc/Q9gVZKv5/IMG-5623.png"],
+["IMG-5624","https://i.postimg.cc/qhcgH6W8/IMG-5624.png"],
+["IMG-5626","https://i.postimg.cc/ZBP0zvXW/IMG-5626.png"],
+["IMG-5627","https://i.postimg.cc/hzRhY1Zf/IMG-5627.png"]
+],
+"Bags":[
+["IMG-5592","https://i.postimg.cc/kBfcnG07/IMG-5592.png"],
+["IMG-5596","https://i.postimg.cc/ykvPVxwv/IMG-5596.png"],
+["IMG-5597","https://i.postimg.cc/bs3Tzr7X/IMG-5597.png"],
+["IMG-5598","https://i.postimg.cc/6y9cJn1m/IMG-5598.png"],
+["IMG-5602","https://i.postimg.cc/dLq6PrST/IMG-5602.png"],
+["IMG-5603","https://i.postimg.cc/7b19WmXS/IMG-5603.png"],
+["IMG-5611","https://i.postimg.cc/QHXmG1nT/IMG-5611.png"],
+["IMG-5615","https://i.postimg.cc/xqG54tgq/IMG-5615.png"],
+["IMG-5630","https://i.postimg.cc/1nKRjhNM/IMG-5630.png"],
+["IMG-5631","https://i.postimg.cc/0MC5BRJC/IMG-5631.png"],
+["IMG-5632","https://i.postimg.cc/dk9QxPT4/IMG-5632.png"]
+],
+"Necklaces":[
+["IMG-5628","https://i.postimg.cc/Hc8jZP9w/IMG-5628.png"],
+["IMG-5629","https://i.postimg.cc/qh6gbZxy/IMG-5629.png"]
+]
+};
 
-const defaults = { left: 20, top: 15, width: 60 };
+const defaults={
+Tops:{left:20,top:22,width:60},
+Bottoms:{left:20,top:43,width:60},
+Gowns:{left:20,top:20,width:60},
+Shoes:{left:25,top:80,width:50},
+Hair:{left:24,top:0,width:52},
+Bags:{left:52,top:45,width:25},
+Necklaces:{left:35,top:25,width:30}
+};
 
-let settings = outfits.map(() => ({...defaults}));
-let current = 0;
+const all=[];
+Object.entries(A).forEach(([category,items])=>{
+items.forEach(([name,url])=>all.push({category,name,url}));
+});
+let settings=all.map(x=>({...defaults[x.category]}));
+let category="Tops",index=0;
+const item=document.getElementById("item");
+const picker=document.getElementById("picker");
+const stage=document.getElementById("stage");
 
-const clothing = document.getElementById("clothing");
-const itemName = document.getElementById("itemName");
-const status = document.getElementById("status");
-
-function showItem() {
-  const item = outfits[current];
-  const s = settings[current];
-
-  clothing.src = item.url;
-  clothing.style.left = s.left + "%";
-  clothing.style.top = s.top + "%";
-  clothing.style.width = s.width + "%";
-
-  itemName.textContent = item.name;
-  status.textContent = "Position: " + Math.round(s.left) +
-    "% left, " + Math.round(s.top) + "% top | Width: " +
-    Math.round(s.width) + "%";
+function list(){return all.map((a,i)=>({...a,i})).filter(a=>a.category===category)}
+function makeTabs(){
+document.getElementById("tabs").innerHTML=Object.keys(A).map(c=>
+`<button id="tab-${c}" onclick="changeCategory('${c}')">${c}</button>`).join("");
 }
-
-function move(x, y) {
-  const s = settings[current];
-  s.left += x;
-  s.top += y;
-  showItem();
+function changeCategory(c){
+category=c;
+document.querySelectorAll(".tabs button").forEach(b=>b.classList.remove("active"));
+document.getElementById("tab-"+c).classList.add("active");
+index=list()[0].i;
+fillPicker();show();
 }
-
-function resize(amount) {
-  settings[current].width += amount * 2;
-  showItem();
+function fillPicker(){
+picker.innerHTML=list().map(a=>`<option value="${a.i}">${a.name}</option>`).join("");
+picker.value=index;
 }
-
-function resetItem() {
-  settings[current] = {...defaults};
-  showItem();
+function show(){
+const a=all[index],s=settings[index];
+item.src=a.url;
+item.style.left=s.left+"%";
+item.style.top=s.top+"%";
+item.style.width=s.width+"%";
+document.getElementById("name").textContent=a.category+" — "+a.name;
+document.getElementById("position").textContent=
+"Left: "+s.left+"% | Top: "+s.top+"% | Width: "+s.width+"%";
+picker.value=index;
 }
+picker.onchange=()=>{index=Number(picker.value);show()};
+function move(x,y){settings[index].left+=x;settings[index].top+=y;show()}
+function resize(n){settings[index].width=Math.max(5,settings[index].width+n);show()}
+function resetItem(){settings[index]={...defaults[all[index].category]};show()}
+function next(){const l=list();index=l[(l.findIndex(x=>x.i===index)+1)%l.length].i;show()}
+function previous(){const l=list();index=l[(l.findIndex(x=>x.i===index)-1+l.length)%l.length].i;show()}
+function resetAll(){settings=all.map(a=>({...defaults[a.category]}));index=list()[0].i;show();document.getElementById("output").value=""}
 
-function nextItem() {
-  current = (current + 1) % outfits.length;
-  showItem();
+let drag=null;
+item.addEventListener("pointerdown",e=>{
+drag={x:e.clientX,y:e.clientY,left:settings[index].left,top:settings[index].top};
+item.setPointerCapture(e.pointerId);
+});
+item.addEventListener("pointermove",e=>{
+if(!drag)return;
+const r=stage.getBoundingClientRect();
+settings[index].left=drag.left+(e.clientX-drag.x)/r.width*100;
+settings[index].top=drag.top+(e.clientY-drag.y)/r.height*100;
+show();
+});
+item.addEventListener("pointerup",()=>drag=null);
+item.addEventListener("pointercancel",()=>drag=null);
+
+function copyAll(){
+const result=all.map((a,i)=>({
+category:a.category,image:a.name,
+left:Math.round(settings[i].left*10)/10,
+top:Math.round(settings[i].top*10)/10,
+width:Math.round(settings[i].width*10)/10
+}));
+const output=JSON.stringify(result,null,2);
+document.getElementById("output").value=output;
+const box=document.getElementById("output");
+box.select();
+let copied=false;
+try{copied=document.execCommand("copy")}catch(e){}
+document.getElementById("status").textContent=copied?
+"All "+all.length+" fitting settings copied. Send them to ChatGPT.":
+"Settings are displayed above. Select and copy them.";
 }
-
-function previousItem() {
-  current = (current - 1 + outfits.length) % outfits.length;
-  showItem();
-}
-
-function resetAll() {
-  settings = outfits.map(() => ({...defaults}));
-  current = 0;
-  showItem();
-}
-
-function copySettings() {
-  const result = outfits.map((item, index) => ({
-    image: item.name,
-    ...settings[index]
-  }));
-
-  const output = JSON.stringify(result, null, 2);
-
-  if (navigator.clipboard && navigator.clipboard.writeText) {
-    navigator.clipboard.writeText(output)
-      .then(() => status.textContent = "Settings copied! Send them to ChatGPT.")
-      .catch(() => status.textContent = output);
-  } else {
-    status.textContent = output;
-  }
-}
-
-showItem();
+makeTabs();
+changeCategory("Tops");
 </script>
-
 </body>
 </html>
+```
