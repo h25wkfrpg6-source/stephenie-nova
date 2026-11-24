@@ -1,184 +1,182 @@
-
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Stephenie Nova - Asset Preview</title>
-
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Stephenie Nova — Complete Asset Catalog</title>
 <style>
-* {
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  background: #fff5fa;
-  color: #422538;
-  font-family: Arial, sans-serif;
-}
-
-header {
-  background: linear-gradient(135deg, #f6b9d3, #fce0ed);
-  text-align: center;
-  padding: 25px 12px;
-}
-
-header h1 {
-  font-size: 21px;
-  margin: 0 0 8px;
-  letter-spacing: 1px;
-}
-
-header p {
-  font-size: 13px;
-  margin: 0;
-}
-
-.grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 12px;
-  padding: 12px;
-}
-
-.card {
-  background: white;
-  border: 1px solid #f0cddd;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 3px 10px #00000008;
-}
-
-.preview {
-  height: 210px;
-  padding: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #f7edf2;
-  background-image:
-    linear-gradient(45deg, #fff 25%, transparent 25%),
-    linear-gradient(-45deg, #fff 25%, transparent 25%),
-    linear-gradient(45deg, transparent 75%, #fff 75%),
-    linear-gradient(-45deg, transparent 75%, #fff 75%);
-  background-size: 16px 16px;
-  background-position: 0 0, 0 8px, 8px -8px, -8px 0;
-}
-
-.preview img {
-  max-width: 100%;
-  max-height: 100%;
-  object-fit: contain;
-}
-
-.number {
-  padding: 10px;
-  text-align: center;
-  font-size: 13px;
-  font-weight: bold;
-  background: white;
-}
-
-.failed {
-  font-size: 12px;
-  color: #a04470;
-  text-align: center;
-}
-
-@media (min-width: 700px) {
-  .grid {
-    grid-template-columns: repeat(4, 1fr);
-  }
-
-  .preview {
-    height: 260px;
-  }
-}
+*{box-sizing:border-box}
+body{margin:0;background:#fff0f7;color:#54243d;font-family:Arial,sans-serif}
+header{background:linear-gradient(135deg,#f4a9ce,#ffe3f0);padding:22px 12px;text-align:center}
+header h1{margin:0 0 8px;font-size:23px}
+header p{margin:5px;font-size:13px}
+#filters{position:sticky;top:0;background:#fff7fb;padding:10px;z-index:5;display:flex;gap:6px;overflow-x:auto}
+.filter{border:1px solid #d98bb2;background:white;color:#963365;border-radius:20px;padding:9px 13px;white-space:nowrap}
+.filter.active{background:#a93470;color:white}
+#search{display:block;width:calc(100% - 24px);margin:12px auto;padding:12px;border:1px solid #dda6c2;border-radius:12px;font-size:15px}
+#count{text-align:center;font-size:13px;padding:5px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;padding:10px}
+.card{background:white;border:1px solid #efc7da;border-radius:12px;overflow:hidden}
+.preview{height:190px;padding:8px;display:flex;align-items:center;justify-content:center;background-color:#f5edf1;background-image:linear-gradient(45deg,#fff 25%,transparent 25%),linear-gradient(-45deg,#fff 25%,transparent 25%),linear-gradient(45deg,transparent 75%,#fff 75%),linear-gradient(-45deg,transparent 75%,#fff 75%);background-size:16px 16px;background-position:0 0,0 8px,8px -8px,-8px 0}
+.preview img{max-width:100%;max-height:100%;object-fit:contain}
+.info{text-align:center;padding:9px;font-size:13px;font-weight:bold}
+.kind{font-size:10px;color:#a34c78;font-weight:normal;margin-top:4px}
+@media(min-width:650px){.grid{grid-template-columns:repeat(4,1fr)}}
 </style>
 </head>
-
 <body>
-
 <header>
-  <h1>STEPHENIE NOVA</h1>
-  <p>FASHION GAME — IMAGE ASSET PREVIEW</p>
-  <p>38 images for the fashion game</p>
+<h1>STEPHENIE NOVA 🎀</h1>
+<p>COMPLETE FASHION GAME IMAGE CATALOG</p>
+<p>Find each picture number and tell me its clothing category.</p>
 </header>
 
+<nav id="filters">
+<button class="filter active" data-filter="all">All pictures</button>
+<button class="filter" data-filter="clothes">Clothing to classify</button>
+<button class="filter" data-filter="shoes">Shoes</button>
+<button class="filter" data-filter="hair">Hair</button>
+<button class="filter" data-filter="bags">Bags</button>
+<button class="filter" data-filter="necklaces">Necklaces</button>
+<button class="filter" data-filter="other">Other uploads</button>
+</nav>
+
+<input id="search" placeholder="Search picture number e.g. IMG-5633">
+<div id="count"></div>
 <div class="grid" id="gallery"></div>
 
 <script>
 const images = [
-["IMG-5575","jw068777"],
-["IMG-5576","Xrrw48Kw"],
-["IMG-5577","qgGcLgM2"],
-["IMG-5579","WFGGx1G6"],
-["IMG-5580","phbQ0FFj"],
-["IMG-5581","hXY1dw48"],
-["IMG-5582","PC7Qwcf0"],
-["IMG-5583","Z9yFFcCJ"],
-["IMG-5584","87cbsDGv"],
-["IMG-5585","MnLmQ4Zy"],
-["IMG-5586","v4TvDMyD"],
-["IMG-5587","Wdz7tjVV"],
-["IMG-5588","tsJz7ybY"],
-["IMG-5589","9D0BzV24"],
-["IMG-5590","3dnBKNP6"],
-["IMG-5591","2V2wzysj"],
-["IMG-5592","kBfcnG07"],
-["IMG-5594","VdDRYv3K"],
-["IMG-5595","gnNDYjfB"],
-["IMG-5596","ykvPVxwv"],
-["IMG-5597","bs3Tzr7X"],
-["IMG-5598","6y9cJn1m"],
-["IMG-5602","dLq6PrST"],
-["IMG-5603","7b19WmXS"],
-["IMG-5604","0b8nRDHX"],
-["IMG-5605","XpVLSdDc"],
-["IMG-5606","7b19WmX7"],
-["IMG-5607","yWhjbvnc"],
-["IMG-5608","XXKLzQxB"],
-["IMG-5609","4nvPSBwh"],
-["IMG-5610","Jt3x2PKy"],
-["IMG-5611","QHXmG1nT"],
-["IMG-5612","grysTN4c"],
-["IMG-5613","PNbyR2Kx"],
-["IMG-5614","LhkDbNv8"],
-["IMG-5615","xqG54tgq"],
-["IMG-5616","Hj0zhB3p"],
-["IMG-5617","QVgmy0SD"]
+/* Earlier uploaded pictures */
+["IMG-5575","jw068777","other"],
+["IMG-5576","Xrrw48Kw","other"],
+["IMG-5577","qgGcLgM2","other"],
+["IMG-5579","WFGGx1G6","other"],
+["IMG-5580","phbQ0FFj","other"],
+["IMG-5581","hXY1dw48","other"],
+["IMG-5582","PC7Qwcf0","other"],
+["IMG-5583","Z9yFFcCJ","other"],
+["IMG-5584","87cbsDGv","other"],
+["IMG-5585","MnLmQ4Zy","other"],
+["IMG-5586","v4TvDMyD","other"],
+["IMG-5587","Wdz7tjVV","other"],
+["IMG-5588","tsJz7ybY","other"],
+["IMG-5589","9D0BzV24","other"],
+
+/* Clothing — tell me which are tops, bottoms and gowns */
+["IMG-5590","3dnBKNP6","clothes"],
+["IMG-5605","XpVLSdDc","clothes"],
+["IMG-5606","7b19WmX7","clothes"],
+["IMG-5608","XXKLzQxB","clothes"],
+["IMG-5609","4nvPSBwh","clothes"],
+["IMG-5610","Jt3x2PKy","clothes"],
+["IMG-5633","bd223d6j","clothes"],
+["IMG-5634","xNHJCFk5","clothes"],
+["IMG-5635","w3ss03wn","clothes"],
+["IMG-5636","H85cxPJb","clothes"],
+["IMG-5638","CnDB16Zs","clothes"],
+["IMG-5639","RJf6Fb3c","clothes"],
+["IMG-5640","64R2317n","clothes"],
+["IMG-5641","dZdk1S7R","clothes"],
+["IMG-5642","30p4Rbyd","clothes"],
+["IMG-5643","D4sJZYW7","clothes"],
+["IMG-5644","XBFGJDZX","clothes"],
+["IMG-5645","WqrF3fDD","clothes"],
+["IMG-5646","fSXtLg3z","clothes"],
+["IMG-5647","bSbDJFGP","clothes"],
+["IMG-5648","sQbG3R22","clothes"],
+["IMG-5649","34z03HwR","clothes"],
+["IMG-5650","vgCxGdmH","clothes"],
+["IMG-5651","Pp0vdkqk","clothes"],
+["IMG-5652","G86Tb1mV","clothes"],
+
+/* Shoes */
+["IMG-5591","2V2wzysj","shoes"],
+["IMG-5617","QVgmy0SD","shoes"],
+["IMG-5653","1gJphT63","shoes"],
+["IMG-5654","hJp9Wwxc","shoes"],
+["IMG-5655","Mcdy24Rz","shoes"],
+["IMG-5656","gwNvF5Rp","shoes"],
+
+/* Hair */
+["IMG-5594","VdDRYv3K","hair"],
+["IMG-5595","gnNDYjfB","hair"],
+["IMG-5604","0b8nRDHX","hair"],
+["IMG-5607","yWhjbvnc","hair"],
+["IMG-5612","grysTN4c","hair"],
+["IMG-5613","PNbyR2Kx","hair"],
+["IMG-5614","LhkDbNv8","hair"],
+["IMG-5623","Q9gVZKv5","hair"],
+["IMG-5624","qhcgH6W8","hair"],
+["IMG-5625","JD3tCHSh","hair"],
+["IMG-5626","ZBP0zvXW","hair"],
+["IMG-5627","hzRhY1Zf","hair"],
+
+/* Bags */
+["IMG-5592","kBfcnG07","bags"],
+["IMG-5596","ykvPVxwv","bags"],
+["IMG-5597","bs3Tzr7X","bags"],
+["IMG-5598","6y9cJn1m","bags"],
+["IMG-5602","dLq6PrST","bags"],
+["IMG-5603","7b19WmXS","bags"],
+["IMG-5611","QHXmG1nT","bags"],
+["IMG-5615","xqG54tgq","bags"],
+["IMG-5630","1nKRjhNM","bags"],
+["IMG-5631","0MC5BRJC","bags"],
+["IMG-5632","dk9QxPT4","bags"],
+
+/* Necklaces */
+["IMG-5628","Hc8jZP9w","necklaces"],
+["IMG-5629","qh6gbZxy","necklaces"],
+
+/* Other game assets */
+["IMG-5616","Hj0zhB3p","other"],
+["IMG-5657","d3hBcsHK","other"]
 ];
 
-const gallery = document.getElementById("gallery");
+const gallery=document.getElementById("gallery");
+const search=document.getElementById("search");
+const count=document.getElementById("count");
+let active="all";
 
-images.forEach(([name, code], index) => {
-  const card = document.createElement("div");
-  card.className = "card";
-
-  const preview = document.createElement("div");
-  preview.className = "preview";
-
-  const img = document.createElement("img");
-  img.src = `https://i.postimg.cc/${code}/${name}.png`;
-  img.alt = name;
-  img.loading = "lazy";
-
-  img.onerror = () => {
-    preview.innerHTML = '<span class="failed">Image unavailable</span>';
-  };
-
+function display(){
+ const q=search.value.trim().toLowerCase();
+ const shown=images.filter(([name,code,cat])=>
+  (active==="all"||cat===active)&&
+  (!q||name.toLowerCase().includes(q))
+ );
+ gallery.innerHTML="";
+ shown.forEach(([name,code,cat])=>{
+  const card=document.createElement("div");
+  card.className="card";
+  const preview=document.createElement("div");
+  preview.className="preview";
+  const img=document.createElement("img");
+  img.src=`https://i.postimg.cc/${code}/${name}.png`;
+  img.alt=name;
+  img.loading="lazy";
+  img.onerror=()=>{preview.innerHTML="<span>Image unavailable</span>"};
   preview.appendChild(img);
-
-  const label = document.createElement("div");
-  label.className = "number";
-  label.textContent = `${index + 1}. ${name}`;
-
-  card.appendChild(preview);
-  card.appendChild(label);
+  const info=document.createElement("div");
+  info.className="info";
+  info.innerHTML=name+'<div class="kind">'+cat.toUpperCase()+'</div>';
+  card.append(preview,info);
   gallery.appendChild(card);
+ });
+ count.textContent=shown.length+" pictures displayed";
+}
+document.querySelectorAll(".filter").forEach(btn=>{
+ btn.addEventListener("click",()=>{
+  document.querySelectorAll(".filter").forEach(b=>b.classList.remove("active"));
+  btn.classList.add("active");
+  active=btn.dataset.filter;
+  display();
+ });
 });
+search.addEventListener("input",display);
+display();
 </script>
-
 </body>
 </html>
+```
