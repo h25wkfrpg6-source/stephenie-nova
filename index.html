@@ -891,10 +891,11 @@ updateCart();
 </script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
+<script>
 (async function () {
   const db = window.supabase.createClient(
-    "https://cnkggilywausfgoacgva.supabase.co",
-    "sb_publishable_znAq3vcHAmCeFh7JlujzvQ_YJjMByRU"
+    "https://cooqdliqzjbscfmtheaw.supabase.co",
+    "sb_publishable_lgD_zM6qWYok7MSSgnZ3bQ_N935oE5h"
   );
 
   const { data, error } = await db
@@ -913,15 +914,18 @@ updateCart();
     let images = p.images || [];
 
     if (typeof images === "string") {
-      try { images = JSON.parse(images); }
-      catch (e) { images = []; }
+      try {
+        images = JSON.parse(images);
+      } catch (e) {
+        images = [];
+      }
     }
 
     if (!Array.isArray(images)) images = [];
     if (!images.length && p.image_url) images = [p.image_url];
 
     return {
-      id: Number(p.id),
+      id: p.id,
       name: p.name,
       price: Number(p.price),
       oldPrice: Number(p.old_price || 0),
@@ -929,15 +933,11 @@ updateCart();
     };
   });
 
-  if (updatedProducts.some(p => !Number.isFinite(p.id))) {
-    console.error("Product IDs must be numeric for the current shop code.");
-    return;
-  }
-
   products.splice(0, products.length, ...updatedProducts);
   renderProducts();
   updateCart();
 })();
+</script>
 </script>
 </body>
 </html>
