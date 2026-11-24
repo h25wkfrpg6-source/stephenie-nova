@@ -642,13 +642,14 @@ function showToast(message) {
 
 function renderProducts() {
   const container = document.getElementById("products");
+
   container.innerHTML = products.map(product => `
     <article class="product-card">
       <img
         class="product-image"
         src="${product.images[0]}"
         alt="${product.name}"
-        onclick="openViewer(${product.id})"
+        onclick='openViewer(${JSON.stringify(product.id)})'
         onerror="this.alt='Image unavailable';"
       >
       <div class="product-info">
@@ -658,12 +659,13 @@ function renderProducts() {
           ${money(product.price)}
         </div>
         <div class="product-actions">
-          <button onclick="openViewer(${product.id})">VIEW PRODUCT</button>
-          <button onclick="addToCart(${product.id})">ADD TO CART</button>
+          <button onclick='openViewer(${JSON.stringify(product.id)})'>VIEW PRODUCT</button>
+          <button onclick='addToCart(${JSON.stringify(product.id)})'>ADD TO CART</button>
         </div>
       </div>
     </article>
   `).join("");
+}
 }
 
 function openViewer(id) {
