@@ -3,64 +3,86 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <title>Stephenie Nova Fitting Studio</title>
 <style>
 *{box-sizing:border-box}
-body{margin:0;padding:12px;background:#ffe8f2;color:#642c49;font-family:Arial,sans-serif}
-header{text-align:center}
-h1{color:#b63878;font-size:23px}
-.stage{width:100%;max-width:430px;aspect-ratio:2/3;margin:15px auto;position:relative;overflow:hidden;border:3px solid white;border-radius:15px;background:#f5c9dc}
-#model{position:absolute;width:100%;height:100%;inset:0;object-fit:contain;pointer-events:none}
-#item{position:absolute;width:40%;left:30%;top:30%;height:auto;touch-action:none;cursor:move;user-select:none}
-.panel{max-width:500px;margin:auto;background:white;padding:14px;border-radius:15px;text-align:center}
-button,select{border:0;border-radius:9px;padding:11px;margin:4px;background:#e99abd;color:#542d42;font-weight:bold}
-select{width:100%;background:#fff0f6;border:1px solid #e9a9c6}
-.tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:4px}
-.tabs button{font-size:12px}
-.tabs button.active{background:#a92e6d;color:white}
-.controls{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;margin:12px 0}
-.controls button{margin:0}
-.small{font-size:12px;color:#987087}
-textarea{width:100%;height:180px;margin-top:10px;padding:10px;border:1px solid #e9a9c6;border-radius:9px;font-size:11px}
+body{margin:0;background:#ffe8f2;color:#642c49;font-family:Arial,sans-serif}
+header{text-align:center;padding:7px 3px;background:#fff5f9}
+header h1{font-size:17px;color:#b63878;margin:2px}
+header p{font-size:10px;margin:3px}
+.workspace{display:grid;grid-template-columns:42% 58%;gap:0;height:calc(100dvh - 57px);min-height:400px}
+.left{position:sticky;top:0;height:100%;padding:5px;background:#f8d6e5;display:flex;align-items:center}
+.stage{width:100%;height:100%;max-height:680px;position:relative;overflow:hidden;border:2px solid white;border-radius:10px;background:#f5c9dc}
+#model{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;pointer-events:none}
+#item{position:absolute;width:40%;left:30%;top:30%;height:auto;touch-action:none;cursor:move;user-select:none;-webkit-user-drag:none}
+.right{height:100%;overflow-y:auto;padding:7px 6px 30px;background:#fff7fa}
+h3{font-size:13px;margin:7px 0 5px}
+.small{font-size:10px;color:#987087;line-height:1.4}
+.tabs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px}
+button,select{font-size:11px;border:0;border-radius:7px;padding:9px 4px;background:#e99abd;color:#542d42;font-weight:bold;min-width:0}
+button.active{background:#a92e6d;color:white}
+select{width:100%;background:white;border:1px solid #e9a9c6;margin:5px 0}
+.controls{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;margin:8px 0}
+.controls button{padding:10px 2px}
+.action{width:100%;margin:4px 0}
+.secondary{background:#f8e0eb}
+#position{font-size:10px;line-height:1.5;background:#fff0f6;padding:6px;border-radius:6px}
+textarea{width:100%;height:125px;margin-top:7px;border:1px solid #e9a9c6;border-radius:7px;font-size:10px;padding:6px}
+hr{border:0;border-top:1px solid #f0d5e2;margin:10px 0}
+@media(min-width:700px){
+.workspace{grid-template-columns:48% 52%;max-width:1000px;margin:auto}
+.right{padding:15px}
+.tabs{grid-template-columns:repeat(3,1fr)}
+button,select{font-size:13px}
+}
 </style>
 </head>
 <body>
 <header>
 <h1>STEPHENIE NOVA 🎀</h1>
 <p>COMPLETE FASHION FITTING STUDIO</p>
-<p class="small">Fit every item to the model before adding it to the game.</p>
 </header>
 
+<div class="workspace">
+<div class="left">
 <div class="stage" id="stage">
-<img id="model" src="https://i.postimg.cc/d3hBcsHK/IMG-5657.png">
-<img id="item" draggable="false">
+<img id="model" src="https://i.postimg.cc/d3hBcsHK/IMG-5657.png" alt="Model">
+<img id="item" draggable="false" alt="Selected item">
+</div>
 </div>
 
-<div class="panel">
-<b>CHOOSE CATEGORY</b>
+<div class="right">
+<h3>1. Choose category</h3>
 <div class="tabs" id="tabs"></div>
-<p><b>CHOOSE ITEM</b></p>
+
+<h3>2. Choose item</h3>
 <select id="picker"></select>
-<p id="name">Select an item</p>
-<p class="small">You can drag the item directly on the model or use the controls.</p>
+<p id="name" class="small">Select an item</p>
+
+<h3>3. Adjust on the model</h3>
+<p class="small">Drag the item on the model, or use these buttons.</p>
 <div class="controls">
 <button onclick="move(0,-1)">↑ Up</button>
 <button onclick="resize(2)">＋ Bigger</button>
 <button onclick="move(0,1)">↓ Down</button>
 <button onclick="move(-1,0)">← Left</button>
-<button onclick="resetItem()">Reset item</button>
+<button onclick="resetItem()">Reset</button>
 <button onclick="move(1,0)">Right →</button>
 <button onclick="resize(-2)">－ Smaller</button>
 </div>
-<p id="position" class="small"></p>
-<button onclick="previous()">Previous item</button>
-<button onclick="next()">Next item</button>
+<div id="position"></div>
+
+<button class="action secondary" onclick="previous()">← Previous item</button>
+<button class="action" onclick="next()">Next item →</button>
+
 <hr>
-<button onclick="copyAll()">COPY ALL FITTING SETTINGS</button>
-<button onclick="resetAll()">Reset everything</button>
-<textarea id="output" placeholder="Your fitting measurements will appear here..."></textarea>
-<p id="status" class="small">Fit each item and copy your settings when finished.</p>
+<h3>4. Save your measurements</h3>
+<button class="action" onclick="copyAll()">COPY ALL FITTING SETTINGS</button>
+<button class="action secondary" onclick="resetAll()">Reset everything</button>
+<textarea id="output" placeholder="Your fitting settings will appear here..."></textarea>
+<p id="status" class="small">Fit each item, then copy all settings.</p>
+</div>
 </div>
 
 <script>
@@ -150,13 +172,15 @@ const all=[];
 Object.entries(A).forEach(([category,items])=>{
 items.forEach(([name,url])=>all.push({category,name,url}));
 });
-let settings=all.map(x=>({...defaults[x.category]}));
+let settings=all.map(a=>({...defaults[a.category]}));
 let category="Tops",index=0;
 const item=document.getElementById("item");
 const picker=document.getElementById("picker");
 const stage=document.getElementById("stage");
 
-function list(){return all.map((a,i)=>({...a,i})).filter(a=>a.category===category)}
+function list(){
+return all.map((a,i)=>({...a,i})).filter(a=>a.category===category);
+}
 function makeTabs(){
 document.getElementById("tabs").innerHTML=Object.keys(A).map(c=>
 `<button id="tab-${c}" onclick="changeCategory('${c}')">${c}</button>`).join("");
@@ -166,7 +190,8 @@ category=c;
 document.querySelectorAll(".tabs button").forEach(b=>b.classList.remove("active"));
 document.getElementById("tab-"+c).classList.add("active");
 index=list()[0].i;
-fillPicker();show();
+fillPicker();
+show();
 }
 function fillPicker(){
 picker.innerHTML=list().map(a=>`<option value="${a.i}">${a.name}</option>`).join("");
@@ -184,13 +209,35 @@ document.getElementById("position").textContent=
 picker.value=index;
 }
 picker.onchange=()=>{index=Number(picker.value);show()};
-function move(x,y){settings[index].left+=x;settings[index].top+=y;show()}
-function resize(n){settings[index].width=Math.max(5,settings[index].width+n);show()}
-function resetItem(){settings[index]={...defaults[all[index].category]};show()}
-function next(){const l=list();index=l[(l.findIndex(x=>x.i===index)+1)%l.length].i;show()}
-function previous(){const l=list();index=l[(l.findIndex(x=>x.i===index)-1+l.length)%l.length].i;show()}
-function resetAll(){settings=all.map(a=>({...defaults[a.category]}));index=list()[0].i;show();document.getElementById("output").value=""}
-
+function move(x,y){
+settings[index].left+=x;
+settings[index].top+=y;
+show();
+}
+function resize(n){
+settings[index].width=Math.max(5,settings[index].width+n);
+show();
+}
+function resetItem(){
+settings[index]={...defaults[all[index].category]};
+show();
+}
+function next(){
+const l=list();
+index=l[(l.findIndex(x=>x.i===index)+1)%l.length].i;
+show();
+}
+function previous(){
+const l=list();
+index=l[(l.findIndex(x=>x.i===index)-1+l.length)%l.length].i;
+show();
+}
+function resetAll(){
+settings=all.map(a=>({...defaults[a.category]}));
+index=list()[0].i;
+show();
+document.getElementById("output").value="";
+}
 let drag=null;
 item.addEventListener("pointerdown",e=>{
 drag={x:e.clientX,y:e.clientY,left:settings[index].left,top:settings[index].top};
@@ -214,8 +261,9 @@ top:Math.round(settings[i].top*10)/10,
 width:Math.round(settings[i].width*10)/10
 }));
 const output=JSON.stringify(result,null,2);
-document.getElementById("output").value=output;
 const box=document.getElementById("output");
+box.value=output;
+box.focus();
 box.select();
 let copied=false;
 try{copied=document.execCommand("copy")}catch(e){}
