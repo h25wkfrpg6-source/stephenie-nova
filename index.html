@@ -347,6 +347,8 @@ footer h2 {font-family:'Fredoka',sans-serif;font-size:30px}
 }
 
 /* FULL-SCREEN STEPHENIE NOVA ENTRANCE */
+
+/* STEPHENIE NOVA DRAMATIC INTRO */
 .intro-screen {
   position: fixed;
   inset: 0;
@@ -359,17 +361,38 @@ footer h2 {font-family:'Fredoka',sans-serif;font-size:30px}
   display: flex;
   align-items: center;
   justify-content: center;
-  animation: introExit 1s ease 4s forwards;
+  animation: introExit 1s ease 5s forwards;
 }
 
 .intro-screen .nova-entrance-image {
-  position: absolute;
-  inset: 0;
+  position: relative;
   width: 100%;
   height: 100%;
-  max-width: none;
-  object-fit: cover;
+  max-width: 100%;
+  object-fit: contain;
   object-position: center;
+  opacity: 0;
+  transform: scale(.78) translateY(34px);
+  filter: blur(7px);
+  animation: novaDramaticEntrance 1.5s cubic-bezier(.16,1,.3,1) .15s forwards;
+}
+
+@keyframes novaDramaticEntrance {
+  0% {
+    opacity: 0;
+    transform: scale(.78) translateY(34px);
+    filter: blur(7px);
+  }
+  65% {
+    opacity: 1;
+    transform: scale(1.035) translateY(-3px);
+    filter: blur(0);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+    filter: blur(0);
+  }
 }
 
 @keyframes introExit {
@@ -379,6 +402,7 @@ footer h2 {font-family:'Fredoka',sans-serif;font-size:30px}
     pointer-events: none;
   }
 }
+
 </style>
 </head>
 
