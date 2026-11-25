@@ -1,395 +1,784 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#f8c6dc">
+<meta name="theme-color" content="#f8dce9">
 <title>Stephenie Nova | For the It Girls</title>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <style>
-:root{--pink:#e9a9c3;--pale:#fff8fb;--blush:#f8e5ed;--deep:#bd6f91;--wine:#171317;--ink:#211b20;--white:#fff;--line:#eadde3;--muted:#8a7b83}
-*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --pink:#f5c5d9;
+  --light:#fff8fb;
+  --deep:#d85b91;
+  --dark:#21151b;
+  --muted:#8b747f;
+  --line:#f0dce5;
+  --white:#fff;
+}
+*{box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{font-family:"DM Sans",sans-serif;background:#fff;color:var(--ink);overflow-x:hidden}
-button,input,textarea,select{font:inherit}
+body{
+  margin:0;
+  background:var(--light);
+  color:var(--dark);
+  font-family:'DM Sans',sans-serif;
+}
+button,input,select,textarea{font:inherit}
 button{cursor:pointer}
 img{display:block;max-width:100%}
-a{color:inherit;text-decoration:none}
-button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid #d96c9e;outline-offset:3px}
 .hidden{display:none!important}
-.serif{font-family:"Playfair Display",serif}
-.announcement{display:none;background:var(--wine);color:white;text-align:center;padding:9px 12px;font-size:10px;font-weight:800;letter-spacing:2px}
-body.in-store .announcement{display:block}
-.screen{display:none;min-height:100vh;min-height:100dvh;animation:screenIn .7s cubic-bezier(.2,.75,.25,1) both}
+.serif{font-family:'Playfair Display',serif}
+#app{min-height:100vh}
+.screen{min-height:100vh;display:none}
 .screen.active{display:block}
-@keyframes screenIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
-@keyframes rise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
-@keyframes softZoom{from{transform:scale(1.05);opacity:.65}to{transform:scale(1);opacity:1}}
-@keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
-@keyframes shimmer{0%{background-position:150% 0}100%{background-position:-150% 0}}
-@keyframes productJump{0%{opacity:0;transform:translateY(65px) scale(.82)}48%{opacity:1;transform:translateY(-13px) scale(1.045)}68%{transform:translateY(5px) scale(.985)}84%{transform:translateY(-3px) scale(1.01)}100%{opacity:1;transform:translateY(0) scale(1)}}
-.product-grid.animate-grid .product-card{animation:productJump 1s cubic-bezier(.18,.82,.28,1.18) both;animation-delay:calc(var(--i,0) * 150ms);will-change:transform,opacity}
-@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
-.pill{border:0;border-radius:2px;padding:14px 22px;background:#171317;color:white;font-size:10px;font-weight:700;letter-spacing:1.7px;transition:transform .25s,background .25s}
-.pill:hover{background:#bd6f91;transform:translateY(-2px)}
-.pill.light{background:white;color:var(--wine);border:1px solid var(--line)}
-.pill.outline{background:transparent;color:var(--wine);border:1px solid var(--deep)}
-.kicker{font-size:10px;letter-spacing:3px;font-weight:800;color:var(--deep);text-transform:uppercase}
-.section-title{font:600 clamp(28px,5vw,44px)/1.15 "Playfair Display",serif;color:var(--wine)}
-.section-sub{font-size:13px;color:var(--muted);line-height:1.8;margin-top:9px}
-.top-brand{font:500 23px "Playfair Display",serif;color:#171317;letter-spacing:1px}
-.top-brand span{color:var(--deep)}
-#brand-intro{position:fixed;inset:0;z-index:200;background:#090809;color:#fff;display:grid;place-items:center;opacity:1;transform:translateY(0);transition:transform .85s cubic-bezier(.76,0,.24,1),opacity .65s ease}
-#brand-intro.leaving{transform:translateY(-105%);opacity:1;pointer-events:none}
-#brand-intro span{font:500 clamp(24px,7vw,42px)/1 "Playfair Display",serif;letter-spacing:.28em;text-transform:uppercase;animation:brandReveal 1.1s ease both}
-@keyframes brandReveal{from{opacity:0;letter-spacing:.5em;transform:translateY(12px)}to{opacity:1;letter-spacing:.28em;transform:none}}
-#welcome{position:relative;background:#100d0f;overflow:hidden;height:100vh;height:100svh;height:100dvh;min-height:0;display:flex;flex-direction:column}
-.welcome-photo{position:absolute;inset:0 0 31% 0;width:100%;height:69%;object-fit:cover;object-position:center 36%;animation:heroReveal 1.2s ease both}
-@keyframes heroReveal{from{transform:scale(1.08);opacity:.6}to{transform:scale(1);opacity:1}}
-.welcome-shade{position:absolute;inset:0 0 31% 0;background:linear-gradient(180deg,rgba(10,8,10,.02),rgba(10,8,10,.08))}
-.welcome-content{position:absolute;left:0;right:0;bottom:0;height:31%;min-height:205px;text-align:left;color:white;background:#100d0f;padding:18px 25px max(14px,env(safe-area-inset-bottom));max-width:none;display:flex;flex-direction:column;justify-content:center;align-items:flex-start}
-.welcome-content .kicker{color:#f8dce7;letter-spacing:3px}
-.welcome-content h1{font:500 clamp(34px,9vw,52px)/1.02 "Playfair Display",serif;margin:7px 0}
-.welcome-content p{font-size:11px;letter-spacing:1.4px;text-transform:uppercase;margin-bottom:13px}
-.welcome-content .pill{background:#fff;color:#171317;min-width:180px;border-radius:2px;padding:13px 24px;min-height:46px}
-.welcome-flower{display:none}
-#looks{background:var(--pale);padding:32px 18px 40px}
-.looks-head{text-align:center;max-width:480px;margin:10px auto 25px}
-.looks-head h1{font:600 clamp(31px,7vw,46px)/1.1 "Playfair Display",serif;color:var(--wine);margin:10px 0}
-.looks-grid{max-width:650px;margin:0 auto 25px;display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
-.looks-grid img{width:100%;aspect-ratio:.78;object-fit:cover;border-radius:2px;background:var(--blush);box-shadow:0 6px 20px #8b315414}
-.looks-grid img:first-child{grid-row:span 2;aspect-ratio:auto;height:100%}
-.looks-grid img:nth-child(4){grid-column:span 2;aspect-ratio:1.6}
-.looks-footer{text-align:center}
-.store-header{position:sticky;top:0;z-index:30;background:#fffdfdf2;backdrop-filter:blur(14px);border-bottom:1px solid var(--line);padding:13px 5%;display:flex;align-items:center;justify-content:space-between;gap:12px}
-.header-actions{display:flex;align-items:center;gap:9px}
-.icon-btn{border:1px solid var(--line);background:white;color:var(--wine);width:40px;height:40px;border-radius:50%;font-size:17px;position:relative}
-.cart-count{position:absolute;right:-4px;top:-5px;background:var(--deep);color:white;font-size:9px;min-width:17px;height:17px;border-radius:50%;display:grid;place-items:center;padding:0 4px}
-.search-wrap{padding:13px 5% 0;background:white}
-.search-box{width:100%;border:1px solid var(--line);border-radius:999px;padding:12px 17px;background:#fff8fb;color:var(--ink);font-size:12px}
-.store-nav{display:flex;gap:23px;overflow:auto;white-space:nowrap;padding:13px 5% 15px;font-size:11px;font-weight:800;color:var(--muted);background:white}
-.store-nav button{border:0;background:none;color:inherit}
-.store-nav button.active,.store-nav button:hover{color:var(--deep)}
-.page-panel{display:none;animation:rise .4s ease both}
-.page-panel.active{display:block}
-.home-hero{margin:0 0 28px;min-height:440px;height:min(76vh,680px);border-radius:0;overflow:hidden;position:relative;background:#171317}
-.home-hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 38%}
-.home-hero:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,15,18,.02) 25%,rgba(20,15,18,.72) 100%)}
-.home-hero-copy{position:absolute;z-index:1;left:7%;bottom:8%;max-width:330px;color:white}
-.home-hero-copy .kicker{color:#ffe4ef}
-.home-hero-copy h1{font:500 clamp(38px,8vw,58px)/1.02 "Playfair Display",serif;margin:12px 0}
-.home-hero-copy p{font-size:12px;line-height:1.8;margin-bottom:15px}
-.block{padding:22px 5% 38px}
-.block-head{display:flex;align-items:end;justify-content:space-between;gap:15px;margin-bottom:18px}
-.text-link{border:0;background:none;color:var(--deep);font-size:11px;font-weight:800}
-.category-row{display:grid;grid-template-columns:repeat(4,1fr);gap:13px}
-.category-row-three{grid-template-columns:repeat(3,minmax(0,1fr));gap:15px}
-.category-row-three .category-tile img{border-radius:2px;aspect-ratio:.82;object-fit:contain;padding:5px;background:#f8f4f5}
-.category-row-three .category-tile{font-size:10px;letter-spacing:.2px}
-.category-tile{text-align:center;border:0;background:none;color:var(--wine);font-size:11px;font-weight:800}
-.category-tile img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:50%;border:3px solid white;box-shadow:0 0 0 1px var(--line);margin-bottom:8px;background:var(--blush)}
-.product-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
-.product-card{min-width:0}
-.product-card .photo{position:relative;background:#f8f4f5;border-radius:2px;overflow:hidden;aspect-ratio:.78}
-.product-card .photo img{width:100%;height:100%;object-fit:contain;padding:8px;transition:transform .65s cubic-bezier(.2,.7,.2,1)}
-.product-card:hover .photo img{transform:scale(1.04)}
-.quick-add{position:absolute;bottom:9px;right:9px;border:0;border-radius:50%;width:36px;height:36px;background:white;color:var(--wine);font-size:20px;box-shadow:0 4px 12px #3b14251c}
-.product-meta{padding:11px 2px}
-.product-meta h3{font-size:12px;font-weight:600;letter-spacing:.1px;margin-bottom:6px}
-.product-price{font-size:12px;font-weight:800;color:var(--deep)}
-.product-old{font-size:10px;color:#a88d9c;text-decoration:line-through;margin-left:5px}
-.collection-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
-.collection-card{border:0;background:var(--blush);padding:0;border-radius:2px;overflow:hidden;text-align:left;position:relative;min-height:220px}
-.collection-card img{width:100%;height:100%;min-height:220px;object-fit:cover;transition:.4s}
-.collection-card span{position:absolute;bottom:0;left:0;right:0;padding:35px 12px 13px;color:white;text-align:left;font:600 20px "Playfair Display",serif;background:linear-gradient(transparent,#341326a8)}
-.lookbook-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px}
-.lookbook-card{border:0;padding:0;background:var(--blush);border-radius:2px;overflow:hidden;text-align:left}
-.lookbook-card img{width:100%;aspect-ratio:.78;object-fit:cover}
-.lookbook-card span{display:block;padding:11px;font:600 16px "Playfair Display",serif;color:var(--wine)}
-.explore-grid{columns:2;column-gap:10px}
-.explore-grid img{width:100%;border-radius:12px;margin:0 0 10px;break-inside:avoid}
-.empty-state{text-align:center;padding:45px 12px;color:var(--muted);font-size:13px}
-.bottom-nav{position:sticky;bottom:0;z-index:25;background:#fffdfdf2;backdrop-filter:blur(14px);border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(5,1fr);padding:9px 3% max(9px,env(safe-area-inset-bottom))}
-.bottom-nav button{border:0;background:none;color:#a68b9a;font-size:9px;font-weight:700;display:grid;gap:4px;justify-items:center}
-.bottom-nav button b{font-size:19px;font-weight:400}
+button:active{transform:scale(.97)}
+.primary{
+  border:0;background:var(--dark);color:white;
+  padding:15px 24px;text-transform:uppercase;
+  letter-spacing:2px;font-size:11px;font-weight:700;
+}
+.secondary{
+  border:1px solid var(--dark);background:transparent;
+  color:var(--dark);padding:14px 22px;
+  text-transform:uppercase;letter-spacing:2px;font-size:11px;
+}
+.pink-button{background:var(--deep);color:white;border:0;padding:14px 22px}
+.eyebrow{font-size:10px;letter-spacing:3px;text-transform:uppercase}
+.muted{color:var(--muted)}
+.section-title{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(30px,7vw,48px);font-weight:500;
+  margin:8px 0 12px;
+}
+.topline{
+  height:31px;background:#f2c5d8;color:#4a2637;
+  display:flex;align-items:center;justify-content:center;
+  font-size:9px;letter-spacing:2px;text-transform:uppercase;
+}
+.brand{
+  font-family:'Playfair Display',serif;
+  font-size:27px;letter-spacing:1px;font-weight:600;
+}
+.brand span{color:var(--deep)}
+/* INTRO */
+#intro{
+  position:fixed;inset:0;z-index:1000;background:#171116;
+  display:flex;align-items:center;justify-content:center;
+  color:white;text-align:center;
+  animation:introFade 2.7s forwards;
+}
+.intro-brand{animation:brandPop 1.2s ease both}
+.intro-brand h1{font-family:'Playfair Display',serif;font-size:clamp(38px,10vw,70px);margin:0}
+.intro-brand p{font-size:10px;letter-spacing:5px;margin-top:15px}
+.intro-star{color:#f1a9c7;font-size:25px}
+@keyframes brandPop{
+  0%{opacity:0;transform:translateY(35px) scale(.8)}
+  65%{opacity:1;transform:translateY(-5px) scale(1.04)}
+  100%{opacity:1;transform:translateY(0) scale(1)}
+}
+@keyframes introFade{
+  0%,75%{opacity:1;visibility:visible}
+  100%{opacity:0;visibility:hidden;pointer-events:none}
+}
+/* CAMPAIGN */
+.campaign{
+  position:relative;min-height:100svh;background:#251820;
+  overflow:hidden;color:white;display:flex;align-items:flex-end;
+}
+.campaign img{
+  position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;object-position:center;
+}
+.campaign:after{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(0deg,rgba(0,0,0,.68),transparent 65%);
+}
+.campaign-copy{
+  z-index:1;position:relative;padding:35px 25px 65px;
+  width:100%;text-align:center;
+}
+.campaign-copy h1{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(42px,12vw,75px);line-height:1.02;
+  margin:12px 0;
+}
+.campaign-copy p{letter-spacing:3px;font-size:10px}
+.campaign-copy button{margin-top:15px;background:white;color:#21151b}
+/* COLLAGE */
+.collage-screen{
+  min-height:100svh;padding:35px 18px 45px;
+  background:#fff8fb;text-align:center;
+}
+.collage-grid{
+  display:grid;grid-template-columns:repeat(2,1fr);
+  gap:9px;margin:25px auto;max-width:650px;
+}
+.collage-grid img{width:100%;height:230px;object-fit:cover}
+.collage-grid img:nth-child(2),.collage-grid img:nth-child(5){height:270px}
+.collage-grid img:nth-child(3){object-position:center}
+.collage-caption{font-family:'Playfair Display',serif;font-size:23px;margin:20px 0}
+/* WELCOME */
+.welcome-screen{
+  min-height:100svh;background:#f7dce8;
+  display:flex;align-items:center;justify-content:center;
+  padding:30px 22px;text-align:center;
+  background-image:radial-gradient(#e9a9c5 1px,transparent 1px);
+  background-size:23px 23px;
+}
+.welcome-card{
+  background:rgba(255,255,255,.92);padding:45px 25px;
+  width:100%;max-width:440px;
+}
+.welcome-card h1{font-size:43px;line-height:1.05;margin:15px 0}
+.welcome-card p{font-size:13px;line-height:1.8;color:var(--muted)}
+/* STORE HEADER */
+header{
+  background:#fff8fb;position:sticky;top:0;z-index:30;
+  border-bottom:1px solid var(--line);
+}
+.header-inner{
+  height:67px;padding:0 17px;display:flex;
+  align-items:center;justify-content:space-between;
+}
+.header-actions{display:flex;gap:17px;align-items:center}
+.icon-button{
+  background:none;border:0;font-size:20px;color:var(--dark);
+  position:relative;padding:6px;
+}
+.cart-count{
+  position:absolute;top:-2px;right:-5px;
+  background:var(--deep);color:white;border-radius:50%;
+  min-width:16px;height:16px;font-size:9px;
+  display:flex;align-items:center;justify-content:center;
+}
+.navbar{
+  display:flex;justify-content:center;gap:22px;
+  padding:0 10px 13px;overflow-x:auto;white-space:nowrap;
+}
+.navbar button{
+  border:0;background:none;font-size:9px;
+  text-transform:uppercase;letter-spacing:1.5px;color:#715563;
+  padding:4px 0;
+}
+.navbar button.selected{color:var(--deep);border-bottom:1px solid var(--deep)}
+/* HOME */
+.store-content{padding-bottom:95px}
+.home-hero{
+  min-height:440px;position:relative;display:flex;
+  align-items:flex-end;overflow:hidden;background:#e8c4d3;
+}
+.home-hero img{position:absolute;width:100%;height:100%;object-fit:cover;inset:0}
+.home-hero:after{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(0deg,rgba(20,10,16,.65),transparent 75%);
+}
+.home-hero-copy{position:relative;z-index:1;color:white;padding:28px 22px;width:100%}
+.home-hero-copy h1{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(38px,10vw,60px);line-height:1.02;margin:10px 0;
+}
+.home-hero-copy p{font-size:10px;letter-spacing:3px}
+.home-hero-copy button{background:white;color:#21151b;margin-top:12px}
+.marquee{
+  padding:13px 8px;background:#f3c7da;text-align:center;
+  font-size:9px;letter-spacing:3px;color:#603449;
+}
+.content-section{padding:43px 17px}
+.section-head{
+  display:flex;justify-content:space-between;align-items:end;
+  margin-bottom:20px;gap:10px;
+}
+.text-link{
+  border:0;background:none;text-decoration:underline;
+  font-size:10px;letter-spacing:1px;color:var(--deep);
+}
+.category-grid{
+  display:grid;grid-template-columns:repeat(2,1fr);gap:10px;
+}
+.category-tile{position:relative;height:190px;overflow:hidden;background:#f2dce6}
+.category-tile img{width:100%;height:100%;object-fit:cover}
+.category-tile:after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(0,0,0,.45),transparent 65%)}
+.category-tile span{
+  position:absolute;z-index:1;bottom:14px;left:12px;
+  color:white;font-family:'Playfair Display',serif;font-size:23px;
+}
+.product-grid{
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px 11px;
+}
+.product-card{min-width:0;animation:productIn .55s ease both}
+@keyframes productIn{
+  from{opacity:0;transform:translateY(22px) scale(.97)}
+  to{opacity:1;transform:translateY(0) scale(1)}
+}
+.product-image-wrap{position:relative;background:#f4e8ed;overflow:hidden}
+.product-card img{
+  width:100%;height:220px;object-fit:cover;
+  transition:transform .5s ease;
+}
+.product-card:active img{transform:scale(1.04)}
+.product-info{padding:10px 2px}
+.product-info h3{font-size:12px;font-weight:600;margin:0 0 7px}
+.price{font-size:12px;font-weight:700}
+.old-price{font-size:10px;color:#a8959e;text-decoration:line-through;margin-left:5px}
+.product-info button{
+  margin-top:10px;width:100%;padding:11px 5px;
+  background:transparent;border:1px solid var(--dark);
+  font-size:9px;letter-spacing:1.5px;text-transform:uppercase;
+}
+.sale-tag{
+  position:absolute;top:9px;left:8px;background:white;
+  padding:6px 8px;font-size:8px;letter-spacing:1px;
+}
+/* PAGES */
+.page-wrap{padding:35px 18px 110px;max-width:850px;margin:auto}
+.page-intro{text-align:center;margin-bottom:30px}
+.lookbook-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.lookbook-grid img{width:100%;height:245px;object-fit:cover}
+.explore-card{margin:20px 0;background:white}
+.explore-card img{width:100%;height:270px;object-fit:cover}
+.explore-card div{padding:18px}
+.explore-card h3{font-family:'Playfair Display',serif;font-size:25px;margin:0 0 8px}
+/* PRODUCT MODAL */
+.overlay{
+  position:fixed;inset:0;background:rgba(20,10,16,.55);
+  z-index:100;display:none;align-items:flex-end;justify-content:center;
+}
+.overlay.show{display:flex}
+.product-modal{
+  background:#fffafd;width:100%;max-width:650px;
+  max-height:94svh;overflow:auto;position:relative;
+  animation:slideUp .3s ease;
+}
+@keyframes slideUp{from{transform:translateY(60px);opacity:.5}to{transform:translateY(0);opacity:1}}
+.close{
+  position:absolute;right:13px;top:13px;z-index:3;
+  border:0;background:white;width:35px;height:35px;border-radius:50%;
+  font-size:20px;
+}
+.gallery{position:relative;background:#f3e8ed}
+.gallery-main{width:100%;height:390px;object-fit:contain;background:#f7edf1}
+.gallery-arrow{
+  position:absolute;top:48%;transform:translateY(-50%);
+  width:35px;height:35px;border:0;border-radius:50%;
+  background:rgba(255,255,255,.85);font-size:19px;
+}
+.gallery-arrow.prev{left:10px}.gallery-arrow.next{right:10px}
+.gallery-count{
+  position:absolute;bottom:12px;right:13px;background:#fff;
+  padding:5px 9px;font-size:10px;
+}
+.thumbnails{display:flex;gap:8px;padding:10px;overflow-x:auto}
+.thumbnails img{
+  width:57px;height:62px;object-fit:cover;flex-shrink:0;
+  border:1px solid transparent;cursor:pointer;
+}
+.thumbnails img.active{border:2px solid var(--deep)}
+.modal-details{padding:22px}
+.modal-details h2{font-family:'Playfair Display',serif;font-size:30px;margin:0 0 8px}
+.option-label{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;margin:20px 0 10px}
+.option-row{display:flex;gap:8px;flex-wrap:wrap}
+.option{
+  border:1px solid var(--line);background:white;padding:10px 14px;
+  font-size:11px;
+}
+.option.active{border-color:var(--deep);background:#fbe7ef}
+.colour-dot{
+  width:27px;height:27px;border-radius:50%;
+  border:2px solid white;outline:1px solid #d9c5ce;
+  padding:0;
+}
+.colour-dot.active{outline:2px solid var(--deep)}
+.modal-actions{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:25px}
+.modal-actions button{padding:15px 5px;font-size:10px;letter-spacing:1px}
+/* CART */
+.cart-empty{text-align:center;padding:80px 20px}
+.cart-empty h2{font-family:'Playfair Display',serif;font-size:32px}
+.cart-row{
+  display:grid;grid-template-columns:90px 1fr auto;gap:13px;
+  padding:15px 0;border-bottom:1px solid var(--line);align-items:center;
+}
+.cart-row img{width:90px;height:100px;object-fit:cover;background:#f5e8ee}
+.cart-row h3{font-size:12px;margin:0 0 7px}
+.cart-row p{font-size:11px;margin:0 0 8px}
+.qty{display:flex;align-items:center;gap:12px;margin-top:9px}
+.qty button{border:1px solid var(--line);background:white;width:26px;height:26px}
+.remove{border:0;background:none;color:#a16d84;font-size:10px;text-decoration:underline}
+.cart-summary{padding:20px 0}
+.summary-line{display:flex;justify-content:space-between;margin:12px 0;font-size:13px}
+.summary-line.total{font-weight:700;font-size:16px;border-top:1px solid var(--line);padding-top:15px}
+/* CHECKOUT */
+.checkout-form{display:grid;gap:15px}
+.checkout-form label{font-size:10px;letter-spacing:1px;text-transform:uppercase}
+.checkout-form input,.checkout-form textarea,.checkout-form select{
+  width:100%;padding:14px;border:1px solid var(--line);
+  background:white;outline:none;margin-top:7px;font-size:13px;
+}
+.checkout-form textarea{min-height:85px;resize:vertical}
+.payment-panel{background:#f9e7ef;padding:20px;margin:20px 0}
+.payment-panel h3{font-family:'Playfair Display',serif;font-size:23px;margin:0 0 10px}
+.confirmation{text-align:center;padding:65px 20px}
+.confirmation .check{
+  width:65px;height:65px;border-radius:50%;background:#f4d5e2;
+  display:grid;place-items:center;font-size:30px;margin:0 auto 20px;
+}
+/* BOTTOM NAV */
+.bottom-nav{
+  position:fixed;bottom:0;left:0;right:0;z-index:40;
+  height:66px;background:rgba(255,250,252,.97);
+  border-top:1px solid var(--line);
+  display:flex;justify-content:space-around;align-items:center;
+  padding-bottom:env(safe-area-inset-bottom);
+}
+.bottom-nav button{
+  background:none;border:0;color:#806a75;
+  font-size:9px;letter-spacing:.5px;display:flex;
+  flex-direction:column;align-items:center;gap:4px;
+}
+.bottom-nav button span{font-size:19px}
 .bottom-nav button.active{color:var(--deep)}
-.overlay{position:fixed;inset:0;z-index:80;background:#24101bd9;display:none;align-items:flex-end;justify-content:center;padding:0}
-.overlay.open{display:flex}
-.sheet{width:min(720px,100%);max-height:92vh;overflow:auto;background:white;border-radius:22px 22px 0 0;padding:22px 18px max(25px,env(safe-area-inset-bottom));animation:rise .3s ease both}
-.sheet-top{display:flex;justify-content:space-between;align-items:center;gap:15px;margin-bottom:14px}
-.sheet-top h2{font:600 25px "Playfair Display",serif;color:var(--wine)}
-.close-btn{border:0;background:var(--pale);width:35px;height:35px;border-radius:50%;font-size:21px;color:var(--wine)}
-.detail-image{width:100%;max-height:48vh;aspect-ratio:1/1;object-fit:contain;background:var(--pale);border-radius:15px}
-.thumb-row{display:flex;gap:8px;overflow:auto;margin:10px 0}
-.thumb-row img{width:60px;height:65px;object-fit:cover;border-radius:8px;border:2px solid transparent}
-.thumb-row img.selected{border-color:var(--deep)}
-.detail-title{font:600 25px "Playfair Display",serif;color:var(--wine);margin:15px 0 7px}
-.detail-description{font-size:12px;line-height:1.8;color:var(--muted);margin:12px 0}
-.detail-actions{display:flex;gap:10px;margin-top:17px}
-.detail-actions .pill{flex:1}
-.cart-row{display:grid;grid-template-columns:66px 1fr auto;gap:11px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}
-.cart-row img{width:66px;height:75px;object-fit:cover;border-radius:9px}
-.cart-row strong{font-size:12px}
-.cart-row small{display:block;color:var(--muted);font-size:11px;margin-top:5px}
-.qty{display:flex;align-items:center;gap:8px;margin-top:8px}
-.qty button{border:1px solid var(--line);background:var(--pale);border-radius:50%;width:25px;height:25px;color:var(--wine)}
-.remove{border:0;background:none;color:var(--deep);font-size:11px;margin-top:6px}
-.total-line{display:flex;justify-content:space-between;padding:17px 0;font-weight:800;color:var(--wine)}
-.form-field{margin:12px 0}
-.form-field label{display:block;font-size:11px;font-weight:800;color:var(--wine);margin-bottom:6px}
-.form-field input,.form-field textarea{width:100%;border:1px solid var(--line);border-radius:10px;padding:13px;font-size:13px;background:#fffafd;color:var(--ink)}
-.form-field textarea{min-height:75px;resize:vertical}
-.checkout-note{background:var(--pale);border-radius:12px;padding:13px;font-size:11px;line-height:1.7;color:var(--muted);margin:12px 0}
-.confirm-mark{width:70px;height:70px;border-radius:50%;background:#f9e4ee;color:var(--deep);display:grid;place-items:center;font-size:35px;margin:12px auto}
-.success{text-align:center;padding:18px 5px}
-.success h2{font:600 30px "Playfair Display",serif;color:var(--wine);margin:12px}
-.success p{font-size:13px;color:var(--muted);line-height:1.8;margin-bottom:20px}
-.toast{position:fixed;z-index:120;left:50%;bottom:90px;transform:translate(-50%,20px);opacity:0;pointer-events:none;background:var(--wine);color:white;padding:12px 19px;border-radius:999px;font-size:11px;font-weight:800;transition:.25s;white-space:nowrap}
-.toast.show{opacity:1;transform:translate(-50%,0)}
-footer{background:var(--wine);color:white;text-align:center;padding:28px 15px;font-size:11px;line-height:2}
-footer strong{font:600 25px "Playfair Display",serif}
-@media(min-width:700px){.product-grid{grid-template-columns:repeat(4,minmax(0,1fr))}.home-hero{min-height:480px}.block{padding-left:7%;padding-right:7%}.category-row{max-width:650px}.sheet{border-radius:22px;margin:auto;max-height:88vh}.overlay{align-items:center;padding:20px}.looks-grid{gap:13px}.collection-grid{grid-template-columns:repeat(3,1fr)}}
-@media(max-height:700px){.welcome-photo{height:65%;inset:0 0 35% 0}.welcome-shade{inset:0 0 35% 0}.welcome-content{height:35%;min-height:190px;padding-top:10px;padding-bottom:max(10px,env(safe-area-inset-bottom))}.welcome-content h1{font-size:34px}.welcome-content p{margin-bottom:9px}}
-@media(max-width:370px){.top-brand{font-size:20px}.category-row{gap:7px}.category-tile{font-size:10px}.store-nav{gap:17px}.welcome-content h1{font-size:36px}}
+footer{
+  text-align:center;padding:35px 18px 95px;background:#f8e5ed;
+}
+footer .brand{font-size:25px}
+footer p{font-size:9px;letter-spacing:2px;line-height:2;color:#816b76}
+@media(min-width:700px){
+  .product-grid{grid-template-columns:repeat(3,1fr);gap:25px}
+  .product-card img{height:290px}
+  .category-tile{height:260px}
+  .gallery-main{height:480px}
+  .overlay{align-items:center;padding:20px}
+  .product-modal{max-height:90vh}
+  .modal-layout{display:grid;grid-template-columns:1fr 1fr}
+  .gallery-main{height:520px}
+}
 </style>
 </head>
+
 <body>
-<div class="announcement">STEPHENIE NOVA &nbsp;·&nbsp; NATIONWIDE DELIVERY</div>
-<div id="brand-intro" aria-label="Stephenie Nova"><span>STEPHENIE NOVA</span></div>
+<div id="app">
 
-<section id="welcome" class="screen active">
-  <img class="welcome-photo" src="https://i.postimg.cc/mhj7Bf3s/18f72680e8ae11f19e90d72ab16a5841.png" alt="Stephenie Nova campaign">
-  <div class="welcome-shade"></div>
-  <div class="welcome-content">
-    <div class="kicker">STEPHENIE NOVA</div>
-    <h1>For the it girls.</h1>
-    <p>Bags · Style · Confidence</p>
-    <button class="pill" onclick="goScreen('looks')">GET STARTED&nbsp; ✧</button>
+<div id="intro">
+  <div class="intro-brand">
+    <div class="intro-star">✦</div>
+    <h1>STEPHENIE NOVA</h1>
+    <p>FOR THE IT GIRLS</p>
+    <div class="intro-star">✧</div>
+  </div>
+</div>
+
+<!-- CAMPAIGN OPENING -->
+<section id="campaign" class="screen campaign active">
+  <img src="https://i.postimg.cc/mhj7Bf3s/18f72680e8ae11f19e90d72ab16a5841.png" alt="Stephenie Nova campaign">
+  <div class="campaign-copy">
+    <p>THE STEPHENIE NOVA EXPERIENCE</p>
+    <h1 class="serif">A little more<br>you.</h1>
+    <p>BAGS • BEAUTY • CONFIDENCE</p>
+    <button class="primary" onclick="go('collage')">Discover the world of Nova</button>
   </div>
 </section>
 
-<section id="looks" class="screen">
-  <div class="looks-head">
-    <div class="kicker">THE NOVA WORLD</div>
-    <h1>Looks you'll love,<br>styled by you.</h1>
-    <p class="section-sub">A little inspiration for your next favourite look.</p>
+<!-- INSPIRATION COLLAGE -->
+<section id="collage" class="screen collage-screen">
+  <p class="eyebrow">STEPHENIE NOVA PRESENTS</p>
+  <h1 class="section-title">The Nova Edit</h1>
+  <p class="muted" style="font-size:12px">A world of style, confidence and beautiful details.</p>
+  <div class="collage-grid">
+    <img src="https://i.postimg.cc/mhj7Bf3s/18f72680e8ae11f19e90d72ab16a5841.png" alt="Nova campaign">
+    <img src="https://i.postimg.cc/8jgxQvb6/68-off-Select-Seasonal.jpg" alt="Fashion inspiration">
+    <img src="https://i.postimg.cc/DmXRM61F/Unknown-66.jpg" alt="Fashion inspiration">
+    <img src="https://i.postimg.cc/HjyFhzbx/Unknown-68.jpg" alt="Fashion inspiration">
+    <img src="https://i.postimg.cc/JtkS2xjh/Unknown-70.jpg" alt="Fashion inspiration">
   </div>
-  <div class="looks-grid">
-    <img src="https://i.postimg.cc/mhj7Bf3s/18f72680e8ae11f19e90d72ab16a5841.png" alt="Stephenie Nova campaign">
-    <img src="https://i.postimg.cc/8jgxQvb6/68-off-Select-Seasonal.jpg" alt="Style inspiration">
-    <img src="https://i.postimg.cc/DmXRM61F/Unknown-66.jpg" alt="Style inspiration">
-    <img src="https://i.postimg.cc/HjyFhzbx/Unknown-68.jpg" alt="Style inspiration">
-    <img src="https://i.postimg.cc/JtkS2xjh/Unknown-70.jpg" alt="Style inspiration">
-    <img src="https://i.postimg.cc/mhj7Bf3s/18f72680e8ae11f19e90d72ab16a5841.png" alt="Stephenie Nova style inspiration">
-  </div>
-  <div class="looks-footer"><button class="pill" onclick="enterStore()">CONTINUE TO THE STORE&nbsp; ♡</button></div>
+  <p class="collage-caption">For the girls who make their own rules.</p>
+  <button class="primary" onclick="go('welcome')">Continue</button>
 </section>
 
+<!-- WELCOME -->
+<section id="welcome" class="screen welcome-screen">
+  <div class="welcome-card">
+    <p class="eyebrow">WELCOME TO</p>
+    <h1 class="serif">Stephenie<br><span style="color:var(--deep)">Nova</span></h1>
+    <p>Discover pieces that make every day feel a little more special. Your next favourite find starts here.</p>
+    <p class="eyebrow">BAGS • BEAUTY • CONFIDENCE</p>
+    <button class="primary" style="width:100%;margin-top:20px" onclick="go('store')">Enter the store</button>
+  </div>
+</section>
+
+<!-- MAIN STORE -->
 <section id="store" class="screen">
-  <header class="store-header">
-    <a class="top-brand" href="#" onclick="showPage('home');return false">Stephenie <span>Nova</span></a>
-    <div class="header-actions">
-      <button class="icon-btn" aria-label="Search" onclick="focusSearch()">⌕</button>
-      <button class="icon-btn" aria-label="Open cart" onclick="openCart()">♡<span class="cart-count" id="cartCount">0</span></button>
+  <header>
+    <div class="topline">Nationwide delivery · For the it girls</div>
+    <div class="header-inner">
+      <button class="icon-button" onclick="go('store')" aria-label="Home">⌂</button>
+      <div class="brand">Stephenie <span>Nova</span></div>
+      <div class="header-actions">
+        <button class="icon-button" onclick="go('explore')" aria-label="Explore">⌕</button>
+        <button class="icon-button" onclick="go('bag')" aria-label="Shopping bag">
+          ♡<span class="cart-count" id="cartCount">0</span>
+        </button>
+      </div>
     </div>
+    <nav class="navbar">
+      <button class="selected" onclick="go('store')">Home</button>
+      <button onclick="go('collections')">Collections</button>
+      <button onclick="go('lookbook')">Lookbook</button>
+      <button onclick="go('explore')">Explore</button>
+    </nav>
   </header>
-  <div class="search-wrap"><input id="searchInput" class="search-box" placeholder="Search your next favourite thing..." oninput="renderProducts()"></div>
-  <nav class="store-nav">
-    <button class="active" data-page="home" onclick="showPage('home')">HOME</button>
-    <button data-page="collections" onclick="showPage('collections')">COLLECTIONS</button>
-    <button data-page="lookbook" onclick="showPage('lookbook')">LOOKBOOK</button>
-    <button data-page="explore" onclick="showPage('explore')">EXPLORE</button>
-  </nav>
-  <main>
-    <div id="page-home" class="page-panel active">
-      <section class="home-hero">
-        <img src="https://i.postimg.cc/mhj7Bf3s/18f72680e8ae11f19e90d72ab16a5841.png" alt="Stephenie Nova">
-        <div class="home-hero-copy">
-          <div class="kicker">FOR THE IT GIRLS</div>
-          <h1>Your style.<br>Your moment.</h1>
-          <p>Statement bags. Effortless style. Your everyday signature.</p>
-          <button class="pill light" onclick="showPage('explore')">EXPLORE THE EDIT</button>
-        </div>
-      </section>
-      <section class="block">
-        <div class="block-head"><div><div class="kicker">FIND YOUR FAVOURITE</div><h2 class="section-title">Shop by category</h2></div></div>
-        <div class="category-row category-row-three">
-          <button class="category-tile" onclick="filterCategory('Crossbody Bags')"><img src="https://i.postimg.cc/VJffwpRQ/IMG-5526.jpg" alt="Crossbody bags"><span>Crossbody Bags</span></button>
-          <button class="category-tile" onclick="filterCategory('Tote Bags')"><img src="https://i.postimg.cc/rdWMNTyd/IMG-5550.jpg" alt="Tote bags"><span>Tote Bags</span></button>
-          <button class="category-tile" onclick="filterCategory('Shoulder Bags')"><img src="https://i.postimg.cc/HJJCsg8R/IMG-5556.png" alt="Shoulder bags"><span>Shoulder Bags</span></button>
-        </div>
-      </section>
-      <section class="block">
-        <div class="block-head"><div><div class="kicker">THE CURRENT FAVOURITES</div><h2 class="section-title">Trending now</h2></div><button class="text-link" onclick="showPage('explore')">VIEW ALL →</button></div>
-        <div class="product-grid" id="homeProducts"><div class="empty-state">Loading the Nova collection...</div></div>
-      </section>
-      <section class="block" style="background:var(--pale)">
-        <div class="block-head"><div><div class="kicker">A LITTLE INSPIRATION</div><h2 class="section-title">The Nova edit</h2></div><button class="text-link" onclick="showPage('lookbook')">SEE LOOKS →</button></div>
-        <div class="lookbook-grid">
-          <button class="lookbook-card" onclick="showPage('lookbook')"><img src="https://i.postimg.cc/8jgxQvb6/68-off-Select-Seasonal.jpg" alt=""><span>Pretty everyday moments</span></button>
-          <button class="lookbook-card" onclick="showPage('lookbook')"><img src="https://i.postimg.cc/JtkS2xjh/Unknown-70.jpg" alt=""><span>Little details, big energy</span></button>
-        </div>
-      </section>
-    </div>    <div id="page-collections" class="page-panel">
-      <section class="block">
-        <div class="kicker">THE NOVA COLLECTION</div>
-        <h1 class="section-title" style="margin:9px 0 22px">Find your signature.</h1>
-        <div class="collection-grid">
-          <button class="collection-card" onclick="filterCategory('Crossbody Bags')">
-            <img src="https://i.postimg.cc/VJffwpRQ/IMG-5526.jpg" alt="Crossbody bags">
-            <span>Crossbody Bags</span>
-          </button>
-          <button class="collection-card" onclick="filterCategory('Shoulder Bags')">
-            <img src="https://i.postimg.cc/HJJCsg8R/IMG-5556.png" alt="Shoulder bags">
-            <span>Shoulder Bags</span>
-          </button>
-          <button class="collection-card" onclick="filterCategory('Tote Bags')">
-            <img src="https://i.postimg.cc/rdWMNTyd/IMG-5550.jpg" alt="Tote bags">
-            <span>Tote Bags</span>
-          </button>
-        </div>
-      </section>
-      <section class="block">
-        <div class="block-head"><div><div class="kicker">SHOP THE COLLECTION</div><h2 class="section-title">All favourites</h2></div></div>
-        <div class="product-grid" id="collectionProducts"></div>
-      </section>
+
+  <main class="store-content">
+    <div class="home-hero">
+      <img src="https://i.postimg.cc/mhj7Bf3s/18f72680e8ae11f19e90d72ab16a5841.png" alt="Stephenie Nova">
+      <div class="home-hero-copy">
+        <p>NEW SEASON · NEW ENERGY</p>
+        <h1>For the<br>It Girls.</h1>
+        <p>BAGS • BEAUTY • CONFIDENCE</p>
+        <button class="primary" onclick="scrollToProducts()">Shop the collection</button>
+      </div>
     </div>
 
-    <div id="page-lookbook" class="page-panel">
-      <section class="block">
-        <div class="kicker">STYLE INSPIRATION</div>
-        <h1 class="section-title" style="margin:9px 0">The Nova Lookbook</h1>
-        <p class="section-sub" style="margin-bottom:22px">A little inspiration for every version of you.</p>
-        <div class="lookbook-grid">
-          <button class="lookbook-card"><img src="https://i.postimg.cc/8jgxQvb6/68-off-Select-Seasonal.jpg" alt="Lookbook style"><span>Everyday elegance</span></button>
-          <button class="lookbook-card"><img src="https://i.postimg.cc/DmXRM61F/Unknown-66.jpg" alt="Lookbook style"><span>Statement moments</span></button>
-          <button class="lookbook-card"><img src="https://i.postimg.cc/HjyFhzbx/Unknown-68.jpg" alt="Lookbook style"><span>Soft and feminine</span></button>
-          <button class="lookbook-card"><img src="https://i.postimg.cc/JtkS2xjh/Unknown-70.jpg" alt="Lookbook style"><span>Made to stand out</span></button>
-        </div>
-      </section>
-    </div>
+    <div class="marquee">STEPHENIE NOVA ✦ FOR THE IT GIRLS ✦ NATIONWIDE DELIVERY</div>
 
-    <div id="page-explore" class="page-panel">
-      <section class="block">
-        <div class="kicker">SHOP STEPHENIE NOVA</div>
-        <h1 class="section-title" style="margin:9px 0 18px">Explore the collection.</h1>
-        <div style="display:flex;gap:8px;overflow:auto;padding-bottom:17px">
-          <button class="pill" onclick="filterCategory('All')">ALL</button>
-          <button class="pill light" onclick="filterCategory('Crossbody Bags')">CROSSBODY</button>
-          <button class="pill light" onclick="filterCategory('Shoulder Bags')">SHOULDER</button>
-          <button class="pill light" onclick="filterCategory('Tote Bags')">TOTES</button>
+    <section class="content-section">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">FIND YOUR FAVOURITE</p>
+          <h2 class="section-title">Shop by category</h2>
         </div>
-        <div class="product-grid" id="exploreProducts"></div>
-      </section>
-    </div>
+      </div>
+      <div class="category-grid">
+        <div class="category-tile" onclick="filterCategory('Bags')">
+          <img src="https://i.postimg.cc/VJffwpRQ/IMG-5526.jpg" alt="Bags">
+          <span>Bags</span>
+        </div>
+        <div class="category-tile" onclick="filterCategory('Clothes')">
+          <img src="https://i.postimg.cc/8jgxQvb6/68-off-Select-Seasonal.jpg" alt="Clothes">
+          <span>Clothes</span>
+        </div>
+        <div class="category-tile" onclick="filterCategory('Beauty')">
+          <img src="https://i.postimg.cc/DmXRM61F/Unknown-66.jpg" alt="Beauty">
+          <span>Beauty</span>
+        </div>
+        <div class="category-tile" onclick="filterCategory('Shoes')">
+          <img src="https://i.postimg.cc/HjyFhzbx/Unknown-68.jpg" alt="Shoes">
+          <span>Shoes</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="content-section" id="featuredProducts">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">THE NOVA SELECTION</p>
+          <h2 class="section-title">Featured pieces</h2>
+        </div>
+        <button class="text-link" onclick="go('collections')">VIEW ALL</button>
+      </div>
+      <div id="homeProducts" class="product-grid"></div>
+    </section>
+
+    <section class="content-section" style="background:#f8e5ed;text-align:center">
+      <p class="eyebrow">YOUR STYLE, YOUR STORY</p>
+      <h2 class="section-title">The Nova girl.</h2>
+      <p class="muted" style="font-size:12px;line-height:1.8">Beautiful finds. Confident choices. A little touch of pink.</p>
+      <button class="secondary" onclick="go('lookbook')">Explore the lookbook</button>
+    </section>
   </main>
 
-  <nav class="bottom-nav">
-    <button class="active" data-page="home" onclick="showPage('home')"><b>⌂</b>HOME</button>
-    <button data-page="collections" onclick="showPage('collections')"><b>▦</b>SHOP</button>
-    <button data-page="lookbook" onclick="showPage('lookbook')"><b>♡</b>LOOKBOOK</button>
-    <button data-page="explore" onclick="showPage('explore')"><b>⌕</b>EXPLORE</button>
-    <button onclick="openCart()"><b>♧</b>CART</button>
-  </nav>
   <footer>
-    <strong>Stephenie Nova</strong>
-    <p>FOR THE IT GIRLS</p>
-    <p>BAGS · BEAUTY · CONFIDENCE</p>
-    <p>Nationwide delivery</p>
-    <p>© <span id="year"></span> Stephenie Nova</p>
+    <div class="brand">Stephenie <span style="color:var(--deep)">Nova</span></div>
+    <p>FOR THE IT GIRLS<br>BAGS • BEAUTY • CONFIDENCE<br>NATIONWIDE DELIVERY</p>
+    <p>© 2026 STEPHENIE NOVA</p>
   </footer>
 </section>
 
-<div class="overlay" id="productOverlay" onclick="outsideClose(event,'productOverlay')">
-  <div class="sheet">
-    <div class="sheet-top"><h2>Product details</h2><button class="close-btn" onclick="closeOverlay('productOverlay')">×</button></div>
-    <img id="detailImage" class="detail-image" src="" alt="Product image">
-    <div id="detailThumbs" class="thumb-row"></div>
-    <div class="kicker" style="margin-top:15px">STEPHENIE NOVA</div>
-    <h2 id="detailTitle" class="detail-title"></h2>
-    <div id="detailPrice" class="product-price"></div>
-    <p class="detail-description">A beautiful addition to your everyday collection. Designed for the it girls who love a little statement.</p>
-    <div class="detail-actions">
-      <button class="pill" id="detailAdd">ADD TO CART</button>
-      <button class="pill outline" id="detailBuy">ORDER NOW</button>
+<!-- COLLECTIONS -->
+<section id="collections" class="screen">
+  <header>
+    <div class="header-inner">
+      <button class="icon-button" onclick="go('store')">‹</button>
+      <div class="brand">The <span>Collections</span></div>
+      <button class="icon-button" onclick="go('bag')">♡</button>
+    </div>
+    <nav class="navbar">
+      <button onclick="go('store')">Home</button>
+      <button class="selected" onclick="go('collections')">Collections</button>
+      <button onclick="go('lookbook')">Lookbook</button>
+      <button onclick="go('explore')">Explore</button>
+    </nav>
+  </header>
+  <div class="page-wrap">
+    <div class="page-intro">
+      <p class="eyebrow">CURATED FOR YOU</p>
+      <h1 class="section-title">The Collections</h1>
+      <p class="muted" style="font-size:12px">Find something that feels like you.</p>
+    </div>
+    <div class="option-row" style="justify-content:center;margin-bottom:25px">
+      <button class="option active" onclick="filterCategory('All',this)">All</button>
+      <button class="option" onclick="filterCategory('Bags',this)">Bags</button>
+      <button class="option" onclick="filterCategory('Clothes',this)">Clothes</button>
+      <button class="option" onclick="filterCategory('Shoes',this)">Shoes</button>
+      <button class="option" onclick="filterCategory('Beauty',this)">Beauty</button>
+    </div>
+    <div id="collectionProducts" class="product-grid"></div>
+  </div>
+</section>
+
+<!-- LOOKBOOK -->
+<section id="lookbook" class="screen">
+  <header>
+    <div class="header-inner">
+      <button class="icon-button" onclick="go('store')">‹</button>
+      <div class="brand">Nova <span>Lookbook</span></div>
+      <button class="icon-button" onclick="go('bag')">♡</button>
+    </div>
+    <nav class="navbar">
+      <button onclick="go('store')">Home</button>
+      <button onclick="go('collections')">Collections</button>
+      <button class="selected" onclick="go('lookbook')">Lookbook</button>
+      <button onclick="go('explore')">Explore</button>
+    </nav>
+  </header>
+  <div class="page-wrap">
+    <div class="page-intro">
+      <p class="eyebrow">STYLE INSPIRATION</p>
+      <h1 class="section-title">The Nova Lookbook</h1>
+      <p class="muted" style="font-size:12px">A little inspiration for your next look.</p>
+    </div>
+    <div class="lookbook-grid">
+      <img src="https://i.postimg.cc/mhj7Bf3s/18f72680e8ae11f19e90d72ab16a5841.png" alt="Nova style">
+      <img src="https://i.postimg.cc/8jgxQvb6/68-off-Select-Seasonal.jpg" alt="Fashion inspiration">
+      <img src="https://i.postimg.cc/DmXRM61F/Unknown-66.jpg" alt="Fashion inspiration">
+      <img src="https://i.postimg.cc/HjyFhzbx/Unknown-68.jpg" alt="Fashion inspiration">
+      <img src="https://i.postimg.cc/JtkS2xjh/Unknown-70.jpg" alt="Fashion inspiration">
+    </div>
+    <div style="text-align:center;margin-top:30px">
+      <p class="eyebrow">MAKE IT YOURS</p>
+      <h2 class="section-title">Find your next favourite.</h2>
+      <button class="primary" onclick="go('collections')">Shop now</button>
     </div>
   </div>
-</div>
+</section>
 
-<div class="overlay" id="cartOverlay" onclick="outsideClose(event,'cartOverlay')">
-  <div class="sheet">
-    <div class="sheet-top"><h2>Your cart</h2><button class="close-btn" onclick="closeOverlay('cartOverlay')">×</button></div>
-    <div id="cartItems"></div>
-    <div class="total-line"><span>Total</span><span id="cartTotal">₦0</span></div>
-    <button class="pill" style="width:100%" onclick="openCheckout()">PROCEED TO CHECKOUT</button>
-    <p class="section-sub" style="text-align:center;margin-top:12px">Delivery fees are confirmed separately.</p>
+<!-- EXPLORE -->
+<section id="explore" class="screen">
+  <header>
+    <div class="header-inner">
+      <button class="icon-button" onclick="go('store')">‹</button>
+      <div class="brand">Explore <span>Nova</span></div>
+      <button class="icon-button" onclick="go('bag')">♡</button>
+    </div>
+    <nav class="navbar">
+      <button onclick="go('store')">Home</button>
+      <button onclick="go('collections')">Collections</button>
+      <button onclick="go('lookbook')">Lookbook</button>
+      <button class="selected" onclick="go('explore')">Explore</button>
+    </nav>
+  </header>
+  <div class="page-wrap">
+    <div class="page-intro">
+      <p class="eyebrow">A LITTLE SOMETHING EXTRA</p>
+      <h1 class="section-title">Explore Nova</h1>
+    </div>
+    <div class="explore-card">
+      <img src="https://i.postimg.cc/mhj7Bf3s/18f72680e8ae11f19e90d72ab16a5841.png" alt="Stephenie Nova campaign">
+      <div>
+        <p class="eyebrow">THE BRAND</p>
+        <h3>For the It Girls</h3>
+        <p class="muted" style="font-size:12px;line-height:1.7">Stephenie Nova is about beautiful finds, confidence and expressing your own style.</p>
+      </div>
+    </div>
+    <div class="explore-card">
+      <img src="https://i.postimg.cc/VJffwpRQ/IMG-5526.jpg" alt="Nova bags">
+      <div>
+        <p class="eyebrow">SHOP THE EDIT</p>
+        <h3>Your next favourite bag</h3>
+        <button class="secondary" onclick="filterCategory('Bags')">Explore bags</button>
+      </div>
+    </div>
+    <div style="text-align:center;padding:25px 0">
+      <p class="eyebrow">NEED HELP?</p>
+      <h3 class="serif" style="font-size:25px">Let's talk.</h3>
+      <button class="primary" onclick="contactWhatsApp()">Contact us on WhatsApp</button>
+    </div>
   </div>
-</div>
+</section>
 
-<div class="overlay" id="checkoutOverlay" onclick="outsideClose(event,'checkoutOverlay')">
-  <div class="sheet">
-    <div class="sheet-top"><h2>Checkout</h2><button class="close-btn" onclick="closeOverlay('checkoutOverlay')">×</button></div>
-    <form id="checkoutForm">
-      <div class="form-field">
-        <label for="customerName">Full name</label>
-        <input id="customerName" required placeholder="Your full name">
+<!-- SHOPPING BAG -->
+<section id="bag" class="screen">
+  <header>
+    <div class="header-inner">
+      <button class="icon-button" onclick="go('store')">‹</button>
+      <div class="brand">My <span>Bag</span></div>
+      <span></span>
+    </div>
+  </header>
+  <div class="page-wrap">
+    <p class="eyebrow">YOUR SELECTED PIECES</p>
+    <h1 class="section-title">My Bag</h1>
+    <div id="cartItems"></div>
+    <div id="cartSummary" class="hidden">
+      <div class="cart-summary">
+        <div class="summary-line"><span>Subtotal</span><strong id="subtotal">₦0</strong></div>
+        <div class="summary-line"><span>Delivery</span><span>Confirmed after checkout</span></div>
+        <div class="summary-line total"><span>Total</span><strong id="cartTotal">₦0</strong></div>
       </div>
-      <div class="form-field">
-        <label for="customerPhone">Phone number</label>
-        <input id="customerPhone" required type="tel" placeholder="Your WhatsApp number">
+      <button class="primary" style="width:100%" onclick="go('checkout')">Proceed to checkout</button>
+      <button class="secondary" style="width:100%;margin-top:10px" onclick="go('collections')">Continue shopping</button>
+    </div>
+  </div>
+</section>
+
+<!-- CHECKOUT -->
+<section id="checkout" class="screen">
+  <header>
+    <div class="header-inner">
+      <button class="icon-button" onclick="go('bag')">‹</button>
+      <div class="brand">Nova <span>Checkout</span></div>
+      <span></span>
+    </div>
+  </header>
+  <div class="page-wrap">
+    <p class="eyebrow">ALMOST YOURS</p>
+    <h1 class="section-title">Checkout</h1>
+    <div class="cart-summary">
+      <div class="summary-line"><span>Order subtotal</span><strong id="checkoutSubtotal">₦0</strong></div>
+      <div class="summary-line"><span>Delivery fee</span><span>To be confirmed</span></div>
+    </div>
+    <form class="checkout-form" id="checkoutForm">
+      <label>Full name
+        <input name="customerName" required placeholder="Your full name">
+      </label>
+      <label>Phone number
+        <input name="phone" required type="tel" placeholder="Your phone number">
+      </label>
+      <label>Delivery address
+        <textarea name="address" required placeholder="Enter your full delivery address"></textarea>
+      </label>
+      <label>State
+        <input name="state" required placeholder="Your state">
+      </label>
+      <label>Additional note (optional)
+        <textarea name="note" placeholder="Any extra delivery information?"></textarea>
+      </label>
+      <div class="payment-panel">
+        <p class="eyebrow">PAYMENT</p>
+        <h3>Bank transfer</h3>
+        <p style="font-size:12px;line-height:1.7">
+          Your order details will be sent to Stephenie Nova on WhatsApp.
+          Confirm the total delivery cost and bank transfer details with the store before making payment.
+        </p>
+        <p style="font-size:11px;font-weight:700">Please do not transfer money to unconfirmed account details.</p>
       </div>
-      <div class="form-field">
-        <label for="customerAddress">Delivery address</label>
-        <textarea id="customerAddress" required placeholder="Your full delivery address"></textarea>
-      </div>
-      <div class="form-field">
-        <label for="customerNote">Additional information (optional)</label>
-        <textarea id="customerNote" placeholder="Any extra delivery information"></textarea>
-      </div>
-      <div class="checkout-note">
-        When you submit your order, WhatsApp will open with your order details. Delivery charges and payment instructions will be confirmed with you before payment.
-      </div>
-      <button class="pill" style="width:100%" type="submit">PLACE ORDER ON WHATSAPP</button>
+      <button class="primary" type="submit" style="width:100%">Continue to order confirmation</button>
     </form>
   </div>
-</div>
+</section>
 
-<div class="overlay" id="successOverlay" onclick="outsideClose(event,'successOverlay')">
-  <div class="sheet">
-    <div class="success">
-      <div class="confirm-mark">✓</div>
-      <h2>Thank you!</h2>
-      <p>Your order message has been prepared. Complete the conversation on WhatsApp to confirm your order.</p>
-      <button class="pill" onclick="closeOverlay('successOverlay');showPage('home')">CONTINUE SHOPPING</button>
+<!-- ORDER CONFIRMATION -->
+<section id="confirmation" class="screen">
+  <div class="confirmation">
+    <div class="check">✓</div>
+    <p class="eyebrow">THANK YOU FOR SHOPPING WITH US</p>
+    <h1 class="section-title">Your order is ready!</h1>
+    <p class="muted" style="font-size:13px;line-height:1.8;max-width:360px;margin:15px auto">
+      Your order details are ready to send to Stephenie Nova. Please confirm delivery and payment details with the store on WhatsApp.
+    </p>
+    <button class="primary" onclick="sendOrderWhatsApp()">Send order on WhatsApp</button>
+    <br>
+    <button class="secondary" style="margin-top:12px" onclick="go('store')">Back to the store</button>
+  </div>
+</section>
+
+<!-- PRODUCT DETAILS MODAL -->
+<div id="productOverlay" class="overlay" onclick="if(event.target===this)closeProduct()">
+  <div class="product-modal">
+    <button class="close" onclick="closeProduct()">×</button>
+    <div class="modal-layout">
+      <div>
+        <div class="gallery">
+          <img id="galleryImage" class="gallery-main" src="" alt="Product image">
+          <button class="gallery-arrow prev" onclick="changeImage(-1)">‹</button>
+          <button class="gallery-arrow next" onclick="changeImage(1)">›</button>
+          <span class="gallery-count" id="galleryCount">1 / 1</span>
+        </div>
+        <div class="thumbnails" id="thumbnails"></div>
+      </div>
+      <div class="modal-details">
+        <p class="eyebrow">STEPHENIE NOVA</p>
+        <h2 id="modalName"></h2>
+        <div><strong id="modalPrice"></strong> <span id="modalOldPrice" class="old-price"></span></div>
+        <p id="modalDescription" class="muted" style="font-size:12px;line-height:1.7;margin-top:15px"></p>
+
+        <p class="option-label">Colour</p>
+        <div class="option-row" id="colourOptions">
+          <button class="option active" onclick="selectColour(this,'As pictured')">As pictured</button>
+          <button class="option" onclick="selectColour(this,'Black')">Black</button>
+          <button class="option" onclick="selectColour(this,'Pink')">Pink</button>
+          <button class="option" onclick="selectColour(this,'Other')">Other</button>
+        </div>
+
+        <p class="option-label">Size</p>
+        <div class="option-row" id="sizeOptions">
+          <button class="option active" onclick="selectSize(this,'One size')">One size</button>
+          <button class="option" onclick="selectSize(this,'Small')">S</button>
+          <button class="option" onclick="selectSize(this,'Medium')">M</button>
+          <button class="option" onclick="selectSize(this,'Large')">L</button>
+        </div>
+
+        <div class="modal-actions">
+          <button class="secondary" onclick="addToCart()">Add to bag</button>
+          <button class="primary" onclick="buyNow()">Buy now</button>
+        </div>
+      </div>
     </div>
   </div>
 </div>
 
-<div id="toast" class="toast"></div>
+<!-- BOTTOM NAV -->
+<nav class="bottom-nav" id="bottomNav">
+  <button class="active" onclick="go('store')" data-nav="store"><span>⌂</span>Home</button>
+  <button onclick="go('collections')" data-nav="collections"><span>▦</span>Collections</button>
+  <button onclick="go('lookbook')" data-nav="lookbook"><span>♡</span>Lookbook</button>
+  <button onclick="go('explore')" data-nav="explore"><span>⌕</span>Explore</button>
+  <button onclick="go('bag')" data-nav="bag"><span>♧</span>My Bag</button>
+</nav>
+
+</div>
 
 <script>
-const SUPABASE_URL = "https://cnkggilywausfgoacgva.supabase.co";
-const SUPABASE_KEY = "sb_publishable_znAq3vcHAmCeFh7JlujzvQ_YJjMByRU";
+/* ------------------------------------------
+   STEPHENIE NOVA STORE SETTINGS
+------------------------------------------- */
+
 const WHATSAPP_NUMBER = "2349151863044";
 
+const SUPABASE_URL = "https://cnkggilywausfgoacgva.supabase.co";
+const SUPABASE_KEY = "sb_publishable_znAq3vcHAmCeFh7JlujzvQ_YJjMByRU";
+
 let supabaseClient = null;
-try {
-  if (window.supabase) {
-    supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+try{
+  if(window.supabase){
+    supabaseClient = window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
   }
-} catch (error) {
-  console.warn("Supabase connection could not be started:", error);
+}catch(error){
+  console.log("Supabase connection unavailable.");
 }
+
+/* Starter products use only the supplied matching product images.
+   Other products can load from the Supabase products table. */
 
 const starterProducts = [
   {
     id:"crossbody-chain",
     name:"Crossbody Chain Bag",
-    category:"Crossbody Bags",
+    category:"Bags",
     price:9500,
     old_price:12500,
     image_url:"https://i.postimg.cc/VJffwpRQ/IMG-5526.jpg",
@@ -398,12 +787,13 @@ const starterProducts = [
       "https://i.postimg.cc/qNJJrSG5/IMG-5527.jpg",
       "https://i.postimg.cc/K1GGbw5N/IMG-5528.jpg",
       "https://i.postimg.cc/ppYWgRKQ/IMG-5529.jpg"
-    ]
+    ],
+    description:"A stylish crossbody bag for everyday outfits."
   },
   {
     id:"shoulder-bag",
     name:"Shoulder Bag",
-    category:"Shoulder Bags",
+    category:"Bags",
     price:8500,
     old_price:11500,
     image_url:"https://i.postimg.cc/fVzzspv2/IMG-5552.png",
@@ -412,12 +802,13 @@ const starterProducts = [
       "https://i.postimg.cc/G4LLRVjg/IMG-5553.png",
       "https://i.postimg.cc/68WWKghH/IMG-5554.png",
       "https://i.postimg.cc/HJJCsg8R/IMG-5556.png"
-    ]
+    ],
+    description:"A versatile shoulder bag to complete your look."
   },
   {
     id:"coach-tote",
     name:"Luxury Coach Tote Bag",
-    category:"Tote Bags",
+    category:"Bags",
     price:13000,
     old_price:16000,
     image_url:"https://i.postimg.cc/rdWMNTyd/IMG-5550.jpg",
@@ -426,366 +817,373 @@ const starterProducts = [
       "https://i.postimg.cc/VSMmWwsd/IMG-5551.jpg",
       "https://i.postimg.cc/47gZ80n1/IMG-5555.png",
       "https://i.postimg.cc/GBYdxR34/IMG-5696.jpg"
-    ]
-  },
-  {
-    id:"fur-tote",
-    name:"Fur Tote Bag",
-    category:"Tote Bags",
-    price:7500,
-    old_price:10500,
-    image_url:"https://i.postimg.cc/47gZ80n1/IMG-5555.png",
-    images:[
-      "https://i.postimg.cc/47gZ80n1/IMG-5555.png",
-      "https://i.postimg.cc/GBYdxR34/IMG-5696.jpg"
-    ]
+    ],
+    description:"A roomy tote with a polished everyday look."
   }
 ];
 
 let products = [...starterProducts];
 let cart = [];
-let activeCategory = "All";
 let currentProduct = null;
-let toastTimer = null;
+let currentImageIndex = 0;
+let selectedColour = "As pictured";
+let selectedSize = "One size";
+let currentOrder = null;
+let activeCategory = "All";
 
-const money = value => "₦" + Number(value || 0).toLocaleString("en-NG");
-
-function showToast(message) {
-  const toast = document.getElementById("toast");
-  toast.textContent = message;
-  toast.classList.add("show");
-  clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => toast.classList.remove("show"), 2300);
+function money(value){
+  return "₦" + Number(value || 0).toLocaleString("en-NG");
 }
 
-function goScreen(id) {
-  document.querySelectorAll(".screen").forEach(screen => screen.classList.remove("active"));
-  const target = document.getElementById(id);
-  if (target) target.classList.add("active");
+function safeText(value){
+  return String(value ?? "").replace(/[&<>"']/g,char=>({
+    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
+  }[char]));
+}
+
+function go(screenId){
+  document.querySelectorAll(".screen").forEach(screen=>screen.classList.remove("active"));
+  const target=document.getElementById(screenId);
+  if(target) target.classList.add("active");
+
+  const nav=document.getElementById("bottomNav");
+  nav.style.display=["store","collections","lookbook","explore","bag"].includes(screenId)?"flex":"none";
+
+  document.querySelectorAll(".bottom-nav button").forEach(button=>{
+    button.classList.toggle("active",button.dataset.nav===screenId);
+  });
+
+  if(screenId==="bag") renderCart();
+  if(screenId==="checkout") updateCheckoutTotal();
+
   window.scrollTo({top:0,behavior:"instant"});
 }
 
-function enterStore() {
-  document.body.classList.add("in-store");
-  goScreen("store");
-  showPage("home");
-  renderAllProducts();
+function scrollToProducts(){
+  document.getElementById("featuredProducts").scrollIntoView({behavior:"smooth"});
 }
 
-function showPage(page) {
-  document.querySelectorAll(".page-panel").forEach(panel => panel.classList.remove("active"));
-  const panel = document.getElementById("page-" + page);
-  if (panel) panel.classList.add("active");
-
-  document.querySelectorAll("[data-page]").forEach(button => {
-    button.classList.toggle("active", button.dataset.page === page);
-  });
-
-  window.scrollTo({top:0,behavior:"smooth"});
-  if (page === "home") renderProductsInto("homeProducts");
-  if (page === "collections") renderProductsInto("collectionProducts");
-  if (page === "explore") renderProductsInto("exploreProducts");
+function contactWhatsApp(){
+  window.open("https://wa.me/"+WHATSAPP_NUMBER,"_blank");
 }
 
-function focusSearch() {
-  document.getElementById("searchInput").focus();
-  window.scrollTo({top:0,behavior:"smooth"});
-}
-
-function filterCategory(category) {
-  activeCategory = category;
-  document.getElementById("searchInput").value = "";
-  showPage("explore");
-  renderProductsInto("exploreProducts");
-}
-
-function filteredProducts() {
-  const term = (document.getElementById("searchInput")?.value || "").trim().toLowerCase();
-  return products.filter(product => {
-    const categoryMatch = activeCategory === "All" || product.category === activeCategory;
-    const searchMatch = !term ||
-      String(product.name || "").toLowerCase().includes(term) ||
-      String(product.category || "").toLowerCase().includes(term);
-    return categoryMatch && searchMatch;
-  });
-}
-
-function safeImage(url) {
-  return url || "https://placehold.co/600x700/f8e5ed/8a5670?text=Stephenie+Nova";
-}
-
-function productCard(product, index) {
-  const image = safeImage(product.image_url || product.images?.[0]);
-  return `
-    <article class="product-card" style="--i:${index}">
-      <div class="photo">
-        <img loading="lazy" src="${image}" alt="${escapeHTML(product.name)}" onerror="this.src='https://placehold.co/600x700/f8e5ed/8a5670?text=Stephenie+Nova'">
-        <button class="quick-add" aria-label="View ${escapeHTML(product.name)}" onclick="openProduct('${escapeJS(product.id)}')">+</button>
-      </div>
-      <div class="product-meta">
-        <h3>${escapeHTML(product.name)}</h3>
-        <div class="product-price">${money(product.price)} ${product.old_price ? `<span class="product-old">${money(product.old_price)}</span>` : ""}</div>
-      </div>
-    </article>`;
-}
-
-function escapeHTML(value) {
-  return String(value ?? "").replace(/[&<>"']/g, char => ({
-    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
-  })[char]);
-}
-
-function escapeJS(value) {
-  return String(value ?? "").replace(/\\/g,"\\\\").replace(/'/g,"\\'");
-}
-
-function renderProductsInto(elementId) {
-  const container = document.getElementById(elementId);
-  if (!container) return;
-
-  const list = filteredProducts();
-  if (!list.length) {
-    container.innerHTML = '<div class="empty-state">No products found. Try another search.</div>';
+/* LOAD PRODUCTS FROM SUPABASE */
+async function loadProducts(){
+  if(!supabaseClient){
+    renderProducts();
     return;
   }
 
-  container.classList.remove("animate-grid");
-  container.innerHTML = list.map((product,index) => productCard(product,index)).join("");
-
-  void container.offsetWidth;
-  container.classList.add("animate-grid");
-}
-
-function renderProducts() {
-  renderProductsInto("homeProducts");
-  renderProductsInto("collectionProducts");
-  renderProductsInto("exploreProducts");
-}
-
-function renderAllProducts() {
-  activeCategory = "All";
-  renderProducts();
-}
-
-function openProduct(id) {
-  currentProduct = products.find(product => String(product.id) === String(id));
-  if (!currentProduct) return;
-
-  const images = currentProduct.images?.length
-    ? currentProduct.images
-    : [currentProduct.image_url];
-
-  document.getElementById("detailImage").src = safeImage(images[0]);
-  document.getElementById("detailTitle").textContent = currentProduct.name;
-  document.getElementById("detailPrice").innerHTML =
-    `${money(currentProduct.price)} ${currentProduct.old_price ? `<span class="product-old">${money(currentProduct.old_price)}</span>` : ""}`;
-
-  document.getElementById("detailThumbs").innerHTML = images.map((image,index) =>
-    `<img src="${safeImage(image)}" alt="Product view ${index+1}" class="${index===0?"selected":""}" onclick="changeDetailImage(this,'${escapeJS(image)}')">`
-  ).join("");
-
-  document.getElementById("detailAdd").onclick = () => {
-    addToCart(currentProduct.id);
-    closeOverlay("productOverlay");
-  };
-
-  document.getElementById("detailBuy").onclick = () => {
-    addToCart(currentProduct.id);
-    closeOverlay("productOverlay");
-    openCart();
-  };
-
-  openOverlay("productOverlay");
-}
-
-function changeDetailImage(element,url) {
-  document.getElementById("detailImage").src = url;
-  document.querySelectorAll("#detailThumbs img").forEach(image => image.classList.remove("selected"));
-  element.classList.add("selected");
-}
-
-function addToCart(id) {
-  const product = products.find(item => String(item.id) === String(id));
-  if (!product) return;
-
-  const existing = cart.find(item => String(item.id) === String(id));
-  if (existing) existing.quantity++;
-  else cart.push({...product,quantity:1});
-
-  updateCartCount();
-  showToast("Added to your cart ♡");
-}
-
-function updateCartCount() {
-  const count = cart.reduce((sum,item) => sum + item.quantity,0);
-  document.getElementById("cartCount").textContent = count;
-}
-
-function cartTotal() {
-  return cart.reduce((sum,item) => sum + Number(item.price || 0) * item.quantity,0);
-}
-
-function openCart() {
-  renderCart();
-  openOverlay("cartOverlay");
-}
-
-function renderCart() {
-  const container = document.getElementById("cartItems");
-
-  if (!cart.length) {
-    container.innerHTML = '<div class="empty-state">Your cart is waiting for something lovely. ♡</div>';
-  } else {
-    container.innerHTML = cart.map(item => `
-      <div class="cart-row">
-        <img src="${safeImage(item.image_url)}" alt="${escapeHTML(item.name)}">
-        <div>
-          <strong>${escapeHTML(item.name)}</strong>
-          <small>${money(item.price)}</small>
-          <div class="qty">
-            <button onclick="changeQuantity('${escapeJS(item.id)}',-1)">−</button>
-            <span>${item.quantity}</span>
-            <button onclick="changeQuantity('${escapeJS(item.id)}',1)">+</button>
-          </div>
-          <button class="remove" onclick="removeFromCart('${escapeJS(item.id)}')">Remove</button>
-        </div>
-        <strong>${money(item.price * item.quantity)}</strong>
-      </div>`).join("");
-  }
-
-  document.getElementById("cartTotal").textContent = money(cartTotal());
-  updateCartCount();
-}
-
-function changeQuantity(id,amount) {
-  const item = cart.find(product => String(product.id) === String(id));
-  if (!item) return;
-  item.quantity += amount;
-  if (item.quantity <= 0) cart = cart.filter(product => String(product.id) !== String(id));
-  renderCart();
-}
-
-function removeFromCart(id) {
-  cart = cart.filter(product => String(product.id) !== String(id));
-  renderCart();
-}
-
-function openCheckout() {
-  if (!cart.length) {
-    showToast("Your cart is empty");
-    return;
-  }
-  closeOverlay("cartOverlay");
-  openOverlay("checkoutOverlay");
-}
-
-function openOverlay(id) {
-  document.getElementById(id).classList.add("open");
-  document.body.style.overflow = "hidden";
-}
-
-function closeOverlay(id) {
-  document.getElementById(id).classList.remove("open");
-  if (!document.querySelector(".overlay.open")) document.body.style.overflow = "";
-}
-
-function outsideClose(event,id) {
-  if (event.target.id === id) closeOverlay(id);
-}
-
-document.getElementById("checkoutForm").addEventListener("submit",function(event) {
-  event.preventDefault();
-
-  if (!cart.length) {
-    showToast("Your cart is empty");
-    return;
-  }
-
-  const name = document.getElementById("customerName").value.trim();
-  const phone = document.getElementById("customerPhone").value.trim();
-  const address = document.getElementById("customerAddress").value.trim();
-  const note = document.getElementById("customerNote").value.trim();
-
-  const orderLines = cart.map(item =>
-    `• ${item.name} x ${item.quantity} — ${money(item.price * item.quantity)}`
-  ).join("\n");
-
-  const message =
-`Hello Stephenie Nova! I would like to place an order.
-
-CUSTOMER DETAILS
-Name: ${name}
-Phone: ${phone}
-Delivery address: ${address}
-${note ? "Additional information: " + note : ""}
-
-ORDER
-${orderLines}
-
-Subtotal: ${money(cartTotal())}
-
-Please confirm delivery fee and payment instructions. Thank you!`;
-
-  const whatsappURL = "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(message);
-  window.open(whatsappURL,"_blank");
-
-  closeOverlay("checkoutOverlay");
-  openOverlay("successOverlay");
-  cart = [];
-  updateCartCount();
-  document.getElementById("checkoutForm").reset();
-});
-
-async function loadProducts() {
-  if (!supabaseClient) {
-    renderAllProducts();
-    return;
-  }
-
-  try {
-    const {data,error} = await supabaseClient
+  try{
+    const {data,error}=await supabaseClient
       .from("products")
       .select("*")
       .eq("available",true)
       .order("created_at",{ascending:false});
 
-    if (error) throw error;
+    if(error) throw error;
 
-    if (Array.isArray(data) && data.length) {
-      products = data.map((item,index) => ({
-        ...item,
-        id:item.id ?? `supabase-${index}`,
-        name:item.name || item.title || "Nova favourite",
-        price:Number(item.price || 0),
-        old_price:Number(item.old_price || 0),
-        image_url:item.image_url || item.images?.[0] || "",
-        images:Array.isArray(item.images) && item.images.length
-          ? item.images
-          : [item.image_url].filter(Boolean),
-        category:item.category || "Bags"
-      }));
-    } else {
-      products = [...starterProducts];
+    if(data && data.length){
+      const mapped=data.map(item=>{
+        let imageList=Array.isArray(item.images)?item.images:[];
+        if(typeof item.images==="string"){
+          try{imageList=JSON.parse(item.images)}catch(e){imageList=[]}
+        }
+        const mainImage=item.image_url || imageList[0] || "";
+        return {
+          id:item.id,
+          name:item.name || item.title || "Nova product",
+          category:item.category || "Other",
+          price:Number(item.price)||0,
+          old_price:Number(item.old_price)||0,
+          image_url:mainImage,
+          images:[...new Set([mainImage,...imageList].filter(Boolean))],
+          description:item.description || "A beautiful find from Stephenie Nova."
+        };
+      }).filter(item=>item.image_url);
+
+      // Keep the supplied starter products if the database returns no usable items.
+      if(mapped.length) products=mapped;
     }
-  } catch(error) {
-    console.warn("Could not load online products. Showing starter products.",error);
-    products = [...starterProducts];
+  }catch(error){
+    console.log("Using starter products:",error.message);
   }
 
-  renderAllProducts();
+  renderProducts();
 }
 
-document.getElementById("year").textContent = new Date().getFullYear();
+function productCard(product,index){
+  return `
+    <article class="product-card" style="animation-delay:${(index%6)*.06}s">
+      <div class="product-image-wrap" onclick="openProduct('${String(product.id).replace(/'/g,"\\'")}')">
+        <img src="${safeText(product.image_url)}" alt="${safeText(product.name)}" loading="lazy">
+        ${product.old_price>product.price?'<span class="sale-tag">SPECIAL PRICE</span>':''}
+      </div>
+      <div class="product-info">
+        <h3>${safeText(product.name)}</h3>
+        <div><span class="price">${money(product.price)}</span>
+        ${product.old_price>product.price?`<span class="old-price">${money(product.old_price)}</span>`:""}</div>
+        <button onclick="openProduct('${String(product.id).replace(/'/g,"\\'")}')">View product</button>
+      </div>
+    </article>`;
+}
 
-const brandIntro = document.getElementById("brand-intro");
-setTimeout(() => {
-  brandIntro.classList.add("leaving");
-  setTimeout(() => {
-    brandIntro.style.display = "none";
-  },900);
-},2000);
+function renderProducts(category=activeCategory){
+  const list=category==="All"?products:products.filter(p=>
+    String(p.category).toLowerCase().includes(category.toLowerCase())
+  );
 
+  const home=document.getElementById("homeProducts");
+  const collection=document.getElementById("collectionProducts");
+
+  if(home) home.innerHTML=products.slice(0,6).map(productCard).join("") ||
+    '<p class="muted">Products will appear here when available.</p>';
+
+  if(collection) collection.innerHTML=list.map(productCard).join("") ||
+    '<p class="muted">No products in this category yet.</p>';
+}
+
+function filterCategory(category,button){
+  activeCategory=category;
+  if(button){
+    document.querySelectorAll("#collections .option").forEach(b=>b.classList.remove("active"));
+    button.classList.add("active");
+  }
+  go("collections");
+  renderProducts(category);
+}
+
+/* PRODUCT DETAILS */
+function openProduct(id){
+  currentProduct=products.find(p=>String(p.id)===String(id));
+  if(!currentProduct) return;
+
+  currentImageIndex=0;
+  selectedColour="As pictured";
+  selectedSize="One size";
+
+  document.getElementById("modalName").textContent=currentProduct.name;
+  document.getElementById("modalPrice").textContent=money(currentProduct.price);
+  document.getElementById("modalOldPrice").textContent=
+    currentProduct.old_price>currentProduct.price?money(currentProduct.old_price):"";
+  document.getElementById("modalDescription").textContent=currentProduct.description || "";
+
+  document.querySelectorAll("#colourOptions .option").forEach((b,i)=>b.classList.toggle("active",i===0));
+  document.querySelectorAll("#sizeOptions .option").forEach((b,i)=>b.classList.toggle("active",i===0));
+
+  updateGallery();
+  document.getElementById("productOverlay").classList.add("show");
+  document.body.style.overflow="hidden";
+}
+
+function closeProduct(){
+  document.getElementById("productOverlay").classList.remove("show");
+  document.body.style.overflow="";
+}
+
+function updateGallery(){
+  if(!currentProduct) return;
+  const images=currentProduct.images?.length?currentProduct.images:[currentProduct.image_url];
+  document.getElementById("galleryImage").src=images[currentImageIndex];
+  document.getElementById("galleryCount").textContent=(currentImageIndex+1)+" / "+images.length;
+  document.getElementById("thumbnails").innerHTML=images.map((src,i)=>`
+    <img src="${safeText(src)}" class="${i===currentImageIndex?"active":""}"
+      onclick="setImage(${i})" alt="Product view ${i+1}">
+  `).join("");
+}
+
+function setImage(index){
+  if(!currentProduct) return;
+  const images=currentProduct.images?.length?currentProduct.images:[currentProduct.image_url];
+  currentImageIndex=(index+images.length)%images.length;
+  updateGallery();
+}
+
+function changeImage(direction){
+  setImage(currentImageIndex+direction);
+}
+
+function selectColour(button,colour){
+  selectedColour=colour;
+  document.querySelectorAll("#colourOptions .option").forEach(b=>b.classList.remove("active"));
+  button.classList.add("active");
+}
+
+function selectSize(button,size){
+  selectedSize=size;
+  document.querySelectorAll("#sizeOptions .option").forEach(b=>b.classList.remove("active"));
+  button.classList.add("active");
+}
+
+/* CART */
+function addToCart(){
+  if(!currentProduct) return;
+
+  const existing=cart.find(item=>
+    String(item.id)===String(currentProduct.id) &&
+    item.colour===selectedColour && item.size===selectedSize
+  );
+
+  if(existing) existing.quantity++;
+  else cart.push({
+    id:currentProduct.id,
+    name:currentProduct.name,
+    price:Number(currentProduct.price),
+    image:currentProduct.image_url,
+    colour:selectedColour,
+    size:selectedSize,
+    quantity:1
+  });
+
+  updateCartCount();
+  closeProduct();
+  alert("Added to your bag.");
+}
+
+function buyNow(){
+  addToCart();
+  go("bag");
+}
+
+function updateCartCount(){
+  const count=cart.reduce((sum,item)=>sum+item.quantity,0);
+  document.getElementById("cartCount").textContent=count;
+}
+
+function changeQuantity(index,amount){
+  if(!cart[index]) return;
+  cart[index].quantity+=amount;
+  if(cart[index].quantity<=0) cart.splice(index,1);
+  renderCart();
+  updateCartCount();
+}
+
+function removeItem(index){
+  cart.splice(index,1);
+  renderCart();
+  updateCartCount();
+}
+
+function cartSubtotal(){
+  return cart.reduce((sum,item)=>sum+item.price*item.quantity,0);
+}
+
+function renderCart(){
+  const container=document.getElementById("cartItems");
+  const summary=document.getElementById("cartSummary");
+
+  if(!cart.length){
+    summary.classList.add("hidden");
+    container.innerHTML=`
+      <div class="cart-empty">
+        <p style="font-size:35px">♡</p>
+        <h2>Your bag is waiting.</h2>
+        <p class="muted" style="font-size:12px">You haven't added anything yet.</p>
+        <button class="primary" onclick="go('collections')">Explore collections</button>
+      </div>`;
+    return;
+  }
+
+  summary.classList.remove("hidden");
+  container.innerHTML=cart.map((item,index)=>`
+    <div class="cart-row">
+      <img src="${safeText(item.image)}" alt="${safeText(item.name)}">
+      <div>
+        <h3>${safeText(item.name)}</h3>
+        <p>${money(item.price)}</p>
+        <p class="muted">Colour: ${safeText(item.colour)} · Size: ${safeText(item.size)}</p>
+        <div class="qty">
+          <button onclick="changeQuantity(${index},-1)">−</button>
+          <span>${item.quantity}</span>
+          <button onclick="changeQuantity(${index},1)">+</button>
+        </div>
+        <button class="remove" onclick="removeItem(${index})">Remove</button>
+      </div>
+      <strong style="font-size:12px">${money(item.price*item.quantity)}</strong>
+    </div>
+  `).join("");
+
+  document.getElementById("subtotal").textContent=money(cartSubtotal());
+  document.getElementById("cartTotal").textContent=money(cartSubtotal());
+}
+
+function updateCheckoutTotal(){
+  document.getElementById("checkoutSubtotal").textContent=money(cartSubtotal());
+}
+
+/* CHECKOUT AND ORDER */
+document.getElementById("checkoutForm").addEventListener("submit",function(event){
+  event.preventDefault();
+
+  if(!cart.length){
+    alert("Your bag is empty.");
+    go("collections");
+    return;
+  }
+
+  const formData=new FormData(event.target);
+  currentOrder={
+    name:formData.get("customerName"),
+    phone:formData.get("phone"),
+    address:formData.get("address"),
+    state:formData.get("state"),
+    note:formData.get("note"),
+    items:cart.map(item=>({...item})),
+    subtotal:cartSubtotal()
+  };
+
+  go("confirmation");
+});
+
+function sendOrderWhatsApp(){
+  if(!currentOrder) return;
+
+  const order=currentOrder;
+  let message="*STEPHENIE NOVA ORDER*%0A%0A";
+  message+="*Customer:* "+encodeURIComponent(order.name)+"%0A";
+  message+="*Phone:* "+encodeURIComponent(order.phone)+"%0A";
+  message+="*Address:* "+encodeURIComponent(order.address)+", "+encodeURIComponent(order.state)+"%0A";
+  if(order.note) message+="*Note:* "+encodeURIComponent(order.note)+"%0A";
+
+  message+="%0A*ORDER DETAILS*%0A";
+
+  order.items.forEach(item=>{
+    message+=encodeURIComponent(item.name)+" × "+item.quantity+
+      " — "+encodeURIComponent(money(item.price*item.quantity))+
+      "%0AColour: "+encodeURIComponent(item.colour)+
+      " | Size: "+encodeURIComponent(item.size)+"%0A";
+  });
+
+  message+="%0A*SUBTOTAL: "+encodeURIComponent(money(order.subtotal))+"*";
+  message+="%0A%0APlease confirm delivery fee and payment details.";
+
+  window.open("https://wa.me/"+WHATSAPP_NUMBER+"?text="+message,"_blank");
+}
+
+/* TOUCH SWIPE FOR PRODUCT GALLERY */
+let touchStartX=0;
+const gallery=document.querySelector(".gallery");
+
+gallery.addEventListener("touchstart",event=>{
+  touchStartX=event.changedTouches[0].screenX;
+},{passive:true});
+
+gallery.addEventListener("touchend",event=>{
+  const touchEndX=event.changedTouches[0].screenX;
+  const difference=touchEndX-touchStartX;
+  if(Math.abs(difference)>45){
+    changeImage(difference<0?1:-1);
+  }
+},{passive:true});
+
+/* START */
+renderProducts();
 loadProducts();
+
+setTimeout(()=>{
+  const intro=document.getElementById("intro");
+  if(intro) intro.remove();
+},2800);
 </script>
 </body>
 </html>
