@@ -1,992 +1,444 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#f9c4dc">
+<meta name="theme-color" content="#f8c6dc">
 <title>Stephenie Nova | For the It Girls</title>
-
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
-
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@500;600;700&family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
-:root {
-  --pink:#f5a9ca;
-  --light:#fff0f7;
-  --deep:#d94391;
-  --dark:#9e285f;
-  --text:#612344;
-  --white:#fffafd;
-}
-
-* {box-sizing:border-box;margin:0;padding:0}
-html {scroll-behavior:smooth}
-body {
-  background:var(--light);
-  color:var(--text);
-  font-family:'Nunito',sans-serif;
-  overflow-x:hidden;
-}
-button,a,input,textarea {font:inherit}
-button {cursor:pointer}
-a {text-decoration:none;color:inherit}
-img {max-width:100%;display:block}
-
-.leopard {
-  background-color:#f7b5d0;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='130' viewBox='0 0 150 130'%3E%3Cg fill='none' stroke='%23c92e7e' stroke-width='8' stroke-linecap='round'%3E%3Cpath d='M18 25 C23 9 44 7 53 19 C62 30 52 45 39 47 C29 49 21 42 23 34'/%3E%3Cpath d='M92 17 C105 4 125 13 126 28 C127 43 110 51 98 42 C91 37 91 28 98 23'/%3E%3Cpath d='M65 82 C70 65 91 61 102 73 C113 85 103 101 89 104 C77 106 67 98 70 89'/%3E%3Cpath d='M4 112 C13 99 30 100 37 112'/%3E%3Cpath d='M132 112 C139 100 148 102 154 111'/%3E%3C/g%3E%3C/svg%3E");
-  background-size:150px 130px;
-}
-
-.intro-screen {
-  position:fixed;inset:0;z-index:999;
-  display:flex;flex-direction:column;
-  align-items:center;justify-content:center;
-  text-align:center;background:#ffe2ef;overflow:hidden;
-  animation:introExit 1s ease 3.5s forwards;
-}
-.intro-screen h1 {
-  font-family:'Fredoka',sans-serif;
-  font-size:clamp(38px,9vw,75px);
-  color:var(--deep);position:relative;z-index:2;
-  animation:brandPop 1.4s ease both;
-}
-.intro-screen p {
-  font-family:'Baloo 2',sans-serif;font-size:17px;
-  letter-spacing:4px;color:var(--dark);
-  position:relative;z-index:2;
-  animation:fadeUp 1.5s ease .5s both;
-}
-.intro-decor {
-  font-size:27px;margin-top:20px;
-  animation:fadeUp 1.5s ease .8s both;
-  position:relative;z-index:2;
-}
-@keyframes brandPop {
-  from {opacity:0;transform:scale(.65) translateY(30px)}
-  to {opacity:1;transform:scale(1) translateY(0)}
-}
-@keyframes fadeUp {
-  from {opacity:0;transform:translateY(20px)}
-  to {opacity:1;transform:translateY(0)}
-}
-@keyframes introExit {to {opacity:0;visibility:hidden;pointer-events:none}}
-@keyframes float {
-  0%,100% {transform:translateY(0)}
-  50% {transform:translateY(-9px)}
-}
-@keyframes kissFloat {
-  0%,100% {transform:translateY(0) rotate(-5deg)}
-  50% {transform:translateY(-13px) rotate(5deg)}
-}
-
-.kiss-crop {
-  width:105px;height:75px;overflow:hidden;
-  position:absolute;pointer-events:none;
-  mix-blend-mode:multiply;
-  animation:kissFloat 4s ease-in-out infinite;
-}
-.kiss-crop img {position:absolute;width:115px;max-width:none;height:auto}
-.kiss-first img {top:-27px}
-.kiss-second img {top:-119px}
-.kiss-third img {top:-220px}
-.kiss-first {top:12%;left:7%}
-.kiss-second {bottom:13%;right:8%;animation-delay:1s}
-.kiss-third {top:18%;right:8%;animation-delay:2s}
-
-.announcement {
-  background:var(--dark);color:white;text-align:center;
-  padding:10px;font-size:12px;font-weight:800;letter-spacing:2px;
-}
-
-header {
-  background:#fffafd;padding:15px 5%;
-  display:flex;align-items:center;justify-content:space-between;
-  gap:12px;position:sticky;top:0;z-index:50;
-  border-bottom:2px solid #f8c9df;
-}
-.logo {
-  font-family:'Fredoka',sans-serif;
-  font-size:clamp(19px,4vw,30px);
-  font-weight:700;color:var(--dark);white-space:nowrap;
-}
-.logo span {color:var(--deep)}
-nav {display:flex;align-items:center;gap:20px;font-size:13px;font-weight:800}
-nav a:hover {color:var(--deep)}
-.cart-button {
-  background:var(--deep);color:white;border:0;
-  border-radius:30px;padding:11px 16px;
-  font-size:12px;font-weight:800;
-}
-
-.hero {
-  min-height:570px;padding:55px 7%;
-  display:grid;grid-template-columns:1fr 1fr;
-  align-items:center;gap:35px;background:#ffe7f1;position:relative;
-}
-.hero-copy {animation:fadeUp 1s ease .2s both}
-.eyebrow {color:var(--deep);font-weight:900;letter-spacing:3px;font-size:12px}
-.hero h1 {
-  font-family:'Fredoka',sans-serif;
-  font-size:clamp(43px,7vw,83px);
-  line-height:1.05;margin:20px 0;color:#8d2455;
-}
-.hero h1 span {color:var(--deep)}
-.hero p {font-size:15px;line-height:1.9;max-width:430px}
-.primary-button {
-  display:inline-block;margin-top:22px;padding:14px 26px;
-  background:var(--deep);color:white;border:0;border-radius:30px;
-  font-size:13px;font-weight:900;transition:.3s;
-}
-.primary-button:hover {background:var(--dark);transform:translateY(-3px)}
-.hero-art {
-  min-height:430px;display:flex;align-items:center;
-  justify-content:center;padding:15px;border:9px solid white;
-  outline:2px solid #e9a1c1;
-  animation:float 4s ease-in-out infinite;
-  position:relative;overflow:hidden;
-}
-.hero-art-inner {
-  background:#fff5faed;padding:20px 10px;width:100%;
-  min-height:390px;display:flex;flex-direction:column;
-  align-items:center;justify-content:center;text-align:center;
-}
-.doll-image {
-  height:340px;width:100%;object-fit:contain;margin:0 auto;
-  filter:drop-shadow(0 8px 8px #9e285f25);
-}
-.hero-art h2 {font-family:'Fredoka',sans-serif;font-size:30px;color:var(--dark);margin:8px 0}
-.hero-art p {font-size:11px;font-weight:900;letter-spacing:2px}
-
-.decor {font-size:25px;color:var(--deep);text-align:center;margin:12px 0}
-.leopard-band {height:45px;border-top:5px solid white;border-bottom:5px solid white}
-.section {padding:70px 6%}
-.section-heading {text-align:center;margin-bottom:35px}
-.section-heading h2 {
-  font-family:'Fredoka',sans-serif;font-size:clamp(30px,5vw,48px);
-  color:var(--dark);margin:12px 0;
-}
-.section-heading p {font-size:14px}
-
-.products {display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px}
-.product-card {
-  background:white;border:2px solid #f6c9dd;
-  border-radius:17px;padding:10px;overflow:hidden;transition:.3s;
-}
-.product-card:hover {transform:translateY(-6px);box-shadow:0 12px 30px #d9439120}
-.product-image {
-  width:100%;aspect-ratio:4/5;object-fit:cover;
-  background:#ffe5f0;border-radius:12px;cursor:pointer;
-}
-.product-info {padding:14px 5px 7px}
-.product-info h3 {font-family:'Fredoka',sans-serif;font-size:21px;color:var(--dark);margin-bottom:8px}
-.price {color:var(--deep);font-size:16px;font-weight:900}
-.old-price {color:#a98a9a;text-decoration:line-through;font-size:12px;margin-right:6px}
-.product-actions {display:flex;gap:7px;margin-top:14px}
-.product-actions button {
-  flex:1;padding:11px 4px;border:1px solid var(--deep);
-  border-radius:20px;background:white;color:var(--dark);
-  font-size:10px;font-weight:900;
-}
-.product-actions button:last-child {background:var(--deep);color:white}
-.product-actions button:active {transform:scale(.96)}
-
-.about {background:#ffe7f1;text-align:center}
-.about-inner {max-width:750px;margin:auto}
-.about h2,.contact h2 {
-  font-family:'Fredoka',sans-serif;color:var(--dark);
-  font-size:clamp(30px,5vw,45px);margin:15px 0;
-}
-.about p {font-size:15px;line-height:2}
-.benefits {display:grid;grid-template-columns:repeat(3,1fr);gap:15px;margin-top:35px}
-.benefit {background:white;border:1px solid #f4c4d9;border-radius:16px;padding:23px 10px}
-.benefit .icon {font-size:30px}
-.benefit h3 {font-family:'Fredoka',sans-serif;color:var(--deep);margin:8px 0}
-.benefit p {font-size:12px;line-height:1.6}
-
-.contact {text-align:center;padding:65px 6%}
-.contact p {font-size:14px;line-height:2}
-.whatsapp {
-  display:inline-block;margin-top:20px;background:#d94391;color:white;
-  padding:15px 27px;border-radius:30px;font-weight:900;font-size:13px;
-}
-footer {background:var(--dark);color:white;text-align:center;padding:35px 15px;line-height:2}
-footer h2 {font-family:'Fredoka',sans-serif;font-size:30px}
-
-.modal {
-  display:none;position:fixed;inset:0;background:#28101edb;
-  z-index:100;align-items:center;justify-content:center;padding:15px;
-}
-.modal.open {display:flex}
-.modal-box {
-  background:#fffafd;border:3px solid #f4bdd6;border-radius:20px;
-  width:min(650px,100%);max-height:90vh;overflow:auto;
-  padding:22px;position:relative;
-}
-.modal h2 {font-family:'Fredoka',sans-serif;color:var(--dark);font-size:27px;padding-right:30px}
-.close {
-  position:absolute;right:15px;top:10px;border:0;
-  background:none;color:var(--dark);font-size:30px;
-}
-.viewer-main {
-  width:100%;max-height:48vh;object-fit:contain;
-  margin:15px auto;background:#ffe5f0;border-radius:12px;
-}
-.thumbnails {display:flex;gap:10px;overflow-x:auto;margin:12px 0}
-.thumbnails img {
-  width:65px;height:70px;object-fit:cover;
-  border:2px solid transparent;border-radius:8px;cursor:pointer;
-}
-.thumbnails img.active {border-color:var(--deep)}
-
-.cart-list {margin-top:15px}
-.cart-item {
-  display:flex;align-items:center;gap:10px;
-  padding:13px 0;border-bottom:1px solid #f1cede;
-}
-.cart-item img {width:65px;height:70px;object-fit:cover;border-radius:8px}
-.cart-item-info {flex:1;min-width:0}
-.cart-item-info strong {font-size:13px}
-.cart-item-info small {display:block;color:var(--dark);margin-top:5px}
-.cart-item button {border:0;background:#ffe2ef;color:var(--dark);padding:7px;border-radius:7px;font-weight:900}
-.cart-total {font-size:20px;font-weight:900;color:var(--dark);text-align:right;margin:20px 0}
-.empty {text-align:center;padding:35px 5px;color:#a36b86}
-
-.checkout-intro {font-size:13px;line-height:1.8;margin:8px 0 18px}
-.checkout-summary {
-  background:#fff0f7;border:1px solid #f3bfd7;
-  border-radius:13px;padding:15px;margin:15px 0;
-}
-.checkout-summary h3 {font-family:'Fredoka',sans-serif;color:var(--dark);margin-bottom:10px}
-.checkout-summary p {font-size:13px;line-height:1.9}
-.checkout-total {
-  border-top:1px solid #eab4ce;margin-top:10px;padding-top:10px;
-  font-weight:900;color:var(--deep);font-size:17px;
-}
-.form-group {margin:14px 0}
-.form-group label {display:block;font-size:13px;font-weight:900;color:var(--dark);margin-bottom:6px}
-.form-group input,.form-group textarea {
-  width:100%;padding:13px;border:1.5px solid #edb4ce;
-  border-radius:10px;outline:none;background:white;color:var(--text);font-size:14px;
-}
-.form-group input:focus,.form-group textarea:focus {
-  border-color:var(--deep);box-shadow:0 0 0 3px #d9439115;
-}
-.form-group textarea {min-height:85px;resize:vertical}
-.payment-box {
-  background:#fff0f7;border:2px dashed #e49abe;
-  padding:17px;border-radius:14px;margin:20px 0;
-}
-.payment-box h3 {font-family:'Fredoka',sans-serif;font-size:20px;color:var(--dark);margin-bottom:10px}
-.payment-detail {
-  display:flex;justify-content:space-between;align-items:center;
-  gap:10px;padding:9px 0;border-bottom:1px solid #f1c8db;font-size:13px;
-}
-.payment-detail strong {color:var(--dark)}
-.copy-button {
-  border:0;background:var(--deep);color:white;border-radius:20px;
-  padding:8px 13px;font-size:11px;font-weight:900;white-space:nowrap;
-}
-.payment-note {font-size:12px;line-height:1.7;margin-top:12px}
-.transfer-confirm {display:flex;gap:10px;align-items:flex-start;font-size:12px;line-height:1.6;margin:15px 0}
-.transfer-confirm input {accent-color:var(--deep);margin-top:3px}
-.checkout-submit {width:100%;margin-top:12px}
-.small-note {font-size:11px;line-height:1.7;color:#9e6b83;margin-top:10px;text-align:center}
-
-.toast {
-  position:fixed;bottom:20px;left:50%;transform:translateX(-50%);
-  background:var(--dark);color:white;padding:13px 23px;
-  border-radius:30px;z-index:200;opacity:0;pointer-events:none;
-  transition:.3s;font-size:13px;font-weight:800;text-align:center;width:max-content;max-width:90%;
-}
-.toast.show {opacity:1}
-
-@media(max-width:850px) {
-  .products {grid-template-columns:repeat(2,minmax(0,1fr))}
-  .hero {grid-template-columns:1fr;padding:45px 6%}
-  .hero-art {min-height:350px}
-  nav {gap:10px}
-}
-@media(max-width:480px) {
-  header {padding:12px 3%;gap:7px}
-  .logo {font-size:19px}
-  nav {gap:9px}
-  nav a {font-size:10px}
-  .cart-button {padding:9px 10px;font-size:10px}
-  .section {padding:50px 4%}
-  .product-info h3 {font-size:18px}
-  .product-actions button {font-size:9px;padding:10px 2px}
-  .benefits {gap:8px}
-  .benefit {padding:17px 6px}
-  .benefit h3 {font-size:15px}
-  .benefit p {font-size:10px}
-  .cart-item {gap:6px}
-  .cart-item img {width:52px;height:60px}
-  .kiss-crop {width:75px;height:60px}
-  .kiss-crop img {width:90px}
-  .kiss-first img {top:-22px}
-  .kiss-second img {top:-94px}
-  .kiss-third img {top:-175px}
-  .kiss-first {left:2%;top:9%}
-  .kiss-second {right:2%;bottom:10%}
-  .kiss-third {right:2%;top:12%}
-  .hero-art-inner {min-height:320px}
-  .doll-image {height:285px}
-  .modal-box {padding:18px}
-  .payment-detail {font-size:12px}
-  .hero .primary-button {margin-right:5px}
-}
-@media(prefers-reduced-motion:reduce) {
-  *,*::before,*::after {
-    animation-duration:.01ms!important;
-    transition-duration:.01ms!important;
-    scroll-behavior:auto!important;
-  }
-}
-
-/* FULL-SCREEN STEPHENIE NOVA ENTRANCE */
-
-/* STEPHENIE NOVA DRAMATIC INTRO */
-.intro-screen {
-  position: fixed;
-  inset: 0;
-  width: 100%;
-  height: 100vh;
-  height: 100dvh;
-  z-index: 99999;
-  overflow: hidden;
-  background: #f5a9ca;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  animation: introExit 1s ease 5s forwards;
-}
-
-.intro-screen .nova-entrance-image {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  max-width: 100%;
-  object-fit: contain;
-  object-position: center;
-  opacity: 0;
-  transform: scale(.78) translateY(34px);
-  filter: blur(7px);
-  animation: novaDramaticEntrance 1.5s cubic-bezier(.16,1,.3,1) .15s forwards;
-}
-
-@keyframes novaDramaticEntrance {
-  0% {
-    opacity: 0;
-    transform: scale(.78) translateY(34px);
-    filter: blur(7px);
-  }
-  65% {
-    opacity: 1;
-    transform: scale(1.035) translateY(-3px);
-    filter: blur(0);
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1) translateY(0);
-    filter: blur(0);
-  }
-}
-
-@keyframes introExit {
-  to {
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-  }
-}
-
+:root{--pink:#ef9fc2;--pale:#fff4f8;--blush:#fbe2ed;--deep:#b83e78;--wine:#77254e;--ink:#402638;--white:#fffdfd;--line:#f0d1df;--muted:#947486}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:"DM Sans",sans-serif;background:var(--white);color:var(--ink);overflow-x:hidden}
+button,input,textarea,select{font:inherit}
+button{cursor:pointer}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid #d96c9e;outline-offset:3px}
+.hidden{display:none!important}
+.serif{font-family:"Playfair Display",serif}
+.announcement{background:var(--wine);color:white;text-align:center;padding:9px 12px;font-size:10px;font-weight:800;letter-spacing:2px}
+.screen{display:none;min-height:100vh;min-height:100dvh;animation:screenIn .55s ease both}
+.screen.active{display:block}
+@keyframes screenIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+@keyframes rise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+@keyframes softZoom{from{transform:scale(1.05);opacity:.65}to{transform:scale(1);opacity:1}}
+@keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+@keyframes shimmer{0%{background-position:150% 0}100%{background-position:-150% 0}}
+.pill{border:0;border-radius:999px;padding:13px 22px;background:var(--deep);color:white;font-size:11px;font-weight:800;letter-spacing:1.2px;transition:.25s}
+.pill:hover{background:var(--wine);transform:translateY(-2px)}
+.pill.light{background:white;color:var(--wine);border:1px solid var(--line)}
+.pill.outline{background:transparent;color:var(--wine);border:1px solid var(--deep)}
+.kicker{font-size:10px;letter-spacing:3px;font-weight:800;color:var(--deep);text-transform:uppercase}
+.section-title{font:600 clamp(28px,5vw,44px)/1.15 "Playfair Display",serif;color:var(--wine)}
+.section-sub{font-size:13px;color:var(--muted);line-height:1.8;margin-top:9px}
+.top-brand{font:600 24px "Playfair Display",serif;color:var(--wine);letter-spacing:-.5px}
+.top-brand span{color:var(--deep)}
+/* Welcome */
+#welcome{position:relative;background:#f9d9e7;overflow:hidden}
+.welcome-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 35%;animation:softZoom 1.2s ease both}
+.welcome-shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(57,20,39,.04) 25%,rgba(49,17,34,.68) 100%)}
+.welcome-content{position:absolute;left:0;right:0;bottom:0;text-align:center;color:white;padding:35px 22px max(45px,env(safe-area-inset-bottom))}
+.welcome-content .kicker{color:#ffeaf3}
+.welcome-content h1{font:600 clamp(38px,10vw,68px)/1.03 "Playfair Display",serif;margin:12px 0}
+.welcome-content p{font-size:13px;letter-spacing:1px;margin-bottom:22px}
+.welcome-content .pill{background:white;color:var(--wine);min-width:180px}
+.welcome-flower{position:absolute;top:8%;right:8%;font-size:35px;animation:floaty 4s ease-in-out infinite}
+/* Looks */
+#looks{background:var(--pale);padding:32px 18px 40px}
+.looks-head{text-align:center;max-width:480px;margin:10px auto 25px}
+.looks-head h1{font:600 clamp(31px,7vw,46px)/1.1 "Playfair Display",serif;color:var(--wine);margin:10px 0}
+.looks-grid{max-width:650px;margin:0 auto 25px;display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
+.looks-grid img{width:100%;aspect-ratio: .78;object-fit:cover;border-radius:13px;background:var(--blush);box-shadow:0 6px 20px #8b315414}
+.looks-grid img:first-child{grid-row:span 2;aspect-ratio:auto;height:100%}
+.looks-grid img:nth-child(4){grid-column:span 2;aspect-ratio:1.6}
+.looks-footer{text-align:center}
+/* Store shell */
+.store-header{position:sticky;top:0;z-index:30;background:#fffdfdf2;backdrop-filter:blur(14px);border-bottom:1px solid var(--line);padding:13px 5%;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.header-actions{display:flex;align-items:center;gap:9px}
+.icon-btn{border:1px solid var(--line);background:white;color:var(--wine);width:40px;height:40px;border-radius:50%;font-size:17px;position:relative}
+.cart-count{position:absolute;right:-4px;top:-5px;background:var(--deep);color:white;font-size:9px;min-width:17px;height:17px;border-radius:50%;display:grid;place-items:center;padding:0 4px}
+.search-wrap{padding:13px 5% 0;background:white}
+.search-box{width:100%;border:1px solid var(--line);border-radius:999px;padding:12px 17px;background:#fff8fb;color:var(--ink);font-size:12px}
+.store-nav{display:flex;gap:23px;overflow:auto;white-space:nowrap;padding:13px 5% 15px;font-size:11px;font-weight:800;color:var(--muted);background:white}
+.store-nav button{border:0;background:none;color:inherit}
+.store-nav button.active,.store-nav button:hover{color:var(--deep)}
+.page-panel{display:none;animation:rise .4s ease both}
+.page-panel.active{display:block}
+.home-hero{margin:12px 5% 28px;min-height:360px;border-radius:20px;overflow:hidden;position:relative;background:var(--blush)}
+.home-hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 38%}
+.home-hero:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(54,18,39,.62),rgba(54,18,39,.04))}
+.home-hero-copy{position:absolute;z-index:1;left:7%;bottom:9%;max-width:310px;color:white}
+.home-hero-copy .kicker{color:#ffe4ef}
+.home-hero-copy h1{font:600 clamp(34px,7vw,55px)/1.02 "Playfair Display",serif;margin:12px 0}
+.home-hero-copy p{font-size:12px;line-height:1.8;margin-bottom:15px}
+.block{padding:22px 5% 38px}
+.block-head{display:flex;align-items:end;justify-content:space-between;gap:15px;margin-bottom:18px}
+.text-link{border:0;background:none;color:var(--deep);font-size:11px;font-weight:800}
+.category-row{display:grid;grid-template-columns:repeat(4,1fr);gap:13px}
+.category-tile{text-align:center;border:0;background:none;color:var(--wine);font-size:11px;font-weight:800}
+.category-tile img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:50%;border:3px solid white;box-shadow:0 0 0 1px var(--line);margin-bottom:8px;background:var(--blush)}
+.product-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}
+.product-card{min-width:0}
+.product-card .photo{position:relative;background:var(--pale);border-radius:13px;overflow:hidden;aspect-ratio: .78}
+.product-card .photo img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+.product-card:hover .photo img{transform:scale(1.04)}
+.quick-add{position:absolute;bottom:9px;right:9px;border:0;border-radius:50%;width:36px;height:36px;background:white;color:var(--wine);font-size:20px;box-shadow:0 4px 12px #3b14251c}
+.product-meta{padding:10px 2px}
+.product-meta h3{font-size:12px;font-weight:700;margin-bottom:5px}
+.product-price{font-size:12px;font-weight:800;color:var(--deep)}
+.product-old{font-size:10px;color:#a88d9c;text-decoration:line-through;margin-left:5px}
+.collection-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.collection-card{border:0;background:var(--blush);padding:0;border-radius:14px;overflow:hidden;text-align:left;position:relative;min-height:220px}
+.collection-card img{width:100%;height:100%;min-height:220px;object-fit:cover;transition:.4s}
+.collection-card span{position:absolute;bottom:0;left:0;right:0;padding:35px 12px 13px;color:white;text-align:left;font:600 20px "Playfair Display",serif;background:linear-gradient(transparent,#341326a8)}
+.lookbook-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+.lookbook-card{border:0;padding:0;background:var(--blush);border-radius:14px;overflow:hidden;text-align:left}
+.lookbook-card img{width:100%;aspect-ratio:.78;object-fit:cover}
+.lookbook-card span{display:block;padding:11px;font:600 16px "Playfair Display",serif;color:var(--wine)}
+.explore-grid{columns:2;column-gap:10px}
+.explore-grid img{width:100%;border-radius:12px;margin:0 0 10px;break-inside:avoid}
+.empty-state{text-align:center;padding:45px 12px;color:var(--muted);font-size:13px}
+/* bottom nav */
+.bottom-nav{position:sticky;bottom:0;z-index:25;background:#fffdfdf2;backdrop-filter:blur(14px);border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(5,1fr);padding:9px 3% max(9px,env(safe-area-inset-bottom))}
+.bottom-nav button{border:0;background:none;color:#a68b9a;font-size:9px;font-weight:700;display:grid;gap:4px;justify-items:center}
+.bottom-nav button b{font-size:19px;font-weight:400}
+.bottom-nav button.active{color:var(--deep)}
+/* overlays */
+.overlay{position:fixed;inset:0;z-index:80;background:#24101bd9;display:none;align-items:flex-end;justify-content:center;padding:0}
+.overlay.open{display:flex}
+.sheet{width:min(720px,100%);max-height:92vh;overflow:auto;background:white;border-radius:22px 22px 0 0;padding:22px 18px max(25px,env(safe-area-inset-bottom));animation:rise .3s ease both}
+.sheet-top{display:flex;justify-content:space-between;align-items:center;gap:15px;margin-bottom:14px}
+.sheet-top h2{font:600 25px "Playfair Display",serif;color:var(--wine)}
+.close-btn{border:0;background:var(--pale);width:35px;height:35px;border-radius:50%;font-size:21px;color:var(--wine)}
+.detail-image{width:100%;max-height:48vh;aspect-ratio:1/1;object-fit:contain;background:var(--pale);border-radius:15px}
+.thumb-row{display:flex;gap:8px;overflow:auto;margin:10px 0}
+.thumb-row img{width:60px;height:65px;object-fit:cover;border-radius:8px;border:2px solid transparent}
+.thumb-row img.selected{border-color:var(--deep)}
+.detail-title{font:600 25px "Playfair Display",serif;color:var(--wine);margin:15px 0 7px}
+.detail-description{font-size:12px;line-height:1.8;color:var(--muted);margin:12px 0}
+.detail-actions{display:flex;gap:10px;margin-top:17px}
+.detail-actions .pill{flex:1}
+.cart-row{display:grid;grid-template-columns:66px 1fr auto;gap:11px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}
+.cart-row img{width:66px;height:75px;object-fit:cover;border-radius:9px}
+.cart-row strong{font-size:12px}
+.cart-row small{display:block;color:var(--muted);font-size:11px;margin-top:5px}
+.qty{display:flex;align-items:center;gap:8px;margin-top:8px}
+.qty button{border:1px solid var(--line);background:var(--pale);border-radius:50%;width:25px;height:25px;color:var(--wine)}
+.remove{border:0;background:none;color:var(--deep);font-size:11px;margin-top:6px}
+.total-line{display:flex;justify-content:space-between;padding:17px 0;font-weight:800;color:var(--wine)}
+.form-field{margin:12px 0}
+.form-field label{display:block;font-size:11px;font-weight:800;color:var(--wine);margin-bottom:6px}
+.form-field input,.form-field textarea{width:100%;border:1px solid var(--line);border-radius:10px;padding:13px;font-size:13px;background:#fffafd;color:var(--ink)}
+.form-field textarea{min-height:75px;resize:vertical}
+.checkout-note{background:var(--pale);border-radius:12px;padding:13px;font-size:11px;line-height:1.7;color:var(--muted);margin:12px 0}
+.confirm-mark{width:70px;height:70px;border-radius:50%;background:#f9e4ee;color:var(--deep);display:grid;place-items:center;font-size:35px;margin:12px auto}
+.success{text-align:center;padding:18px 5px}
+.success h2{font:600 30px "Playfair Display",serif;color:var(--wine);margin:12px}
+.success p{font-size:13px;color:var(--muted);line-height:1.8;margin-bottom:20px}
+.toast{position:fixed;z-index:120;left:50%;bottom:90px;transform:translate(-50%,20px);opacity:0;pointer-events:none;background:var(--wine);color:white;padding:12px 19px;border-radius:999px;font-size:11px;font-weight:800;transition:.25s;white-space:nowrap}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+footer{background:var(--wine);color:white;text-align:center;padding:28px 15px;font-size:11px;line-height:2}
+footer strong{font:600 25px "Playfair Display",serif}
+@media(min-width:700px){.product-grid{grid-template-columns:repeat(4,minmax(0,1fr))}.home-hero{min-height:480px}.block{padding-left:7%;padding-right:7%}.category-row{max-width:650px}.sheet{border-radius:22px;margin:auto;max-height:88vh}.overlay{align-items:center;padding:20px}.looks-grid{gap:13px}.collection-grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:370px){.top-brand{font-size:20px}.category-row{gap:7px}.category-tile{font-size:10px}.store-nav{gap:17px}.welcome-content h1{font-size:36px}}
 </style>
 </head>
-
 <body>
+<div class="announcement">NATIONWIDE DELIVERY · BAGS · BEAUTY · CONFIDENCE</div>
 
-<div class="intro-screen">
-  <img
-    class="nova-entrance-image"
-    src="https://i.postimg.cc/tT3yYrLn/Stephenie-Nova-Luxe-Pink-Branding-3-2.png"
-    alt="Stephenie Nova"
-  >
-</div>
+<!-- SCREEN 1: BRAND WELCOME -->
+<section id="welcome" class="screen active">
+  <img class="welcome-photo" src="https://i.postimg.cc/mhj7Bf3s/18f72680e8ae11f19e90d72ab16a5841.png" alt="Stephenie Nova campaign">
+  <div class="welcome-shade"></div>
+  <div class="welcome-flower">✿</div>
+  <div class="welcome-content">
+    <div class="kicker">WELCOME TO</div>
+    <h1>Stephenie Nova</h1>
+    <p>Dress like it's already yours.</p>
+    <button class="pill" onclick="goScreen('looks')">GET STARTED&nbsp; ✧</button>
+  </div>
+</section>
 
-<header>
-  <a href="#home" class="logo">Stephenie <span>Nova</span> ♡</a>
-  <nav>
-    <a href="#home">Home</a>
-    <a href="#shop">Shop</a>
-    <a href="#about">About</a>
-    <a href="#contact">Contact</a>
-    <a href="game.html/game.html">Play Game 🎀</a>
+<!-- SCREEN 2: SIX-IMAGE BRAND COLLAGE -->
+<section id="looks" class="screen">
+  <div class="looks-head">
+    <div class="kicker">THE NOVA WORLD</div>
+    <h1>Looks you'll love,<br>styled by you.</h1>
+    <p class="section-sub">A little inspiration for your next favourite look.</p>
+  </div>
+  <div class="looks-grid">
+    <img src="https://i.postimg.cc/mhj7Bf3s/18f72680e8ae11f19e90d72ab16a5841.png" alt="Stephenie Nova campaign">
+    <img src="https://i.postimg.cc/8jgxQvb6/68-off-Select-Seasonal.jpg" alt="Style inspiration">
+    <img src="https://i.postimg.cc/DmXRM61F/Unknown-66.jpg" alt="Style inspiration">
+    <img src="https://i.postimg.cc/HjyFhzbx/Unknown-68.jpg" alt="Style inspiration">
+    <img src="https://i.postimg.cc/JtkS2xjh/Unknown-70.jpg" alt="Style inspiration">
+    <img src="https://i.postimg.cc/mhj7Bf3s/18f72680e8ae11f19e90d72ab16a5841.png" alt="Stephenie Nova style inspiration">
+  </div>
+  <div class="looks-footer"><button class="pill" onclick="enterStore()">CONTINUE TO THE STORE&nbsp; ♡</button></div>
+</section>
+
+<!-- MAIN STORE -->
+<section id="store" class="screen">
+  <header class="store-header">
+    <a class="top-brand" href="#" onclick="showPage('home');return false">Stephenie <span>Nova</span></a>
+    <div class="header-actions">
+      <button class="icon-btn" aria-label="Search" onclick="focusSearch()">⌕</button>
+      <button class="icon-btn" aria-label="Open cart" onclick="openCart()">♡<span class="cart-count" id="cartCount">0</span></button>
+    </div>
+  </header>
+  <div class="search-wrap"><input id="searchInput" class="search-box" placeholder="Search your next favourite thing..." oninput="renderProducts()"></div>
+  <nav class="store-nav">
+    <button class="active" data-page="home" onclick="showPage('home')">HOME</button>
+    <button data-page="collections" onclick="showPage('collections')">COLLECTIONS</button>
+    <button data-page="lookbook" onclick="showPage('lookbook')">LOOKBOOK</button>
+    <button data-page="explore" onclick="showPage('explore')">EXPLORE</button>
   </nav>
-  <button class="cart-button" onclick="openCart()">
-    ♡ Cart (<span id="cart-count">0</span>)
-  </button>
-</header>
 
-<main>
-<section class="hero" id="home">
-  <div class="hero-copy">
-    <div class="eyebrow">WELCOME TO STEPHENIE NOVA ✿</div>
-    <h1>For the girls who love <span>pretty things.</span></h1>
-    <p>
-      Beautiful bags, feminine details and little touches of luxury.
-      Find your next favourite bag at Stephenie Nova.
-    </p>
-    <a href="#shop" class="primary-button">SHOP THE COLLECTION ♡</a>
-    <a href="game.html/game.html" class="primary-button" style="background:#9e285f;margin-left:8px;">
-      PLAY GAME ♡
-    </a>
-    <div class="decor">🎀 ✨ 🌸 ♡</div>
-  </div>
-
-  <div class="hero-art leopard">
-    <div class="hero-art-inner">
-      <img class="doll-image" src="https://i.postimg.cc/L28pT03Z/IMG-5570.png" alt="Stephenie Nova Bratz doll">
-      <h2>Stephenie Nova</h2>
-      <p>BAGS • BEAUTY • CONFIDENCE</p>
+  <main>
+    <div id="page-home" class="page-panel active">
+      <section class="home-hero">
+        <img src="https://i.postimg.cc/mhj7Bf3s/18f72680e8ae11f19e90d72ab16a5841.png" alt="Stephenie Nova">
+        <div class="home-hero-copy">
+          <div class="kicker">FOR THE IT GIRLS</div>
+          <h1>Your style.<br>Your moment.</h1>
+          <p>Pretty finds, confident looks and little details that make an outfit yours.</p>
+          <button class="pill light" onclick="showPage('explore')">EXPLORE THE EDIT</button>
+        </div>
+      </section>
+      <section class="block">
+        <div class="block-head"><div><div class="kicker">FIND YOUR FAVOURITE</div><h2 class="section-title">Shop by category</h2></div></div>
+        <div class="category-row">
+          <button class="category-tile" onclick="filterCategory('Bags')"><img src="https://i.postimg.cc/8jgxQvb6/68-off-Select-Seasonal.jpg" alt=""><span>Bags</span></button>
+          <button class="category-tile" onclick="filterCategory('Clothes')"><img src="https://i.postimg.cc/DmXRM61F/Unknown-66.jpg" alt=""><span>Clothes</span></button>
+          <button class="category-tile" onclick="filterCategory('Shoes')"><img src="https://i.postimg.cc/HjyFhzbx/Unknown-68.jpg" alt=""><span>Shoes</span></button>
+          <button class="category-tile" onclick="filterCategory('Beauty')"><img src="https://i.postimg.cc/JtkS2xjh/Unknown-70.jpg" alt=""><span>Beauty</span></button>
+        </div>
+      </section>
+      <section class="block">
+        <div class="block-head"><div><div class="kicker">THE CURRENT FAVOURITES</div><h2 class="section-title">Trending now</h2></div><button class="text-link" onclick="showPage('explore')">VIEW ALL →</button></div>
+        <div class="product-grid" id="homeProducts"><div class="empty-state">Loading the Nova collection...</div></div>
+      </section>      <section class="block" style="background:var(--pale)">
+        <div class="block-head"><div><div class="kicker">A LITTLE INSPIRATION</div><h2 class="section-title">The Nova edit</h2></div><button class="text-link" onclick="showPage('lookbook')">SEE LOOKS →</button></div>
+        <div class="lookbook-grid">
+          <button class="lookbook-card" onclick="showPage('lookbook')"><img src="https://i.postimg.cc/8jgxQvb6/68-off-Select-Seasonal.jpg" alt=""><span>Pretty everyday moments</span></button>
+          <button class="lookbook-card" onclick="showPage('lookbook')"><img src="https://i.postimg.cc/JtkS2xjh/Unknown-70.jpg" alt=""><span>Little details, big energy</span></button>
+        </div>
+      </section>
     </div>
-  </div>
-</section>
 
-<div class="leopard-band leopard"></div>
-
-<section class="section" id="shop">
-  <div class="section-heading">
-    <div class="eyebrow">THE NOVA COLLECTION</div>
-    <h2>Shop Our Bags ♡</h2>
-    <p>A little something pretty for every outfit.</p>
-    <div class="decor">🌸 ✿ 🎀</div>
-  </div>
-  <div class="products" id="products"></div>
-</section>
-
-<div class="leopard-band leopard"></div>
-
-<section class="section about" id="about">
-  <div class="about-inner">
-    <div class="decor">🌸</div>
-    <div class="eyebrow">A LITTLE ABOUT US</div>
-    <h2>Welcome to our world ♡</h2>
-    <p>
-      Stephenie Nova is all about beautiful bags and the little details
-      that make an outfit feel special. We believe every girl deserves
-      to carry something she loves.
-    </p>
-    <div class="benefits">
-      <div class="benefit">
-        <div class="icon">🎀</div>
-        <h3>Pretty Finds</h3>
-        <p>Lovely bags for your collection.</p>
-      </div>
-      <div class="benefit">
-        <div class="icon">💗</div>
-        <h3>Easy Orders</h3>
-        <p>Simple ordering and payment.</p>
-      </div>
-      <div class="benefit">
-        <div class="icon">🌸</div>
-        <h3>Nationwide</h3>
-        <p>Delivery across Nigeria.</p>
-      </div>
+    <div id="page-collections" class="page-panel">
+      <section class="block">
+        <div class="kicker">CURATED FOR YOU</div><h1 class="section-title" style="margin:10px 0 22px">The collections</h1>
+        <div class="collection-grid">
+          <button class="collection-card" onclick="filterCategory('Bags')"><img src="https://i.postimg.cc/8jgxQvb6/68-off-Select-Seasonal.jpg" alt=""><span>The bag edit</span></button>
+          <button class="collection-card" onclick="filterCategory('Clothes')"><img src="https://i.postimg.cc/DmXRM61F/Unknown-66.jpg" alt=""><span>Clothing mood</span></button>
+          <button class="collection-card" onclick="filterCategory('Shoes')"><img src="https://i.postimg.cc/HjyFhzbx/Unknown-68.jpg" alt=""><span>Step out pretty</span></button>
+          <button class="collection-card" onclick="filterCategory('Beauty')"><img src="https://i.postimg.cc/JtkS2xjh/Unknown-70.jpg" alt=""><span>Beauty favourites</span></button>
+        </div>
+      </section>
+      <section class="block"><div class="block-head"><h2 class="section-title">Shop the collection</h2></div><div class="product-grid" id="collectionProducts"></div></section>
     </div>
-  </div>
+
+    <div id="page-lookbook" class="page-panel">
+      <section class="block">
+        <div class="kicker">STYLE INSPIRATION</div><h1 class="section-title" style="margin:10px 0">The lookbook</h1>
+        <p class="section-sub" style="margin-bottom:22px">Save a little inspiration for your next outfit.</p>
+        <div class="lookbook-grid">
+          <button class="lookbook-card"><img src="https://i.postimg.cc/mhj7Bf3s/18f72680e8ae11f19e90d72ab16a5841.png" alt=""><span>The Stephenie Nova girl</span></button>
+          <button class="lookbook-card"><img src="https://i.postimg.cc/8jgxQvb6/68-off-Select-Seasonal.jpg" alt=""><span>Everyday pretty</span></button>
+          <button class="lookbook-card"><img src="https://i.postimg.cc/DmXRM61F/Unknown-66.jpg" alt=""><span>Soft girl energy</span></button>
+          <button class="lookbook-card"><img src="https://i.postimg.cc/HjyFhzbx/Unknown-68.jpg" alt=""><span>Made for the moment</span></button>
+          <button class="lookbook-card"><img src="https://i.postimg.cc/JtkS2xjh/Unknown-70.jpg" alt=""><span>Finishing touches</span></button>
+        </div>
+      </section>
+    </div>
+
+    <div id="page-explore" class="page-panel">
+      <section class="block">
+        <div class="kicker">DISCOVER SOMETHING LOVELY</div><h1 class="section-title" style="margin:10px 0 8px">Explore the store</h1>
+        <p class="section-sub" style="margin-bottom:22px">Find the pieces that feel like you.</p>
+        <div class="product-grid" id="exploreProducts"></div>
+      </section>
+    </div>
+  </main>
+
+  <nav class="bottom-nav">
+    <button class="active" data-page="home" onclick="showPage('home')"><b>⌂</b>Home</button>
+    <button data-page="collections" onclick="showPage('collections')"><b>▦</b>Collections</button>
+    <button data-page="lookbook" onclick="showPage('lookbook')"><b>♡</b>Lookbook</button>
+    <button data-page="explore" onclick="showPage('explore')"><b>⌕</b>Explore</button>
+    <button onclick="openCart()"><b>♧</b>Cart</button>
+  </nav>
+  <footer><strong>Stephenie Nova ♡</strong><br>For the it girls · Nationwide delivery<br>© 2026 Stephenie Nova</footer>
 </section>
 
-<div class="leopard-band leopard"></div>
-
-<section class="contact" id="contact">
-  <div class="decor">🌸 🎀 ✨</div>
-  <h2>Let's get you something pretty!</h2>
-  <p>Have a question or ready to order?<br>Send us a message on WhatsApp.</p>
-  <a class="whatsapp" href="https://wa.me/2349151863044" target="_blank">
-    CHAT WITH US ON WHATSAPP ♡
-  </a>
-</section>
-</main>
-
-<footer>
-  <h2>STEPHENIE NOVA ♡</h2>
-  <p>For the it girls ✿</p>
-  <p>Anambra State, Nigeria · Nationwide delivery</p>
-  <p>© 2026 Stephenie Nova. All rights reserved.</p>
-</footer>
-
-<div class="modal" id="viewer">
-  <div class="modal-box">
-    <button class="close" onclick="closeViewer()">×</button>
-    <h2 id="viewer-title"></h2>
-    <img class="viewer-main" id="viewer-main" src="" alt="Product photo">
-    <div class="thumbnails" id="thumbnails"></div>
-    <p id="viewer-price" class="price"></p>
-    <button class="primary-button" id="viewer-add">ADD TO CART ♡</button>
+<!-- PRODUCT DETAIL -->
+<div class="overlay" id="productOverlay" onclick="outsideClose(event,'productOverlay')">
+  <div class="sheet">
+    <div class="sheet-top"><h2>Product details</h2><button class="close-btn" onclick="closeOverlay('productOverlay')">×</button></div>
+    <img id="detailImage" class="detail-image" src="" alt="Product">
+    <div id="detailThumbs" class="thumb-row"></div>
+    <h2 id="detailName" class="detail-title"></h2>
+    <div id="detailPrice" class="product-price"></div>
+    <p id="detailDescription" class="detail-description"></p>
+    <div class="detail-actions"><button class="pill" onclick="addCurrentToCart()">ADD TO CART ♡</button><button class="pill outline" onclick="buyCurrentNow()">BUY NOW</button></div>
   </div>
 </div>
 
-<div class="modal" id="cart-modal">
-  <div class="modal-box">
-    <button class="close" onclick="closeCart()">×</button>
-    <h2>Your Shopping Cart ♡</h2>
-    <div class="cart-list" id="cart-list"></div>
-    <div class="cart-total" id="cart-total"></div>
-    <button class="primary-button" style="width:100%" onclick="checkout()">
-      PROCEED TO CHECKOUT ♡
-    </button>
+<!-- CART -->
+<div class="overlay" id="cartOverlay" onclick="outsideClose(event,'cartOverlay')">
+  <div class="sheet">
+    <div class="sheet-top"><h2>Your cart ♡</h2><button class="close-btn" onclick="closeOverlay('cartOverlay')">×</button></div>
+    <div id="cartItems"></div>
+    <div class="total-line"><span>Subtotal</span><span id="cartTotal">₦0</span></div>
+    <p class="checkout-note">Delivery fee will be confirmed using your delivery location before your order is finalised.</p>
+    <button class="pill" style="width:100%" onclick="startCheckout()">CONTINUE TO CHECKOUT</button>
   </div>
 </div>
 
-<div class="modal" id="checkout-modal">
-  <div class="modal-box">
-    <button class="close" onclick="closeCheckout()">×</button>
-    <h2>Complete Your Order ♡</h2>
-    <p class="checkout-intro">
-      Almost yours! Please enter your delivery details,
-      review your order and make your bank transfer.
-    </p>
-
-    <div class="checkout-summary">
-      <h3>Your Order 🎀</h3>
-      <div id="checkout-items"></div>
-      <div class="checkout-total" id="checkout-total"></div>
-      <p class="small-note">
-        Delivery charges will be confirmed based on your delivery address.
-      </p>
-    </div>
-
-    <form id="checkout-form" onsubmit="placeOrder(event)">
-      <div class="form-group">
-        <label for="customer-name">Full Name *</label>
-        <input type="text" id="customer-name" placeholder="Enter your full name" autocomplete="name" required>
-      </div>
-
-      <div class="form-group">
-        <label for="customer-state">State *</label>
-        <input type="text" id="customer-state" placeholder="Enter your state" required>
-      </div>
-
-      <div class="form-group">
-        <label for="customer-address">Delivery Address *</label>
-        <textarea id="customer-address" placeholder="Enter your complete delivery address" required></textarea>
-      </div>
-
-      <div class="form-group">
-        <label for="customer-phone">Calling Phone Number *</label>
-        <input type="tel" id="customer-phone" placeholder="Enter your active phone number" autocomplete="tel" required>
-      </div>
-
-      <div class="payment-box">
-        <h3>💗 Payment Details</h3>
-        <p class="checkout-intro">Please transfer your order amount to the account below.</p>
-
-        <div class="payment-detail">
-          <span>Bank</span>
-          <strong>OPay</strong>
-        </div>
-        <div class="payment-detail">
-          <span>Account Name</span>
-          <strong>Chiziterem Stephenie</strong>
-        </div>
-        <div class="payment-detail">
-          <span>Account Number</span>
-          <strong>9151863044</strong>
-        </div>
-
-        <button type="button" class="copy-button" onclick="copyAccount()">
-          COPY ACCOUNT NUMBER
-        </button>
-
-        <p class="payment-note">
-          Please transfer the exact order amount shown above.
-          Your order will be confirmed after payment has been checked.
-        </p>
-      </div>
-
-      <label class="transfer-confirm">
-        <input type="checkbox" id="transfer-confirm" required>
-        <span>
-          I have made the bank transfer and understand that my
-          payment must be verified before my order is confirmed.
-        </span>
-      </label>
-
-      <button type="submit" class="primary-button checkout-submit">
-        SUBMIT ORDER ON WHATSAPP ♡
-      </button>
-
-      <p class="small-note">
-        Your order details will be sent to Stephenie Nova on WhatsApp.
-        Please send your transfer receipt in the chat.
-      </p>
+<!-- CHECKOUT -->
+<div class="overlay" id="checkoutOverlay" onclick="outsideClose(event,'checkoutOverlay')">
+  <div class="sheet">
+    <div class="sheet-top"><h2>Checkout</h2><button class="close-btn" onclick="closeOverlay('checkoutOverlay')">×</button></div>
+    <p class="section-sub">Add your delivery details below. Your order will be sent to Stephenie Nova on WhatsApp.</p>
+    <div id="checkoutSummary" class="checkout-note"></div>
+    <form id="checkoutForm" onsubmit="placeOrder(event)">
+      <div class="form-field"><label for="buyerName">FULL NAME</label><input id="buyerName" autocomplete="name" required placeholder="Your full name"></div>
+      <div class="form-field"><label for="buyerPhone">PHONE NUMBER</label><input id="buyerPhone" type="tel" autocomplete="tel" required placeholder="Your active phone number"></div>
+      <div class="form-field"><label for="buyerState">STATE</label><input id="buyerState" required placeholder="Your state"></div>
+      <div class="form-field"><label for="buyerAddress">DELIVERY ADDRESS</label><textarea id="buyerAddress" required placeholder="Your full delivery address"></textarea></div>
+      <div class="checkout-note">After submitting, WhatsApp will open with your order summary. You can confirm delivery and payment details directly with the store.</div>
+      <button class="pill" style="width:100%" type="submit">PLACE ORDER ON WHATSAPP ♡</button>
     </form>
   </div>
 </div>
 
+<!-- ORDER CONFIRMATION -->
+<div class="overlay" id="successOverlay">
+  <div class="sheet success">
+    <div class="confirm-mark">✓</div>
+    <div class="kicker">ORDER MESSAGE PREPARED</div>
+    <h2>Thank you, it girl!</h2>
+    <p>Your WhatsApp order message has been prepared. Send it in the chat to complete your order with Stephenie Nova.</p>
+    <button class="pill" onclick="closeOverlay('successOverlay');showPage('home')">CONTINUE SHOPPING</button>
+  </div>
+</div>
 <div class="toast" id="toast">Added to cart ♡</div>
 
 <script>
-const products = [
-  {
-    id:1,
-    name:"Crossbody Chain Bag",
-    price:9500,
-    oldPrice:12500,
-    images:[
-      "https://i.postimg.cc/dh0nMqpj/IMG-5526.jpg",
-      "https://i.postimg.cc/MnGtkWNb/IMG-5527.jpg",
-      "https://i.postimg.cc/4Y3wCJqp/IMG-5528.jpg",
-      "https://i.postimg.cc/bsgLFGC9/IMG-5529.jpg"
-    ]
-  },
-  {
-    id:2,
-    name:"Shoulder Bag",
-    price:8500,
-    oldPrice:11500,
-    images:[
-      "https://i.postimg.cc/4xtMr9JF/IMG-5556.png"
-    ]
-  },
-  {
-    id:3,
-    name:"Luxury Coach Tote Bag",
-    price:13000,
-    oldPrice:16000,
-    images:[
-      "https://i.postimg.cc/grQ8HjwC/IMG-5550.jpg",
-      "https://i.postimg.cc/6TyCZnQm/IMG-5551.jpg"
-    ]
-  },
-  {
-    id:4,
-    name:"Fur Tote Bag",
-    price:7500,
-    oldPrice:10500,
-    images:[
-      "https://i.postimg.cc/h4kNMsnL/IMG-5555.png"
-    ]
-  }
-];
+/* IMPORTANT: This uses the SAME Supabase project as the admin dashboard. */
+const SUPABASE_URL = "https://cnkggilywausfgoacgva.supabase.co";
+const SUPABASE_KEY = "sb_publishable_znAq3vcHAmCeFh7JlujzvQ_YJjMByRU";
+const db = window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+const WHATSAPP_NUMBER = "2349151863044";
 
+let products = [];
 let cart = [];
 let currentProduct = null;
 
-function money(amount) {
-  return "₦" + amount.toLocaleString("en-NG");
+const fallbackProducts = [
+ {id:"demo-1",name:"Crossbody Chain Bag",price:9500,old_price:12500,category:"Bags",image_url:"https://i.postimg.cc/dh0nMqpj/IMG-5526.jpg",images:["https://i.postimg.cc/dh0nMqpj/IMG-5526.jpg","https://i.postimg.cc/MnGtkWNb/IMG-5527.jpg","https://i.postimg.cc/4Y3wCJqp/IMG-5528.jpg","https://i.postimg.cc/bsgLFGC9/IMG-5529.jpg"],description:"A pretty everyday bag to finish your look."},
+ {id:"demo-2",name:"Shoulder Bag",price:8500,old_price:11500,category:"Bags",image_url:"https://i.postimg.cc/4xtMr9JF/IMG-5556.png",images:["https://i.postimg.cc/4xtMr9JF/IMG-5556.png"],description:"A lovely shoulder bag for your collection."},
+ {id:"demo-3",name:"Luxury Coach Tote Bag",price:13000,old_price:16000,category:"Bags",image_url:"https://i.postimg.cc/grQ8HjwC/IMG-5550.jpg",images:["https://i.postimg.cc/grQ8HjwC/IMG-5550.jpg","https://i.postimg.cc/6TyCZnQm/IMG-5551.jpg"],description:"A spacious tote for everyday styling."},
+ {id:"demo-4",name:"Fur Tote Bag",price:7500,old_price:10500,category:"Bags",image_url:"https://i.postimg.cc/h4kNMsnL/IMG-5555.png",images:["https://i.postimg.cc/h4kNMsnL/IMG-5555.png"],description:"A soft statement piece for your outfit."}
+];
+
+function goScreen(id){
+ document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
+ document.getElementById(id).classList.add("active");
+ window.scrollTo(0,0);
 }
-
-function showToast(message) {
-  const toast = document.getElementById("toast");
-  toast.textContent = message;
-  toast.classList.add("show");
-  setTimeout(() => toast.classList.remove("show"),1800);
+function enterStore(){goScreen("store");showPage("home")}
+function showPage(page){
+ document.querySelectorAll(".page-panel").forEach(p=>p.classList.remove("active"));
+ const target=document.getElementById("page-"+page);
+ if(target)target.classList.add("active");
+ document.querySelectorAll("[data-page]").forEach(b=>b.classList.toggle("active",b.dataset.page===page));
+ window.scrollTo({top:0,behavior:"smooth"});
+ renderProducts();
 }
-
-function renderProducts() {
-  const container = document.getElementById("products");
-
-  container.innerHTML = products.map(product => `
-    <article class="product-card">
-      <img
-        class="product-image"
-        src="${product.images[0]}"
-        alt="${product.name}"
-        onclick='openViewer(${JSON.stringify(product.id)})'
-        onerror="this.alt='Image unavailable';"
-      >
-      <div class="product-info">
-        <h3>${product.name}</h3>
-        <div class="price">
-          <span class="old-price">${money(product.oldPrice)}</span>
-          ${money(product.price)}
-        </div>
-        <div class="product-actions">
-          <button onclick='openViewer(${JSON.stringify(product.id)})'>VIEW PRODUCT</button>
-          <button onclick='addToCart(${JSON.stringify(product.id)})'>ADD TO CART</button>
-        </div>
-      </div>
-    </article>
-  `).join("");
+function focusSearch(){document.getElementById("searchInput").focus();window.scrollTo({top:0,behavior:"smooth"})}
+function money(n){return "₦"+Number(n||0).toLocaleString("en-NG")}
+function safeText(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function productImages(p){let a=p.images;if(typeof a==="string"){try{a=JSON.parse(a)}catch(e){a=[]}}if(!Array.isArray(a))a=[];if(!a.length&&p.image_url)a=[p.image_url];return a.filter(Boolean)}
+function productCard(p){
+ const imgs=productImages(p),src=imgs[0]||p.image_url||"";
+ return `<article class="product-card"><div class="photo" onclick="openProduct('${String(p.id).replace(/'/g,"\\'")}')"><img src="${safeText(src)}" alt="${safeText(p.name)}" loading="lazy"><button class="quick-add" aria-label="Quick add" onclick="event.stopPropagation();quickAdd('${String(p.id).replace(/'/g,"\\'")}')">+</button></div><div class="product-meta" onclick="openProduct('${String(p.id).replace(/'/g,"\\'")}')"><h3>${safeText(p.name)}</h3><div class="product-price">${money(p.price)} ${p.old_price?`<span class="product-old">${money(p.old_price)}</span>`:""}</div></div></article>`;
 }
-
-
-function openViewer(id) {
-  currentProduct = products.find(p => p.id === id);
-  document.getElementById("viewer-title").textContent = currentProduct.name;
-  document.getElementById("viewer-price").textContent = money(currentProduct.price);
-  document.getElementById("viewer-main").src = currentProduct.images[0];
-
-  const thumbs = document.getElementById("thumbnails");
-  thumbs.innerHTML = currentProduct.images.map((src,index) => `
-    <img
-      src="${src}"
-      class="${index === 0 ? 'active' : ''}"
-      onclick="changeViewerImage('${src}',this)"
-      alt="Product view ${index+1}"
-    >
-  `).join("");
-
-  document.getElementById("viewer-add").onclick = () => {
-    addToCart(currentProduct.id);
-    closeViewer();
-  };
-
-  document.getElementById("viewer").classList.add("open");
+function renderProducts(){
+ const q=(document.getElementById("searchInput")?.value||"").trim().toLowerCase();
+ const filtered=products.filter(p=>(!q||(`${p.name} ${p.category||""} ${p.description||""}`).toLowerCase().includes(q))&&(!window.activeCategory||String(p.category||"").toLowerCase()===window.activeCategory.toLowerCase()));
+ const html=filtered.length?filtered.map(productCard).join():'<div class="empty-state">No products found in this collection just yet ♡</div>';
+ ["homeProducts","collectionProducts","exploreProducts"].forEach(id=>{const el=document.getElementById(id);if(el)el.innerHTML=html});
 }
-
-function changeViewerImage(src,element) {
-  document.getElementById("viewer-main").src = src;
-  document.querySelectorAll(".thumbnails img").forEach(img => img.classList.remove("active"));
-  element.classList.add("active");
+async function loadProducts(){
+ try{
+  const {data,error}=await db.from("products").select("*").eq("available",true).order("created_at",{ascending:false});
+  if(error)throw error;
+  products=(data||[]).map(p=>({...p,price:Number(p.price||0),old_price:Number(p.old_price||0)}));
+  if(!products.length)products=fallbackProducts;
+ }catch(e){console.warn("Product list could not be loaded:",e.message);products=fallbackProducts}
+ renderProducts();
 }
-
-function closeViewer() {
-  document.getElementById("viewer").classList.remove("open");
+function filterCategory(category){window.activeCategory=category;document.getElementById("searchInput").value="";showPage("explore");renderProducts();window.activeCategory=null}
+function findProduct(id){return products.find(p=>String(p.id)===String(id))}
+function openProduct(id){
+ currentProduct=findProduct(id);if(!currentProduct)return;
+ const imgs=productImages(currentProduct);
+ document.getElementById("detailImage").src=imgs[0]||currentProduct.image_url||"";
+ document.getElementById("detailName").textContent=currentProduct.name;
+ document.getElementById("detailPrice").innerHTML=money(currentProduct.price)+(currentProduct.old_price?` <span class="product-old">${money(currentProduct.old_price)}</span>`:"");
+ document.getElementById("detailDescription").textContent=currentProduct.description||"A lovely Stephenie Nova find, selected for your collection.";
+ document.getElementById("detailThumbs").innerHTML=imgs.map((src,i)=>`<img src="${safeText(src)}" class="${i===0?"selected":""}" onclick="changeDetailImage('${safeText(src)}',this)" alt="Product view ${i+1}">`).join("");
+ openOverlay("productOverlay");
 }
-
-function addToCart(id) {
-  const existing = cart.find(item => item.id === id);
-  if (existing) existing.quantity++;
-  else cart.push({id,quantity:1});
-  updateCart();
-  showToast("Added to your cart ♡");
+function changeDetailImage(src,el){document.getElementById("detailImage").src=src;document.querySelectorAll("#detailThumbs img").forEach(i=>i.classList.remove("selected"));el.classList.add("selected")}
+function addCurrentToCart(){if(currentProduct)addToCart(currentProduct.id);closeOverlay("productOverlay")}
+function buyCurrentNow(){if(currentProduct){addToCart(currentProduct.id);closeOverlay("productOverlay");openCart()}}
+function quickAdd(id){addToCart(id)}
+function addToCart(id){
+ const p=findProduct(id);if(!p)return;
+ const existing=cart.find(i=>String(i.id)===String(id));
+ if(existing)existing.quantity++;else cart.push({id,quantity:1});
+ saveCart();updateCartCount();toast("Added to your cart ♡");
 }
-
-function updateCart() {
-  const count = cart.reduce((sum,item) => sum + item.quantity,0);
-  document.getElementById("cart-count").textContent = count;
-
-  const list = document.getElementById("cart-list");
-  if (!cart.length) {
-    list.innerHTML = '<div class="empty">Your cart is empty ♡</div>';
-    document.getElementById("cart-total").textContent = "";
-    return;
-  }
-
-  list.innerHTML = cart.map(item => {
-    const product = products.find(p => p.id === item.id);
-    return `
-      <div class="cart-item">
-        <img src="${product.images[0]}" alt="${product.name}">
-        <div class="cart-item-info">
-          <strong>${product.name}</strong>
-          <small>${money(product.price)} × ${item.quantity}</small>
-          <small>Subtotal: ${money(product.price * item.quantity)}</small>
-        </div>
-        <button onclick="changeQuantity(${item.id},-1)">−</button>
-        <strong>${item.quantity}</strong>
-        <button onclick="changeQuantity(${item.id},1)">+</button>
-        <button onclick="removeItem(${item.id})">×</button>
-      </div>
-    `;
-  }).join("");
-
-  const total = cart.reduce((sum,item) => {
-    const product = products.find(p => p.id === item.id);
-    return sum + product.price * item.quantity;
-  },0);
-
-  document.getElementById("cart-total").textContent = "Total: " + money(total);
+function saveCart(){try{localStorage.setItem("sn_cart",JSON.stringify(cart))}catch(e){}}
+function restoreCart(){try{cart=JSON.parse(localStorage.getItem("sn_cart")||"[]")}catch(e){cart=[]}}
+function updateCartCount(){document.getElementById("cartCount").textContent=cart.reduce((n,i)=>n+i.quantity,0)}
+function cartTotal(){return cart.reduce((sum,i)=>{const p=findProduct(i.id);return sum+(p?p.price*i.quantity:0)},0)}
+function openCart(){renderCart();openOverlay("cartOverlay")}
+function renderCart(){
+ const el=document.getElementById("cartItems");
+ if(!cart.length){el.innerHTML='<div class="empty-state">Your cart is waiting for something pretty ♡</div>';document.getElementById("cartTotal").textContent=money(0);return}
+ el.innerHTML=cart.map(i=>{const p=findProduct(i.id);if(!p)return "";return `<div class="cart-row"><img src="${safeText(productImages(p)[0]||p.image_url||"")}" alt=""><div><strong>${safeText(p.name)}</strong><small>${money(p.price)} each</small><div class="qty"><button onclick="changeQty('${String(i.id).replace(/'/g,"\\'")}',-1)">−</button><span>${i.quantity}</span><button onclick="changeQty('${String(i.id).replace(/'/g,"\\'")}',1)">+</button></div></div><div><strong>${money(p.price*i.quantity)}</strong><br><button class="remove" onclick="removeCartItem('${String(i.id).replace(/'/g,"\\'")}')">Remove</button></div></div>`}).join("");
+ document.getElementById("cartTotal").textContent=money(cartTotal());
 }
-
-function changeQuantity(id,change) {
-  const item = cart.find(item => item.id === id);
-  if (!item) return;
-  item.quantity += change;
-  if (item.quantity <= 0) cart = cart.filter(item => item.id !== id);
-  updateCart();
+function changeQty(id,d){const i=cart.find(x=>String(x.id)===String(id));if(!i)return;i.quantity+=d;if(i.quantity<=0)cart=cart.filter(x=>String(x.id)!==String(id));saveCart();updateCartCount();renderCart()}
+function removeCartItem(id){cart=cart.filter(x=>String(x.id)!==String(id));saveCart();updateCartCount();renderCart()}
+function startCheckout(){if(!cart.length){toast("Your cart is empty ♡");return}closeOverlay("cartOverlay");document.getElementById("checkoutSummary").textContent=cart.map(i=>{const p=findProduct(i.id);return p?`${p.name} × ${i.quantity} — ${money(p.price*i.quantity)}`:""}).filter(Boolean).join(" · ")+" | Total: "+money(cartTotal());openOverlay("checkoutOverlay")}
+function placeOrder(e){
+ e.preventDefault();if(!cart.length)return;
+ const name=document.getElementById("buyerName").value.trim(),phone=document.getElementById("buyerPhone").value.trim(),state=document.getElementById("buyerState").value.trim(),address=document.getElementById("buyerAddress").value.trim();
+ let msg="HELLO STEPHENIE NOVA ♡\n\nI'd like to place an order.\n\nCUSTOMER DETAILS\nName: "+name+"\nPhone: "+phone+"\nState: "+state+"\nAddress: "+address+"\n\nORDER DETAILS\n";
+ cart.forEach(i=>{const p=findProduct(i.id);if(p)msg+=p.name+" × "+i.quantity+" — "+money(p.price*i.quantity)+"\n"});
+ msg+="\nSUBTOTAL: "+money(cartTotal())+"\nDelivery fee: Please confirm with me.\n\nThank you!";
+ const url="https://wa.me/"+WHATSAPP_NUMBER+"?text="+encodeURIComponent(msg);
+ closeOverlay("checkoutOverlay");
+ window.open(url,"_blank");
+ openOverlay("successOverlay");
+ cart=[];saveCart();updateCartCount();document.getElementById("checkoutForm").reset();
 }
-
-function removeItem(id) {
-  cart = cart.filter(item => item.id !== id);
-  updateCart();
-}
-
-function openCart() {
-  updateCart();
-  document.getElementById("cart-modal").classList.add("open");
-}
-
-function closeCart() {
-  document.getElementById("cart-modal").classList.remove("open");
-}
-
-function checkout() {
-  if (!cart.length) {
-    alert("Your cart is empty. Add a bag first ♡");
-    return;
-  }
-  closeCart();
-  renderCheckoutSummary();
-  document.getElementById("checkout-modal").classList.add("open");
-}
-
-function renderCheckoutSummary() {
-  const itemsContainer = document.getElementById("checkout-items");
-  itemsContainer.innerHTML = cart.map(item => {
-    const product = products.find(p => p.id === item.id);
-    return `<p>${product.name} × ${item.quantity} — ${money(product.price * item.quantity)}</p>`;
-  }).join("");
-
-  const total = cart.reduce((sum,item) => {
-    const product = products.find(p => p.id === item.id);
-    return sum + product.price * item.quantity;
-  },0);
-
-  document.getElementById("checkout-total").textContent = "Order Total: " + money(total);
-}
-
-function closeCheckout() {
-  document.getElementById("checkout-modal").classList.remove("open");
-}
-
-async function copyAccount() {
-  const accountNumber = "9151863044";
-  try {
-    await navigator.clipboard.writeText(accountNumber);
-    showToast("Account number copied ♡");
-  } catch(error) {
-    const temp = document.createElement("textarea");
-    temp.value = accountNumber;
-    document.body.appendChild(temp);
-    temp.select();
-    document.execCommand("copy");
-    temp.remove();
-    showToast("Account number copied ♡");
-  }
-}
-
-function placeOrder(event) {
-  event.preventDefault();
-
-  if (!cart.length) {
-    alert("Your cart is empty.");
-    closeCheckout();
-    return;
-  }
-
-  const name = document.getElementById("customer-name").value.trim();
-  const state = document.getElementById("customer-state").value.trim();
-  const address = document.getElementById("customer-address").value.trim();
-  const phone = document.getElementById("customer-phone").value.trim();
-  const transferred = document.getElementById("transfer-confirm").checked;
-
-  if (!name || !state || !address || !phone) {
-    alert("Please complete all your delivery details.");
-    return;
-  }
-
-  if (!transferred) {
-    alert("Please confirm your payment before submitting.");
-    return;
-  }
-
-  let message =
-    "HELLO STEPHENIE NOVA! 🎀\n\n" +
-    "I HAVE PLACED AN ORDER FROM YOUR WEBSITE.\n\n";
-
-  message +=
-    "CUSTOMER DETAILS\n" +
-    "Name: " + name + "\n" +
-    "State: " + state + "\n" +
-    "Delivery Address: " + address + "\n" +
-    "Phone Number: " + phone + "\n\n";
-
-  message += "ORDER DETAILS\n";
-
-  let total = 0;
-
-  cart.forEach(item => {
-    const product = products.find(p => p.id === item.id);
-    const subtotal = product.price * item.quantity;
-    total += subtotal;
-    message += product.name + " × " + item.quantity + " — " + money(subtotal) + "\n";
-  });
-
-  message +=
-    "\nORDER TOTAL: " + money(total) +
-    "\n\nPAYMENT METHOD: OPay Bank Transfer" +
-    "\nACCOUNT NUMBER: 9151863044" +
-    "\nACCOUNT NAME: Chiziterem Stephenie" +
-    "\n\nI HAVE MADE THE TRANSFER." +
-    "\nI WILL SEND MY PAYMENT RECEIPT HERE." +
-    "\n\nPlease confirm my order. Thank you! 💗";
-
-  const whatsappURL =
-    "https://wa.me/2349151863044?text=" + encodeURIComponent(message);
-
-  window.open(whatsappURL,"_blank");
-}
-
-document.querySelectorAll(".modal").forEach(modal => {
-  modal.addEventListener("click",event => {
-    if (event.target === modal) modal.classList.remove("open");
-  });
-});
-
-document.addEventListener("keydown",event => {
-  if (event.key === "Escape") {
-    document.querySelectorAll(".modal").forEach(modal => modal.classList.remove("open"));
-  }
-});
-
-renderProducts();
-updateCart();
+function openOverlay(id){document.getElementById(id).classList.add("open");document.body.style.overflow="hidden"}
+function closeOverlay(id){document.getElementById(id).classList.remove("open");if(!document.querySelector(".overlay.open"))document.body.style.overflow=""}
+function outsideClose(e,id){if(e.target.id===id)closeOverlay(id)}
+function toast(t){const el=document.getElementById("toast");el.textContent=t;el.classList.add("show");setTimeout(()=>el.classList.remove("show"),1900)}
+document.addEventListener("keydown",e=>{if(e.key==="Escape")document.querySelectorAll(".overlay.open").forEach(o=>closeOverlay(o.id))});
+restoreCart();updateCartCount();loadProducts();
 </script>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script>
-
-(async function () {
-  const db = window.supabase.createClient(
-    "https://cooqdliqzjbscfmtheaw.supabase.co",
-    "sb_publishable_lgD_zM6qWYok7MSSgnZ3bQ_N935oE5h"
-  );
-
-  const { data, error } = await db
-    .from("products")
-    .select("*")
-    .eq("available", true);
-
-  if (error) {
-    console.error("Could not load shop products:", error.message);
-    return;
-  }
-
-  if (!data || data.length === 0) return;
-
-  const updatedProducts = data.map(p => {
-    let images = p.images || [];
-
-    if (typeof images === "string") {
-      try {
-        images = JSON.parse(images);
-      } catch (e) {
-        images = [];
-      }
-    }
-
-    if (!Array.isArray(images)) images = [];
-    if (!images.length && p.image_url) images = [p.image_url];
-
-    return {
-      id: p.id,
-      name: p.name,
-      price: Number(p.price),
-      oldPrice: Number(p.old_price || 0),
-      images
-    };
-  });
-
-  products.splice(0, products.length, ...updatedProducts);
-  renderProducts();
-  updateCart();
-})();
-</script>
-
 </body>
 </html>
