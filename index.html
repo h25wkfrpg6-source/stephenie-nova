@@ -177,8 +177,7 @@ header{
 .home-hero:after{
   content:"";position:absolute;inset:0;
   background:linear-gradient(0deg,rgba(20,10,16,.65),transparent 75%);
-}
-.home-hero-copy{position:relative;z-index:1;color:white;padding:28px 22px;width:100%}
+}.home-hero-copy{position:relative;z-index:1;color:white;padding:28px 22px;width:100%}
 .home-hero-copy h1{
   font-family:'Playfair Display',serif;
   font-size:clamp(38px,10vw,60px);line-height:1.02;margin:10px 0;
@@ -358,622 +357,435 @@ footer p{font-size:9px;letter-spacing:2px;line-height:2;color:#816b76}
   .gallery-main{height:520px}
 }
 </style>
-</head>
-
-<body>
-<div id="app">
+</head><body>
 
 <div id="intro">
   <div class="intro-brand">
     <div class="intro-star">✦</div>
-    <h1>STEPHENIE NOVA</h1>
+    <h1>Stephenie Nova</h1>
     <p>FOR THE IT GIRLS</p>
-    <div class="intro-star">✧</div>
   </div>
 </div>
 
-<!-- CAMPAIGN OPENING -->
-<section id="campaign" class="screen campaign active">
-  <img src="https://i.postimg.cc/mhj7Bf3s/18f72680e8ae11f19e90d72ab16a5841.png" alt="Stephenie Nova campaign">
-  <div class="campaign-copy">
-    <p>THE STEPHENIE NOVA EXPERIENCE</p>
-    <h1 class="serif">A little more<br>you.</h1>
-    <p>BAGS • BEAUTY • CONFIDENCE</p>
-    <button class="primary" onclick="go('collage')">Discover the world of Nova</button>
-  </div>
-</section>
+<div id="app">
 
-<!-- INSPIRATION COLLAGE -->
-<section id="collage" class="screen collage-screen">
-  <p class="eyebrow">STEPHENIE NOVA PRESENTS</p>
-  <h1 class="section-title">The Nova Edit</h1>
-  <p class="muted" style="font-size:12px">A world of style, confidence and beautiful details.</p>
-  <div class="collage-grid">
-    <img src="https://i.postimg.cc/mhj7Bf3s/18f72680e8ae11f19e90d72ab16a5841.png" alt="Nova campaign">
-    <img src="https://i.postimg.cc/8jgxQvb6/68-off-Select-Seasonal.jpg" alt="Fashion inspiration">
-    <img src="https://i.postimg.cc/DmXRM61F/Unknown-66.jpg" alt="Fashion inspiration">
-    <img src="https://i.postimg.cc/HjyFhzbx/Unknown-68.jpg" alt="Fashion inspiration">
-    <img src="https://i.postimg.cc/JtkS2xjh/Unknown-70.jpg" alt="Fashion inspiration">
-  </div>
-  <p class="collage-caption">For the girls who make their own rules.</p>
-  <button class="primary" onclick="go('welcome')">Continue</button>
-</section>
-
-<!-- WELCOME -->
-<section id="welcome" class="screen welcome-screen">
-  <div class="welcome-card">
-    <p class="eyebrow">WELCOME TO</p>
-    <h1 class="serif">Stephenie<br><span style="color:var(--deep)">Nova</span></h1>
-    <p>Discover pieces that make every day feel a little more special. Your next favourite find starts here.</p>
-    <p class="eyebrow">BAGS • BEAUTY • CONFIDENCE</p>
-    <button class="primary" style="width:100%;margin-top:20px" onclick="go('store')">Enter the store</button>
-  </div>
-</section>
-
-<!-- MAIN STORE -->
-<section id="store" class="screen">
-  <header>
-    <div class="topline">Nationwide delivery · For the it girls</div>
-    <div class="header-inner">
-      <button class="icon-button" onclick="go('store')" aria-label="Home">⌂</button>
-      <div class="brand">Stephenie <span>Nova</span></div>
-      <div class="header-actions">
-        <button class="icon-button" onclick="go('explore')" aria-label="Explore">⌕</button>
-        <button class="icon-button" onclick="go('bag')" aria-label="Shopping bag">
-          ♡<span class="cart-count" id="cartCount">0</span>
-        </button>
-      </div>
-    </div>
-    <nav class="navbar">
-      <button class="selected" onclick="go('store')">Home</button>
-      <button onclick="go('collections')">Collections</button>
-      <button onclick="go('lookbook')">Lookbook</button>
-      <button onclick="go('explore')">Explore</button>
-    </nav>
-  </header>
-
-  <main class="store-content">
-    <div class="home-hero">
-      <img src="https://i.postimg.cc/mhj7Bf3s/18f72680e8ae11f19e90d72ab16a5841.png" alt="Stephenie Nova">
-      <div class="home-hero-copy">
-        <p>NEW SEASON · NEW ENERGY</p>
+  <!-- CAMPAIGN INTRO -->
+  <section id="campaign" class="screen active">
+    <div class="campaign">
+      <img src="https://i.postimg.cc/mhj7Bf3s/18f72680e8ae11f19e90d72ab16a5841.png" alt="Stephenie Nova campaign">
+      <div class="campaign-copy">
+        <p>WELCOME TO STEPHENIE NOVA</p>
         <h1>For the<br>It Girls.</h1>
         <p>BAGS • BEAUTY • CONFIDENCE</p>
-        <button class="primary" onclick="scrollToProducts()">Shop the collection</button>
+        <button class="primary" onclick="showScreen('collage')">Get Started</button>
       </div>
     </div>
+  </section>
 
-    <div class="marquee">STEPHENIE NOVA ✦ FOR THE IT GIRLS ✦ NATIONWIDE DELIVERY</div>
-
-    <section class="content-section">
-      <div class="section-head">
-        <div>
-          <p class="eyebrow">FIND YOUR FAVOURITE</p>
-          <h2 class="section-title">Shop by category</h2>
-        </div>
+  <!-- INSPIRATION COLLAGE -->
+  <section id="collage" class="screen">
+    <div class="collage-screen">
+      <p class="eyebrow">THE STEPHENIE NOVA WORLD</p>
+      <h1 class="section-title">A little inspiration.</h1>
+      <div class="collage-grid">
+        <img src="https://i.postimg.cc/mhj7Bf3s/18f72680e8ae11f19e90d72ab16a5841.png" alt="Style inspiration">
+        <img src="https://i.postimg.cc/8jgxQvb6/68-off-Select-Seasonal.jpg" alt="Style inspiration">
+        <img src="https://i.postimg.cc/DmXRM61F/Unknown-66.jpg" alt="Style inspiration">
+        <img src="https://i.postimg.cc/HjyFhzbx/Unknown-68.jpg" alt="Style inspiration">
+        <img src="https://i.postimg.cc/JtkS2xjh/Unknown-70.jpg" alt="Style inspiration">
+        <div class="collage-caption">Style is a statement.</div>
       </div>
-      <div class="category-grid">
-        <div class="category-tile" onclick="filterCategory('Bags')">
-          <img src="https://i.postimg.cc/VJffwpRQ/IMG-5526.jpg" alt="Bags">
-          <span>Bags</span>
-        </div>
-        <div class="category-tile" onclick="filterCategory('Clothes')">
-          <img src="https://i.postimg.cc/8jgxQvb6/68-off-Select-Seasonal.jpg" alt="Clothes">
-          <span>Clothes</span>
-        </div>
-        <div class="category-tile" onclick="filterCategory('Beauty')">
-          <img src="https://i.postimg.cc/DmXRM61F/Unknown-66.jpg" alt="Beauty">
-          <span>Beauty</span>
-        </div>
-        <div class="category-tile" onclick="filterCategory('Shoes')">
-          <img src="https://i.postimg.cc/HjyFhzbx/Unknown-68.jpg" alt="Shoes">
-          <span>Shoes</span>
-        </div>
-      </div>
-    </section>
+      <button class="primary" onclick="showScreen('welcome')">Continue</button>
+    </div>
+  </section>
 
-    <section class="content-section" id="featuredProducts">
-      <div class="section-head">
-        <div>
-          <p class="eyebrow">THE NOVA SELECTION</p>
-          <h2 class="section-title">Featured pieces</h2>
-        </div>
-        <button class="text-link" onclick="go('collections')">VIEW ALL</button>
-      </div>
-      <div id="homeProducts" class="product-grid"></div>
-    </section>
-
-    <section class="content-section" style="background:#f8e5ed;text-align:center">
-      <p class="eyebrow">YOUR STYLE, YOUR STORY</p>
-      <h2 class="section-title">The Nova girl.</h2>
-      <p class="muted" style="font-size:12px;line-height:1.8">Beautiful finds. Confident choices. A little touch of pink.</p>
-      <button class="secondary" onclick="go('lookbook')">Explore the lookbook</button>
-    </section>
-  </main>
-
-  <footer>
-    <div class="brand">Stephenie <span style="color:var(--deep)">Nova</span></div>
-    <p>FOR THE IT GIRLS<br>BAGS • BEAUTY • CONFIDENCE<br>NATIONWIDE DELIVERY</p>
-    <p>© 2026 STEPHENIE NOVA</p>
-  </footer>
-</section>
-
-<!-- COLLECTIONS -->
-<section id="collections" class="screen">
-  <header>
-    <div class="header-inner">
-      <button class="icon-button" onclick="go('store')">‹</button>
-      <div class="brand">The <span>Collections</span></div>
-      <button class="icon-button" onclick="go('bag')">♡</button>
-    </div>
-    <nav class="navbar">
-      <button onclick="go('store')">Home</button>
-      <button class="selected" onclick="go('collections')">Collections</button>
-      <button onclick="go('lookbook')">Lookbook</button>
-      <button onclick="go('explore')">Explore</button>
-    </nav>
-  </header>
-  <div class="page-wrap">
-    <div class="page-intro">
-      <p class="eyebrow">CURATED FOR YOU</p>
-      <h1 class="section-title">The Collections</h1>
-      <p class="muted" style="font-size:12px">Find something that feels like you.</p>
-    </div>
-    <div class="option-row" style="justify-content:center;margin-bottom:25px">
-      <button class="option active" onclick="filterCategory('All',this)">All</button>
-      <button class="option" onclick="filterCategory('Bags',this)">Bags</button>
-      <button class="option" onclick="filterCategory('Clothes',this)">Clothes</button>
-      <button class="option" onclick="filterCategory('Shoes',this)">Shoes</button>
-      <button class="option" onclick="filterCategory('Beauty',this)">Beauty</button>
-    </div>
-    <div id="collectionProducts" class="product-grid"></div>
-  </div>
-</section>
-
-<!-- LOOKBOOK -->
-<section id="lookbook" class="screen">
-  <header>
-    <div class="header-inner">
-      <button class="icon-button" onclick="go('store')">‹</button>
-      <div class="brand">Nova <span>Lookbook</span></div>
-      <button class="icon-button" onclick="go('bag')">♡</button>
-    </div>
-    <nav class="navbar">
-      <button onclick="go('store')">Home</button>
-      <button onclick="go('collections')">Collections</button>
-      <button class="selected" onclick="go('lookbook')">Lookbook</button>
-      <button onclick="go('explore')">Explore</button>
-    </nav>
-  </header>
-  <div class="page-wrap">
-    <div class="page-intro">
-      <p class="eyebrow">STYLE INSPIRATION</p>
-      <h1 class="section-title">The Nova Lookbook</h1>
-      <p class="muted" style="font-size:12px">A little inspiration for your next look.</p>
-    </div>
-    <div class="lookbook-grid">
-      <img src="https://i.postimg.cc/mhj7Bf3s/18f72680e8ae11f19e90d72ab16a5841.png" alt="Nova style">
-      <img src="https://i.postimg.cc/8jgxQvb6/68-off-Select-Seasonal.jpg" alt="Fashion inspiration">
-      <img src="https://i.postimg.cc/DmXRM61F/Unknown-66.jpg" alt="Fashion inspiration">
-      <img src="https://i.postimg.cc/HjyFhzbx/Unknown-68.jpg" alt="Fashion inspiration">
-      <img src="https://i.postimg.cc/JtkS2xjh/Unknown-70.jpg" alt="Fashion inspiration">
-    </div>
-    <div style="text-align:center;margin-top:30px">
-      <p class="eyebrow">MAKE IT YOURS</p>
-      <h2 class="section-title">Find your next favourite.</h2>
-      <button class="primary" onclick="go('collections')">Shop now</button>
-    </div>
-  </div>
-</section>
-
-<!-- EXPLORE -->
-<section id="explore" class="screen">
-  <header>
-    <div class="header-inner">
-      <button class="icon-button" onclick="go('store')">‹</button>
-      <div class="brand">Explore <span>Nova</span></div>
-      <button class="icon-button" onclick="go('bag')">♡</button>
-    </div>
-    <nav class="navbar">
-      <button onclick="go('store')">Home</button>
-      <button onclick="go('collections')">Collections</button>
-      <button onclick="go('lookbook')">Lookbook</button>
-      <button class="selected" onclick="go('explore')">Explore</button>
-    </nav>
-  </header>
-  <div class="page-wrap">
-    <div class="page-intro">
-      <p class="eyebrow">A LITTLE SOMETHING EXTRA</p>
-      <h1 class="section-title">Explore Nova</h1>
-    </div>
-    <div class="explore-card">
-      <img src="https://i.postimg.cc/mhj7Bf3s/18f72680e8ae11f19e90d72ab16a5841.png" alt="Stephenie Nova campaign">
-      <div>
-        <p class="eyebrow">THE BRAND</p>
-        <h3>For the It Girls</h3>
-        <p class="muted" style="font-size:12px;line-height:1.7">Stephenie Nova is about beautiful finds, confidence and expressing your own style.</p>
-      </div>
-    </div>
-    <div class="explore-card">
-      <img src="https://i.postimg.cc/VJffwpRQ/IMG-5526.jpg" alt="Nova bags">
-      <div>
-        <p class="eyebrow">SHOP THE EDIT</p>
-        <h3>Your next favourite bag</h3>
-        <button class="secondary" onclick="filterCategory('Bags')">Explore bags</button>
-      </div>
-    </div>
-    <div style="text-align:center;padding:25px 0">
-      <p class="eyebrow">NEED HELP?</p>
-      <h3 class="serif" style="font-size:25px">Let's talk.</h3>
-      <button class="primary" onclick="contactWhatsApp()">Contact us on WhatsApp</button>
-    </div>
-  </div>
-</section>
-
-<!-- SHOPPING BAG -->
-<section id="bag" class="screen">
-  <header>
-    <div class="header-inner">
-      <button class="icon-button" onclick="go('store')">‹</button>
-      <div class="brand">My <span>Bag</span></div>
-      <span></span>
-    </div>
-  </header>
-  <div class="page-wrap">
-    <p class="eyebrow">YOUR SELECTED PIECES</p>
-    <h1 class="section-title">My Bag</h1>
-    <div id="cartItems"></div>
-    <div id="cartSummary" class="hidden">
-      <div class="cart-summary">
-        <div class="summary-line"><span>Subtotal</span><strong id="subtotal">₦0</strong></div>
-        <div class="summary-line"><span>Delivery</span><span>Confirmed after checkout</span></div>
-        <div class="summary-line total"><span>Total</span><strong id="cartTotal">₦0</strong></div>
-      </div>
-      <button class="primary" style="width:100%" onclick="go('checkout')">Proceed to checkout</button>
-      <button class="secondary" style="width:100%;margin-top:10px" onclick="go('collections')">Continue shopping</button>
-    </div>
-  </div>
-</section>
-
-<!-- CHECKOUT -->
-<section id="checkout" class="screen">
-  <header>
-    <div class="header-inner">
-      <button class="icon-button" onclick="go('bag')">‹</button>
-      <div class="brand">Nova <span>Checkout</span></div>
-      <span></span>
-    </div>
-  </header>
-  <div class="page-wrap">
-    <p class="eyebrow">ALMOST YOURS</p>
-    <h1 class="section-title">Checkout</h1>
-    <div class="cart-summary">
-      <div class="summary-line"><span>Order subtotal</span><strong id="checkoutSubtotal">₦0</strong></div>
-      <div class="summary-line"><span>Delivery fee</span><span>To be confirmed</span></div>
-    </div>
-    <form class="checkout-form" id="checkoutForm">
-      <label>Full name
-        <input name="customerName" required placeholder="Your full name">
-      </label>
-      <label>Phone number
-        <input name="phone" required type="tel" placeholder="Your phone number">
-      </label>
-      <label>Delivery address
-        <textarea name="address" required placeholder="Enter your full delivery address"></textarea>
-      </label>
-      <label>State
-        <input name="state" required placeholder="Your state">
-      </label>
-      <label>Additional note (optional)
-        <textarea name="note" placeholder="Any extra delivery information?"></textarea>
-      </label>
-      <div class="payment-panel">
-        <p class="eyebrow">PAYMENT</p>
-        <h3>Bank transfer</h3>
-        <p style="font-size:12px;line-height:1.7">
-          Your order details will be sent to Stephenie Nova on WhatsApp.
-          Confirm the total delivery cost and bank transfer details with the store before making payment.
-        </p>
-        <p style="font-size:11px;font-weight:700">Please do not transfer money to unconfirmed account details.</p>
-      </div>
-      <button class="primary" type="submit" style="width:100%">Continue to order confirmation</button>
-    </form>
-  </div>
-</section>
-
-<!-- ORDER CONFIRMATION -->
-<section id="confirmation" class="screen">
-  <div class="confirmation">
-    <div class="check">✓</div>
-    <p class="eyebrow">THANK YOU FOR SHOPPING WITH US</p>
-    <h1 class="section-title">Your order is ready!</h1>
-    <p class="muted" style="font-size:13px;line-height:1.8;max-width:360px;margin:15px auto">
-      Your order details are ready to send to Stephenie Nova. Please confirm delivery and payment details with the store on WhatsApp.
-    </p>
-    <button class="primary" onclick="sendOrderWhatsApp()">Send order on WhatsApp</button>
-    <br>
-    <button class="secondary" style="margin-top:12px" onclick="go('store')">Back to the store</button>
-  </div>
-</section>
-
-<!-- PRODUCT DETAILS MODAL -->
-<div id="productOverlay" class="overlay" onclick="if(event.target===this)closeProduct()">
-  <div class="product-modal">
-    <button class="close" onclick="closeProduct()">×</button>
-    <div class="modal-layout">
-      <div>
-        <div class="gallery">
-          <img id="galleryImage" class="gallery-main" src="" alt="Product image">
-          <button class="gallery-arrow prev" onclick="changeImage(-1)">‹</button>
-          <button class="gallery-arrow next" onclick="changeImage(1)">›</button>
-          <span class="gallery-count" id="galleryCount">1 / 1</span>
-        </div>
-        <div class="thumbnails" id="thumbnails"></div>
-      </div>
-      <div class="modal-details">
+  <!-- WELCOME -->
+  <section id="welcome" class="screen">
+    <div class="welcome-screen">
+      <div class="welcome-card">
         <p class="eyebrow">STEPHENIE NOVA</p>
-        <h2 id="modalName"></h2>
-        <div><strong id="modalPrice"></strong> <span id="modalOldPrice" class="old-price"></span></div>
-        <p id="modalDescription" class="muted" style="font-size:12px;line-height:1.7;margin-top:15px"></p>
+        <h1 class="serif">Hello,<br>beautiful.</h1>
+        <p>Discover pieces that make every outfit feel special. Your next favourite look starts here.</p>
+        <p class="eyebrow">BAGS • BEAUTY • CONFIDENCE</p>
+        <button class="primary" onclick="showScreen('home')">Enter the store</button>
+      </div>
+    </div>
+  </section>
 
-        <p class="option-label">Colour</p>
-        <div class="option-row" id="colourOptions">
-          <button class="option active" onclick="selectColour(this,'As pictured')">As pictured</button>
-          <button class="option" onclick="selectColour(this,'Black')">Black</button>
-          <button class="option" onclick="selectColour(this,'Pink')">Pink</button>
-          <button class="option" onclick="selectColour(this,'Other')">Other</button>
+  <!-- MAIN STORE -->
+  <section id="home" class="screen">
+    <header>
+      <div class="header-inner">
+        <div class="brand">Stephenie <span>Nova</span></div>
+        <div class="header-actions">
+          <button class="icon-button" onclick="showScreen('cart')" aria-label="Cart">
+            ♡ <span class="cart-count" id="cartCount">0</span>
+          </button>
         </div>
+      </div>
+      <nav class="navbar">
+        <button class="selected" onclick="showSection('homeProducts',this)">Home</button>
+        <button onclick="showSection('collections',this)">Collections</button>
+        <button onclick="showSection('lookbook',this)">Lookbook</button>
+        <button onclick="showSection('explore',this)">Explore</button>
+      </nav>
+    </header>
 
-        <p class="option-label">Size</p>
-        <div class="option-row" id="sizeOptions">
-          <button class="option active" onclick="selectSize(this,'One size')">One size</button>
-          <button class="option" onclick="selectSize(this,'Small')">S</button>
-          <button class="option" onclick="selectSize(this,'Medium')">M</button>
-          <button class="option" onclick="selectSize(this,'Large')">L</button>
+    <main class="store-content" id="homeProducts">
+      <div class="home-hero">
+        <img src="https://i.postimg.cc/mhj7Bf3s/18f72680e8ae11f19e90d72ab16a5841.png" alt="Stephenie Nova">
+        <div class="home-hero-copy">
+          <p>YOUR STYLE. YOUR STORY.</p>
+          <h1>Made for<br>the It Girls.</h1>
+          <p>BAGS • BEAUTY • CONFIDENCE</p>
+          <button class="primary" onclick="document.getElementById('products').scrollIntoView({behavior:'smooth'})">Shop collection</button>
         </div>
+      </div>
 
-        <div class="modal-actions">
-          <button class="secondary" onclick="addToCart()">Add to bag</button>
-          <button class="primary" onclick="buyNow()">Buy now</button>
+      <div class="marquee">FOR THE IT GIRLS ✦ NATIONWIDE DELIVERY ✦ STEPHENIE NOVA</div>
+
+      <section class="content-section" id="collections">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">FIND YOUR FAVOURITE</p>
+            <h2 class="section-title">Shop by category</h2>
+          </div>
+        </div>
+        <div class="category-grid">
+          <div class="category-tile" onclick="filterProducts('Bags')">
+            <img src="https://i.postimg.cc/VJffwpRQ/IMG-5526.jpg" alt="Bags">
+            <span>Bags</span>
+          </div>
+          <div class="category-tile" onclick="filterProducts('Beauty')">
+            <img src="https://i.postimg.cc/rdWMNTyd/IMG-5550.jpg" alt="Beauty">
+            <span>Beauty</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="content-section" id="products">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">THE LATEST EDIT</p>
+            <h2 class="section-title">Our collection</h2>
+          </div>
+          <button class="text-link" onclick="filterProducts('All')">View all</button>
+        </div>
+        <div class="product-grid" id="productGrid"></div>
+      </section>
+
+      <section class="content-section" id="lookbook">
+        <div class="page-intro">
+          <p class="eyebrow">STYLE NOTES</p>
+          <h2 class="section-title">The lookbook</h2>
+        </div>
+        <div class="lookbook-grid">
+          <img src="https://i.postimg.cc/8jgxQvb6/68-off-Select-Seasonal.jpg" alt="Lookbook">
+          <img src="https://i.postimg.cc/DmXRM61F/Unknown-66.jpg" alt="Lookbook">
+          <img src="https://i.postimg.cc/HjyFhzbx/Unknown-68.jpg" alt="Lookbook">
+          <img src="https://i.postimg.cc/JtkS2xjh/Unknown-70.jpg" alt="Lookbook">
+        </div>
+      </section>
+
+      <section class="content-section" id="explore">
+        <div class="page-intro">
+          <p class="eyebrow">MORE TO LOVE</p>
+          <h2 class="section-title">Explore Nova</h2>
+        </div>
+        <div class="explore-card">
+          <img src="https://i.postimg.cc/mhj7Bf3s/18f72680e8ae11f19e90d72ab16a5841.png" alt="Stephenie Nova">
+          <div>
+            <h3>For the It Girls.</h3>
+            <p class="muted">A little confidence goes a long way. Find your next favourite piece at Stephenie Nova.</p>
+            <button class="primary" onclick="document.getElementById('products').scrollIntoView({behavior:'smooth'})">Shop now</button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="brand">Stephenie <span>Nova</span></div>
+      <p>FOR THE IT GIRLS<br>BAGS • BEAUTY • CONFIDENCE<br>NATIONWIDE DELIVERY</p>
+    </footer>
+  </section>
+
+  <!-- PRODUCT DETAILS -->
+  <div class="overlay" id="productOverlay" onclick="if(event.target===this)closeProduct()">
+    <div class="product-modal">
+      <button class="close" onclick="closeProduct()">×</button>
+      <div class="modal-layout">
+        <div>
+          <div class="gallery">
+            <img class="gallery-main" id="modalImage" src="" alt="Product image">
+            <button class="gallery-arrow prev" onclick="changeImage(-1)">‹</button>
+            <button class="gallery-arrow next" onclick="changeImage(1)">›</button>
+            <div class="gallery-count" id="galleryCount">1/1</div>
+          </div>
+          <div class="thumbnails" id="thumbnails"></div>
+        </div>
+        <div class="modal-details">
+          <p class="eyebrow">STEPHENIE NOVA COLLECTION</p>
+          <h2 id="modalName"></h2>
+          <p><strong id="modalPrice"></strong> <span class="old-price" id="modalOldPrice"></span></p>
+          <p class="muted">A beautiful addition to your collection.</p>
+          <p class="option-label">Colour</p>
+          <div class="option-row" id="colourOptions">
+            <button class="option active" onclick="chooseColour(this,'As pictured')">As pictured</button>
+          </div>
+          <p class="option-label">Quantity</p>
+          <div class="option-row">
+            <button class="option" onclick="changeModalQty(-1)">−</button>
+            <span id="modalQty">1</span>
+            <button class="option" onclick="changeModalQty(1)">+</button>
+          </div>
+          <div class="modal-actions">
+            <button class="primary" onclick="addToCart()">Add to cart</button>
+            <button class="secondary" onclick="buyNow()">Buy now</button>
+          </div>
         </div>
       </div>
     </div>
   </div>
+
+  <!-- CART -->
+  <section id="cart" class="screen">
+    <div class="page-wrap">
+      <button class="text-link" onclick="showScreen('home')">← Continue shopping</button>
+      <div class="page-intro">
+        <p class="eyebrow">YOUR SELECTION</p>
+        <h1 class="section-title">Your cart</h1>
+      </div>
+      <div id="cartItems"></div>
+      <div id="cartSummary"></div>
+    </div>
+  </section>
+
+  <!-- CHECKOUT -->
+  <section id="checkout" class="screen">
+    <div class="page-wrap">
+      <button class="text-link" onclick="showScreen('cart')">← Back to cart</button>
+      <div class="page-intro">
+        <p class="eyebrow">ALMOST YOURS</p>
+        <h1 class="section-title">Checkout</h1>
+      </div>
+      <form class="checkout-form" id="checkoutForm">
+        <label>Full name
+          <input id="customerName" required placeholder="Your full name">
+        </label>
+        <label>Phone number
+          <input id="customerPhone" type="tel" required placeholder="Your phone number">
+        </label>
+        <label>Delivery address
+          <textarea id="customerAddress" required placeholder="Enter your full delivery address"></textarea>
+        </label>
+        <label>State
+          <input id="customerState" required placeholder="Your state">
+        </label>
+        <label>Additional note (optional)
+          <textarea id="customerNote" placeholder="Any extra delivery information"></textarea>
+        </label>
+        <div class="payment-panel">
+          <h3>Payment by bank transfer</h3>
+          <p>Please contact us on WhatsApp for current payment details and confirmation before making a transfer.</p>
+          <p class="muted">Your order will be sent to our WhatsApp for confirmation.</p>
+        </div>
+        <button class="primary" type="submit">Send order on WhatsApp</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- ORDER CONFIRMATION -->
+  <section id="confirmation" class="screen">
+    <div class="page-wrap confirmation">
+      <div class="check">✓</div>
+      <p class="eyebrow">THANK YOU</p>
+      <h1 class="section-title">Your order is ready!</h1>
+      <p class="muted">Continue to WhatsApp to confirm your order with Stephenie Nova.</p>
+      <button class="primary" onclick="showScreen('home')">Back to store</button>
+    </div>
+  </section>
+
 </div>
 
-<!-- BOTTOM NAV -->
 <nav class="bottom-nav" id="bottomNav">
-  <button class="active" onclick="go('store')" data-nav="store"><span>⌂</span>Home</button>
-  <button onclick="go('collections')" data-nav="collections"><span>▦</span>Collections</button>
-  <button onclick="go('lookbook')" data-nav="lookbook"><span>♡</span>Lookbook</button>
-  <button onclick="go('explore')" data-nav="explore"><span>⌕</span>Explore</button>
-  <button onclick="go('bag')" data-nav="bag"><span>♧</span>My Bag</button>
+  <button class="active" onclick="showScreen('home')"><span>⌂</span>HOME</button>
+  <button onclick="showSection('collections',null);showScreen('home')"><span>◇</span>SHOP</button>
+  <button onclick="showSection('lookbook',null);showScreen('home')"><span>♡</span>LOOKBOOK</button>
+  <button onclick="showScreen('cart')"><span>▢</span>CART</button>
 </nav>
 
-</div>
-
 <script>
-/* ------------------------------------------
-   STEPHENIE NOVA STORE SETTINGS
-------------------------------------------- */
-
 const WHATSAPP_NUMBER = "2349151863044";
 
-const SUPABASE_URL = "https://cnkggilywausfgoacgva.supabase.co";
-const SUPABASE_KEY = "sb_publishable_znAq3vcHAmCeFh7JlujzvQ_YJjMByRU";
-
-let supabaseClient = null;
-try{
-  if(window.supabase){
-    supabaseClient = window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
-  }
-}catch(error){
-  console.log("Supabase connection unavailable.");
-}
-
-/* Starter products use only the supplied matching product images.
-   Other products can load from the Supabase products table. */
-
-const starterProducts = [
+const products = [
   {
-    id:"crossbody-chain",
+    id:1,
     name:"Crossbody Chain Bag",
-    category:"Bags",
     price:9500,
-    old_price:12500,
-    image_url:"https://i.postimg.cc/VJffwpRQ/IMG-5526.jpg",
+    oldPrice:12500,
+    category:"Bags",
     images:[
       "https://i.postimg.cc/VJffwpRQ/IMG-5526.jpg",
       "https://i.postimg.cc/qNJJrSG5/IMG-5527.jpg",
       "https://i.postimg.cc/K1GGbw5N/IMG-5528.jpg",
-      "https://i.postimg.cc/ppYWgRKQ/IMG-5529.jpg"
-    ],
-    description:"A stylish crossbody bag for everyday outfits."
+      "https://i.postimg.cc/ppYWgRKQ/IMG-5529.jpg",
+      "https://i.postimg.cc/fVzzspv2/IMG-5552.png",
+      "https://i.postimg.cc/G4LLRVjg/IMG-5553.png",
+      "https://i.postimg.cc/68WWKghH/IMG-5554.png"
+    ]
   },
   {
-    id:"shoulder-bag",
+    id:2,
     name:"Shoulder Bag",
-    category:"Bags",
     price:8500,
-    old_price:11500,
-    image_url:"https://i.postimg.cc/fVzzspv2/IMG-5552.png",
+    oldPrice:11500,
+    category:"Bags",
     images:[
       "https://i.postimg.cc/fVzzspv2/IMG-5552.png",
       "https://i.postimg.cc/G4LLRVjg/IMG-5553.png",
       "https://i.postimg.cc/68WWKghH/IMG-5554.png",
       "https://i.postimg.cc/HJJCsg8R/IMG-5556.png"
-    ],
-    description:"A versatile shoulder bag to complete your look."
+    ]
   },
   {
-    id:"coach-tote",
+    id:3,
     name:"Luxury Coach Tote Bag",
-    category:"Bags",
     price:13000,
-    old_price:16000,
-    image_url:"https://i.postimg.cc/rdWMNTyd/IMG-5550.jpg",
+    oldPrice:16000,
+    category:"Bags",
     images:[
       "https://i.postimg.cc/rdWMNTyd/IMG-5550.jpg",
       "https://i.postimg.cc/VSMmWwsd/IMG-5551.jpg",
       "https://i.postimg.cc/47gZ80n1/IMG-5555.png",
       "https://i.postimg.cc/GBYdxR34/IMG-5696.jpg"
-    ],
-    description:"A roomy tote with a polished everyday look."
+    ]
+  },
+  {
+    id:4,
+    name:"Fur Tote Bag",
+    price:7500,
+    oldPrice:10500,
+    category:"Bags",
+    images:[]
   }
 ];
 
-let products = [...starterProducts];
 let cart = [];
-let currentProduct = null;
-let currentImageIndex = 0;
+let activeProduct = null;
+let activeImage = 0;
+let modalQuantity = 1;
 let selectedColour = "As pictured";
-let selectedSize = "One size";
-let currentOrder = null;
-let activeCategory = "All";
 
 function money(value){
-  return "₦" + Number(value || 0).toLocaleString("en-NG");
+  return "₦" + Number(value).toLocaleString("en-NG");
 }
 
-function safeText(value){
-  return String(value ?? "").replace(/[&<>"']/g,char=>({
-    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
-  }[char]));
-}
+function showScreen(id){
+  document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
+  const screen = document.getElementById(id);
+  if(screen) screen.classList.add("active");
 
-function go(screenId){
-  document.querySelectorAll(".screen").forEach(screen=>screen.classList.remove("active"));
-  const target=document.getElementById(screenId);
-  if(target) target.classList.add("active");
-
-  const nav=document.getElementById("bottomNav");
-  nav.style.display=["store","collections","lookbook","explore","bag"].includes(screenId)?"flex":"none";
-
-  document.querySelectorAll(".bottom-nav button").forEach(button=>{
-    button.classList.toggle("active",button.dataset.nav===screenId);
-  });
-
-  if(screenId==="bag") renderCart();
-  if(screenId==="checkout") updateCheckoutTotal();
-
+  const nav = document.getElementById("bottomNav");
+  nav.style.display = id === "home" ? "flex" : "none";
   window.scrollTo({top:0,behavior:"instant"});
 }
 
-function scrollToProducts(){
-  document.getElementById("featuredProducts").scrollIntoView({behavior:"smooth"});
-}
+function showSection(id,button){
+  showScreen("home");
+  setTimeout(()=>{
+    const section = document.getElementById(id);
+    if(section) section.scrollIntoView({behavior:"smooth",block:"start"});
+  },80);
 
-function contactWhatsApp(){
-  window.open("https://wa.me/"+WHATSAPP_NUMBER,"_blank");
-}
-
-/* LOAD PRODUCTS FROM SUPABASE */
-async function loadProducts(){
-  if(!supabaseClient){
-    renderProducts();
-    return;
+  if(button){
+    document.querySelectorAll(".navbar button").forEach(b=>b.classList.remove("selected"));
+    button.classList.add("selected");
   }
-
-  try{
-    const {data,error}=await supabaseClient
-      .from("products")
-      .select("*")
-      .eq("available",true)
-      .order("created_at",{ascending:false});
-
-    if(error) throw error;
-
-    if(data && data.length){
-      const mapped=data.map(item=>{
-        let imageList=Array.isArray(item.images)?item.images:[];
-        if(typeof item.images==="string"){
-          try{imageList=JSON.parse(item.images)}catch(e){imageList=[]}
-        }
-        const mainImage=item.image_url || imageList[0] || "";
-        return {
-          id:item.id,
-          name:item.name || item.title || "Nova product",
-          category:item.category || "Other",
-          price:Number(item.price)||0,
-          old_price:Number(item.old_price)||0,
-          image_url:mainImage,
-          images:[...new Set([mainImage,...imageList].filter(Boolean))],
-          description:item.description || "A beautiful find from Stephenie Nova."
-        };
-      }).filter(item=>item.image_url);
-
-      // Keep the supplied starter products if the database returns no usable items.
-      if(mapped.length) products=mapped;
-    }
-  }catch(error){
-    console.log("Using starter products:",error.message);
-  }
-
-  renderProducts();
 }
 
-function productCard(product,index){
-  return `
-    <article class="product-card" style="animation-delay:${(index%6)*.06}s">
-      <div class="product-image-wrap" onclick="openProduct('${String(product.id).replace(/'/g,"\\'")}')">
-        <img src="${safeText(product.image_url)}" alt="${safeText(product.name)}" loading="lazy">
-        ${product.old_price>product.price?'<span class="sale-tag">SPECIAL PRICE</span>':''}
+function renderProducts(list=products){
+  const grid = document.getElementById("productGrid");
+  grid.innerHTML = "";
+
+  list.forEach((product,index)=>{
+    const image = product.images[0] || "";
+    const card = document.createElement("article");
+    card.className = "product-card";
+    card.style.animationDelay = (index*0.08)+"s";
+    card.innerHTML = `
+      <div class="product-image-wrap" onclick="openProduct(${product.id})">
+        ${image ? `<img src="${image}" alt="${product.name}" loading="lazy">` : `<div style="height:220px;display:grid;place-items:center;color:#9b7c8b">Image coming soon</div>`}
+        <span class="sale-tag">SPECIAL PRICE</span>
       </div>
       <div class="product-info">
-        <h3>${safeText(product.name)}</h3>
-        <div><span class="price">${money(product.price)}</span>
-        ${product.old_price>product.price?`<span class="old-price">${money(product.old_price)}</span>`:""}</div>
-        <button onclick="openProduct('${String(product.id).replace(/'/g,"\\'")}')">View product</button>
-      </div>
-    </article>`;
+        <h3>${product.name}</h3>
+        <span class="price">${money(product.price)}</span>
+        <span class="old-price">${money(product.oldPrice)}</span>
+        <button onclick="openProduct(${product.id})">View product</button>
+      </div>`;
+    grid.appendChild(card);
+  });
 }
 
-function renderProducts(category=activeCategory){
-  const list=category==="All"?products:products.filter(p=>
-    String(p.category).toLowerCase().includes(category.toLowerCase())
-  );
-
-  const home=document.getElementById("homeProducts");
-  const collection=document.getElementById("collectionProducts");
-
-  if(home) home.innerHTML=products.slice(0,6).map(productCard).join("") ||
-    '<p class="muted">Products will appear here when available.</p>';
-
-  if(collection) collection.innerHTML=list.map(productCard).join("") ||
-    '<p class="muted">No products in this category yet.</p>';
+function filterProducts(category){
+  const list = category==="All" ? products : products.filter(p=>p.category===category);
+  renderProducts(list);
+  document.getElementById("products").scrollIntoView({behavior:"smooth"});
 }
 
-function filterCategory(category,button){
-  activeCategory=category;
-  if(button){
-    document.querySelectorAll("#collections .option").forEach(b=>b.classList.remove("active"));
-    button.classList.add("active");
-  }
-  go("collections");
-  renderProducts(category);
-}
-
-/* PRODUCT DETAILS */
 function openProduct(id){
-  currentProduct=products.find(p=>String(p.id)===String(id));
-  if(!currentProduct) return;
+  activeProduct = products.find(p=>p.id===id);
+  if(!activeProduct) return;
+  activeImage = 0;
+  modalQuantity = 1;
+  selectedColour = "As pictured";
 
-  currentImageIndex=0;
-  selectedColour="As pictured";
-  selectedSize="One size";
+  document.getElementById("modalName").textContent = activeProduct.name;
+  document.getElementById("modalPrice").textContent = money(activeProduct.price);
+  document.getElementById("modalOldPrice").textContent = money(activeProduct.oldPrice);
+  document.getElementById("modalQty").textContent = modalQuantity;
 
-  document.getElementById("modalName").textContent=currentProduct.name;
-  document.getElementById("modalPrice").textContent=money(currentProduct.price);
-  document.getElementById("modalOldPrice").textContent=
-    currentProduct.old_price>currentProduct.price?money(currentProduct.old_price):"";
-  document.getElementById("modalDescription").textContent=currentProduct.description || "";
+  const colourOptions = document.getElementById("colourOptions");
+  colourOptions.innerHTML = `<button class="option active" onclick="chooseColour(this,'As pictured')">As pictured</button>`;
 
-  document.querySelectorAll("#colourOptions .option").forEach((b,i)=>b.classList.toggle("active",i===0));
-  document.querySelectorAll("#sizeOptions .option").forEach((b,i)=>b.classList.toggle("active",i===0));
-
-  updateGallery();
+  renderGallery();
   document.getElementById("productOverlay").classList.add("show");
   document.body.style.overflow="hidden";
+}
+
+function renderGallery(){
+  const images = activeProduct.images;
+  const main = document.getElementById("modalImage");
+  const thumbs = document.getElementById("thumbnails");
+
+  if(!images.length){
+    main.removeAttribute("src");
+    main.alt = "Product image coming soon";
+    main.style.background="#f7edf1";
+  }else{
+    main.src = images[activeImage];
+    main.alt = activeProduct.name;
+  }
+
+  document.getElementById("galleryCount").textContent =
+    images.length ? `${activeImage+1}/${images.length}` : "Image coming soon";
+
+  thumbs.innerHTML = "";
+  images.forEach((src,index)=>{
+    const img = document.createElement("img");
+    img.src=src;
+    img.alt=activeProduct.name+" view "+(index+1);
+    if(index===activeImage) img.classList.add("active");
+    img.onclick=()=>{activeImage=index;renderGallery()};
+    thumbs.appendChild(img);
+  });
+}
+
+function changeImage(direction){
+  if(!activeProduct || !activeProduct.images.length) return;
+  const total=activeProduct.images.length;
+  activeImage=(activeImage+direction+total)%total;
+  renderGallery();
 }
 
 function closeProduct(){
@@ -981,68 +793,30 @@ function closeProduct(){
   document.body.style.overflow="";
 }
 
-function updateGallery(){
-  if(!currentProduct) return;
-  const images=currentProduct.images?.length?currentProduct.images:[currentProduct.image_url];
-  document.getElementById("galleryImage").src=images[currentImageIndex];
-  document.getElementById("galleryCount").textContent=(currentImageIndex+1)+" / "+images.length;
-  document.getElementById("thumbnails").innerHTML=images.map((src,i)=>`
-    <img src="${safeText(src)}" class="${i===currentImageIndex?"active":""}"
-      onclick="setImage(${i})" alt="Product view ${i+1}">
-  `).join("");
-}
-
-function setImage(index){
-  if(!currentProduct) return;
-  const images=currentProduct.images?.length?currentProduct.images:[currentProduct.image_url];
-  currentImageIndex=(index+images.length)%images.length;
-  updateGallery();
-}
-
-function changeImage(direction){
-  setImage(currentImageIndex+direction);
-}
-
-function selectColour(button,colour){
+function chooseColour(button,colour){
   selectedColour=colour;
   document.querySelectorAll("#colourOptions .option").forEach(b=>b.classList.remove("active"));
   button.classList.add("active");
 }
 
-function selectSize(button,size){
-  selectedSize=size;
-  document.querySelectorAll("#sizeOptions .option").forEach(b=>b.classList.remove("active"));
-  button.classList.add("active");
+function changeModalQty(amount){
+  modalQuantity=Math.max(1,modalQuantity+amount);
+  document.getElementById("modalQty").textContent=modalQuantity;
 }
 
-/* CART */
 function addToCart(){
-  if(!currentProduct) return;
-
-  const existing=cart.find(item=>
-    String(item.id)===String(currentProduct.id) &&
-    item.colour===selectedColour && item.size===selectedSize
-  );
-
-  if(existing) existing.quantity++;
-  else cart.push({
-    id:currentProduct.id,
-    name:currentProduct.name,
-    price:Number(currentProduct.price),
-    image:currentProduct.image_url,
-    colour:selectedColour,
-    size:selectedSize,
-    quantity:1
-  });
-
+  if(!activeProduct) return;
+  const existing=cart.find(item=>item.id===activeProduct.id && item.colour===selectedColour);
+  if(existing) existing.quantity+=modalQuantity;
+  else cart.push({...activeProduct,quantity:modalQuantity,colour:selectedColour});
   updateCartCount();
   closeProduct();
-  alert("Added to your bag.");
+  alert("Added to your cart!");
 }
 
 function buyNow(){
   addToCart();
-  go("bag");
+  showScreen("cart");
 }
 
 function updateCartCount(){
@@ -1050,140 +824,96 @@ function updateCartCount(){
   document.getElementById("cartCount").textContent=count;
 }
 
-function changeQuantity(index,amount){
-  if(!cart[index]) return;
-  cart[index].quantity+=amount;
-  if(cart[index].quantity<=0) cart.splice(index,1);
-  renderCart();
-  updateCartCount();
-}
-
-function removeItem(index){
-  cart.splice(index,1);
-  renderCart();
-  updateCartCount();
-}
-
-function cartSubtotal(){
-  return cart.reduce((sum,item)=>sum+item.price*item.quantity,0);
-}
-
 function renderCart(){
   const container=document.getElementById("cartItems");
   const summary=document.getElementById("cartSummary");
 
   if(!cart.length){
-    summary.classList.add("hidden");
-    container.innerHTML=`
-      <div class="cart-empty">
-        <p style="font-size:35px">♡</p>
-        <h2>Your bag is waiting.</h2>
-        <p class="muted" style="font-size:12px">You haven't added anything yet.</p>
-        <button class="primary" onclick="go('collections')">Explore collections</button>
-      </div>`;
+    container.innerHTML=`<div class="cart-empty"><h2>Your cart is waiting.</h2><p class="muted">You haven't added anything yet.</p><button class="primary" onclick="showScreen('home')">Explore collection</button></div>`;
+    summary.innerHTML="";
     return;
   }
 
-  summary.classList.remove("hidden");
   container.innerHTML=cart.map((item,index)=>`
     <div class="cart-row">
-      <img src="${safeText(item.image)}" alt="${safeText(item.name)}">
+      ${item.images[0] ? `<img src="${item.images[0]}" alt="${item.name}">` : `<div style="width:90px;height:100px;background:#f5e8ee"></div>`}
       <div>
-        <h3>${safeText(item.name)}</h3>
+        <h3>${item.name}</h3>
         <p>${money(item.price)}</p>
-        <p class="muted">Colour: ${safeText(item.colour)} · Size: ${safeText(item.size)}</p>
+        <p class="muted">${item.colour}</p>
         <div class="qty">
-          <button onclick="changeQuantity(${index},-1)">−</button>
+          <button onclick="changeCartQty(${index},-1)">−</button>
           <span>${item.quantity}</span>
-          <button onclick="changeQuantity(${index},1)">+</button>
+          <button onclick="changeCartQty(${index},1)">+</button>
         </div>
-        <button class="remove" onclick="removeItem(${index})">Remove</button>
       </div>
-      <strong style="font-size:12px">${money(item.price*item.quantity)}</strong>
+      <button class="remove" onclick="removeCartItem(${index})">Remove</button>
     </div>
   `).join("");
 
-  document.getElementById("subtotal").textContent=money(cartSubtotal());
-  document.getElementById("cartTotal").textContent=money(cartSubtotal());
+  const total=cart.reduce((sum,item)=>sum+item.price*item.quantity,0);
+  summary.innerHTML=`
+    <div class="cart-summary">
+      <div class="summary-line"><span>Subtotal</span><strong>${money(total)}</strong></div>
+      <div class="summary-line"><span>Delivery</span><span>Confirmed after checkout</span></div>
+      <div class="summary-line total"><span>Total</span><strong>${money(total)}</strong></div>
+      <button class="primary" style="width:100%" onclick="showScreen('checkout')">Proceed to checkout</button>
+    </div>`;
 }
 
-function updateCheckoutTotal(){
-  document.getElementById("checkoutSubtotal").textContent=money(cartSubtotal());
+function changeCartQty(index,amount){
+  cart[index].quantity+=amount;
+  if(cart[index].quantity<=0) cart.splice(index,1);
+  updateCartCount();
+  renderCart();
 }
 
-/* CHECKOUT AND ORDER */
+function removeCartItem(index){
+  cart.splice(index,1);
+  updateCartCount();
+  renderCart();
+}
+
 document.getElementById("checkoutForm").addEventListener("submit",function(event){
   event.preventDefault();
 
   if(!cart.length){
-    alert("Your bag is empty.");
-    go("collections");
+    alert("Your cart is empty.");
+    showScreen("home");
     return;
   }
 
-  const formData=new FormData(event.target);
-  currentOrder={
-    name:formData.get("customerName"),
-    phone:formData.get("phone"),
-    address:formData.get("address"),
-    state:formData.get("state"),
-    note:formData.get("note"),
-    items:cart.map(item=>({...item})),
-    subtotal:cartSubtotal()
-  };
+  const name=document.getElementById("customerName").value.trim();
+  const phone=document.getElementById("customerPhone").value.trim();
+  const address=document.getElementById("customerAddress").value.trim();
+  const state=document.getElementById("customerState").value.trim();
+  const note=document.getElementById("customerNote").value.trim();
 
-  go("confirmation");
+  const total=cart.reduce((sum,item)=>sum+item.price*item.quantity,0);
+
+  let message=`Hello Stephenie Nova! I would like to place an order.\n\n`;
+  message+=`CUSTOMER DETAILS\nName: ${name}\nPhone: ${phone}\nAddress: ${address}\nState: ${state}\n`;
+  if(note) message+=`Note: ${note}\n`;
+
+  message+=`\nORDER DETAILS\n`;
+  cart.forEach(item=>{
+    message+=`${item.name} (${item.colour}) x ${item.quantity} — ${money(item.price*item.quantity)}\n`;
+  });
+  message+=`\nSubtotal: ${money(total)}\nDelivery: Please confirm\n`;
+
+  document.getElementById("confirmation").classList.add("active");
+  showScreen("confirmation");
+
+  const url="https://wa.me/"+WHATSAPP_NUMBER+"?text="+encodeURIComponent(message);
+  window.open(url,"_blank");
+  cart=[];
+  updateCartCount();
+  renderCart();
 });
 
-function sendOrderWhatsApp(){
-  if(!currentOrder) return;
-
-  const order=currentOrder;
-  let message="*STEPHENIE NOVA ORDER*%0A%0A";
-  message+="*Customer:* "+encodeURIComponent(order.name)+"%0A";
-  message+="*Phone:* "+encodeURIComponent(order.phone)+"%0A";
-  message+="*Address:* "+encodeURIComponent(order.address)+", "+encodeURIComponent(order.state)+"%0A";
-  if(order.note) message+="*Note:* "+encodeURIComponent(order.note)+"%0A";
-
-  message+="%0A*ORDER DETAILS*%0A";
-
-  order.items.forEach(item=>{
-    message+=encodeURIComponent(item.name)+" × "+item.quantity+
-      " — "+encodeURIComponent(money(item.price*item.quantity))+
-      "%0AColour: "+encodeURIComponent(item.colour)+
-      " | Size: "+encodeURIComponent(item.size)+"%0A";
-  });
-
-  message+="%0A*SUBTOTAL: "+encodeURIComponent(money(order.subtotal))+"*";
-  message+="%0A%0APlease confirm delivery fee and payment details.";
-
-  window.open("https://wa.me/"+WHATSAPP_NUMBER+"?text="+message,"_blank");
-}
-
-/* TOUCH SWIPE FOR PRODUCT GALLERY */
-let touchStartX=0;
-const gallery=document.querySelector(".gallery");
-
-gallery.addEventListener("touchstart",event=>{
-  touchStartX=event.changedTouches[0].screenX;
-},{passive:true});
-
-gallery.addEventListener("touchend",event=>{
-  const touchEndX=event.changedTouches[0].screenX;
-  const difference=touchEndX-touchStartX;
-  if(Math.abs(difference)>45){
-    changeImage(difference<0?1:-1);
-  }
-},{passive:true});
-
-/* START */
 renderProducts();
-loadProducts();
+renderCart();
 
-setTimeout(()=>{
-  const intro=document.getElementById("intro");
-  if(intro) intro.remove();
-},2800);
 </script>
 </body>
 </html>
